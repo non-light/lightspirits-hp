@@ -1,297 +1,1317 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="らいとすぴりっつ｜Webサイト制作・ゲーム開発・デジタル化支援。対話とテクノロジーで人の心に火を灯すクリエイティブプロジェクト。">
-  <title>らいとすぴりっつ | Webサイト制作・ゲーム開発・デジタル化支援</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>らいとすぴりっつ | ロボット制作・YUiプロジェクト・Web・DX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --gold-dim:#7A6428;
+  --black:#050505;
+  --black-2:#0D0D0D;
+  --black-3:#141414;
+  --black-4:#1C1C1C;
+  --white:#F5F0E8;
+  --muted:#6B6560;
+  --border:#2A2520;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);
+  pointer-events:none;
+  z-index:9999;
+  opacity:0.2;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 4rem;
+  height:64px;
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+.nav-logo{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:0.15em;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.nav-logo span{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  font-weight:400;
+  color:var(--gold-dim);
+  letter-spacing:0.2em;
+  display:block;
+  margin-top:1px;
+  text-transform:uppercase;
+}
+.nav-center{
+  display:flex;
+  gap:0;
+  list-style:none;
+}
+.nav-center > li{
+  position:relative;
+}
+.nav-center > li > a{
+  display:flex;
+  align-items:center;
+  gap:0.35rem;
+  padding:0 1.25rem;
+  height:64px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.2s;
+  white-space:nowrap;
+}
+.nav-center > li > a:hover,
+.nav-center > li:hover > a{color:var(--gold)}
+/* メガメニュー */
+.mega{
+  position:absolute;
+  top:64px;
+  left:0;
+  min-width:200px;
+  background:rgba(13,13,13,0.98);
+  border:1px solid var(--border);
+  border-top:2px solid var(--gold);
+  padding:1rem 0;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(-6px);
+  transition:opacity 0.18s,transform 0.18s;
+}
+.nav-center > li:hover .mega{
+  opacity:1;
+  pointer-events:all;
+  transform:translateY(0);
+}
+.mega a{
+  display:block;
+  padding:0.55rem 1.5rem;
+  font-size:0.8rem;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.15s,background 0.15s;
+}
+.mega a:hover{color:var(--gold);background:rgba(201,168,76,0.05)}
+.mega-label{
+  padding:0.35rem 1.5rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.2em;
+  color:var(--gold-dim);
+  text-transform:uppercase;
+  margin-top:0.5rem;
+}
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.nav-lang{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  letter-spacing:0.1em;
+  color:var(--muted);
+  text-decoration:none;
+  border:1px solid var(--border);
+  padding:0.3rem 0.75rem;
+  transition:color 0.2s,border-color 0.2s;
+}
+.nav-lang:hover{color:var(--gold);border-color:var(--gold-dim)}
+.nav-contact-btn{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.72rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:0.5rem 1.25rem;
+  background:var(--gold);
+  color:var(--black);
+  text-decoration:none;
+  font-weight:700;
+  transition:background 0.2s;
+}
+.nav-contact-btn:hover{background:var(--gold-light)}
+
+/* ===== TICKER ===== */
+.ticker{
+  position:fixed;
+  top:64px;left:0;right:0;
+  z-index:190;
+  height:36px;
+  background:var(--black-2);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+.ticker-label{
+  flex-shrink:0;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.2em;
+  color:var(--gold);
+  text-transform:uppercase;
+  padding:0 1.25rem;
+  border-right:1px solid var(--border);
+  height:100%;
+  display:flex;
+  align-items:center;
+}
+.ticker-track{
+  display:flex;
+  gap:4rem;
+  animation:ticker 28s linear infinite;
+  white-space:nowrap;
+  padding-left:2rem;
+}
+.ticker-track a{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.72rem;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.ticker-track a:hover{color:var(--gold)}
+.ticker-track .ticker-date{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  color:var(--gold-dim);
+  margin-right:0.75rem;
+}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;
+  padding-top:110px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:0;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.035) 1px,transparent 1px);
+  background-size:72px 72px;
+  pointer-events:none;
+}
+.hero-left{
+  padding:5rem 4rem;
+  position:relative;
+  z-index:1;
+}
+.hero-right{
+  position:relative;
+  height:100vh;
+  min-height:600px;
+  background:var(--black-2);
+  border-left:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.hero-right-inner{
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.hero-right-glow{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,0.07),transparent);
+}
+.hero-right-symbol{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(5rem,14vw,12rem);
+  font-weight:700;
+  color:rgba(201,168,76,0.12);
+  line-height:1;
+  letter-spacing:-0.05em;
+  user-select:none;
+}
+.hero-right-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  color:var(--gold-dim);
+  text-transform:uppercase;
+  margin-top:1.5rem;
+}
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:2rem;
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+.hero-eyebrow::before{content:'//';color:var(--gold-dim)}
+.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.5rem,5.5vw,5.5rem);
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-0.025em;
+  margin-bottom:1rem;
+}
+.hero-title .accent{color:var(--gold)}
+.hero-title-jp{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:700;
+  font-size:clamp(1rem,2vw,1.6rem);
+  color:rgba(245,240,232,0.45);
+  letter-spacing:0.06em;
+  margin-bottom:2rem;
+  line-height:1.6;
+}
+.hero-sub{
+  font-size:0.9rem;
+  color:var(--muted);
+  max-width:440px;
+  line-height:2;
+  margin-bottom:3rem;
+}
+.hero-cta{
+  display:flex;
+  gap:1.25rem;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.btn-gold{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:0.85rem 2.25rem;
+  background:var(--gold);
+  color:var(--black);
+  border:none;
+  cursor:pointer;
+  text-decoration:none;
+  font-weight:700;
+  transition:background 0.2s,transform 0.15s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  display:inline-block;
+}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:0.85rem 2.25rem;
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--gold-dim);
+  cursor:pointer;
+  text-decoration:none;
+  font-weight:500;
+  transition:border-color 0.2s,color 0.2s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  display:inline-block;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-light)}
+.hero-scroll{
+  position:absolute;
+  bottom:2.5rem;left:4rem;
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.25em;
+  color:var(--gold-dim);
+  text-transform:uppercase;
+  z-index:1;
+}
+.scroll-line{
+  width:36px;height:1px;
+  background:var(--gold-dim);
+  animation:scrollpulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollpulse{0%,100%{opacity:0.25}50%{opacity:1}}
+
+/* ===== NEWS STRIP ===== */
+#news{
+  background:var(--black-2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:0;
+}
+.news-inner{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  min-height:72px;
+}
+.news-header{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:1rem 2rem;
+  border-right:1px solid var(--border);
+  background:var(--black-3);
+}
+.news-header-en{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--white);
+  line-height:1;
+}
+.news-header-jp{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:0.72rem;
+  color:var(--muted);
+  margin-top:0.2rem;
+}
+.news-list{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.news-item{
+  display:grid;
+  grid-template-columns:130px 90px 1fr;
+  align-items:center;
+  gap:1.5rem;
+  padding:0.85rem 2.5rem;
+  border-bottom:1px solid var(--border);
+  text-decoration:none;
+  color:inherit;
+  transition:background 0.15s;
+}
+.news-item:last-child{border-bottom:none}
+.news-item:hover{background:var(--black-3)}
+.news-date{
+  font-family:'Space Mono',monospace;
+  font-size:0.68rem;
+  color:var(--gold-dim);
+  letter-spacing:0.08em;
+}
+.news-cat{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.15em;
+  color:var(--gold);
+  text-transform:uppercase;
+  border:1px solid var(--gold-dim);
+  padding:0.15rem 0.6rem;
+  white-space:nowrap;
+  text-align:center;
+}
+.news-title{
+  font-size:0.85rem;
+  color:rgba(245,240,232,0.8);
+  line-height:1.5;
+}
+
+/* ===== SECTION BASE ===== */
+section{padding:7rem 4rem}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:1.5rem;
+  margin-bottom:4rem;
+}
+.sec-en{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:700;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+.sec-en .accent{color:var(--gold)}
+.sec-jp{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:0.8rem;
+  font-weight:400;
+  color:var(--muted);
+  letter-spacing:0.1em;
+}
+.sec-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.28em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.sec-eyebrow::before{content:'// '}
+.divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);
+}
+
+/* ===== ABOUT ===== */
+#about{background:var(--black-2)}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  align-items:start;
+}
+.about-text p{
+  font-size:0.92rem;
+  color:rgba(245,240,232,0.65);
+  line-height:2;
+  margin-bottom:1.5rem;
+}
+.about-profile{
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+  margin-top:2.5rem;
+  padding:1.5rem;
+  border:1px solid var(--border);
+  border-left:3px solid var(--gold);
+  background:var(--black-3);
+}
+.profile-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:1rem;color:var(--black);flex-shrink:0;
+}
+.profile-name{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:0.2rem}
+.profile-en{font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:400;color:var(--muted)}
+.profile-role{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  color:var(--gold);letter-spacing:0.1em;margin-top:0.3rem;
+}
+.about-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.about-card{
+  background:var(--black-3);
+  padding:2rem 1.75rem;
+  position:relative;
+  overflow:hidden;
+}
+.about-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);
+}
+.about-card-en{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.75rem;
+}
+.about-card-jp{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:0.8rem;font-weight:700;color:var(--white);margin-bottom:0.35rem;
+}
+.about-card-desc{font-size:0.75rem;color:var(--muted);line-height:1.7}
+
+/* ===== SERVICES ===== */
+#services{background:var(--black)}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.service-card{
+  background:var(--black);
+  padding:2.5rem;
+  transition:background 0.22s;
+  position:relative;overflow:hidden;
+}
+.service-card:hover{background:var(--black-3)}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.28s ease;
+}
+.service-card:hover::before{transform:scaleX(1)}
+.service-num{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.2em;color:var(--gold-dim);margin-bottom:1.5rem;
+}
+.service-name-en{
+  font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;
+  color:var(--white);margin-bottom:0.35rem;
+}
+.service-name-jp{
+  font-family:'Noto Sans JP',sans-serif;font-size:0.78rem;
+  color:var(--muted);margin-bottom:1rem;letter-spacing:0.05em;
+}
+.service-desc{font-size:0.82rem;color:var(--muted);line-height:1.85}
+
+/* ===== WORKS ===== */
+#works{background:var(--black-2)}
+.works-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.work-card{
+  background:var(--black-3);border:1px solid var(--border);
+  overflow:hidden;transition:border-color 0.22s,transform 0.22s;
+  text-decoration:none;color:inherit;display:block;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+}
+.work-card:hover{border-color:var(--gold-dim);transform:translateY(-4px)}
+.work-thumb{
+  height:150px;background:var(--black-4);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;color:var(--gold-dim);position:relative;overflow:hidden;
+}
+.work-info{padding:1.5rem}
+.work-tag{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.5rem;
+}
+.work-title{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;
+  margin-bottom:0.5rem;
+}
+.work-desc{font-size:0.8rem;color:var(--muted);line-height:1.75}
+
+/* ===== YUi ===== */
+#yui{background:var(--black);position:relative;overflow:hidden}
+.yui-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% 90%,rgba(201,168,76,0.06),transparent);
+}
+.yui-inner{position:relative;max-width:760px;margin:0 auto;text-align:center;padding:5rem 0}
+.yui-badge{
+  display:inline-block;font-family:'Space Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);
+  text-transform:uppercase;border:1px solid var(--gold-dim);padding:0.35rem 1.1rem;margin-bottom:2.5rem;
+}
+.yui-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(4rem,12vw,10rem);font-weight:700;
+  letter-spacing:-0.03em;line-height:1;color:var(--gold);
+  margin-bottom:0.5rem;
+}
+.yui-title-jp{
+  font-family:'Noto Sans JP',sans-serif;font-size:1rem;
+  color:rgba(245,240,232,0.4);letter-spacing:0.15em;margin-bottom:1.5rem;
+}
+.yui-sub{font-size:0.9rem;color:var(--muted);max-width:440px;margin:0 auto 3rem;line-height:1.95}
+.yui-status{
+  display:flex;align-items:center;justify-content:center;gap:0.75rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.2em;color:var(--muted);
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--gold);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.35;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+
+/* ===== BLOG / LOG ===== */
+#blog{background:var(--black-2)}
+.blog-grid{
+  display:grid;
+  grid-template-columns:5fr 3fr;
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.blog-main{}
+.blog-sub{display:flex;flex-direction:column}
+.blog-card{
+  display:flex;flex-direction:column;
+  padding:2rem 2.5rem;
+  text-decoration:none;color:inherit;
+  transition:background 0.18s;
+  border-bottom:1px solid var(--border);
+  background:var(--black-3);
+}
+.blog-card:last-child{border-bottom:none}
+.blog-card:hover{background:var(--black-4)}
+.blog-card.featured{
+  background:var(--black-3);
+  border-left:3px solid var(--gold);
+  padding-left:calc(2.5rem - 3px);
+}
+.blog-meta{
+  display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;
+}
+.blog-date{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.1em;color:var(--gold-dim);
+}
+.blog-cat{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;
+}
+.blog-title{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;
+  font-size:1rem;line-height:1.55;flex:1;
+}
+.blog-card.featured .blog-title{font-size:1.2rem}
+.blog-arrow{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  color:var(--gold-dim);margin-top:1rem;align-self:flex-end;
+}
+
+/* ===== FOUNDER ===== */
+#founder{background:var(--black)}
+.founder-grid{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:5rem;
+  align-items:start;
+}
+.founder-card{
+  background:var(--black-2);
+  border:1px solid var(--border);
+  padding:2.5rem;
+  text-align:center;
+}
+.founder-avatar{
+  width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.8rem;
+  color:var(--black);margin:0 auto 1.5rem;
+}
+.founder-name{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0.3rem;
+}
+.founder-name-en{
+  font-family:'Space Grotesk',sans-serif;font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;
+}
+.founder-title{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;
+}
+.founder-sns{
+  display:flex;justify-content:center;gap:1rem;
+}
+.founder-sns a{
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.1em;color:var(--muted);text-decoration:none;
+  border:1px solid var(--border);padding:0.4rem 0.9rem;
+  transition:color 0.2s,border-color 0.2s;
+}
+.founder-sns a:hover{color:var(--gold);border-color:var(--gold-dim)}
+.founder-bio h3{
+  font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;
+  margin-bottom:1.5rem;line-height:1.3;
+}
+.founder-bio h3 .accent{color:var(--gold)}
+.founder-bio p{
+  font-size:0.9rem;color:rgba(245,240,232,0.65);line-height:2;margin-bottom:1.25rem;
+}
+.founder-tags{
+  display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem;
+}
+.founder-tag{
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;
+  color:var(--gold-dim);border:1px solid var(--border);padding:0.3rem 0.85rem;
+  text-transform:uppercase;
+}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--black-2)}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;
+}
+.contact-lead{
+  font-size:0.9rem;color:var(--muted);line-height:2;margin-bottom:2.5rem;
+}
+.contact-links{display:flex;flex-direction:column;gap:0.75rem}
+.contact-link{
+  display:flex;align-items:center;gap:1rem;
+  font-size:0.87rem;color:rgba(245,240,232,0.65);
+  text-decoration:none;padding:0.9rem 1.25rem;
+  border:1px solid var(--border);transition:border-color 0.2s,color 0.2s;
+}
+.contact-link:hover{border-color:var(--gold-dim);color:var(--gold)}
+.contact-link-icon{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  color:var(--gold-dim);letter-spacing:0.1em;min-width:2.5rem;
+}
+.form-group{margin-bottom:1.15rem}
+.form-label{
+  display:block;font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.2em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:0.4rem;
+}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:var(--black-3);border:1px solid var(--border);
+  color:var(--white);padding:0.8rem 1rem;
+  font-family:'Noto Sans JP',sans-serif;font-size:0.87rem;
+  outline:none;transition:border-color 0.2s;appearance:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-textarea{resize:vertical;min-height:130px}
+.form-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A6428' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--black-2);border-top:1px solid var(--border);
+}
+.footer-top{
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;
+  padding:4rem 4rem 3rem;border-bottom:1px solid var(--border);
+}
+.footer-col-title{
+  font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:1rem;
+}
+.footer-links-list{list-style:none;display:flex;flex-direction:column;gap:0.55rem}
+.footer-links-list a{
+  font-size:0.78rem;color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+}
+.footer-links-list a:hover{color:var(--gold)}
+.footer-logo-col .footer-logo{
+  font-family:'Noto Sans JP',sans-serif;font-size:1.1rem;font-weight:700;
+  color:var(--gold);letter-spacing:0.1em;display:block;margin-bottom:0.35rem;
+}
+.footer-logo-col .footer-logo-en{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  color:var(--gold-dim);letter-spacing:0.2em;text-transform:uppercase;
+}
+.footer-logo-col p{font-size:0.78rem;color:var(--muted);line-height:1.8;margin-top:1rem}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 4rem;flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{font-size:0.72rem;color:var(--muted);letter-spacing:0.05em}
+.footer-bottom-links{
+  display:flex;gap:1.5rem;list-style:none;
+}
+.footer-bottom-links a{font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.footer-bottom-links a:hover{color:var(--gold)}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .nav-center{display:none}
+  .nav-right .nav-lang{display:none}
+  section{padding:4.5rem 1.5rem}
+  #hero{grid-template-columns:1fr;padding-top:100px}
+  .hero-left{padding:3rem 1.5rem}
+  .hero-right{display:none}
+  .about-grid,.contact-grid,.founder-grid{grid-template-columns:1fr;gap:3rem}
+  .services-grid,.works-grid{grid-template-columns:1fr}
+  .about-cards{grid-template-columns:1fr 1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;padding:3rem 1.5rem 2rem}
+  .footer-bottom{padding:1.5rem}
+  .news-inner{grid-template-columns:1fr}
+  .news-header{display:none}
+  .news-item{grid-template-columns:120px 1fr;gap:1rem;padding:0.75rem 1.5rem}
+  .news-cat{display:none}
+  .ticker{display:none}
+}
+</style>
 </head>
 <body>
 
-  <!-- ========== HEADER ========== -->
-  <header id="header">
-    <div class="header-inner">
-      <a href="#hero" class="header-logo">
-        <img src="images/logo.jpg" alt="らいとすぴりっつ ロゴ">
-        <span class="logo-text">らいとすぴりっつ</span>
-      </a>
-
-      <nav>
-        <ul class="header-nav">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#works">Works</a></li>
-          <!-- ▼ YUiのサイトへのリンク項目（URLを設定してください） -->
-          <li><a href="#" id="nav-yuisite">YUi</a></li>
-          <!-- ▲ YUiのサイトへのリンク項目 -->
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-flames">
-        <span class="flame-icon">🔥</span>
-        <span class="flame-icon">🔥</span>
-        <span class="flame-icon">🔥</span>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    らいとすぴりっつ
+    <span>Light Spirits</span>
+  </a>
+  <ul class="nav-center">
+    <li>
+      <a href="#about">About Us</a>
+      <div class="mega">
+        <div class="mega-label">会社情報</div>
+        <a href="#about">らいとすぴりっつについて</a>
+        <a href="#founder">代表・森田健太</a>
       </div>
-    </div>
-  </header>
+    </li>
+    <li>
+      <a href="#services">Services</a>
+      <div class="mega">
+        <div class="mega-label">サービス一覧</div>
+        <a href="#services">ロボット制作</a>
+        <a href="#services">Webサイト制作</a>
+        <a href="#services">ゲーム開発</a>
+        <a href="#services">DX支援</a>
+      </div>
+    </li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#yui">YUi Project</a></li>
+    <li><a href="#blog">LOG</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-lang">EN</a>
+    <a href="#contact" class="nav-contact-btn">Contact</a>
+  </div>
+</nav>
 
-  <!-- ========== HERO ========== -->
-  <section id="hero">
-    <div class="hero-bg"></div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-label">NEWS</div>
+  <div class="ticker-track" id="tickerTrack">
+    <a href="#"><span class="ticker-date">2025.06.01</span>ロボット制作における「意図」の設計——新しいプロジェクト始動</a>
+    <a href="#"><span class="ticker-date">2025.05.20</span>YUiプロジェクト、開発フェーズへ移行</a>
+    <a href="#"><span class="ticker-date">2025.05.08</span>召喚将棋 v2.0 リリース</a>
+    <a href="#"><span class="ticker-date">2025.04.15</span>SNS Antigravity 正式公開</a>
+    <a href="#"><span class="ticker-date">2025.06.01</span>ロボット制作における「意図」の設計——新しいプロジェクト始動</a>
+    <a href="#"><span class="ticker-date">2025.05.20</span>YUiプロジェクト、開発フェーズへ移行</a>
+    <a href="#"><span class="ticker-date">2025.05.08</span>召喚将棋 v2.0 リリース</a>
+    <a href="#"><span class="ticker-date">2025.04.15</span>SNS Antigravity 正式公開</a>
+  </div>
+</div>
 
-    <div class="hero-logo">
-      <img src="images/logo.jpg" alt="らいとすぴりっつ ロゴ">
-    </div>
-
-    <div class="hero-flames">
-      <span class="flame-icon">🔥</span>
-      <span class="flame-icon">🔥</span>
-      <span class="flame-icon">🔥</span>
-    </div>
-
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Creative Technology Studio</p>
     <h1 class="hero-title">
-      対話とテクノロジーで<br>人の心に火を灯す<br>クリエイティブプロジェクト
+      Technology<br>
+      <span class="accent">Lights</span><br>
+      the Heart
     </h1>
-    <p class="hero-subtitle">
-      らいとすぴりっつ — Webサイト制作・オリジナルゲーム開発・デジタル化支援
+    <p class="hero-title-jp">対話とテクノロジーで、人の心に火を灯す</p>
+    <p class="hero-sub">
+      ロボット制作・Webサイト開発・ゲーム制作・デジタル化支援。<br>
+      あなたのビジョンを、テクノロジーで形にします。
     </p>
-
-    <div class="scroll-hint">Scroll</div>
-  </section>
-
-  <!-- ========== ABOUT ========== -->
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="flame-icon">🔥</span> About
-      </h2>
-      <div class="divider"></div>
-
-      <div class="about-content">
-        <div class="about-text">
-          <p>
-            らいとすぴりっつは、Webサイト制作、オリジナルゲーム開発、デジタル化支援を行う日本在住の個人クリエイティブプロジェクトです。
-          </p>
-          <p>
-            「対話とテクノロジーで人の心に火を灯す」をテーマに、依頼者・ユーザーとの対話を大切にしながら制作活動を行っています。
-          </p>
-
-          <div class="about-name">
-            <strong>代表・森田健太（もりけん）</strong>
-            <span>日本在住 / Japan-based Creator</span>
-          </div>
-        </div>
-
-        <div class="about-links">
-          <a href="mailto:kuromoriken@gmail.com" class="about-link-item">
-            ✉ kuromoriken@gmail.com
-          </a>
-          <a href="https://x.com/kuromoriken" target="_blank" rel="noopener" class="about-link-item">
-            𝕏 @kuromoriken
-          </a>
-
-          <!-- ▼ YUiのサイトへのリンクブロック（URLを設定してください） -->
-          <div class="yuisite-links">
-            <p class="section-label">関連サイト</p>
-            <a href="#" id="about-yuisite" class="about-link-item">
-              🌟 YUi — （サイト名・説明を入力）
-            </a>
-          </div>
-          <!-- ▲ YUiのサイトへのリンクブロック -->
-        </div>
-      </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-gold">プロジェクトを相談する</a>
+      <a href="#works" class="btn-outline">実績を見る</a>
     </div>
-  </section>
-
-  <!-- ========== SERVICES ========== -->
-  <section id="services">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="flame-icon">🔥</span> Services
-      </h2>
-      <div class="divider"></div>
-      <p class="section-lead">提供しているサービス</p>
-
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">🎮</div>
-          <h3>オリジナルゲーム開発</h3>
-          <p>ブラウザで遊べるオリジナルゲームを企画・開発しています。ユニークなルールと世界観で、プレイヤーに新しい体験を届けます。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🌐</div>
-          <h3>Webサイト制作</h3>
-          <p>個人・小規模事業者向けのWebサイトを制作します。目的に合わせたデザインと、使いやすさを大切にした設計を行います。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">⚡</div>
-          <h3>デジタル化・業務効率化支援</h3>
-          <p>ツール導入や業務フローの改善をサポートします。現場の課題を対話で整理し、最適な解決策を一緒に考えます。</p>
-        </div>
-      </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-glow"></div>
+    <div class="hero-right-inner">
+      <div class="hero-right-symbol">LS</div>
+      <p class="hero-right-label">Light Spirits — Est. 2024</p>
     </div>
-  </section>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Scroll
+  </div>
+</section>
 
-  <!-- ========== WORKS ========== -->
-  <section id="works">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="flame-icon">🔥</span> Works
-      </h2>
-      <div class="divider"></div>
-      <p class="section-lead">代表的な制作実績</p>
-
-      <div class="works-grid">
-        <a href="/works/summon-shogi/" class="work-card">
-          <div class="work-thumb">♟</div>
-          <div class="work-info">
-            <h3>召喚将棋</h3>
-            <p>将棋をベースにしたオリジナル対戦ゲーム。駒を「召喚」する独自ルールで、従来の将棋とは一味違う戦略性を楽しめます。</p>
-            <span class="work-tag">ゲーム</span>
-          </div>
-        </a>
-
-        <a href="https://morikentiger.github.io/BreakBlockBuild/" target="_blank" rel="noopener" class="work-card">
-          <div class="work-thumb">🧱</div>
-          <div class="work-info">
-            <h3>BreakBlockBuild</h3>
-            <p>ブラウザで遊べるアクションゲーム。ブロックを壊し、積み上げ、新たな構造物を築いていく体験型ゲームです。</p>
-            <span class="work-tag">ゲーム</span>
-          </div>
-        </a>
-
-        <a href="https://antigravity-sns.vercel.app/" target="_blank" rel="noopener" class="work-card">
-          <div class="work-thumb">🚀</div>
-          <div class="work-info">
-            <h3>SNS Antigravity</h3>
-            <p>独自開発のSNSプラットフォーム。重力に逆らうような、自由で新しいコミュニケーションの場を目指しています。</p>
-            <span class="work-tag">Webサービス</span>
-          </div>
-        </a>
-      </div>
+<!-- NEWS -->
+<section id="news" style="padding:0">
+  <div class="news-inner">
+    <div class="news-header">
+      <p class="news-header-en">News</p>
+      <p class="news-header-jp">ニュース</p>
     </div>
-  </section>
-
-  <!-- ========== RELATED SITES (YUiのサイトリンク) ========== -->
-  <!--
-    ▼▼▼ YUiのサイトへのリンクセクション ▼▼▼
-    このセクションを使って、YUiのサイトへのリンクを追加できます。
-    href="#" の部分にURLを入れてください。
-    表示させたい場合は下の style="display:none" を削除してください。
-  -->
-  <section id="related-sites" style="display:none">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="flame-icon">🔥</span> Related Sites
-      </h2>
-      <div class="divider"></div>
-      <p class="section-lead">関連サイト</p>
-
-      <div class="related-grid">
-        <!-- ▼ YUiのサイトカード（href、名前、説明を入力してください） -->
-        <a href="#" id="related-yuisite-1" class="related-card">
-          <div class="related-icon">🌟</div>
-          <h3>YUi — サイト名</h3>
-          <p>サイトの説明文をここに入れてください</p>
-        </a>
-        <!-- ▲ 必要に応じてカードを追加できます -->
-      </div>
+    <div class="news-list">
+      <a href="#" class="news-item">
+        <span class="news-date">2025.06.01</span>
+        <span class="news-cat">Press</span>
+        <span class="news-title">ロボット制作プロジェクト、新フェーズ始動のお知らせ</span>
+      </a>
+      <a href="#" class="news-item">
+        <span class="news-date">2025.05.20</span>
+        <span class="news-cat">Project</span>
+        <span class="news-title">YUiプロジェクト、開発フェーズへ正式移行</span>
+      </a>
+      <a href="#" class="news-item">
+        <span class="news-date">2025.05.08</span>
+        <span class="news-cat">Release</span>
+        <span class="news-title">召喚将棋 v2.0 メジャーアップデートリリース</span>
+      </a>
     </div>
-  </section>
-  <!-- ▲▲▲ YUiのサイトへのリンクセクション ▲▲▲ -->
+  </div>
+</section>
 
-  <!-- ========== CONTACT ========== -->
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="flame-icon">🔥</span> Contact
-      </h2>
-      <div class="divider"></div>
+<div class="divider"></div>
 
-      <div class="contact-intro">
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-eyebrow">About Us</div>
+  <div class="sec-head">
+    <h2 class="sec-en">About <span class="accent">Us</span></h2>
+    <span class="sec-jp">らいとすぴりっつについて</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>らいとすぴりっつは、ロボット制作・Webサイト制作・オリジナルゲーム開発・デジタル化支援を行うクリエイティブスタジオです。</p>
+      <p>「対話とテクノロジーで人の心に火を灯す」をテーマに、依頼者・ユーザーとの対話を大切にしながら制作活動を行っています。アイデアの種から、動くプロダクトへ。</p>
+      <p>ハードウェアからソフトウェアまで、個人・企業のビジョンを形にするパートナーとして活動しています。</p>
+      <div class="about-profile">
+        <div class="profile-avatar">MK</div>
         <div>
-          <p style="color: var(--color-text); margin-bottom: 16px; font-size: 0.95rem;">
-            お仕事のご依頼・ご相談は、以下のフォームまたは直接ご連絡ください。
-          </p>
-
-          <div class="contact-direct">
-            <a href="mailto:kuromoriken@gmail.com">
-              ✉ kuromoriken@gmail.com
-            </a>
-            <a href="https://x.com/kuromoriken" target="_blank" rel="noopener">
-              𝕏 @kuromoriken
-            </a>
-          </div>
-        </div>
-
-        <div class="contact-form-area">
-          <h3>お問い合わせフォーム</h3>
-          <form action="mailto:kuromoriken@gmail.com" method="post" enctype="text/plain">
-            <div class="form-group">
-              <label for="name">お名前 <span class="required">*</span></label>
-              <input type="text" id="name" name="name" required placeholder="山田 太郎">
-            </div>
-            <div class="form-group">
-              <label for="company">貴社名</label>
-              <input type="text" id="company" name="company" placeholder="株式会社〇〇（任意）">
-            </div>
-            <div class="form-group">
-              <label for="email">メールアドレス <span class="required">*</span></label>
-              <input type="email" id="email" name="email" required placeholder="example@email.com">
-            </div>
-            <div class="form-group">
-              <label for="category">お問い合わせ項目</label>
-              <select id="category" name="category">
-                <option value="">選択してください</option>
-                <option value="web">Webサイト制作のご依頼</option>
-                <option value="game">ゲーム開発のご相談</option>
-                <option value="digital">デジタル化支援のご相談</option>
-                <option value="media">取材・コラボレーション</option>
-                <option value="other">その他</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="message">お問い合わせ内容</label>
-              <textarea id="message" name="message" placeholder="ご依頼・ご相談の内容をお書きください"></textarea>
-            </div>
-            <a href="mailto:kuromoriken@gmail.com" class="btn-submit">
-              ✉ 送信内容を確認する（メーラー起動）
-            </a>
-          </form>
+          <p class="profile-name">森田健太（もりけん）</p>
+          <p class="profile-en">Kenta Morita</p>
+          <p class="profile-role">Founder &amp; Creator — Japan-based</p>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-logo-area">
-        <span class="flame-icon" style="font-size:1rem;">🔥</span>
-        <span class="logo-text">らいとすぴりっつ</span>
+    <div class="about-cards">
+      <div class="about-card">
+        <p class="about-card-en">Robot</p>
+        <p class="about-card-jp">ロボット制作</p>
+        <p class="about-card-desc">機構設計から制御システムまで一貫して対応</p>
       </div>
-      <p class="footer-desc">代表・森田健太（もりけん）｜日本在住</p>
-
-      <div class="footer-links">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#works">Works</a>
-        <!-- ▼ YUiのサイトフッターリンク（URLを設定してください） -->
-        <a href="#" id="footer-yuisite">YUi</a>
-        <!-- ▲ YUiのサイトフッターリンク -->
-        <a href="#contact">Contact</a>
-        <a href="mailto:kuromoriken@gmail.com">✉ メール</a>
-        <a href="https://x.com/kuromoriken" target="_blank" rel="noopener">𝕏 Twitter/X</a>
+      <div class="about-card">
+        <p class="about-card-en">Web</p>
+        <p class="about-card-jp">Webサイト制作</p>
+        <p class="about-card-desc">目的に合わせたデザインと使いやすさを重視</p>
       </div>
-
-      <p class="footer-copy">© 2025 らいとすぴりっつ. All Rights Reserved.</p>
+      <div class="about-card">
+        <p class="about-card-en">Game</p>
+        <p class="about-card-jp">ゲーム開発</p>
+        <p class="about-card-desc">ブラウザで遊べるオリジナルゲームを企画・開発</p>
+      </div>
+      <div class="about-card">
+        <p class="about-card-en">DX</p>
+        <p class="about-card-jp">デジタル化支援</p>
+        <p class="about-card-desc">業務フロー改善・ツール導入をサポート</p>
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-eyebrow">Our Services</div>
+  <div class="sec-head">
+    <h2 class="sec-en">Our <span class="accent">Services</span></h2>
+    <span class="sec-jp">提供サービス</span>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <p class="service-num">SVC — 01</p>
+      <h3 class="service-name-en">Robot Manufacturing</h3>
+      <p class="service-name-jp">ロボット制作</p>
+      <p class="service-desc">機構設計から組み込みソフトウェア・制御システムまで。アイデアを持つ物体に変えます。小型〜中型ロボットの企画・試作・製作に対応します。</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">SVC — 02</p>
+      <h3 class="service-name-en">Web Development</h3>
+      <p class="service-name-jp">Webサイト制作</p>
+      <p class="service-desc">個人・中小企業向けのWebサイトを制作します。目的に合わせたデザインと使いやすさを重視した設計で、あなたの価値を届けます。</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">SVC — 03</p>
+      <h3 class="service-name-en">Game Development</h3>
+      <p class="service-name-jp">オリジナルゲーム開発</p>
+      <p class="service-desc">ブラウザで遊べるオリジナルゲームを企画・開発。ユニークなルールと世界観で、プレイヤーに新しい体験を届けます。</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">SVC — 04</p>
+      <h3 class="service-name-en">DX Support</h3>
+      <p class="service-name-jp">デジタル化・DX支援</p>
+      <p class="service-desc">ツール導入や業務フローの改善をサポート。現場の課題を対話で整理し、最適な解決策を一緒に考えます。</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">SVC — 05</p>
+      <h3 class="service-name-en">YUi Collaboration</h3>
+      <p class="service-name-jp">YUiプロジェクト連携</p>
+      <p class="service-desc">次世代インターフェース研究プロジェクト「YUi」との連携により、最先端技術を取り入れたソリューションを提供します。</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">SVC — 06</p>
+      <h3 class="service-name-en">Collaboration</h3>
+      <p class="service-name-jp">コラボレーション</p>
+      <p class="service-desc">取材・共同制作・技術監修など、柔軟にご相談ください。テクノロジーとクリエイティブが交差するプロジェクトを歓迎します。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="sec-eyebrow">Our Works</div>
+  <div class="sec-head">
+    <h2 class="sec-en">Our <span class="accent">Works</span></h2>
+    <span class="sec-jp">制作実績</span>
+  </div>
+  <div class="works-grid">
+    <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
+      <div class="work-thumb">♟</div>
+      <div class="work-info">
+        <p class="work-tag">Game</p>
+        <p class="work-title">召喚将棋</p>
+        <p class="work-desc">将棋をベースにした対戦ゲーム。駒を「召喚」する独自ルールで、従来の将棋とは異なる戦略性を楽しめます。</p>
+      </div>
+    </a>
+    <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
+      <div class="work-thumb">🧱</div>
+      <div class="work-info">
+        <p class="work-tag">Game</p>
+        <p class="work-title">BreakBlockBuild</p>
+        <p class="work-desc">ブロックを壊し、積み上げ、新たな構造物を築くブラウザアクションゲーム。</p>
+      </div>
+    </a>
+    <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
+      <div class="work-thumb">🚀</div>
+      <div class="work-info">
+        <p class="work-tag">Web Service</p>
+        <p class="work-title">SNS Antigravity</p>
+        <p class="work-desc">重力に逆らう自由なコミュニケーションの場を目指した独自開発のSNSプラットフォーム。</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- YUi -->
+<section id="yui">
+  <div class="yui-bg"></div>
+  <div class="yui-inner">
+    <p class="yui-badge">Special Project</p>
+    <h2 class="yui-title">YUi</h2>
+    <p class="yui-title-jp">次世代インターフェース研究プロジェクト</p>
+    <p class="yui-sub">
+      人とテクノロジーの新しい関係性を探求するプロジェクト。詳細は近日公開予定です。
+    </p>
+    <div class="yui-status">
+      <span class="status-dot"></span>
+      CURRENTLY IN DEVELOPMENT
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BLOG / LOG -->
+<section id="blog">
+  <div class="sec-eyebrow">LOG</div>
+  <div class="sec-head">
+    <h2 class="sec-en"><span class="accent">LOG</span></h2>
+    <span class="sec-jp">制作ログ・思考の記録</span>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-main">
+      <a href="#" class="blog-card featured">
+        <div class="blog-meta">
+          <span class="blog-date">2025.06.01</span>
+          <span class="blog-cat">Robot</span>
+        </div>
+        <h3 class="blog-title">ロボット制作における「意図」の設計——機械に宿らせるべきものとは</h3>
+        <span class="blog-arrow">→ 続きを読む</span>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-meta">
+          <span class="blog-date">2025.05.20</span>
+          <span class="blog-cat">YUi</span>
+        </div>
+        <h3 class="blog-title">YUiプロジェクト、開発スタート——なぜ今このプロジェクトなのか</h3>
+        <span class="blog-arrow">→ 続きを読む</span>
+      </a>
+    </div>
+    <div class="blog-sub">
+      <a href="#" class="blog-card">
+        <div class="blog-meta">
+          <span class="blog-date">2025.05.08</span>
+          <span class="blog-cat">Game Dev</span>
+        </div>
+        <h3 class="blog-title">召喚将棋 v2.0 アップデートの記録</h3>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-meta">
+          <span class="blog-date">2025.04.15</span>
+          <span class="blog-cat">Web</span>
+        </div>
+        <h3 class="blog-title">SNS Antigravity 開発秘話</h3>
+      </a>
+      <a href="#" class="blog-card">
+        <div class="blog-meta">
+          <span class="blog-date">2025.03.20</span>
+          <span class="blog-cat">DX</span>
+        </div>
+        <h3 class="blog-title">小規模事業者のDX、まず何から始めるか</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="sec-eyebrow">Founder</div>
+  <div class="sec-head">
+    <h2 class="sec-en"><span class="accent">Founder</span></h2>
+    <span class="sec-jp">代表について</span>
+  </div>
+  <div class="founder-grid">
+    <div class="founder-card">
+      <div class="founder-avatar">MK</div>
+      <p class="founder-name">森田健太</p>
+      <p class="founder-name-en">Kenta Morita / "もりけん"</p>
+      <p class="founder-title">Founder &amp; Creator</p>
+      <div class="founder-sns">
+        <a href="mailto:kuromoriken@gmail.com">MAIL</a>
+        <a href="https://x.com/kuromoriken" target="_blank" rel="noopener">𝕏</a>
+      </div>
+    </div>
+    <div class="founder-bio">
+      <h3>テクノロジーと<br>対話で、<span class="accent">世界を動かす</span></h3>
+      <p>日本在住のクリエイター・エンジニア。ロボット制作からWebサービス、ゲーム開発まで幅広い領域で制作活動を行っています。</p>
+      <p>「対話とテクノロジーで人の心に火を灯す」という信念のもと、依頼者・ユーザーとのコミュニケーションを最も大切にしながら、一つひとつのプロジェクトに向き合っています。</p>
+      <p>現在はロボット制作とYUiプロジェクトを中心に活動。新しい人とテクノロジーの関係性を模索し続けています。</p>
+      <div class="founder-tags">
+        <span class="founder-tag">Robot</span>
+        <span class="founder-tag">Web Dev</span>
+        <span class="founder-tag">Game Dev</span>
+        <span class="founder-tag">DX</span>
+        <span class="founder-tag">YUi Project</span>
+        <span class="founder-tag">Japan-based</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-eyebrow">Contact</div>
+  <div class="sec-head">
+    <h2 class="sec-en"><span class="accent">Contact</span></h2>
+    <span class="sec-jp">お問い合わせ</span>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-lead">
+        お仕事のご依頼・ご相談は、フォームまたは直接ご連絡ください。どんな小さなアイデアでも歓迎します。まずは気軽にご連絡を。
+      </p>
+      <div class="contact-links">
+        <a href="mailto:kuromoriken@gmail.com" class="contact-link">
+          <span class="contact-link-icon">MAIL</span>
+          kuromoriken@gmail.com
+        </a>
+        <a href="https://x.com/kuromoriken" class="contact-link" target="_blank" rel="noopener">
+          <span class="contact-link-icon">𝕏</span>
+          @kuromoriken
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <label class="form-label">お名前 *</label>
+        <input type="text" class="form-input" placeholder="山田 太郎">
+      </div>
+      <div class="form-group">
+        <label class="form-label">貴社名</label>
+        <input type="text" class="form-input" placeholder="株式会社〇〇">
+      </div>
+      <div class="form-group">
+        <label class="form-label">メールアドレス *</label>
+        <input type="email" class="form-input" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">お問い合わせ項目</label>
+        <select class="form-select">
+          <option value="">選択してください</option>
+          <option>ロボット制作のご依頼</option>
+          <option>Webサイト制作のご依頼</option>
+          <option>ゲーム開発のご相談</option>
+          <option>デジタル化支援のご相談</option>
+          <option>YUiプロジェクトについて</option>
+          <option>取材・コラボレーション</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">お問い合わせ内容</label>
+        <textarea class="form-textarea" placeholder="プロジェクトの概要やご希望をお聞かせください…"></textarea>
+      </div>
+      <a href="mailto:kuromoriken@gmail.com" class="btn-gold" style="margin-top:0.5rem">送信内容を確認する（メーラー起動）</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo-col">
+      <span class="footer-logo">らいとすぴりっつ</span>
+      <span class="footer-logo-en">Light Spirits</span>
+      <p>対話とテクノロジーで<br>人の心に火を灯す</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links-list">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#founder">代表・森田健太</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Services</p>
+      <ul class="footer-links-list">
+        <li><a href="#services">ロボット制作</a></li>
+        <li><a href="#services">Webサイト制作</a></li>
+        <li><a href="#services">ゲーム開発</a></li>
+        <li><a href="#services">DX支援</a></li>
+        <li><a href="#yui">YUi Project</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Links</p>
+      <ul class="footer-links-list">
+        <li><a href="#works">Works</a></li>
+        <li><a href="#blog">LOG</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://x.com/kuromoriken" target="_blank" rel="noopener">𝕏 @kuromoriken</a></li>
+        <li><a href="mailto:kuromoriken@gmail.com">kuromoriken@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 らいとすぴりっつ / Light Spirits. All Rights Reserved.</p>
+    <ul class="footer-bottom-links">
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">サイトポリシー</a></li>
+    </ul>
+  </div>
+</footer>
 
 </body>
 </html>

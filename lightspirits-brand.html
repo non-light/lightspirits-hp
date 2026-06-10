@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="philosophy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>らいとすぴりっつ | 人の可能性を解放する</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Shippori+Mincho+B1:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   THEME VARIABLES
+   ================================================================ */
+
+/* === 案A: 理念重視 — 「魂の声」=== */
+[data-theme="philosophy"] {
+  --bg:         #070707;
+  --bg2:        #0E0E0E;
+  --bg3:        #161616;
+  --bg4:        #1E1E1E;
+  --fg:         #F2EDE4;
+  --fg2:        rgba(242,237,228,0.6);
+  --muted:      #5C5650;
+  --border:     #252218;
+  --accent:     #C8A84A;
+  --accent-l:   #E6CA78;
+  --accent-d:   #7A6428;
+  --glow:       rgba(200,168,74,0.15);
+  --glow-s:     rgba(200,168,74,0.06);
+  --nav-bg:     rgba(7,7,7,0.94);
+  --btn-fg:     #070707;
+  --radius:     0px;
+  --font-h:     'Cormorant Garamond',serif;
+  --font-sub:   'Shippori Mincho B1',serif;
+  --font-body:  'Noto Sans JP',sans-serif;
+  --font-ui:    'Space Grotesk',sans-serif;
+  --font-mono:  'Space Mono',monospace;
+  /* テーマ固有 */
+  --hero-kana-opacity: 0.12;
+  --section-style: philosophy;
+}
+
+/* === 案B: コミュニティ重視 — 「仲間の炎」=== */
+[data-theme="community"] {
+  --bg:         #060608;
+  --bg2:        #0C0C10;
+  --bg3:        #141418;
+  --bg4:        #1C1C22;
+  --fg:         #F0EEF8;
+  --fg2:        rgba(240,238,248,0.6);
+  --muted:      #58566A;
+  --border:     #22202E;
+  --accent:     #C8A84A;
+  --accent-l:   #E6CA78;
+  --accent-d:   #7A6428;
+  --glow:       rgba(200,168,74,0.12);
+  --glow-s:     rgba(200,168,74,0.05);
+  --nav-bg:     rgba(6,6,8,0.94);
+  --btn-fg:     #060608;
+  --radius:     6px;
+  --font-h:     'Space Grotesk',sans-serif;
+  --font-sub:   'Noto Sans JP',sans-serif;
+  --font-body:  'Noto Sans JP',sans-serif;
+  --font-ui:    'Space Grotesk',sans-serif;
+  --font-mono:  'Space Mono',monospace;
+  --hero-kana-opacity: 0.08;
+}
+
+/* === 案C: 未来創造（AI×人間共創）=== */
+[data-theme="future"] {
+  --bg:         #050508;
+  --bg2:        #08080E;
+  --bg3:        #101018;
+  --bg4:        #181820;
+  --fg:         #EEF0FF;
+  --fg2:        rgba(238,240,255,0.55);
+  --muted:      #4A4A6A;
+  --border:     #1A1A2E;
+  --accent:     #C8A84A;
+  --accent-l:   #E6CA78;
+  --accent-d:   #7A6428;
+  --glow:       rgba(200,168,74,0.1);
+  --glow-s:     rgba(200,168,74,0.04);
+  --nav-bg:     rgba(5,5,8,0.95);
+  --btn-fg:     #050508;
+  --radius:     2px;
+  --font-h:     'Space Grotesk',sans-serif;
+  --font-sub:   'Noto Sans JP',sans-serif;
+  --font-body:  'Noto Sans JP',sans-serif;
+  --font-ui:    'Space Grotesk',sans-serif;
+  --font-mono:  'Space Mono',monospace;
+  --hero-kana-opacity: 0.06;
+}
+
+/* ================================================================
+   RESET & BASE
+   ================================================================ */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.85;
+  overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
+}
+
+/* ================================================================
+   THEME SWITCHER
+   ================================================================ */
+#switcher {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 9000;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;
+}
+#sw-toggle {
+  background: var(--accent);
+  color: var(--btn-fg);
+  border: none;
+  padding: 0.7rem 1.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.6), 0 0 20px var(--glow);
+  transition: background 0.2s;
+  clip-path: polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+#sw-toggle:hover { background: var(--accent-l); }
+#sw-panel {
+  display: none; flex-direction: column; gap: 0.35rem;
+  background: rgba(8,8,8,0.98);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  padding: 1rem;
+  min-width: 240px;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.8);
+}
+#sw-panel.open { display: flex; }
+.sw-label {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.25em;
+  color: var(--accent-d); text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.sw-btn {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg2);
+  font-family: var(--font-body); font-size: 0.82rem;
+  cursor: pointer; text-align: left;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  border-radius: 2px;
+}
+.sw-btn:hover, .sw-btn.active {
+  border-color: var(--accent); color: var(--accent);
+  background: rgba(200,168,74,0.04);
+}
+.sw-btn.active { font-weight: 700; }
+.sw-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-ph { background: radial-gradient(circle,#C8A84A,#7A6428); }
+.dot-cm { background: radial-gradient(circle,#C8A84A,#4A406A); }
+.dot-ft { background: radial-gradient(circle,#C8A84A,#1A2060); }
+.sw-sub {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  color: var(--muted); letter-spacing: 0.08em; display: block; margin-top: 0.15rem;
+}
+
+/* ================================================================
+   NAV
+   ================================================================ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5rem; height: 68px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(200,168,74,0.08);
+  transition: background 0.5s;
+}
+.nav-logo {
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
+  color: var(--accent); letter-spacing: 0.18em; text-decoration: none;
+}
+.nav-logo-en {
+  font-family: var(--font-mono); font-size: 0.58rem; font-weight: 400;
+  color: var(--accent-d); letter-spacing: 0.25em; display: block;
+  margin-top: 2px; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links a {
+  padding: 0 1.4rem; height: 68px; display: flex; align-items: center;
+  font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.55rem 1.5rem;
+  background: var(--accent); color: var(--btn-fg); text-decoration: none;
+  font-weight: 700; border-radius: var(--radius);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 20px var(--glow);
+}
+.nav-cta:hover { background: var(--accent-l); box-shadow: 0 0 30px var(--glow); }
+
+/* ================================================================
+   HERO
+   ================================================================ */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8rem 5rem 5rem;
+  position: relative; overflow: hidden;
+}
+/* 背景グリッド */
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(200,168,74,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,168,74,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+/* 中央グロー */
+.hero-glow {
+  position: absolute; top: 30%; right: 10%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+/* 巨大背景文字 */
+.hero-bg-text {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-h,'Cormorant Garamond',serif);
+  font-size: clamp(8rem,20vw,22rem);
+  font-weight: 300; font-style: italic;
+  color: var(--fg); letter-spacing: -0.04em;
+  opacity: var(--hero-kana-opacity);
+  pointer-events: none; user-select: none; white-space: nowrap;
+  line-height: 1;
+}
+[data-theme="community"] .hero-bg-text { font-family: 'Space Grotesk',sans-serif; font-style: normal; font-weight: 700; }
+[data-theme="future"] .hero-bg-text { font-family: 'Space Grotesk',sans-serif; font-style: normal; font-weight: 700; letter-spacing:-0.06em; }
+
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.35em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-d); }
+.hero-eyebrow::after  { content: ''; display: block; width: 40px; height: 1px; background: var(--accent-d); }
+
+/* --- 案A: 理念重視 ヒーロータイトル --- */
+[data-theme="philosophy"] .hero-title {
+  font-family: var(--font-h);
+  font-size: clamp(3rem, 7vw, 8rem);
+  font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem; max-width: 900px;
+}
+[data-theme="philosophy"] .hero-title em { font-style: italic; color: var(--accent); }
+
+/* --- 案B: コミュニティ ヒーロータイトル --- */
+[data-theme="community"] .hero-title {
+  font-family: var(--font-h);
+  font-size: clamp(2.5rem, 6vw, 7rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem; max-width: 860px;
+}
+[data-theme="community"] .hero-title em { font-style: normal; color: var(--accent); }
+
+/* --- 案C: 未来創造 ヒーロータイトル --- */
+[data-theme="future"] .hero-title {
+  font-family: 'Space Grotesk',sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 6.5rem);
+  font-weight: 700; line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem; max-width: 860px;
+}
+[data-theme="future"] .hero-title em { font-style: normal; color: var(--accent); }
+
+.hero-title-jp {
+  font-family: var(--font-sub);
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  color: var(--fg2); letter-spacing: 0.1em;
+  margin-bottom: 2.5rem; line-height: 1.7;
+  font-weight: 400;
+}
+[data-theme="philosophy"] .hero-title-jp { font-style: italic; }
+
+.hero-catch {
+  font-family: var(--font-body); font-size: 1rem;
+  color: var(--fg2); max-width: 520px;
+  line-height: 2; margin-bottom: 3.5rem;
+}
+.hero-cta { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+
+.btn-primary {
+  font-family: var(--font-ui); font-size: 0.78rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 1rem 2.5rem; background: var(--accent);
+  color: var(--btn-fg); border: none; cursor: pointer;
+  text-decoration: none; font-weight: 700; display: inline-block;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 30px var(--glow);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.btn-primary:hover { background: var(--accent-l); transform: translateY(-2px); box-shadow: 0 8px 40px var(--glow); }
+[data-theme="community"] .btn-primary,
+[data-theme="future"]    .btn-primary { clip-path: none; }
+
+.btn-ghost {
+  font-family: var(--font-ui); font-size: 0.78rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 1rem 2.5rem; background: transparent;
+  color: var(--accent); border: 1px solid var(--accent-d);
+  cursor: pointer; text-decoration: none; font-weight: 500;
+  display: inline-block; border-radius: var(--radius);
+  transition: border-color 0.2s, color 0.2s;
+  clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-l); }
+[data-theme="community"] .btn-ghost,
+[data-theme="future"]    .btn-ghost { clip-path: none; }
+
+/* スクロールインジケータ */
+.hero-scroll-ind {
+  position: absolute; bottom: 3rem; left: 5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.3em; color: var(--accent-d); text-transform: uppercase;
+}
+.scroll-bar { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--accent-d), transparent); animation: scrolldrop 2s ease-in-out infinite; }
+@keyframes scrolldrop { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ================================================================
+   PHILOSOPHY STATEMENT (全案共通・デザイン変化)
+   ================================================================ */
+#statement {
+  padding: 10rem 5rem;
+  position: relative; overflow: hidden;
+  background: var(--bg);
+}
+.statement-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.statement-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.35em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 3rem;
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+}
+.statement-label::before, .statement-label::after {
+  content: ''; display: block; width: 60px; height: 1px; background: var(--accent-d);
+}
+.statement-main {
+  font-family: var(--font-h);
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  font-weight: 300; line-height: 1.4;
+  letter-spacing: 0.02em; color: var(--fg);
+  margin-bottom: 3rem;
+}
+[data-theme="community"] .statement-main,
+[data-theme="future"]    .statement-main { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.6rem,3.5vw,3.2rem); }
+
+.statement-main em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .statement-main em { font-style: italic; }
+
+.statement-sub {
+  font-size: 1rem; color: var(--fg2); line-height: 2.2;
+  max-width: 600px; margin: 0 auto;
+}
+
+/* ================================================================
+   PHILOSOPHY 2 PILLARS
+   ================================================================ */
+#pillars {
+  padding: 8rem 5rem;
+  background: var(--bg2);
+  position: relative;
+}
+.pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.pillar {
+  padding: 4rem 3.5rem;
+  position: relative; overflow: hidden;
+  background: var(--bg3);
+  transition: background 0.3s;
+}
+.pillar:hover { background: var(--bg4); }
+.pillar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+.pillar-num {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.25em;
+  color: var(--accent-d); margin-bottom: 2rem; text-transform: uppercase;
+}
+.pillar-icon {
+  font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1;
+}
+.pillar-en {
+  font-family: var(--font-h);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 300; color: var(--accent);
+  margin-bottom: 0.5rem; line-height: 1.2;
+}
+[data-theme="community"] .pillar-en,
+[data-theme="future"]    .pillar-en { font-family: var(--font-ui); font-weight: 700; }
+
+.pillar-jp {
+  font-family: var(--font-sub); font-size: 1rem; font-weight: 700;
+  color: var(--fg); margin-bottom: 1.5rem; letter-spacing: 0.05em;
+}
+[data-theme="community"] .pillar-jp,
+[data-theme="future"]    .pillar-jp { font-family: var(--font-body); }
+
+.pillar-body { font-size: 0.88rem; color: var(--fg2); line-height: 2.1; }
+.pillar-glow {
+  position: absolute; bottom: -100px; right: -100px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, var(--glow-s), transparent 70%);
+  pointer-events: none;
+}
+
+/* ================================================================
+   BRAND STORY
+   ================================================================ */
+#story {
+  padding: 10rem 5rem;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+.story-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8rem; align-items: center; }
+.story-left {}
+.story-eyebrow {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 2rem;
+}
+.story-heading {
+  font-family: var(--font-h);
+  font-size: clamp(2rem,3.5vw,3.5rem);
+  font-weight: 300; line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+[data-theme="community"] .story-heading,
+[data-theme="future"]    .story-heading { font-family: var(--font-ui); font-weight: 700; font-size:clamp(1.8rem,3vw,3rem); }
+
+.story-heading em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .story-heading em { font-style: italic; }
+
+.story-quote {
+  font-family: var(--font-h);
+  font-size: 1.1rem; font-style: italic;
+  color: var(--accent); line-height: 1.8;
+  border-left: 2px solid var(--accent-d);
+  padding-left: 1.5rem; margin-top: 2.5rem;
+}
+[data-theme="community"] .story-quote,
+[data-theme="future"]    .story-quote { font-family: var(--font-body); font-style: normal; }
+
+.story-right {}
+.story-p {
+  font-size: 0.95rem; color: var(--fg2); line-height: 2.3;
+  margin-bottom: 1.75rem;
+}
+.story-p strong { color: var(--fg); font-weight: 700; }
+.story-p em { color: var(--accent); font-style: normal; }
+
+/* ================================================================
+   COPYLINES
+   ================================================================ */
+#copies {
+  padding: 8rem 5rem;
+  background: var(--bg2);
+}
+.copies-intro {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 4rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.copies-intro::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.copies-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.copy-card {
+  background: var(--bg3); padding: 2rem 1.75rem;
+  transition: background 0.22s; position: relative; overflow: hidden;
+  cursor: default;
+}
+.copy-card:hover { background: var(--bg4); }
+.copy-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-d), transparent);
+  opacity: 0; transition: opacity 0.22s;
+}
+.copy-card:hover::after { opacity: 1; }
+.copy-num {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
+  color: var(--accent-d); margin-bottom: 1rem;
+}
+.copy-text {
+  font-family: var(--font-sub); font-size: 0.92rem; line-height: 1.7;
+  color: var(--fg); font-weight: 400;
+}
+[data-theme="community"] .copy-text,
+[data-theme="future"]    .copy-text { font-family: var(--font-body); font-weight: 700; }
+
+.copy-accent { color: var(--accent); }
+
+/* ================================================================
+   SERVICES
+   ================================================================ */
+#services {
+  padding: 8rem 5rem;
+  background: var(--bg);
+}
+.section-header { margin-bottom: 5rem; }
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.section-title {
+  font-family: var(--font-h);
+  font-size: clamp(2rem,4vw,3.5rem); font-weight: 300;
+  line-height: 1.15; letter-spacing: -0.01em;
+}
+[data-theme="community"] .section-title,
+[data-theme="future"]    .section-title { font-family: var(--font-ui); font-weight: 700; font-size:clamp(1.8rem,3.5vw,3rem); }
+.section-title em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .section-title em { font-style: italic; }
+
+.section-lead {
+  font-size: 0.92rem; color: var(--fg2); max-width: 540px;
+  line-height: 2; margin-top: 1.5rem;
+}
+
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.svc-card {
+  background: var(--bg); padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background 0.25s;
+}
+.svc-card:hover { background: var(--bg3); }
+.svc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+}
+.svc-card:hover::before { transform: scaleX(1); }
+.svc-num { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; color: var(--accent-d); margin-bottom: 1.5rem; }
+.svc-name {
+  font-family: var(--font-sub); font-size: 1.05rem; font-weight: 700;
+  margin-bottom: 0.75rem; color: var(--fg);
+}
+[data-theme="community"] .svc-name,
+[data-theme="future"]    .svc-name { font-family: var(--font-body); }
+.svc-desc { font-size: 0.82rem; color: var(--fg2); line-height: 1.9; }
+.svc-tag {
+  display: inline-block; margin-top: 1.25rem;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+  color: var(--accent); border: 1px solid var(--accent-d); padding: 0.25rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+/* ================================================================
+   COMMITMENT (なぜ私たちか)
+   ================================================================ */
+#commitment {
+  padding: 10rem 5rem;
+  background: var(--bg2);
+  position: relative; overflow: hidden;
+}
+.commit-bg-text {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 3rem;
+  font-family: var(--font-h,'Cormorant Garamond',serif);
+  font-size: clamp(6rem,15vw,18rem); font-weight: 300; font-style: italic;
+  color: var(--fg); opacity: 0.025; pointer-events: none; user-select: none;
+  line-height: 1;
+}
+[data-theme="community"] .commit-bg-text,
+[data-theme="future"]    .commit-bg-text { font-family: 'Space Grotesk',sans-serif; font-style: normal; font-weight: 700; }
+
+.commit-inner { max-width: 720px; position: relative; z-index: 1; }
+.commit-heading {
+  font-family: var(--font-h);
+  font-size: clamp(2rem,4vw,4rem); font-weight: 300;
+  line-height: 1.2; margin-bottom: 3rem;
+}
+[data-theme="community"] .commit-heading,
+[data-theme="future"]    .commit-heading { font-family: var(--font-ui); font-weight: 700; font-size:clamp(1.8rem,3.5vw,3.2rem); }
+.commit-heading em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .commit-heading em { font-style: italic; }
+
+.commit-list { display: flex; flex-direction: column; gap: 2rem; }
+.commit-item { display: flex; gap: 2rem; align-items: flex-start; }
+.commit-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  border: 1px solid var(--accent-d);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  border-radius: var(--radius);
+  background: var(--bg3);
+}
+.commit-text-title {
+  font-family: var(--font-sub); font-size: 1rem; font-weight: 700;
+  color: var(--fg); margin-bottom: 0.5rem;
+}
+[data-theme="community"] .commit-text-title,
+[data-theme="future"]    .commit-text-title { font-family: var(--font-body); }
+.commit-text-body { font-size: 0.85rem; color: var(--fg2); line-height: 2; }
+
+/* ================================================================
+   THEME-SPECIFIC SECTION
+   ================================================================ */
+#theme-specific {
+  padding: 8rem 5rem;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+
+/* 案A: 理念ウォール */
+.ph-wall { display: grid; grid-template-columns: 1fr; gap: 0; }
+.ph-wall-item {
+  padding: 3rem 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 3rem; align-items: center;
+}
+.ph-wall-item:first-child { border-top: 1px solid var(--border); }
+.ph-wall-num {
+  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.25em;
+  color: var(--accent-d); text-transform: uppercase; text-align: center;
+}
+.ph-wall-text {
+  font-family: var(--font-h);
+  font-size: clamp(1.5rem,2.5vw,2.5rem); font-weight: 300; font-style: italic;
+  color: var(--fg); line-height: 1.3;
+}
+.ph-wall-text span { color: var(--accent); display: block; font-size: 0.8em; margin-top: 0.5rem; font-style: normal; font-family: var(--font-body); font-weight: 300; }
+
+/* 案B: コミュニティカード */
+.cm-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.cm-card {
+  padding: 2.5rem 2rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; text-align: center;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.cm-card:hover { border-color: var(--accent-d); transform: translateY(-4px); }
+.cm-card-emoji { font-size: 2.5rem; margin-bottom: 1.25rem; display: block; }
+.cm-card-title { font-family: var(--font-body); font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; }
+.cm-card-body { font-size: 0.82rem; color: var(--fg2); line-height: 1.9; }
+
+/* 案C: 未来タイムライン */
+.ft-timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.ft-timeline::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 24px;
+  width: 1px; background: linear-gradient(to bottom, var(--accent-d), transparent);
+}
+.ft-item {
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 2rem; padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.ft-item:last-child { border-bottom: none; }
+.ft-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+  box-shadow: 0 0 12px var(--glow);
+  margin-top: 0.5rem; margin-left: 20px;
+  flex-shrink: 0;
+}
+.ft-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.ft-title { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--fg); }
+.ft-body { font-size: 0.85rem; color: var(--fg2); line-height: 1.9; }
+
+/* 表示制御 */
+[data-theme="philosophy"] .cm-cards,
+[data-theme="philosophy"] .ft-timeline { display: none; }
+[data-theme="community"]  .ph-wall,
+[data-theme="community"]  .ft-timeline { display: none; }
+[data-theme="future"]     .ph-wall,
+[data-theme="future"]     .cm-cards { display: none; }
+[data-theme="future"] .cm-cards { display: none; }
+
+/* ================================================================
+   CATCHCOPY SPOTLIGHT
+   ================================================================ */
+#spotlight {
+  padding: 12rem 5rem;
+  background: var(--bg2);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.spotlight-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 900px; height: 400px;
+  background: radial-gradient(ellipse, var(--glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+.spotlight-text {
+  position: relative; z-index: 1;
+  font-family: var(--font-h);
+  font-size: clamp(2rem, 5vw, 6rem);
+  font-weight: 300; line-height: 1.2;
+  letter-spacing: 0.02em; color: var(--fg);
+  max-width: 900px; margin: 0 auto 2.5rem;
+}
+[data-theme="community"] .spotlight-text,
+[data-theme="future"]    .spotlight-text { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.8rem,4vw,5rem); }
+.spotlight-text em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .spotlight-text em { font-style: italic; }
+
+.spotlight-sub {
+  font-size: 1rem; color: var(--fg2); line-height: 2;
+  max-width: 500px; margin: 0 auto 3.5rem;
+  position: relative; z-index: 1;
+}
+
+/* ================================================================
+   DESIGN DIRECTION (ビジュアルイメージ)
+   ================================================================ */
+#direction {
+  padding: 8rem 5rem;
+  background: var(--bg);
+}
+.direction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.dir-col {}
+.dir-block { margin-bottom: 3rem; }
+.dir-block-title {
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.25em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.dir-block-title::before { content: '//'; color: var(--accent-d); }
+.dir-palette { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.swatch {
+  width: 56px; height: 56px; border-radius: 4px;
+  border: 1px solid var(--border);
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 4px;
+  font-family: var(--font-mono); font-size: 0.45rem; color: rgba(255,255,255,0.5);
+}
+.swatch-main  { background: #070707; }
+.swatch-g1    { background: #C8A84A; }
+.swatch-g2    { background: #E6CA78; }
+.swatch-g3    { background: #7A6428; }
+.swatch-off   { background: #F2EDE4; color: rgba(0,0,0,0.4); }
+.swatch-muted { background: #5C5650; }
+
+.dir-font-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.dir-font-item {
+  padding: 1rem 1.25rem; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.dir-font-name { font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.35rem; }
+.dir-font-sample { color: var(--fg2); line-height: 1.4; }
+.sample-serif  { font-family: 'Cormorant Garamond',serif; font-size: 1.3rem; font-weight: 300; font-style: italic; }
+.sample-mincho { font-family: 'Shippori Mincho B1',serif; font-size: 1rem; font-weight: 400; }
+.sample-sans   { font-family: 'Space Grotesk',sans-serif; font-size: 0.95rem; font-weight: 500; }
+.sample-body   { font-family: 'Noto Sans JP',sans-serif; font-size: 0.88rem; font-weight: 300; }
+.sample-mono   { font-family: 'Space Mono',monospace; font-size: 0.8rem; }
+
+.dir-image-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.dir-image-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1.25rem; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); font-size: 0.85rem; color: var(--fg2);
+}
+.dir-image-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* ================================================================
+   CTA / CONTACT
+   ================================================================ */
+#cta {
+  padding: 12rem 5rem;
+  background: var(--bg2);
+  position: relative; overflow: hidden; text-align: center;
+}
+.cta-glow {
+  position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.35em;
+  color: var(--accent); text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  margin-bottom: 3rem; position: relative; z-index: 1;
+}
+.cta-label::before, .cta-label::after {
+  content: ''; display: block; width: 50px; height: 1px; background: var(--accent-d);
+}
+.cta-heading {
+  font-family: var(--font-h);
+  font-size: clamp(2rem,4.5vw,5rem); font-weight: 300; line-height: 1.15;
+  margin-bottom: 1.5rem; position: relative; z-index: 1;
+}
+[data-theme="community"] .cta-heading,
+[data-theme="future"]    .cta-heading { font-family: var(--font-body); font-weight: 700; font-size:clamp(1.8rem,3.5vw,4rem); }
+.cta-heading em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .cta-heading em { font-style: italic; }
+
+.cta-sub { font-size: 1rem; color: var(--fg2); line-height: 2; max-width: 480px; margin: 0 auto 4rem; position: relative; z-index: 1; }
+.cta-btns { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.cta-note {
+  margin-top: 2.5rem; font-size: 0.78rem; color: var(--muted);
+  position: relative; z-index: 1;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer {
+  background: var(--bg2); border-top: 1px solid var(--border);
+}
+.footer-main {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem;
+  padding: 5rem 5rem 4rem; border-bottom: 1px solid var(--border);
+}
+.footer-brand {}
+.footer-logo-text {
+  font-family: var(--font-body); font-size: 1.1rem; font-weight: 700;
+  color: var(--accent); letter-spacing: 0.15em; display: block; margin-bottom: 0.35rem;
+}
+.footer-logo-sub {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.25em;
+  color: var(--accent-d); text-transform: uppercase;
+}
+.footer-tagline {
+  font-family: var(--font-h); font-size: 0.95rem; font-style: italic;
+  color: var(--fg2); line-height: 1.7; margin-top: 1.5rem; max-width: 260px;
+}
+[data-theme="community"] .footer-tagline,
+[data-theme="future"]    .footer-tagline { font-family: var(--font-body); font-style: normal; font-weight: 300; }
+
+.footer-col-title {
+  font-family: var(--font-ui); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); margin-bottom: 1.25rem;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links a {
+  font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.75rem 5rem; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+.footer-policy { display: flex; gap: 1.75rem; list-style: none; }
+.footer-policy a { font-size: 0.72rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-policy a:hover { color: var(--accent); }
+
+/* ================================================================
+   VERDICT SECTION (どれが最もらいとすぴりっつらしいか)
+   ================================================================ */
+#verdict {
+  padding: 8rem 5rem;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+}
+.verdict-inner { max-width: 800px; margin: 0 auto; }
+.verdict-title {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 3rem;
+}
+.verdict-heading {
+  font-family: var(--font-h); font-size: clamp(1.8rem,3vw,3rem); font-weight: 300;
+  margin-bottom: 2rem; color: var(--fg);
+}
+[data-theme="community"] .verdict-heading,
+[data-theme="future"]    .verdict-heading { font-family: var(--font-ui); font-weight: 700; font-size:clamp(1.6rem,2.5vw,2.5rem); }
+.verdict-heading em { color: var(--accent); font-style: normal; }
+[data-theme="philosophy"] .verdict-heading em { font-style: italic; }
+
+.verdict-body { font-size: 0.9rem; color: var(--fg2); line-height: 2.3; }
+.verdict-body p { margin-bottom: 1.5rem; }
+.verdict-body strong { color: var(--fg); font-weight: 700; }
+.verdict-body em { color: var(--accent); }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  margin-top: 2.5rem; padding: 1rem 2rem;
+  border: 1px solid var(--accent-d); background: var(--bg4);
+  border-radius: var(--radius);
+}
+.verdict-badge-icon { font-size: 1.5rem; }
+.verdict-badge-text { font-family: var(--font-body); font-weight: 700; font-size: 0.92rem; }
+.verdict-badge-sub { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); letter-spacing: 0.15em; display: block; margin-top: 0.2rem; }
+
+/* ================================================================
+   DIVIDER
+   ================================================================ */
+.divider { width:100%; height:1px; background: linear-gradient(90deg,transparent,var(--accent-d),transparent); }
+
+/* ================================================================
+   MOBILE
+   ================================================================ */
+@media(max-width:960px){
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  section, #hero, #statement, #story, #pillars, #commitment, #theme-specific, #direction, #cta, #spotlight, #copies, #services, #verdict { padding: 5rem 1.5rem; }
+  #hero { padding-top: 7rem; }
+  .hero-bg-text { display: none; }
+  .story-inner, .direction-grid, .footer-main { grid-template-columns: 1fr; gap: 3rem; }
+  .pillars-grid, .services-grid, .copies-grid, .cm-cards { grid-template-columns: 1fr; }
+  .footer-main { padding: 3rem 1.5rem; }
+  .footer-bottom { padding: 1.5rem; }
+  #switcher { bottom: 1rem; right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  THEME SWITCHER
+  ============================================================ -->
+<div id="switcher">
+  <div id="sw-panel">
+    <div class="sw-label">ブランドテーマを選ぶ</div>
+    <button class="sw-btn active" data-t="philosophy">
+      <span class="sw-dot dot-ph"></span>
+      <span>
+        案A：理念重視「魂の声」
+        <span class="sw-sub">Cormorant Garamond × 明朝</span>
+      </span>
+    </button>
+    <button class="sw-btn" data-t="community">
+      <span class="sw-dot dot-cm"></span>
+      <span>
+        案B：コミュニティ「仲間の炎」
+        <span class="sw-sub">Space Grotesk × ゴシック</span>
+      </span>
+    </button>
+    <button class="sw-btn" data-t="future">
+      <span class="sw-dot dot-ft"></span>
+      <span>
+        案C：未来創造「AI×人間共創」
+        <span class="sw-sub">Space Grotesk × 深夜ブルー</span>
+      </span>
+    </button>
+  </div>
+  <button id="sw-toggle">🎨 テーマ切り替え</button>
+</div>
+
+<!-- ============================================================
+  NAV
+  ============================================================ -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    らいとすぴりっつ
+    <span class="nav-logo-en">Light Spirits</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#statement">理念</a></li>
+    <li><a href="#story">ストーリー</a></li>
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#direction">デザイン</a></li>
+    <li><a href="#verdict">提言</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">お問い合わせ</a>
+</nav>
+
+<!-- ============================================================
+  HERO
+  ============================================================ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <!-- 案A 背景文字 -->
+  <div class="hero-bg-text" id="hbg-a">LIGHT</div>
+
+  <div class="hero-eyebrow">BRAND CONCEPT</div>
+
+  <!-- 案A タイトル -->
+  <h1 class="hero-title" id="htitle-a" style="display:none" data-theme-show="philosophy">
+    人の魂に、<em>火を灯す</em>。<br>
+    それが、私たちの使命。
+  </h1>
+  <!-- 案B タイトル -->
+  <h1 class="hero-title" id="htitle-b" style="display:none" data-theme-show="community">
+    仲間と、<em>挑戦する</em>。<br>
+    ともに、燃えよう。
+  </h1>
+  <!-- 案C タイトル -->
+  <h1 class="hero-title" id="htitle-c" style="display:none" data-theme-show="future">
+    AIと人間が、<em>共に創る</em>。<br>
+    可能性の、新しい地平。
+  </h1>
+
+  <p class="hero-title-jp" id="hsubtitle">
+    Lighting the Flame Within Every Human Soul.
+  </p>
+
+  <p class="hero-catch">
+    らいとすぴりっつは、AIをツールとして売らない。<br>
+    AIを通じて、あなたの中に眠る可能性を解放する。<br>
+    楽しさが、挑戦を生み、価値を創造する。
+  </p>
+
+  <div class="hero-cta">
+    <a href="#statement" class="btn-primary">世界観を見る</a>
+    <a href="#cta" class="btn-ghost">お問い合わせ</a>
+  </div>
+
+  <div class="hero-scroll-ind">
+    <div class="scroll-bar"></div>
+    Scroll
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  STATEMENT — ブランドコンセプト
+  ============================================================ -->
+<section id="statement">
+  <div class="statement-inner">
+    <div class="statement-label">Brand Concept</div>
+    <p class="statement-main">
+      AIが主役ではない。<br>
+      <em>主役は、あなただ。</em>
+    </p>
+    <p class="statement-sub">
+      私たちはシステムを売りたいわけではない。DXを売りたいわけでもない。<br>
+      あなたの中にある「やってみたい」「変わりたい」「挑戦したい」という炎に、<br>
+      そっと火をつけたい。それが、らいとすぴりっつの存在理由。
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  PILLARS — 2つの座右の銘
+  ============================================================ -->
+<section id="pillars">
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-num">Pillar 01</div>
+      <div class="pillar-icon">🔥</div>
+      <h2 class="pillar-en">Those Who Enjoy<br>Create Value</h2>
+      <p class="pillar-jp">楽しんだ者＝価値</p>
+      <p class="pillar-body">
+        楽しさは甘えではない。<br>
+        楽しさこそが挑戦を生み、学びを生み、価値を生み出す。<br>
+        人生も仕事も、楽しんだ人が最終的に大きな価値を創造すると、私たちは信じている。
+      </p>
+      <div class="pillar-glow"></div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Pillar 02</div>
+      <div class="pillar-icon">✨</div>
+      <h2 class="pillar-en">Light the Flame<br>Within Every Soul</h2>
+      <p class="pillar-jp">人々の魂に火を灯す</p>
+      <p class="pillar-body">
+        人が本来持っている可能性を解放し、「やってみたい」「挑戦したい」「変わりたい」と思えるきっかけを作りたい。<br>
+        AIはその手段に過ぎない。主役は、常にあなたの魂。
+      </p>
+      <div class="pillar-glow"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  STORY — ブランドストーリー
+  ============================================================ -->
+<section id="story">
+  <div class="story-inner">
+    <div class="story-left">
+      <p class="story-eyebrow">Brand Story</p>
+      <h2 class="story-heading">
+        私たちは<em>なぜ</em>、<br>ここにいるのか。
+      </h2>
+      <blockquote class="story-quote">
+        「技術は手段だ。<br>人を動かすのは、<br>常に感情と意志である。」
+      </blockquote>
+    </div>
+    <div class="story-right">
+      <p class="story-p">
+        世界はAIで溢れている。あらゆる企業が「AI導入」「DX推進」「自動化」を謳う。<br>
+        だが、本当に変わったものがあるだろうか。<strong>人の心が動いただろうか。</strong>
+      </p>
+      <p class="story-p">
+        らいとすぴりっつは、そこに疑問を感じるところから始まった。<br>
+        ツールを売るのではなく、<em>体験を届けたい</em>。<br>
+        システムを構築するのではなく、<em>可能性を解放したい</em>。
+      </p>
+      <p class="story-p">
+        私たちが大切にするのは「楽しさ」「挑戦」「仲間」「成長」。<br>
+        <strong>楽しんだ者こそが、最終的に大きな価値を創造する。</strong><br>
+        それは仕事においても、人生においても変わらない真理だと信じている。
+      </p>
+      <p class="story-p">
+        AIを通じて、あなたの魂に火を灯す。<br>
+        それが、らいとすぴりっつがこの世界に存在する理由。
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  COPIES — キャッチコピー20案
+  ============================================================ -->
+<section id="copies">
+  <div class="copies-intro">Catchcopy — 20 Proposals</div>
+  <div class="copies-grid">
+    <div class="copy-card"><div class="copy-num">No.01</div><p class="copy-text">楽しんだ者が、<span class="copy-accent">世界を変える。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.02</div><p class="copy-text">AIは武器ではない。<span class="copy-accent">あなたの翼だ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.03</div><p class="copy-text">可能性は、<span class="copy-accent">すでにあなたの中にある。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.04</div><p class="copy-text">挑戦する人に、<span class="copy-accent">火を灯す。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.05</div><p class="copy-text">テクノロジーより先に、<span class="copy-accent">あなたの想いがある。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.06</div><p class="copy-text">楽しさは、<span class="copy-accent">最強の戦略だ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.07</div><p class="copy-text">魂に火がつく瞬間、<span class="copy-accent">未来が動き出す。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.08</div><p class="copy-text">AI時代の主役は、<span class="copy-accent">あなた自身だ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.09</div><p class="copy-text">「やってみたい」を、<span class="copy-accent">「やってよかった」に。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.10</div><p class="copy-text">システムではなく、<span class="copy-accent">情熱を設計する。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.11</div><p class="copy-text">変わりたいと思う心が、<span class="copy-accent">最初の一歩だ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.12</div><p class="copy-text">技術は道具。<br><span class="copy-accent">あなたが使うために、ある。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.13</div><p class="copy-text">仲間と燃える。<br><span class="copy-accent">それが、私たちの文化。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.14</div><p class="copy-text">人の可能性を信じることが、<span class="copy-accent">すべての始まり。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.15</div><p class="copy-text">DXじゃない。<span class="copy-accent">HX（Human Transformation）だ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.16</div><p class="copy-text">あなたが輝くために、<span class="copy-accent">AIがある。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.17</div><p class="copy-text">「楽しい」は、<span class="copy-accent">最も誠実な価値創造。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.18</div><p class="copy-text">Light the Spirits.<br><span class="copy-accent">光よ、魂に宿れ。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.19</div><p class="copy-text">挑戦に美しさがある。<span class="copy-accent">失敗にも、光がある。</span></p></div>
+    <div class="copy-card"><div class="copy-num">No.20</div><p class="copy-text">人を変えるのは、<span class="copy-accent">人だ。</span></p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  SERVICES
+  ============================================================ -->
+<section id="services">
+  <div class="section-header">
+    <div class="section-eyebrow">Our Services</div>
+    <h2 class="section-title">人の可能性を解放する、<br><em>7つのアプローチ</em></h2>
+    <p class="section-lead">ツールを売るのではなく、あなたが「動き出す」きっかけを届ける。すべてのサービスは、その信念から設計されています。</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-num">SVC — 01</div>
+      <h3 class="svc-name">AI活用支援</h3>
+      <p class="svc-desc">AIの正しい使い方から、あなたの業務に合った活用法まで。「難しい」を「楽しい」に変える伴走支援。</p>
+      <span class="svc-tag">AI Consulting</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 02</div>
+      <h3 class="svc-name">ChatGPT活用</h3>
+      <p class="svc-desc">ChatGPTの本質的な使い方を学び、業務効率を劇的に変える。プロンプト設計から実践まで。</p>
+      <span class="svc-tag">ChatGPT</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 03</div>
+      <h3 class="svc-name">AIエージェント構築</h3>
+      <p class="svc-desc">あなたの業務を自動化・効率化するAIエージェントを設計・構築。人間が本来すべきことに集中できる環境を作る。</p>
+      <span class="svc-tag">AI Agent</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 04</div>
+      <h3 class="svc-name">DX推進</h3>
+      <p class="svc-desc">単なるデジタル化ではなく、組織文化ごと変革する。人が動き、組織が変わる、本物のDX。</p>
+      <span class="svc-tag">DX</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 05</div>
+      <h3 class="svc-name">教育・研修</h3>
+      <p class="svc-desc">「楽しんだ者が価値を創る」をそのまま体現する研修設計。参加者の魂に火を灯す、体験型プログラム。</p>
+      <span class="svc-tag">Education</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 06</div>
+      <h3 class="svc-name">コミュニティ運営</h3>
+      <p class="svc-desc">挑戦する人が集まり、互いの炎で燃え上がるコミュニティを運営。孤独な挑戦を、仲間との旅に変える。</p>
+      <span class="svc-tag">Community</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">SVC — 07</div>
+      <h3 class="svc-name">伴走支援</h3>
+      <p class="svc-desc">コンサルで終わらない。あなたが「できた」と感じるまで、ともに走り続ける長期伴走サポート。</p>
+      <span class="svc-tag">Partnership</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  COMMITMENT
+  ============================================================ -->
+<section id="commitment">
+  <div class="commit-bg-text">Human</div>
+  <div class="commit-inner">
+    <h2 class="commit-heading">
+      なぜ、私たちが<br><em>選ばれるのか。</em>
+    </h2>
+    <div class="commit-list">
+      <div class="commit-item">
+        <div class="commit-icon">🔥</div>
+        <div>
+          <p class="commit-text-title">AIではなく、人間を主役にする</p>
+          <p class="commit-text-body">競合他社はAIの機能を売る。私たちはAIを通じてあなた自身の可能性を解放することを売る。根本的に違う。</p>
+        </div>
+      </div>
+      <div class="commit-item">
+        <div class="commit-icon">😄</div>
+        <div>
+          <p class="commit-text-title">「楽しさ」を設計に組み込む</p>
+          <p class="commit-text-body">研修も、支援も、コミュニティも、全て「楽しい」から設計される。楽しさこそが最強の継続力を生む。</p>
+        </div>
+      </div>
+      <div class="commit-item">
+        <div class="commit-icon">🤝</div>
+        <div>
+          <p class="commit-text-title">伴走する、ただそれだけ</p>
+          <p class="commit-text-body">一度きりの支援で終わらない。あなたの挑戦が成果になるまで、横に並んで走り続ける。</p>
+        </div>
+      </div>
+      <div class="commit-item">
+        <div class="commit-icon">🌟</div>
+        <div>
+          <p class="commit-text-title">コミュニティが資産になる</p>
+          <p class="commit-text-body">同じ炎を持つ仲間とつながる場を提供する。あなたの挑戦は、孤独な戦いではなくなる。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  THEME-SPECIFIC SECTION
+  ============================================================ -->
+<section id="theme-specific">
+  <!-- 案A: 理念の言葉たち -->
+  <div class="ph-wall">
+    <div class="section-header" style="margin-bottom:3rem">
+      <div class="section-eyebrow">Philosophy Wall</div>
+      <h2 class="section-title">私たちが信じる、<em>言葉たち</em></h2>
+    </div>
+    <div class="ph-wall-item">
+      <div class="ph-wall-num">Word 01</div>
+      <p class="ph-wall-text">楽しさは甘えではない。<span>Enjoyment is not indulgence — it is the origin of all value.</span></p>
+    </div>
+    <div class="ph-wall-item">
+      <div class="ph-wall-num">Word 02</div>
+      <p class="ph-wall-text">人の可能性を信じることが、すべての仕事の出発点。<span>Believing in human potential is where every great endeavor begins.</span></p>
+    </div>
+    <div class="ph-wall-item">
+      <div class="ph-wall-num">Word 03</div>
+      <p class="ph-wall-text">技術は手段。問いは常に「誰の魂に火を灯すか」。<span>Technology is a means. The only question is: whose soul will you ignite?</span></p>
+    </div>
+    <div class="ph-wall-item">
+      <div class="ph-wall-num">Word 04</div>
+      <p class="ph-wall-text">挑戦する人が美しい。そして、その人を支える人も美しい。<span>Those who challenge are beautiful. So are those who support them.</span></p>
+    </div>
+  </div>
+
+  <!-- 案B: コミュニティ価値 -->
+  <div class="cm-cards">
+    <div class="section-header" style="margin-bottom:3rem;grid-column:1/-1">
+      <div class="section-eyebrow">Our Community</div>
+      <h2 class="section-title">仲間がいると、<em>炎は大きくなる。</em></h2>
+    </div>
+    <div class="cm-card">
+      <span class="cm-card-emoji">🔥</span>
+      <h3 class="cm-card-title">挑戦する仲間と出会う</h3>
+      <p class="cm-card-body">同じ熱量を持つ人が集まる場所。あなたの挑戦が、誰かの挑戦を生む。</p>
+    </div>
+    <div class="cm-card">
+      <span class="cm-card-emoji">🌱</span>
+      <h3 class="cm-card-title">学び合い、成長する</h3>
+      <p class="cm-card-body">教える人が最も学ぶ。コミュニティの中で学びは循環し、全員が育つ。</p>
+    </div>
+    <div class="cm-card">
+      <span class="cm-card-emoji">🚀</span>
+      <h3 class="cm-card-title">ともに、先へ進む</h3>
+      <p class="cm-card-body">一人では遠くに行けない。仲間と進めば、想像を超えた場所へたどり着ける。</p>
+    </div>
+  </div>
+
+  <!-- 案C: 未来タイムライン -->
+  <div class="ft-timeline">
+    <div class="section-header" style="margin-bottom:3rem">
+      <div class="section-eyebrow">Future Vision</div>
+      <h2 class="section-title">AI×人間が創る、<em>新しい未来</em></h2>
+    </div>
+    <div class="ft-item">
+      <div><div class="ft-dot"></div></div>
+      <div>
+        <div class="ft-label">Phase 01 — Now</div>
+        <h3 class="ft-title">AIの民主化：誰もが使える時代へ</h3>
+        <p class="ft-body">ChatGPTをはじめとするAIツールが急速に普及。しかし使いこなせているのはまだ一握り。らいとすぴりっつは、この格差を埋める。</p>
+      </div>
+    </div>
+    <div class="ft-item">
+      <div><div class="ft-dot"></div></div>
+      <div>
+        <div class="ft-label">Phase 02 — Near Future</div>
+        <h3 class="ft-title">AIエージェントが日常に溶け込む時代</h3>
+        <p class="ft-body">単純作業はAIへ。人間は創造と意思決定に集中する。その移行を支援するのが、私たちの役割。</p>
+      </div>
+    </div>
+    <div class="ft-item">
+      <div><div class="ft-dot"></div></div>
+      <div>
+        <div class="ft-label">Phase 03 — Vision</div>
+        <h3 class="ft-title">人間の可能性が最大化される世界</h3>
+        <p class="ft-body">技術が人の足を引っ張るのではなく、翼になる世界。らいとすぴりっつはその世界を、一人ひとりの魂に火を灯すことで実現する。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  SPOTLIGHT — キャッチコピー大見出し
+  ============================================================ -->
+<section id="spotlight">
+  <div class="spotlight-glow"></div>
+  <p class="spotlight-text">
+    「楽しい」が、<em>世界を変える。</em>
+  </p>
+  <p class="spotlight-sub">
+    楽しさは甘えではない。<br>
+    楽しさこそが挑戦を生み、学びを生み、<br>
+    やがて大きな価値になる。
+  </p>
+  <a href="#cta" class="btn-primary">私たちと話す</a>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  DIRECTION — デザイン方向性
+  ============================================================ -->
+<section id="direction">
+  <div class="section-header">
+    <div class="section-eyebrow">Design Direction</div>
+    <h2 class="section-title">デザインの<em>思想</em></h2>
+    <p class="section-lead">Apple の美しさ、TED の思想性、OpenAI の未来感。しかし、冷たくない。人間味と温かさを感じるブランドビジュアル。</p>
+  </div>
+  <div class="direction-grid">
+    <div class="dir-col">
+      <div class="dir-block">
+        <div class="dir-block-title">配色</div>
+        <div class="dir-palette">
+          <div class="swatch swatch-main">#070707</div>
+          <div class="swatch swatch-g1">#C8A84A</div>
+          <div class="swatch swatch-g2">#E6CA78</div>
+          <div class="swatch swatch-g3">#7A6428</div>
+          <div class="swatch swatch-off">#F2EDE4</div>
+          <div class="swatch swatch-muted">#5C5650</div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--fg2);line-height:1.9;margin-top:0.75rem">
+          深い黒をベースに、金の光のグラデーションをアクセントとして使用。<br>
+          「暗闇の中に灯る炎」を視覚的に表現する。
+        </p>
+      </div>
+      <div class="dir-block">
+        <div class="dir-block-title">写真・ビジュアルイメージ</div>
+        <div class="dir-image-list">
+          <div class="dir-image-item"><span class="dir-image-icon">🌟</span>暗闇に小さく灯る炎・キャンドル</div>
+          <div class="dir-image-item"><span class="dir-image-icon">👥</span>人々が集まり語り合うシルエット</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🤲</span>手と手が触れ合う瞬間のクローズアップ</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🌅</span>夜明けの空、光が射し込む瞬間</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🧠</span>抽象的な光の粒子が集まるビジュアル</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🔬</span>モノクロ×金のトーンで統一</div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-col">
+      <div class="dir-block">
+        <div class="dir-block-title">フォント構成</div>
+        <div class="dir-font-list">
+          <div class="dir-font-item">
+            <div class="dir-font-name">Display — Cormorant Garamond</div>
+            <div class="dir-font-sample sample-serif">Light the Spirits within.</div>
+          </div>
+          <div class="dir-font-item">
+            <div class="dir-font-name">日本語見出し — 游明朝 / Shippori Mincho</div>
+            <div class="dir-font-sample sample-mincho">人の魂に、火を灯す。</div>
+          </div>
+          <div class="dir-font-item">
+            <div class="dir-font-name">UI — Space Grotesk</div>
+            <div class="dir-font-sample sample-sans">LIGHT SPIRITS / Brand Design</div>
+          </div>
+          <div class="dir-font-item">
+            <div class="dir-font-name">本文 — Noto Sans JP</div>
+            <div class="dir-font-sample sample-body">楽しんだ者こそが、最終的に大きな価値を創造する。</div>
+          </div>
+          <div class="dir-font-item">
+            <div class="dir-font-name">Label — Space Mono</div>
+            <div class="dir-font-sample sample-mono">BRAND CONCEPT // 01</div>
+          </div>
+        </div>
+      </div>
+      <div class="dir-block">
+        <div class="dir-block-title">デザインの指針</div>
+        <div class="dir-image-list">
+          <div class="dir-image-item"><span class="dir-image-icon">🍎</span>Appleの美しさ：余白・シンプル・完璧な細部</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🎤</span>TEDの思想性：問いかけ・感情・世界観</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🤖</span>OpenAIの未来感：先進性・静謐さ・知性</div>
+          <div class="dir-image-item"><span class="dir-image-icon">🔥</span>らいとすぴりっつ独自：温かさ・炎・人間味</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  VERDICT — 最終提言
+  ============================================================ -->
+<section id="verdict">
+  <div class="verdict-inner">
+    <div class="verdict-title">// Final Recommendation</div>
+    <h2 class="verdict-heading">
+      最も「らいとすぴりっつらしい」のは、<br>
+      <em>案A：理念重視「魂の声」</em>です。
+    </h2>
+    <div class="verdict-body">
+      <p>
+        <strong>理由①：「理念」こそが最大の差別化武器だから。</strong><br>
+        AI支援企業が乱立する中で、らいとすぴりっつが唯一持っているのが「楽しんだ者＝価値」「魂に火を灯す」という深い哲学です。この理念を前面に出すことこそが、最も強い競合優位性を生みます。
+      </p>
+      <p>
+        <strong>理由②：代表・もりけんさんのキャラクターと一致するから。</strong><br>
+        オレンジの髪、白い眼鏡、イベントで熱く語る姿。「楽しさ」と「熱量」を体現する人物が代表である以上、その人格をブランドに反映するのが最も自然。Cormorant Garamond×明朝体の組み合わせは、エネルギーと知性の両立を表現します。
+      </p>
+      <p>
+        <strong>理由③：TED×Apple×OpenAIの融合が最も映えるから。</strong><br>
+        セリフ体（明朝）の格調とゴシックの現代性を組み合わせることで、「思想性の深さ」と「未来への先進性」が同時に表現できます。案B・Cは親しみやすいが、「高みを目指す人の魂に火を灯す」企業としての重みが少し薄れます。
+      </p>
+      <p>
+        <strong>ただし——</strong><br>
+        案Bの「コミュニティの温かさ」は、採用・研修ページで取り入れる。案Cの「未来タイムライン」は、AIサービスページで使う。<em>メインを案Aにしつつ、ページごとにB・Cの要素を混ぜ込む</em>ハイブリッド設計が最終的な最適解です。
+      </p>
+      <div class="verdict-badge">
+        <span class="verdict-badge-icon">🏆</span>
+        <div>
+          <span class="verdict-badge-text">推奨案：A「魂の声」ベース × B・C要素をハイブリッド</span>
+          <span class="verdict-badge-sub">RECOMMENDED DIRECTION</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+  CTA
+  ============================================================ -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-label">Contact</div>
+  <h2 class="cta-heading">
+    あなたの魂に、<em>火を灯しましょう。</em>
+  </h2>
+  <p class="cta-sub">
+    まずは話すことから始まります。<br>
+    アイデアの種でも、漠然とした想いでも。<br>
+    らいとすぴりっつは、ともに走ります。
+  </p>
+  <div class="cta-btns">
+    <a href="mailto:kuromoriken@gmail.com" class="btn-primary">メールで相談する</a>
+    <a href="https://x.com/kuromoriken" class="btn-ghost" target="_blank" rel="noopener">𝕏 でつながる</a>
+  </div>
+  <p class="cta-note">まずは気軽にどうぞ。返信は必ずします。</p>
+</section>
+
+<!-- ============================================================
+  FOOTER
+  ============================================================ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <span class="footer-logo-text">らいとすぴりっつ</span>
+      <span class="footer-logo-sub">LIGHT SPIRITS</span>
+      <p class="footer-tagline">
+        対話とテクノロジーで、<br>
+        人の魂に火を灯す。
+      </p>
+    </div>
+    <div>
+      <p class="footer-col-title">Philosophy</p>
+      <ul class="footer-links">
+        <li><a href="#statement">ブランドコンセプト</a></li>
+        <li><a href="#pillars">2つの理念</a></li>
+        <li><a href="#story">ブランドストーリー</a></li>
+        <li><a href="#verdict">テーマ提言</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Services</p>
+      <ul class="footer-links">
+        <li><a href="#services">AI活用支援</a></li>
+        <li><a href="#services">ChatGPT活用</a></li>
+        <li><a href="#services">AIエージェント</a></li>
+        <li><a href="#services">教育・研修</a></li>
+        <li><a href="#services">コミュニティ</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <ul class="footer-links">
+        <li><a href="mailto:kuromoriken@gmail.com">kuromoriken@gmail.com</a></li>
+        <li><a href="https://x.com/kuromoriken" target="_blank" rel="noopener">𝕏 @kuromoriken</a></li>
+        <li><a href="#cta">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 らいとすぴりっつ / LIGHT SPIRITS. All Rights Reserved.</p>
+    <ul class="footer-policy">
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">サイトポリシー</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- ============================================================
+  JS: テーマ切り替え
+  ============================================================ -->
+<script>
+const html = document.documentElement;
+const panel = document.getElementById('sw-panel');
+const toggle = document.getElementById('sw-toggle');
+const btns = document.querySelectorAll('.sw-btn');
+
+toggle.addEventListener('click', e => { e.stopPropagation(); panel.classList.toggle('open'); });
+document.addEventListener('click', () => panel.classList.remove('open'));
+panel.addEventListener('click', e => e.stopPropagation());
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  btns.forEach(b => b.classList.toggle('active', b.dataset.t === t));
+  localStorage.setItem('ls-brand-theme', t);
+
+  // ヒーロータイトル切り替え
+  const map = { philosophy: 'htitle-a', community: 'htitle-b', future: 'htitle-c' };
+  ['htitle-a','htitle-b','htitle-c'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  document.getElementById(map[t]).style.display = 'block';
+
+  // ヒーロー背景文字
+  const bgMap = { philosophy: 'LIGHT', community: 'FLAME', future: 'FUTURE' };
+  document.getElementById('hbg-a').textContent = bgMap[t];
+
+  // スポットライトコピー切り替え
+  const spMap = {
+    philosophy: '「楽しい」が、<em>世界を変える。</em>',
+    community:  '仲間と燃えれば、<em>遠くへ行ける。</em>',
+    future:     'AIと人間が共に創る、<em>新しい可能性。</em>'
+  };
+  document.querySelector('.spotlight-text').innerHTML = spMap[t];
+
+  // CTAコピー切り替え
+  const ctaMap = {
+    philosophy: 'あなたの魂に、<em>火を灯しましょう。</em>',
+    community:  '一緒に、<em>燃えましょう。</em>',
+    future:     'AIと人間の共創を、<em>ともに始めましょう。</em>'
+  };
+  document.querySelector('.cta-heading').innerHTML = ctaMap[t];
+}
+
+btns.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.t)));
+
+// 初期化
+const saved = localStorage.getItem('ls-brand-theme') || 'philosophy';
+applyTheme(saved);
+</script>
+</body>
+</html>

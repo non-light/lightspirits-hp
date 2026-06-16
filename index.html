@@ -964,6 +964,11 @@ footer{
 .footer-bottom-links a{font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
 .footer-bottom-links a:hover{color:var(--gold)}
 
+/* ===== AUDIENCE CONTENT SWITCHING ===== */
+.for-general, .for-corporate { display: none; }
+[data-theme="general"]   .for-general   { display: block; }
+[data-theme="corporate"] .for-corporate { display: block; }
+
 /* ===== GENERAL THEME (一般・個人向け) ===== */
 :root[data-theme="general"] {
   --gold:       #0284C7;
@@ -1105,20 +1110,42 @@ footer{
 <section id="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-left">
-    <p class="hero-eyebrow">AI × ロボット × 教育</p>
-    <h1 class="hero-title">
-      <span class="accent">魂</span>に<br>
-      火を灯す
-    </h1>
-    <p class="hero-title-jp">人とAIとロボットの成長を、対話を通じて目指す</p>
-    <p class="hero-sub">
-      AIは道具。ロボットは表現。教育は火種。<br>
-      らいとすぴりっつは、あなたの可能性に<br>
-      火を灯すパートナーです。
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn-gold">プロジェクトを相談する</a>
-      <a href="#works" class="btn-outline">実績を見る</a>
+    <!-- 一般向け -->
+    <div class="for-general">
+      <p class="hero-eyebrow">ゲーム × 学び × テクノロジー</p>
+      <h1 class="hero-title">
+        <span class="accent">楽しさ</span>から、<br>
+        可能性が<br>
+        広がる
+      </h1>
+      <p class="hero-title-jp">あなたの知的好奇心に、火を灯す</p>
+      <p class="hero-sub">
+        ゲームで遊び、学び、つくる。<br>
+        らいとすぴりっつは、「楽しい」を起点に<br>
+        あなたの可能性を広げるパートナーです。
+      </p>
+      <div class="hero-cta">
+        <a href="#works" class="btn-gold">作品を見る・遊ぶ</a>
+        <a href="#contact" class="btn-outline">一緒につくる</a>
+      </div>
+    </div>
+    <!-- 企業向け -->
+    <div class="for-corporate">
+      <p class="hero-eyebrow">AI × ロボット × 教育</p>
+      <h1 class="hero-title">
+        <span class="accent">魂</span>に<br>
+        火を灯す
+      </h1>
+      <p class="hero-title-jp">人とAIとロボットの成長を、対話を通じて目指す</p>
+      <p class="hero-sub">
+        AIは道具。ロボットは表現。教育は火種。<br>
+        らいとすぴりっつは、あなたの可能性に<br>
+        火を灯すパートナーです。
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-gold">プロジェクトを相談する</a>
+        <a href="#works" class="btn-outline">実績を見る</a>
+      </div>
     </div>
   </div>
   <div class="hero-right">
@@ -1229,48 +1256,75 @@ footer{
     <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
   </div>
 
-  <div class="services-grid" id="servicesGrid">
-    <div class="service-card">
-      <p class="service-num">SVC — 01</p>
-      <h3 class="service-name-en">Robot Manufacturing</h3>
-      <p class="service-name-jp">ロボット制作</p>
-      <p class="service-desc">機構設計から組み込みソフトウェア・制御システムまで。人の想いを、動く形に変えます。小型〜中型ロボットの企画・試作・製作に対応します。</p>
+  <!-- 一般向けサービス -->
+  <div class="for-general">
+    <div class="services-grid">
+      <div class="service-card">
+        <p class="service-num">SVC — 01</p>
+        <h3 class="service-name-en">Game Development</h3>
+        <p class="service-name-jp">ゲーム開発</p>
+        <p class="service-desc">ブラウザで気軽に遊べるオリジナルゲームを企画・開発。「楽しい」を入り口に、新しい体験と挑戦のきっかけをつくります。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 02</p>
+        <h3 class="service-name-en">Web Development</h3>
+        <p class="service-name-jp">Webサイト制作（個人向け）</p>
+        <p class="service-desc">個人・フリーランス・小規模活動向けのWebサイト制作。あなたの活動や想いを、丁寧にかたちにします。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 03</p>
+        <h3 class="service-name-en">Learning Support</h3>
+        <p class="service-name-jp">学習・教育支援</p>
+        <p class="service-desc">AIやプログラミングを楽しく学べるワークショップ・コンテンツ制作。「できた！」という体験を、一人ひとりに届けます。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 04</p>
+        <h3 class="service-name-en">Collaboration</h3>
+        <p class="service-name-jp">クリエイター協業</p>
+        <p class="service-desc">「一緒に何か作りたい」を歓迎します。ゲーム・Web・AI・ロボットが交わるアイデアなら、なんでもご相談ください。</p>
+      </div>
     </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 02</p>
-      <h3 class="service-name-en">AI Implementation</h3>
-      <p class="service-name-jp">AI活用支援</p>
-      <p class="service-desc">ChatGPT導入・AIエージェント構築・業務自動化まで。AIを「道具」として使いこなし、人が本来持つ可能性を解放します。</p>
-    </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 03</p>
-      <h3 class="service-name-en">Education &amp; Training</h3>
-      <p class="service-name-jp">研修・教育支援</p>
-      <p class="service-desc">AI・DXリテラシー向上のための研修・ワークショップを提供。楽しさを起点に、挑戦者の火種をつくります。コミュニティ運営も支援します。</p>
-    </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 04</p>
-      <h3 class="service-name-en">DX &amp; Transformation</h3>
-      <p class="service-name-jp">DX推進・伴走支援</p>
-      <p class="service-desc">ツール導入から業務フロー改革まで。現場に寄り添いながら「人とAIとロボットの共成長」を実現する組織づくりをサポートします。</p>
-    </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 05</p>
-      <h3 class="service-name-en">Web Development</h3>
-      <p class="service-name-jp">Webサイト制作</p>
-      <p class="service-desc">個人から中小企業まで。あなたのビジョンと価値を、丁寧にかたちにします。</p>
-    </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 06</p>
-      <h3 class="service-name-en">Game Development</h3>
-      <p class="service-name-jp">ゲーム開発</p>
-      <p class="service-desc">ブラウザで遊べるオリジナルゲームを企画・開発。楽しさを入り口に、新しい体験と挑戦のきっかけをつくります。</p>
-    </div>
-    <div class="service-card">
-      <p class="service-num">SVC — 07</p>
-      <h3 class="service-name-en">Collaboration</h3>
-      <p class="service-name-jp">コラボレーション</p>
-      <p class="service-desc">取材・共同制作・技術監修など、柔軟にご相談ください。AI・ロボット・教育が交差するプロジェクトを歓迎します。</p>
+  </div>
+
+  <!-- 企業向けサービス -->
+  <div class="for-corporate">
+    <div class="services-grid">
+      <div class="service-card">
+        <p class="service-num">SVC — 01</p>
+        <h3 class="service-name-en">Robot Manufacturing</h3>
+        <p class="service-name-jp">ロボット制作</p>
+        <p class="service-desc">機構設計から組み込みソフトウェア・制御システムまで。人の想いを、動く形に変えます。小型〜中型ロボットの企画・試作・製作に対応します。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 02</p>
+        <h3 class="service-name-en">AI Implementation</h3>
+        <p class="service-name-jp">AI活用支援</p>
+        <p class="service-desc">ChatGPT導入・AIエージェント構築・業務自動化まで。AIを「道具」として使いこなし、人が本来持つ可能性を解放します。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 03</p>
+        <h3 class="service-name-en">DX &amp; Transformation</h3>
+        <p class="service-name-jp">DX推進・伴走支援</p>
+        <p class="service-desc">ツール導入から業務フロー改革まで。現場に寄り添いながら「人とAIとロボットの共成長」を実現する組織づくりをサポートします。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 04</p>
+        <h3 class="service-name-en">Education &amp; Training</h3>
+        <p class="service-name-jp">研修・教育支援</p>
+        <p class="service-desc">AI・DXリテラシー向上のための研修・ワークショップを提供。楽しさを起点に、挑戦者の火種をつくります。コミュニティ運営も支援します。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 05</p>
+        <h3 class="service-name-en">Web Development</h3>
+        <p class="service-name-jp">Webサイト制作（法人向け）</p>
+        <p class="service-desc">中小企業・スタートアップ向けのWebサイト制作。ブランドの価値と戦略を、丁寧にかたちにします。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 06</p>
+        <h3 class="service-name-en">Collaboration &amp; Advisory</h3>
+        <p class="service-name-jp">コラボレーション・技術監修</p>
+        <p class="service-desc">取材・共同制作・技術監修など、柔軟にご相談ください。AI・ロボット・教育が交差するプロジェクトを歓迎します。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1284,31 +1338,64 @@ footer{
     <h2 class="sec-en">Our <span class="accent">Works</span></h2>
     <span class="sec-jp">制作実績</span>
   </div>
-  <div class="works-grid">
-    <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
-      <div class="work-thumb">♟</div>
-      <div class="work-info">
-        <p class="work-tag">Game</p>
-        <p class="work-title">召喚将棋</p>
-        <p class="work-desc">将棋をベースにした対戦ゲーム。駒を「召喚」する独自ルールで、従来の将棋とは異なる戦略性を楽しめます。</p>
-      </div>
-    </a>
-    <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
-      <div class="work-thumb">🧱</div>
-      <div class="work-info">
-        <p class="work-tag">Game</p>
-        <p class="work-title">BreakBlockBuild</p>
-        <p class="work-desc">ブロックを壊し、積み上げ、新たな構造物を築くブラウザアクションゲーム。</p>
-      </div>
-    </a>
-    <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
-      <div class="work-thumb">🚀</div>
-      <div class="work-info">
-        <p class="work-tag">Web Service</p>
-        <p class="work-title">SNS Antigravity</p>
-        <p class="work-desc">重力に逆らう自由なコミュニケーションの場を目指した独自開発のSNSプラットフォーム。</p>
-      </div>
-    </a>
+  <!-- 一般向け実績 -->
+  <div class="for-general">
+    <div class="works-grid">
+      <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">♟</div>
+        <div class="work-info">
+          <p class="work-tag">Game</p>
+          <p class="work-title">召喚将棋</p>
+          <p class="work-desc">駒を「召喚」する独自ルールのブラウザ将棋ゲーム。将棋未経験者でも楽しめる新感覚の対戦体験。</p>
+        </div>
+      </a>
+      <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">🧱</div>
+        <div class="work-info">
+          <p class="work-tag">Game</p>
+          <p class="work-title">BreakBlockBuild</p>
+          <p class="work-desc">ブロックを壊し、積み上げ、新たな世界をつくるブラウザアクションゲーム。直感的な操作で誰でも楽しめます。</p>
+        </div>
+      </a>
+      <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">🚀</div>
+        <div class="work-info">
+          <p class="work-tag">Web Service</p>
+          <p class="work-title">SNS Antigravity</p>
+          <p class="work-desc">重力に逆らう自由なコミュニケーションの場。独自開発のSNSプラットフォームで、新しいつながりを体験。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 企業向け実績 -->
+  <div class="for-corporate">
+    <div class="works-grid">
+      <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">🚀</div>
+        <div class="work-info">
+          <p class="work-tag">Web Service</p>
+          <p class="work-title">SNS Antigravity</p>
+          <p class="work-desc">フルスクラッチで開発したWebサービス。フロントエンド〜バックエンド・インフラまで一貫開発した実績。</p>
+        </div>
+      </a>
+      <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">♟</div>
+        <div class="work-info">
+          <p class="work-tag">Game Dev</p>
+          <p class="work-title">召喚将棋</p>
+          <p class="work-desc">ゲームロジック設計からUI実装まで、独自ルールを持つインタラクティブコンテンツの開発実績。</p>
+        </div>
+      </a>
+      <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
+        <div class="work-thumb">🧱</div>
+        <div class="work-info">
+          <p class="work-tag">Interactive</p>
+          <p class="work-title">BreakBlockBuild</p>
+          <p class="work-desc">リアルタイム処理・物理演算を含むインタラクティブ体験の設計・実装。エンゲージメント向上に貢献。</p>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1465,16 +1552,31 @@ footer{
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ項目</label>
-        <select class="form-select">
-          <option value="">選択してください</option>
-          <option>ロボット制作のご依頼</option>
-          <option>Webサイト制作のご依頼</option>
-          <option>ゲーム開発のご相談</option>
-          <option>デジタル化支援のご相談</option>
-          <option>YUiプロジェクトについて</option>
-          <option>取材・コラボレーション</option>
-          <option>その他</option>
-        </select>
+        <!-- 一般向け -->
+        <div class="for-general">
+          <select class="form-select">
+            <option value="">選択してください</option>
+            <option>ゲームのご相談・フィードバック</option>
+            <option>Webサイト制作のご依頼（個人）</option>
+            <option>学習・教育についてのご相談</option>
+            <option>コラボ・共同制作のご提案</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <!-- 企業向け -->
+        <div class="for-corporate">
+          <select class="form-select">
+            <option value="">選択してください</option>
+            <option>ロボット制作のご依頼</option>
+            <option>AI活用支援のご相談</option>
+            <option>DX推進・伴走支援のご相談</option>
+            <option>研修・教育支援のご相談</option>
+            <option>Webサイト制作のご依頼（法人）</option>
+            <option>YUiプロジェクトについて</option>
+            <option>取材・コラボレーション</option>
+            <option>その他</option>
+          </select>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ内容</label>

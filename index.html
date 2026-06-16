@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="general">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -958,6 +958,68 @@ footer{
 .footer-bottom-links a{font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
 .footer-bottom-links a:hover{color:var(--gold)}
 
+/* ===== GENERAL THEME (一般・個人向け) ===== */
+:root[data-theme="general"] {
+  --gold:       #0284C7;
+  --gold-light: #0EA5E9;
+  --gold-dim:   #0369A1;
+  --black:   #FFFFFF;
+  --black-2: #F0F9FF;
+  --black-3: #E5F4FD;
+  --black-4: #CCE8F8;
+  --white:   #0C3A56;
+  --muted:   rgba(12,58,86,0.62);
+  --border:  #BFD9EF;
+}
+[data-theme="general"] body::before { opacity: 0; }
+[data-theme="general"] nav {
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.07);
+  border-bottom-color: #D0E8F5;
+}
+[data-theme="general"] .mega {
+  background: rgba(255,255,255,0.99);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+}
+[data-theme="general"] .ticker { background: #EAF5FD; }
+[data-theme="general"] .hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(2,132,199,0.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(2,132,199,0.045) 1px,transparent 1px);
+}
+[data-theme="general"] .hero-right { background: #EAF5FD; }
+[data-theme="general"] .hero-right-glow {
+  background: radial-gradient(ellipse 70% 60% at 50% 50%,rgba(2,132,199,0.09),transparent);
+}
+[data-theme="general"] .hero-right-symbol { color: rgba(2,132,199,0.13); }
+[data-theme="general"] .about-profile { background: #E5F4FD; }
+[data-theme="general"] .profile-avatar,
+[data-theme="general"] .founder-avatar {
+  background: linear-gradient(135deg,#7DD3FC,#0284C7);
+}
+[data-theme="general"] .tab-btn.active { background: rgba(2,132,199,0.09); }
+[data-theme="general"] .avatar-overlay { background: rgba(240,249,255,0.9); }
+[data-theme="general"] .avatar-bubble {
+  background: #FFFFFF;
+  border-color: #BFD9EF;
+  border-top-color: #0284C7;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.1);
+}
+[data-theme="general"] .bubble-msg { background: rgba(2,132,199,0.06); }
+[data-theme="general"] .yui-bg {
+  background: radial-gradient(ellipse 80% 70% at 50% 90%,rgba(2,132,199,0.07),transparent);
+}
+[data-theme="general"] .blog-card.featured { border-left-color: #0284C7; }
+[data-theme="general"] .work-card { box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
+[data-theme="general"] .divider {
+  background: linear-gradient(90deg,transparent,#BFD9EF,transparent);
+}
+[data-theme="general"] .btn-gold { background: #0284C7; color: #fff; }
+[data-theme="general"] .btn-gold:hover { background: #0EA5E9; }
+[data-theme="general"] .nav-contact-btn { background: #0284C7; color: #fff; }
+[data-theme="general"] .nav-contact-btn:hover { background: #0EA5E9; }
+[data-theme="general"] .avatar-bubble-close { color: #0C3A56; }
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -1154,58 +1216,49 @@ footer{
   <!-- タブ切り替え -->
   <div class="tab-switcher">
     <span class="tab-label">VIEW</span>
-    <button class="tab-btn active" data-tab="all">All</button>
-    <div class="tab-divider"></div>
-    <button class="tab-btn" data-tab="general">一般・個人向け</button>
+    <button class="tab-btn active" data-tab="general">一般・個人向け</button>
     <div class="tab-divider"></div>
     <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
   </div>
 
   <div class="services-grid" id="servicesGrid">
-    <div class="service-card" data-audience="corporate">
-      <p class="service-badge">For Business</p>
+    <div class="service-card">
       <p class="service-num">SVC — 01</p>
       <h3 class="service-name-en">Robot Manufacturing</h3>
       <p class="service-name-jp">ロボット制作</p>
       <p class="service-desc">機構設計から組み込みソフトウェア・制御システムまで。人の想いを、動く形に変えます。小型〜中型ロボットの企画・試作・製作に対応します。</p>
     </div>
-    <div class="service-card" data-audience="corporate">
-      <p class="service-badge">For Business</p>
+    <div class="service-card">
       <p class="service-num">SVC — 02</p>
       <h3 class="service-name-en">AI Implementation</h3>
       <p class="service-name-jp">AI活用支援</p>
       <p class="service-desc">ChatGPT導入・AIエージェント構築・業務自動化まで。AIを「道具」として使いこなし、人が本来持つ可能性を解放します。</p>
     </div>
-    <div class="service-card" data-audience="both">
-      <p class="service-badge">For All</p>
+    <div class="service-card">
       <p class="service-num">SVC — 03</p>
       <h3 class="service-name-en">Education &amp; Training</h3>
       <p class="service-name-jp">研修・教育支援</p>
       <p class="service-desc">AI・DXリテラシー向上のための研修・ワークショップを提供。楽しさを起点に、挑戦者の火種をつくります。コミュニティ運営も支援します。</p>
     </div>
-    <div class="service-card" data-audience="corporate">
-      <p class="service-badge">For Business</p>
+    <div class="service-card">
       <p class="service-num">SVC — 04</p>
       <h3 class="service-name-en">DX &amp; Transformation</h3>
       <p class="service-name-jp">DX推進・伴走支援</p>
       <p class="service-desc">ツール導入から業務フロー改革まで。現場に寄り添いながら「人とAIとロボットの共成長」を実現する組織づくりをサポートします。</p>
     </div>
-    <div class="service-card" data-audience="both">
-      <p class="service-badge">For All</p>
+    <div class="service-card">
       <p class="service-num">SVC — 05</p>
       <h3 class="service-name-en">Web Development</h3>
       <p class="service-name-jp">Webサイト制作</p>
       <p class="service-desc">個人から中小企業まで。あなたのビジョンと価値を、丁寧にかたちにします。</p>
     </div>
-    <div class="service-card" data-audience="general">
-      <p class="service-badge">For Individuals</p>
+    <div class="service-card">
       <p class="service-num">SVC — 06</p>
       <h3 class="service-name-en">Game Development</h3>
       <p class="service-name-jp">ゲーム開発</p>
       <p class="service-desc">ブラウザで遊べるオリジナルゲームを企画・開発。楽しさを入り口に、新しい体験と挑戦のきっかけをつくります。</p>
     </div>
-    <div class="service-card" data-audience="both">
-      <p class="service-badge">For All</p>
+    <div class="service-card">
       <p class="service-num">SVC — 07</p>
       <h3 class="service-name-en">Collaboration</h3>
       <p class="service-name-jp">コラボレーション</p>
@@ -1508,33 +1561,14 @@ footer{
   overlay.addEventListener('click', e => { if(e.target===overlay) shut(); });
   document.addEventListener('keydown', e => { if(e.key==='Escape') shut(); });
 
-  // ===== サービス タブ切り替え =====
+  // ===== テーマ切り替え（一般向け ↔ 企業向け）=====
   const tabBtns = document.querySelectorAll('.tab-btn');
-  const cards   = document.querySelectorAll('#servicesGrid .service-card');
-  const grid    = document.getElementById('servicesGrid');
-
-  function switchTab(tab) {
-    // ボタンのアクティブ状態
-    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-
-    // カードの表示・非表示
-    cards.forEach(card => {
-      const audience = card.dataset.audience; // 'general' | 'corporate' | 'both'
-      const show =
-        tab === 'all' ||
-        audience === 'both' ||
-        (tab === 'general'   && (audience === 'general'   || audience === 'both')) ||
-        (tab === 'corporate' && (audience === 'corporate' || audience === 'both'));
-      card.classList.toggle('hidden', !show);
-    });
-
-    // グリッドの境界線を再描画（非表示カードで隙間が出ないよう）
-    const visible = [...cards].filter(c => !c.classList.contains('hidden'));
-    grid.style.gridTemplateColumns = visible.length <= 2 ? 'repeat(2,1fr)' : 'repeat(3,1fr)';
-  }
 
   tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+      document.documentElement.dataset.theme = btn.dataset.tab;
+    });
   });
 })();
 </script>

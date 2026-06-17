@@ -1201,6 +1201,109 @@ footer{
   color: rgba(2,132,199,0.75); letter-spacing: 0.04em;
 }
 
+/* ===== GENERAL THEME — 文字色修正 & かわいいデザイン ===== */
+
+/* 文字色修正: ハードコードされた薄いクリーム色を上書き */
+[data-theme="general"] .hero-title-jp   { color: #1e3a5f; }
+[data-theme="general"] .hero-sub        { color: #374151; }
+[data-theme="general"] .about-text p    { color: #1f2937; }
+[data-theme="general"] .founder-bio p   { color: #1f2937; }
+[data-theme="general"] .bubble-p        { color: #1f2937; }
+[data-theme="general"] .bubble-list li  { color: #374151; }
+[data-theme="general"] .news-title      { color: #1f2937; }
+[data-theme="general"] .yui-title-jp    { color: #374151; }
+[data-theme="general"] .yui-sub         { color: #374151; }
+[data-theme="general"] .about-card-desc { color: #374151; }
+[data-theme="general"] .service-desc    { color: #374151; }
+[data-theme="general"] .work-desc       { color: #374151; }
+[data-theme="general"] .contact-lead    { color: #374151; }
+[data-theme="general"] .footer-links-list a { color: #374151; }
+[data-theme="general"] .footer-copy     { color: #374151; }
+[data-theme="general"] .blog-title      { color: #1f2937; }
+[data-theme="general"] .blog-arrow      { color: #6B7280; }
+[data-theme="general"] .founder-name    { color: #0C3A56; }
+[data-theme="general"] .founder-name-en { color: #374151; }
+[data-theme="general"] .bubble-name     { color: #0C3A56; }
+[data-theme="general"] .bubble-msg      { color: #1f2937; }
+
+/* Hero — グラデーション背景 */
+[data-theme="general"] #hero {
+  background: linear-gradient(140deg, #EFF6FF 0%, #F0F9FF 50%, #FFF7ED 100%);
+}
+[data-theme="general"] .hero-right {
+  background: linear-gradient(145deg, #DBEAFE, #E0F2FE, #F0FDFA);
+  border-left: none;
+}
+
+/* アクセント文字 — グラデーション */
+[data-theme="general"] .hero-title .accent {
+  background: linear-gradient(90deg, #2563EB, #0EA5E9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ボタン — グラデーション */
+[data-theme="general"] .btn-gold {
+  background: linear-gradient(135deg, #0284C7, #38BDF8);
+  box-shadow: 0 4px 20px rgba(2,132,199,0.3);
+  color: #fff;
+}
+[data-theme="general"] .btn-gold:hover {
+  background: linear-gradient(135deg, #0369A1, #0284C7);
+  box-shadow: 0 8px 28px rgba(2,132,199,0.4);
+}
+[data-theme="general"] .nav-contact-btn {
+  background: linear-gradient(135deg, #0284C7, #38BDF8);
+  color: #fff;
+}
+[data-theme="general"] .nav-contact-btn:hover {
+  background: linear-gradient(135deg, #0369A1, #0284C7);
+}
+
+/* サービスアイコン — かわいい丸バッジ */
+[data-theme="general"] .service-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #DBEAFE, #BAE6FD);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; line-height: 1;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px rgba(2,132,199,0.15);
+}
+
+/* Worksカード — カラフルなサムネイル */
+[data-theme="general"] .work-card:nth-child(1) .work-thumb {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+}
+[data-theme="general"] .work-card:nth-child(2) .work-thumb {
+  background: linear-gradient(135deg, #D1FAE5, #6EE7B7);
+}
+[data-theme="general"] .work-card:nth-child(3) .work-thumb {
+  background: linear-gradient(135deg, #EDE9FE, #C4B5FD);
+}
+
+/* セクション見出し — グラデーションアンダーライン */
+[data-theme="general"] .sec-head {
+  position: relative; padding-bottom: 1.25rem;
+}
+[data-theme="general"] .sec-head::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, #0284C7, #38BDF8);
+  border-radius: 99px;
+}
+
+/* YUiセクション */
+[data-theme="general"] #yui {
+  background: linear-gradient(135deg, #F0F9FF, #EFF6FF, #F5F3FF);
+}
+[data-theme="general"] .yui-title { color: #2563EB; }
+[data-theme="general"] .yui-badge { color: #0284C7; border-color: #BFD9EF; }
+[data-theme="general"] .yui-status { color: #374151; }
+[data-theme="general"] .status-dot { background: #0284C7; }
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}

@@ -1304,6 +1304,34 @@ footer{
 [data-theme="general"] .yui-status { color: #374151; }
 [data-theme="general"] .status-dot { background: #0284C7; }
 
+/* ===== GENERAL THEME — 日本語優先 ===== */
+
+/* nav-en/nav-jp: テーマ別表示切り替え */
+.nav-jp { display: none; }
+[data-theme="general"] .nav-en { display: none; }
+[data-theme="general"] .nav-jp { display: inline; }
+
+/* セクション見出し: 一般向けは日本語を大きく */
+[data-theme="general"] .sec-en { display: none; }
+[data-theme="general"] .sec-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+  font-weight: 700; color: #0C3A56;
+  letter-spacing: 0.02em; line-height: 1.3;
+}
+
+/* サービスカード: 英語サブタイトル非表示、日本語タイトルを強調 */
+[data-theme="general"] .service-name-en { display: none; }
+[data-theme="general"] .service-name-jp {
+  font-size: 1.05rem; font-weight: 700; color: #0C3A56; margin-bottom: 0.75rem;
+}
+
+/* Aboutカード: 英語ラベル非表示、絵文字アイコン表示 */
+.about-card-icon { display: none; }
+[data-theme="general"] .about-card-icon { display: block; font-size: 2rem; margin-bottom: 0.75rem; }
+[data-theme="general"] .about-card-en  { display: none; }
+[data-theme="general"] .about-card-jp  { font-size: 0.95rem; font-weight: 700; color: #0C3A56; }
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -1337,7 +1365,7 @@ footer{
   </a>
   <ul class="nav-center">
     <li>
-      <a href="#about">About Us</a>
+      <a href="#about"><span class="nav-en">About Us</span><span class="nav-jp">について</span></a>
       <div class="mega">
         <div class="mega-label">会社情報</div>
         <a href="#about">らいとすぴりっつについて</a>
@@ -1345,7 +1373,7 @@ footer{
       </div>
     </li>
     <li>
-      <a href="#services">Services</a>
+      <a href="#services"><span class="nav-en">Services</span><span class="nav-jp">サービス</span></a>
       <div class="mega">
         <div class="mega-label">サービス一覧</div>
         <a href="#services">ロボット制作</a>
@@ -1354,13 +1382,13 @@ footer{
         <a href="#services">DX支援</a>
       </div>
     </li>
-    <li><a href="#works">Works</a></li>
+    <li><a href="#works"><span class="nav-en">Works</span><span class="nav-jp">作品</span></a></li>
     <li><a href="#yui">YUi Project</a></li>
-    <li><a href="#blog">LOG</a></li>
+    <li><a href="#blog"><span class="nav-en">LOG</span><span class="nav-jp">ブログ</span></a></li>
   </ul>
   <div class="nav-right">
     <a href="#" class="nav-lang">EN</a>
-    <a href="#contact" class="nav-contact-btn">Contact</a>
+    <a href="#contact" class="nav-contact-btn"><span class="nav-en">Contact</span><span class="nav-jp">お問い合わせ</span></a>
   </div>
 </nav>
 
@@ -1508,21 +1536,25 @@ footer{
     </div>
     <div class="about-cards">
       <div class="about-card">
+        <div class="about-card-icon">🤖</div>
         <p class="about-card-en">Robot</p>
         <p class="about-card-jp">ロボット制作</p>
         <p class="about-card-desc">人の想いを動く形にする。機構設計から制御まで一貫対応</p>
       </div>
       <div class="about-card">
+        <div class="about-card-icon">✨</div>
         <p class="about-card-en">AI</p>
         <p class="about-card-jp">AI活用支援</p>
         <p class="about-card-desc">ChatGPT・AIエージェント導入で、人の可能性を解放する</p>
       </div>
       <div class="about-card">
+        <div class="about-card-icon">📚</div>
         <p class="about-card-en">Edu</p>
         <p class="about-card-jp">研修・教育</p>
         <p class="about-card-desc">挑戦者の火種をつくる。AI・DXリテラシー向上を支援</p>
       </div>
       <div class="about-card">
+        <div class="about-card-icon">💡</div>
         <p class="about-card-en">DX</p>
         <p class="about-card-jp">DX推進・伴走支援</p>
         <p class="about-card-desc">現場と並走しながら、共成長できる組織をつくる</p>
@@ -1641,7 +1673,7 @@ footer{
       <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
         <div class="work-thumb">♟</div>
         <div class="work-info">
-          <p class="work-tag">Game</p>
+          <p class="work-tag">ゲーム</p>
           <p class="work-title">召喚将棋</p>
           <p class="work-desc">駒を「召喚」する独自ルールのブラウザ将棋ゲーム。将棋未経験者でも楽しめる新感覚の対戦体験。</p>
         </div>
@@ -1649,7 +1681,7 @@ footer{
       <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
         <div class="work-thumb">🧱</div>
         <div class="work-info">
-          <p class="work-tag">Game</p>
+          <p class="work-tag">ゲーム</p>
           <p class="work-title">BreakBlockBuild</p>
           <p class="work-desc">ブロックを壊し、積み上げ、新たな世界をつくるブラウザアクションゲーム。直感的な操作で誰でも楽しめます。</p>
         </div>
@@ -1657,7 +1689,7 @@ footer{
       <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
         <div class="work-thumb">🚀</div>
         <div class="work-info">
-          <p class="work-tag">Web Service</p>
+          <p class="work-tag">Webサービス</p>
           <p class="work-title">SNS Antigravity</p>
           <p class="work-desc">重力に逆らう自由なコミュニケーションの場。独自開発のSNSプラットフォームで、新しいつながりを体験。</p>
         </div>
@@ -1702,7 +1734,7 @@ footer{
 <section id="yui">
   <div class="yui-bg"></div>
   <div class="yui-inner">
-    <p class="yui-badge">Special Project</p>
+    <p class="yui-badge"><span class="nav-en">Special Project</span><span class="nav-jp">スペシャルプロジェクト</span></p>
     <h2 class="yui-title">YUi</h2>
     <p class="yui-title-jp">次世代インターフェース研究プロジェクト</p>
     <p class="yui-sub">
@@ -1710,7 +1742,7 @@ footer{
     </p>
     <div class="yui-status">
       <span class="status-dot"></span>
-      CURRENTLY IN DEVELOPMENT
+      <span class="nav-en">CURRENTLY IN DEVELOPMENT</span><span class="nav-jp">開発中</span>
     </div>
   </div>
 </section>
@@ -1783,7 +1815,7 @@ footer{
       <div class="founder-avatar" id="founderAvatar">
         <img src="images/moriken339.jpg" alt="森田健太（もりけん）">
       </div>
-      <p class="founder-avatar-hint">tap to read profile</p>
+      <p class="founder-avatar-hint"><span class="nav-en">tap to read profile</span><span class="nav-jp">プロフィールを見る</span></p>
       <p class="founder-name">森田健太</p>
       <p class="founder-name-en">Kenta Morita / "もりけん"</p>
       <p class="founder-title">Founder &amp; Creator</p>

@@ -1032,6 +1032,175 @@ footer{
 [data-theme="general"] .nav-contact-btn:hover { background: #0EA5E9; }
 [data-theme="general"] .avatar-bubble-close { color: #0C3A56; }
 
+/* ===== GENERAL THEME — フレンドリーデザイン ===== */
+
+/* Ticker hidden */
+[data-theme="general"] .ticker { display: none; }
+[data-theme="general"] #hero   { padding-top: 80px; }
+
+/* Buttons — pill, no angular clip */
+[data-theme="general"] .btn-gold {
+  clip-path: none; border-radius: 50px;
+  box-shadow: 0 4px 16px rgba(2,132,199,0.25); padding: 0.9rem 2.5rem;
+}
+[data-theme="general"] .btn-gold:hover { box-shadow: 0 6px 24px rgba(2,132,199,0.38); }
+[data-theme="general"] .btn-outline {
+  clip-path: none; border-radius: 50px;
+  border-color: #93C5DC; color: #0284C7;
+}
+[data-theme="general"] .btn-outline:hover {
+  background: rgba(2,132,199,0.07); color: #0284C7; border-color: #0284C7;
+}
+[data-theme="general"] .nav-contact-btn { border-radius: 50px; }
+
+/* Eyebrow — pill badge */
+[data-theme="general"] .hero-eyebrow {
+  display: inline-flex; background: rgba(2,132,199,0.1);
+  padding: 0.3rem 1rem; border-radius: 20px; letter-spacing: 0.05em;
+}
+[data-theme="general"] .hero-eyebrow::before { content: ''; }
+[data-theme="general"] .sec-eyebrow {
+  display: inline-block; background: rgba(2,132,199,0.1); color: #0284C7;
+  padding: 0.25rem 0.9rem; border-radius: 20px; letter-spacing: 0.06em; margin-bottom: 1rem;
+}
+[data-theme="general"] .sec-eyebrow::before { content: ''; }
+
+/* Divider — hide harsh lines */
+[data-theme="general"] .divider { display: none; }
+
+/* Section backgrounds — alternating soft */
+[data-theme="general"] #about    { background: #FFFFFF; }
+[data-theme="general"] #services { background: #F0F9FF; }
+[data-theme="general"] #works    { background: #FFFFFF; }
+[data-theme="general"] #yui      { background: #F0F9FF; }
+[data-theme="general"] #blog     { background: #FFFFFF; }
+[data-theme="general"] #founder  { background: #F0F9FF; }
+[data-theme="general"] #contact  { background: #FFFFFF; }
+[data-theme="general"] #news     { background: #FFFFFF; }
+[data-theme="general"] footer    { background: #F0F9FF; border-top-color: #D0E8F5; }
+
+/* About profile */
+[data-theme="general"] .about-profile {
+  background: #F0F9FF; border: none; border-left: none;
+  border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* About cards — rounded & soft */
+[data-theme="general"] .about-cards { gap: 1rem; background: none; border: none; }
+[data-theme="general"] .about-card  {
+  border-radius: 16px; border: 1px solid #E5F4FD;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+[data-theme="general"] .about-card::before { display: none; }
+
+/* Service icon (emoji) */
+.service-icon { display: none; }
+[data-theme="general"] .service-icon {
+  display: block; font-size: 2.4rem; line-height: 1; margin-bottom: 0.75rem;
+}
+[data-theme="general"] .service-num { display: none; }
+
+/* Services grid — no harsh border */
+[data-theme="general"] .services-grid { gap: 1.25rem; background: none; border: none; }
+[data-theme="general"] .service-card {
+  background: #FFFFFF; border-radius: 16px;
+  border: 1px solid #E5F4FD; box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+  transition: box-shadow 0.22s, transform 0.22s;
+}
+[data-theme="general"] .service-card::before { display: none; }
+[data-theme="general"] .service-card:hover {
+  box-shadow: 0 8px 28px rgba(2,132,199,0.15); transform: translateY(-4px); background: #FFFFFF;
+}
+
+/* Works */
+[data-theme="general"] .works-grid { gap: 1.5rem; }
+[data-theme="general"] .work-card {
+  clip-path: none; border-radius: 20px; border: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+[data-theme="general"] .work-card:hover {
+  box-shadow: 0 12px 36px rgba(2,132,199,0.18); transform: translateY(-5px); border-color: transparent;
+}
+[data-theme="general"] .work-thumb {
+  background: linear-gradient(135deg, #EAF5FD, #C8E6F8);
+  border-bottom: none; font-size: 3.5rem; height: 180px;
+}
+
+/* Tab switcher — pill */
+[data-theme="general"] .tab-switcher {
+  border-radius: 50px; overflow: hidden; border: 2px solid #BFD9EF; background: #F0F9FF;
+}
+[data-theme="general"] .tab-label { background: transparent; border-right-color: #BFD9EF; color: rgba(2,132,199,0.65); }
+[data-theme="general"] .tab-btn {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem;
+  letter-spacing: 0.03em; text-transform: none;
+}
+[data-theme="general"] .tab-btn.active { background: #0284C7; color: #FFFFFF; }
+[data-theme="general"] .tab-btn.active::after { display: none; }
+[data-theme="general"] .tab-btn:not(.active):hover { background: rgba(2,132,199,0.08); color: #0284C7; }
+
+/* Blog — rounded cards */
+[data-theme="general"] .blog-grid { background: none; border: none; gap: 1rem; }
+[data-theme="general"] .blog-main { display: flex; flex-direction: column; gap: 1rem; }
+[data-theme="general"] .blog-sub  { gap: 1rem; }
+[data-theme="general"] .blog-card {
+  border-radius: 16px; border: none; border-bottom: none;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.07); background: #FFFFFF;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+[data-theme="general"] .blog-card:hover {
+  box-shadow: 0 8px 24px rgba(2,132,199,0.13); transform: translateY(-2px); background: #FFFFFF;
+}
+[data-theme="general"] .blog-card.featured { border-left: none; border-top: 4px solid #0284C7; padding-left: 2.5rem; }
+
+/* Founder card */
+[data-theme="general"] .founder-card {
+  background: #FFFFFF; border: none; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+
+/* Contact */
+[data-theme="general"] .contact-link { border-radius: 12px; border-color: #C8E6F8; }
+[data-theme="general"] .contact-link:hover { background: #F0F9FF; border-color: #0284C7; color: #0284C7; }
+[data-theme="general"] .form-input,
+[data-theme="general"] .form-select,
+[data-theme="general"] .form-textarea {
+  border-radius: 10px; background: #FAFCFF; border-color: #C8E6F8;
+}
+[data-theme="general"] .form-input:focus,
+[data-theme="general"] .form-select:focus,
+[data-theme="general"] .form-textarea:focus {
+  border-color: #0284C7; box-shadow: 0 0 0 3px rgba(2,132,199,0.1);
+}
+
+/* Avatar popup */
+[data-theme="general"] .avatar-bubble {
+  border-radius: 20px; border: none; box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+}
+
+/* News strip */
+[data-theme="general"] .news-inner {
+  border-radius: 12px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.06); border: none;
+}
+[data-theme="general"] .news-cat { border-radius: 20px; border-color: #BFD9EF; }
+
+/* Hero right — general: personal avatar */
+.hero-right-personal { text-align: center; }
+.hero-personal-avatar {
+  width: 160px; height: 160px; border-radius: 50%; overflow: hidden;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 8px 32px rgba(2,132,199,0.2);
+  border: 5px solid rgba(255,255,255,0.8);
+}
+.hero-personal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.hero-personal-name {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 1.1rem; font-weight: 700;
+  color: #0C3A56; margin-bottom: 0.4rem;
+}
+.hero-personal-tagline {
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem;
+  color: rgba(2,132,199,0.75); letter-spacing: 0.04em;
+}
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -1152,8 +1321,19 @@ footer{
   <div class="hero-right">
     <div class="hero-right-glow"></div>
     <div class="hero-right-inner">
-      <div class="hero-right-symbol">LS</div>
-      <p class="hero-right-label">Light Spirits — Est. 2024</p>
+      <!-- 一般向け -->
+      <div class="for-general hero-right-personal">
+        <div class="hero-personal-avatar">
+          <img src="images/moriken339.jpg" alt="もりけん">
+        </div>
+        <p class="hero-personal-name">もりけん</p>
+        <p class="hero-personal-tagline">ゲーム × 学び × テクノロジー</p>
+      </div>
+      <!-- 企業向け -->
+      <div class="for-corporate">
+        <div class="hero-right-symbol">LS</div>
+        <p class="hero-right-label">Light Spirits — Est. 2024</p>
+      </div>
     </div>
   </div>
   <div class="hero-scroll">
@@ -1200,9 +1380,18 @@ footer{
   </div>
   <div class="about-grid">
     <div class="about-text">
-      <p>らいとすぴりっつの理念は、<strong style="color:var(--gold)">「魂に火を灯す」</strong>。</p>
-      <p>手段は <strong style="color:var(--gold)">AI × ロボット × 教育</strong>。AIは人の可能性を解放する道具、ロボットは人の想いを形にする表現、教育は次の挑戦者の火種です。</p>
-      <p>目指す未来は <strong style="color:var(--gold)">「人とAIとロボットの共成長」</strong>。テクノロジーに使われるのではなく、テクノロジーとともに成長していける社会をつくります。</p>
+      <!-- 一般向け -->
+      <div class="for-general">
+        <p>もりけん（森田健太）は、ゲームと学びとテクノロジーが大好きなクリエイター・エンジニアです。</p>
+        <p>「<strong style="color:var(--gold)">楽しい！</strong>」から生まれる好奇心こそが、一番の成長エンジン。ゲームで遊ぶ、仕組みを知る、自分でつくってみる——そのサイクルが、あなたの可能性をどんどん広げます。</p>
+        <p>らいとすぴりっつは「<strong style="color:var(--gold)">楽しい」を起点</strong>に、あなたの知的好奇心に火を灯すパートナーです。一緒に楽しんで、一緒に成長しましょう！</p>
+      </div>
+      <!-- 企業向け -->
+      <div class="for-corporate">
+        <p>らいとすぴりっつの理念は、<strong style="color:var(--gold)">「魂に火を灯す」</strong>。</p>
+        <p>手段は <strong style="color:var(--gold)">AI × ロボット × 教育</strong>。AIは人の可能性を解放する道具、ロボットは人の想いを形にする表現、教育は次の挑戦者の火種です。</p>
+        <p>目指す未来は <strong style="color:var(--gold)">「人とAIとロボットの共成長」</strong>。テクノロジーに使われるのではなく、テクノロジーとともに成長していける社会をつくります。</p>
+      </div>
       <div class="about-profile">
         <div class="profile-avatar" id="profileAvatar">
           <img src="images/moriken339.jpg" alt="森田健太（もりけん）">
@@ -1261,24 +1450,28 @@ footer{
   <div class="for-general">
     <div class="services-grid">
       <div class="service-card">
+        <div class="service-icon">🎮</div>
         <p class="service-num">SVC — 01</p>
         <h3 class="service-name-en">Game Development</h3>
         <p class="service-name-jp">ゲーム開発</p>
         <p class="service-desc">ブラウザで気軽に遊べるオリジナルゲームを企画・開発。「楽しい」を入り口に、新しい体験と挑戦のきっかけをつくります。</p>
       </div>
       <div class="service-card">
+        <div class="service-icon">🌐</div>
         <p class="service-num">SVC — 02</p>
         <h3 class="service-name-en">Web Development</h3>
         <p class="service-name-jp">Webサイト制作（個人向け）</p>
         <p class="service-desc">個人・フリーランス・小規模活動向けのWebサイト制作。あなたの活動や想いを、丁寧にかたちにします。</p>
       </div>
       <div class="service-card">
+        <div class="service-icon">📚</div>
         <p class="service-num">SVC — 03</p>
         <h3 class="service-name-en">Learning Support</h3>
         <p class="service-name-jp">学習・教育支援</p>
         <p class="service-desc">AIやプログラミングを楽しく学べるワークショップ・コンテンツ制作。「できた！」という体験を、一人ひとりに届けます。</p>
       </div>
       <div class="service-card">
+        <div class="service-icon">🤝</div>
         <p class="service-num">SVC — 04</p>
         <h3 class="service-name-en">Collaboration</h3>
         <p class="service-name-jp">クリエイター協業</p>

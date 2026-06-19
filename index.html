@@ -772,6 +772,24 @@ section{padding:7rem 4rem}
   font-family:'Space Mono',monospace;font-size:0.65rem;
   color:var(--gold-dim);margin-top:1rem;align-self:flex-end;
 }
+.blog-excerpt{
+  font-size:0.82rem;color:var(--muted);line-height:1.65;
+  margin-top:0.5rem;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.note-more-wrap{text-align:center;margin-top:2.5rem}
+.note-more-link{
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.08em;
+  color:var(--gold);border:1px solid var(--gold);
+  padding:0.65rem 2rem;border-radius:4px;text-decoration:none;
+  transition:background 0.2s,color 0.2s;
+}
+.note-more-link:hover{background:var(--gold);color:#0a0a0a}
+.note-loading{
+  padding:3rem;text-align:center;color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;
+}
 
 /* ===== FOUNDER ===== */
 #founder{background:var(--black)}
@@ -2155,48 +2173,11 @@ footer{
     <h2 class="sec-en"><span class="accent">LOG</span></h2>
     <span class="sec-jp">制作ログ・思考の記録</span>
   </div>
-  <div class="blog-grid">
-    <div class="blog-main">
-      <a href="#" class="blog-card featured">
-        <div class="blog-meta">
-          <span class="blog-date">2025.06.01</span>
-          <span class="blog-cat">Robot</span>
-        </div>
-        <h3 class="blog-title">ロボット制作における「意図」の設計——機械に宿らせるべきものとは</h3>
-        <span class="blog-arrow">→ 続きを読む</span>
-      </a>
-      <a href="#" class="blog-card">
-        <div class="blog-meta">
-          <span class="blog-date">2025.05.20</span>
-          <span class="blog-cat">YUi</span>
-        </div>
-        <h3 class="blog-title">YUiプロジェクト、開発スタート——なぜ今このプロジェクトなのか</h3>
-        <span class="blog-arrow">→ 続きを読む</span>
-      </a>
-    </div>
-    <div class="blog-sub">
-      <a href="#" class="blog-card">
-        <div class="blog-meta">
-          <span class="blog-date">2025.05.08</span>
-          <span class="blog-cat">Game Dev</span>
-        </div>
-        <h3 class="blog-title">召喚将棋 v2.0 アップデートの記録</h3>
-      </a>
-      <a href="#" class="blog-card">
-        <div class="blog-meta">
-          <span class="blog-date">2025.04.15</span>
-          <span class="blog-cat">Web</span>
-        </div>
-        <h3 class="blog-title">SNS Antigravity 開発秘話</h3>
-      </a>
-      <a href="#" class="blog-card">
-        <div class="blog-meta">
-          <span class="blog-date">2025.03.20</span>
-          <span class="blog-cat">DX</span>
-        </div>
-        <h3 class="blog-title">小規模事業者のDX、まず何から始めるか</h3>
-      </a>
-    </div>
+  <div class="blog-grid" id="note-feed">
+    <div class="note-loading">LOADING...</div>
+  </div>
+  <div class="note-more-wrap">
+    <a href="https://note.com/morikentiger" target="_blank" rel="noopener noreferrer" class="note-more-link">note.comで全ての記事を読む →</a>
   </div>
 </section>
 
@@ -2591,6 +2572,66 @@ footer{
     <img src="images/moriken.png" alt="もりけん キャラクター">
   </div>
 </div>
+
+<!-- NOTE RSS LOADER -->
+<script>
+(function(){
+  var PROXY = 'https://corsproxy.io/?';
+  var RSS   = 'https://note.com/morikentiger/rss';
+  var container = document.getElementById('note-feed');
+  if (!container) return;
+
+  fetch(PROXY + encodeURIComponent(RSS))
+    .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+    .then(function(text){
+      var xml = new DOMParser().parseFromString(text, 'text/xml');
+      var items = Array.from(xml.getElementsByTagName('item')).slice(0, 6);
+      if (!items.length) throw 0;
+
+      function get(el, tag){ return (el.getElementsByTagName(tag)[0]||{}).textContent||''; }
+
+      var cards = items.map(function(item, i){
+        var title   = get(item,'title').trim();
+        var link    = get(item,'link').trim() || get(item,'guid').trim() || 'https://note.com/morikentiger';
+        var pubDate = get(item,'pubDate');
+        var descHtml= get(item,'description');
+
+        /* 本文から見出し or 冒頭一文を抽出 */
+        var tmp = document.createElement('div');
+        tmp.innerHTML = descHtml;
+        var h2 = tmp.querySelector('h2');
+        var p  = tmp.querySelector('p');
+        var excerpt = ((h2&&h2.textContent)||(p&&p.textContent)||'').trim().replace(/\s+/g,' ').slice(0,75);
+
+        /* 日付フォーマット */
+        var d = new Date(pubDate);
+        var dateStr = isNaN(d) ? '' :
+          d.getFullYear() + '.' +
+          String(d.getMonth()+1).padStart(2,'0') + '.' +
+          String(d.getDate()).padStart(2,'0');
+
+        var cls = 'blog-card' + (i===0?' featured':'');
+        return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="'+cls+'">'
+          + '<div class="blog-meta">'
+          +   '<span class="blog-date">'+dateStr+'</span>'
+          +   '<span class="blog-cat">note</span>'
+          + '</div>'
+          + '<h3 class="blog-title">'+title+'</h3>'
+          + (excerpt ? '<p class="blog-excerpt">'+excerpt+'…</p>' : '')
+          + '<span class="blog-arrow">→ noteで読む</span>'
+          + '</a>';
+      });
+
+      container.innerHTML =
+        '<div class="blog-main">'+cards.slice(0,2).join('')+'</div>'
+        + (cards.length>2 ? '<div class="blog-sub">'+cards.slice(2).join('')+'</div>' : '');
+    })
+    .catch(function(){
+      container.innerHTML = '<div class="note-loading">記事を取得できませんでした。'
+        +'<br><a href="https://note.com/morikentiger" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></div>';
+    });
+})();
+</script>
 
 <script>
 (function(){

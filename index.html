@@ -1364,6 +1364,15 @@ footer{
 }
 .achievement-desc { font-size: 0.8rem; color: #374151; line-height: 1.7; }
 
+/* ===== 主な実績（Worksサブセクション） ===== */
+.works-achievement-heading {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase;
+  margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+}
+.work-card-static { cursor: default; }
+.work-card-static:hover { transform: none; border-color: var(--border); }
+
 /* ===== 強みセクション（比較図・3分野図） ===== */
 .strength-diagram {
   background: #fff; border-radius: 16px;
@@ -1864,6 +1873,43 @@ footer{
           <p class="work-desc">リアルタイム処理・物理演算を含むインタラクティブ体験の設計・実装。エンゲージメント向上に貢献。</p>
         </div>
       </a>
+    </div>
+  </div>
+
+  <!-- 主な実績（両テーマ共通） -->
+  <h3 class="works-achievement-heading">主な実績</h3>
+  <div class="works-grid">
+    <div class="work-card work-card-static">
+      <div class="work-thumb">🏆</div>
+      <div class="work-info">
+        <p class="work-tag">Award</p>
+        <p class="work-title">ロボット競技会優勝</p>
+        <p class="work-desc">自ら設計・製作した四足歩行ロボットでロボット競技会優勝。</p>
+      </div>
+    </div>
+    <div class="work-card work-card-static">
+      <div class="work-thumb">🦾</div>
+      <div class="work-info">
+        <p class="work-tag">Robot Dev</p>
+        <p class="work-title">二足歩行ロボット開発</p>
+        <p class="work-desc">ロボット本体の設計からプログラム開発まで一人で担当し、短期間で開発を実現。</p>
+      </div>
+    </div>
+    <div class="work-card work-card-static">
+      <div class="work-thumb">🚗</div>
+      <div class="work-info">
+        <p class="work-tag">Research</p>
+        <p class="work-title">自動運転技術の研究</p>
+        <p class="work-desc">大学院では安全な自動運転技術の研究に取り組み、独自の制御技術を開発。</p>
+      </div>
+    </div>
+    <div class="work-card work-card-static">
+      <div class="work-thumb">✨</div>
+      <div class="work-info">
+        <p class="work-tag">AI</p>
+        <p class="work-title">AIサービス開発</p>
+        <p class="work-desc">生成AIや音声AIを活用したシステム開発、企業向けAI導入支援を多数実施。</p>
+      </div>
     </div>
   </div>
 </section>

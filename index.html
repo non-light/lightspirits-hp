@@ -1332,6 +1332,38 @@ footer{
 [data-theme="general"] .about-card-en  { display: none; }
 [data-theme="general"] .about-card-jp  { font-size: 0.95rem; font-weight: 700; color: #0C3A56; }
 
+/* ===== 一般向けプロフィール詳細 ===== */
+.profile-detail > p { font-size: 0.9rem; color: #1f2937; margin-bottom: 1rem; line-height: 1.9; }
+.profile-section-title {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 1rem; font-weight: 700;
+  color: #0C3A56; margin: 2rem 0 0.85rem;
+  padding-bottom: 0.4rem; border-bottom: 2px solid #E0F2FE;
+}
+.profile-services { display: grid; grid-template-columns: 1fr; gap: 0.85rem; margin-bottom: 0.5rem; }
+.profile-service-item {
+  background: #F0F9FF; border-radius: 12px; padding: 1.1rem 1.25rem;
+  border: 1px solid #E0F2FE;
+}
+.profile-service-name {
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
+  font-size: 0.88rem; color: #0C3A56; margin-bottom: 0.6rem;
+}
+.profile-service-item ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.profile-service-item ul li {
+  font-size: 0.8rem; color: #374151; padding-left: 1rem; position: relative; line-height: 1.6;
+}
+.profile-service-item ul li::before { content: '・'; position: absolute; left: 0; color: #0284C7; }
+.profile-achievements { display: flex; flex-direction: column; gap: 0.85rem; }
+.profile-achievement {
+  background: #FFFFFF; border-radius: 12px; padding: 1.1rem 1.25rem;
+  border: 1px solid #E5F4FD; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.achievement-title {
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
+  font-size: 0.88rem; color: #0C3A56; margin-bottom: 0.3rem;
+}
+.achievement-desc { font-size: 0.8rem; color: #374151; line-height: 1.7; }
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -1825,17 +1857,80 @@ footer{
       </div>
     </div>
     <div class="founder-bio">
-      <h3>AI × ロボット × 教育で、<br><span class="accent">魂に火を灯す</span></h3>
-      <p>AI・ロボット・アプリ開発を20年以上続ける技術者。</p>
-      <p>アイデアの段階から相談でき、企画・開発・AI導入まで一貫してサポートします。</p>
-      <p>「やってみたい」を「実際に動く形」に変えることが得意です。</p>
-      <div class="founder-tags">
-        <span class="founder-tag">AI</span>
-        <span class="founder-tag">Robot</span>
-        <span class="founder-tag">Education</span>
-        <span class="founder-tag">DX</span>
-        <span class="founder-tag">YUi Project</span>
-        <span class="founder-tag">Japan-based</span>
+      <!-- 企業向け -->
+      <div class="for-corporate">
+        <h3>AI × ロボット × 教育で、<br><span class="accent">魂に火を灯す</span></h3>
+        <p>AI・ロボット・アプリ開発を20年以上続ける技術者。</p>
+        <p>アイデアの段階から相談でき、企画・開発・AI導入まで一貫してサポートします。</p>
+        <p>「やってみたい」を「実際に動く形」に変えることが得意です。</p>
+        <div class="founder-tags">
+          <span class="founder-tag">AI</span>
+          <span class="founder-tag">Robot</span>
+          <span class="founder-tag">Education</span>
+          <span class="founder-tag">DX</span>
+          <span class="founder-tag">YUi Project</span>
+          <span class="founder-tag">Japan-based</span>
+        </div>
+      </div>
+      <!-- 一般向けプロフィール詳細 -->
+      <div class="for-general">
+        <div class="profile-detail">
+          <p>東京理科大学大学院修了。</p>
+          <p>20年以上にわたり、ロボットやソフトウェア、AIの開発に携わってきました。学生時代にはロボット競技会で優勝を経験し、現在はAIを活用したサービス開発や企業の業務改善、新規事業の立ち上げ支援を行っています。</p>
+          <p>私の強みは、アイデアを実際に動く形にできることです。多くの開発現場では、アイデアを考える人・設計する人・プログラムを作る人・AIを開発する人が別々ですが、私は企画から開発、完成まで一人で対応できます。</p>
+          <p>そのため、「AIを活用したい」「新しいサービスを作りたい」「業務を効率化したい」といった、まだ漠然とした段階からでもご相談いただけます。</p>
+
+          <h4 class="profile-section-title">こんなことができます</h4>
+          <div class="profile-services">
+            <div class="profile-service-item">
+              <p class="profile-service-name">🤖 AI活用支援</p>
+              <ul>
+                <li>ChatGPTなどのAIを仕事に活用する仕組みづくり</li>
+                <li>業務の自動化・効率化</li>
+                <li>社内向けAI研修</li>
+                <li>AI導入の相談・サポート</li>
+              </ul>
+            </div>
+            <div class="profile-service-item">
+              <p class="profile-service-name">💻 システム・アプリ開発</p>
+              <ul>
+                <li>Webサービス開発</li>
+                <li>スマートフォンアプリ開発</li>
+                <li>業務システム開発</li>
+                <li>AIを組み込んだサービス開発</li>
+              </ul>
+            </div>
+            <div class="profile-service-item">
+              <p class="profile-service-name">🔧 ロボット・ものづくり</p>
+              <ul>
+                <li>ロボットの設計・開発</li>
+                <li>電子機器の試作</li>
+                <li>IoT機器の開発</li>
+                <li>3Dプリンタを活用した試作品製作</li>
+              </ul>
+            </div>
+          </div>
+
+          <h4 class="profile-section-title">主な実績</h4>
+          <div class="profile-achievements">
+            <div class="profile-achievement">
+              <p class="achievement-title">🏆 ロボット競技会優勝</p>
+              <p class="achievement-desc">自ら設計・製作した四足歩行ロボットでロボット競技会優勝。</p>
+            </div>
+            <div class="profile-achievement">
+              <p class="achievement-title">🦾 二足歩行ロボット開発</p>
+              <p class="achievement-desc">ロボット本体の設計からプログラム開発まで一人で担当し、短期間で開発を実現。</p>
+            </div>
+            <div class="profile-achievement">
+              <p class="achievement-title">🚗 自動運転技術の研究</p>
+              <p class="achievement-desc">大学院では安全な自動運転技術の研究に取り組み、独自の制御技術を開発。</p>
+            </div>
+            <div class="profile-achievement">
+              <p class="achievement-title">✨ AIサービス開発</p>
+              <p class="achievement-desc">生成AIや音声AIを活用したシステム開発、企業向けAI導入支援を多数実施。</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

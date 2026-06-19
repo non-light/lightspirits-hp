@@ -2698,8 +2698,8 @@ footer{
     autoTimer = setInterval(function(){
       idx = (idx + 1) % dialogues.length;
       showDialogue(idx);
-      setTimeout(hideAll, 5000);
-    }, 14000);
+      setTimeout(hideAll, 10000);
+    }, 24000);
   }
 
   function onToggle() {
@@ -2709,7 +2709,7 @@ footer{
       idx = (idx + 1) % dialogues.length;
       showDialogue(idx);
       clearInterval(autoTimer);
-      setTimeout(function(){ hideAll(); startCycle(); }, 5000);
+      setTimeout(function(){ hideAll(); startCycle(); }, 10000);
     }
   }
 
@@ -2718,7 +2718,7 @@ footer{
   setTimeout(function(){
     hideAll();
     startCycle();
-  }, 7000);
+  }, 10000);
 
   ['mascot-toggle','moriken-toggle'].forEach(function(id){
     var el = document.getElementById(id);

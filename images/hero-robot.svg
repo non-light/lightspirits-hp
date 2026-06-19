@@ -1,0 +1,87 @@
+<svg viewBox="0 0 300 430" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sparkles -->
+  <g fill="#FCD34D" opacity="0.85">
+    <polygon points="30,60 33,70 43,70 35,76 38,86 30,80 22,86 25,76 17,70 27,70" transform="scale(0.6) translate(10,30)"/>
+    <polygon points="260,40 263,50 273,50 265,56 268,66 260,60 252,66 255,56 247,50 257,50" transform="scale(0.5) translate(200,10)"/>
+    <polygon points="270,200 272,207 279,207 274,211 276,218 270,214 264,218 266,211 261,207 268,207" transform="scale(0.7)"/>
+  </g>
+
+  <!-- Antenna -->
+  <line x1="150" y1="52" x2="150" y2="32" stroke="#1D4ED8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="150" cy="26" r="10" fill="#FCD34D"/>
+  <circle cx="150" cy="26" r="5" fill="#F59E0B"/>
+
+  <!-- Ears -->
+  <circle cx="68" cy="108" r="9" fill="#60A5FA"/>
+  <circle cx="68" cy="108" r="4.5" fill="#1D4ED8"/>
+  <circle cx="232" cy="108" r="9" fill="#60A5FA"/>
+  <circle cx="232" cy="108" r="4.5" fill="#1D4ED8"/>
+
+  <!-- Head -->
+  <rect x="78" y="60" width="144" height="110" rx="30" fill="url(#headGrad)"/>
+
+  <!-- Eyes -->
+  <circle cx="120" cy="108" r="20" fill="white"/>
+  <circle cx="180" cy="108" r="20" fill="white"/>
+  <circle cx="120" cy="110" r="12" fill="#1D4ED8"/>
+  <circle cx="180" cy="110" r="12" fill="#1D4ED8"/>
+  <circle cx="124" cy="103" r="5" fill="white"/>
+  <circle cx="184" cy="103" r="5" fill="white"/>
+
+  <!-- Smile -->
+  <path d="M 118 145 Q 150 162 182 145" fill="none" stroke="#93C5FD" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Neck -->
+  <rect x="132" y="168" width="36" height="18" rx="7" fill="#2563EB"/>
+
+  <!-- Body -->
+  <rect x="64" y="184" width="172" height="128" rx="20" fill="url(#bodyGrad)"/>
+
+  <!-- Chest panel -->
+  <rect x="92" y="204" width="116" height="80" rx="12" fill="#2563EB"/>
+
+  <!-- Chest lights -->
+  <circle cx="120" cy="232" r="13" fill="#FCD34D"/>
+  <circle cx="150" cy="232" r="13" fill="#34D399"/>
+  <circle cx="180" cy="232" r="13" fill="#F87171"/>
+  <circle cx="120" cy="232" r="6" fill="white" opacity="0.4"/>
+  <circle cx="150" cy="232" r="6" fill="white" opacity="0.4"/>
+  <circle cx="180" cy="232" r="6" fill="white" opacity="0.4"/>
+
+  <!-- Screen bar -->
+  <rect x="100" y="258" width="100" height="16" rx="5" fill="#0F172A"/>
+  <rect x="104" y="261" width="30" height="10" rx="3" fill="#38BDF8"/>
+
+  <!-- Arms -->
+  <rect x="22" y="188" width="44" height="96" rx="18" fill="url(#armGrad)"/>
+  <rect x="234" y="188" width="44" height="96" rx="18" fill="url(#armGrad)"/>
+  <!-- Hands -->
+  <rect x="26" y="278" width="36" height="28" rx="12" fill="#60A5FA"/>
+  <rect x="238" y="278" width="36" height="28" rx="12" fill="#60A5FA"/>
+
+  <!-- Legs -->
+  <rect x="94" y="308" width="44" height="90" rx="14" fill="url(#legGrad)"/>
+  <rect x="162" y="308" width="44" height="90" rx="14" fill="url(#legGrad)"/>
+  <!-- Feet -->
+  <rect x="84" y="388" width="64" height="26" rx="10" fill="#2563EB"/>
+  <rect x="152" y="388" width="64" height="26" rx="10" fill="#2563EB"/>
+
+  <defs>
+    <radialGradient id="headGrad" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </radialGradient>
+    <radialGradient id="bodyGrad" cx="50%" cy="30%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </radialGradient>
+    <linearGradient id="armGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="legGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+  </defs>
+</svg>

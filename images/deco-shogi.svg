@@ -1,0 +1,16 @@
+<svg viewBox="0 0 280 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Back piece (飛) rotated -->
+  <g transform="rotate(16, 140, 150)">
+    <path d="M140,30 L210,72 L204,210 L76,210 L70,72 Z" fill="#F59E0B"/>
+    <path d="M140,30 L210,72 L175,48 Z" fill="rgba(255,255,255,0.25)"/>
+    <path d="M140,46 L198,82 L193,196 L87,196 L82,82 Z" fill="none" stroke="#D97706" stroke-width="2.5"/>
+    <text x="140" y="160" font-family="Georgia,'Times New Roman',serif" font-size="76" fill="#7C2D12" text-anchor="middle" font-weight="bold">飛</text>
+  </g>
+  <!-- Front piece (王) rotated -->
+  <g transform="rotate(-13, 140, 150)">
+    <path d="M140,55 L205,94 L199,224 L81,224 L75,94 Z" fill="#8B5CF6"/>
+    <path d="M140,55 L205,94 L172,72 Z" fill="rgba(255,255,255,0.22)"/>
+    <path d="M140,70 L193,104 L188,210 L92,210 L87,104 Z" fill="none" stroke="#6D28D9" stroke-width="2"/>
+    <text x="140" y="178" font-family="Georgia,'Times New Roman',serif" font-size="76" fill="white" text-anchor="middle" font-weight="bold">王</text>
+  </g>
+</svg>

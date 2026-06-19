@@ -1496,8 +1496,8 @@ footer{
 /* ===== MASCOT ===== */
 .mascot-wrap {
   position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
+  bottom: 0;
+  left: 1rem;
   z-index: 300;
   display: flex;
   flex-direction: column;
@@ -1508,13 +1508,13 @@ footer{
 .mascot-bubble {
   background: linear-gradient(135deg, #FFFBEA 0%, #FFF3C4 100%);
   border: 2px solid #F5C842;
-  border-radius: 14px 14px 14px 4px;
+  border-radius: 14px 14px 4px 14px;
   padding: 0.65rem 1rem;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #3B2800;
   font-weight: 500;
   line-height: 1.6;
-  max-width: 190px;
+  max-width: 200px;
   box-shadow: 0 4px 16px rgba(201,168,76,0.22);
   pointer-events: auto;
   opacity: 1;
@@ -1523,24 +1523,24 @@ footer{
 }
 .mascot-bubble.hidden { opacity: 0; pointer-events: none; transform: translateY(6px); }
 .mascot-bubble-name {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #B8860B;
   letter-spacing: 0.06em;
   margin-bottom: 0.2rem;
 }
 .mascot-img-wrap {
-  width: 90px;
+  width: 140px;
   cursor: pointer;
   pointer-events: auto;
   transition: transform 0.2s;
 }
-.mascot-img-wrap:hover { transform: scale(1.08) rotate(-3deg); }
+.mascot-img-wrap:hover { transform: scale(1.06) rotate(-3deg); }
 .mascot-img-wrap img { width: 100%; display: block; border-radius: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
 @media(max-width:900px){
-  .mascot-wrap { bottom: 1rem; left: 1rem; }
-  .mascot-img-wrap { width: 70px; }
-  .mascot-bubble { font-size: 0.74rem; max-width: 155px; }
+  .mascot-wrap { left: 0.5rem; }
+  .mascot-img-wrap { width: 90px; }
+  .mascot-bubble { font-size: 0.75rem; max-width: 160px; }
 }
 
 /* ===== MORIKEN CHARACTER ===== */
@@ -1558,13 +1558,13 @@ footer{
 .moriken-bubble {
   background: #fff;
   border: 2px solid #C9A84C;
-  border-radius: 14px 14px 4px 14px;
+  border-radius: 14px 14px 14px 4px;
   padding: 0.65rem 1rem;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #2A1A00;
   font-weight: 500;
   line-height: 1.6;
-  max-width: 190px;
+  max-width: 200px;
   box-shadow: 0 4px 16px rgba(201,168,76,0.2);
   pointer-events: auto;
   opacity: 1;
@@ -1573,14 +1573,14 @@ footer{
 }
 .moriken-bubble.hidden { opacity: 0; pointer-events: none; transform: translateY(6px); }
 .moriken-bubble-name {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #7A5800;
   letter-spacing: 0.06em;
   margin-bottom: 0.2rem;
 }
 .moriken-img-wrap {
-  width: 130px;
+  width: 180px;
   cursor: pointer;
   pointer-events: auto;
   transition: transform 0.2s;
@@ -1589,8 +1589,8 @@ footer{
 .moriken-img-wrap img { width: 100%; display: block; }
 @media(max-width:900px){
   .moriken-wrap { right: 0.5rem; }
-  .moriken-img-wrap { width: 85px; }
-  .moriken-bubble { font-size: 0.74rem; max-width: 150px; }
+  .moriken-img-wrap { width: 110px; }
+  .moriken-bubble { font-size: 0.75rem; max-width: 155px; }
 }
 </style>
 </head>

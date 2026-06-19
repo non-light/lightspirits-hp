@@ -1,0 +1,91 @@
+<svg viewBox="0 0 300 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="headGrad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </radialGradient>
+    <radialGradient id="bodyGrad" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sparkles -->
+  <circle cx="38" cy="58" r="7" fill="#FCD34D" opacity="0.9"/>
+  <circle cx="262" cy="78" r="5" fill="#34D399" opacity="0.85"/>
+  <circle cx="28" cy="290" r="6" fill="#F87171" opacity="0.75"/>
+  <circle cx="274" cy="252" r="8" fill="#A78BFA" opacity="0.8"/>
+  <path d="M260 348 l3 9 l9 3 l-9 3 l-3 9 l-3-9 l-9-3 l9-3 Z" fill="#FCD34D" opacity="0.85"/>
+  <path d="M38 330 l2.5 7 l7 2.5 l-7 2.5 l-2.5 7 l-2.5-7 l-7-2.5 l7-2.5 Z" fill="#93C5FD" opacity="0.85"/>
+
+  <!-- Antenna -->
+  <line x1="150" y1="63" x2="150" y2="35" stroke="#1D4ED8" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="150" cy="24" r="13" fill="#FCD34D"/>
+  <circle cx="150" cy="24" r="7" fill="#F59E0B"/>
+  <circle cx="153" cy="20" r="3" fill="white" opacity="0.6"/>
+
+  <!-- Ear bolts -->
+  <circle cx="77" cy="113" r="11" fill="#60A5FA"/>
+  <circle cx="77" cy="113" r="6" fill="#1D4ED8"/>
+  <circle cx="223" cy="113" r="11" fill="#60A5FA"/>
+  <circle cx="223" cy="113" r="6" fill="#1D4ED8"/>
+
+  <!-- Head -->
+  <rect x="82" y="65" width="136" height="118" rx="36" fill="url(#headGrad)"/>
+  <ellipse cx="120" cy="82" rx="28" ry="14" fill="rgba(255,255,255,0.2)" transform="rotate(-18 120 82)"/>
+
+  <!-- Eyes -->
+  <circle cx="120" cy="113" r="23" fill="white"/>
+  <circle cx="180" cy="113" r="23" fill="white"/>
+  <circle cx="120" cy="115" r="14" fill="#1D4ED8"/>
+  <circle cx="180" cy="115" r="14" fill="#1D4ED8"/>
+  <circle cx="125" cy="108" r="6" fill="white"/>
+  <circle cx="185" cy="108" r="6" fill="white"/>
+  <circle cx="120" cy="122" r="3" fill="white" opacity="0.45"/>
+  <circle cx="180" cy="122" r="3" fill="white" opacity="0.45"/>
+
+  <!-- Smile -->
+  <path d="M 116 148 Q 150 166 184 148" fill="none" stroke="#93C5FD" stroke-width="5.5" stroke-linecap="round"/>
+
+  <!-- Neck -->
+  <rect x="133" y="181" width="34" height="20" rx="8" fill="#2563EB"/>
+  <rect x="140" y="184" width="20" height="4" rx="2" fill="#60A5FA" opacity="0.5"/>
+
+  <!-- Body -->
+  <rect x="68" y="199" width="164" height="128" rx="24" fill="url(#bodyGrad)"/>
+  <ellipse cx="110" cy="213" rx="40" ry="14" fill="rgba(255,255,255,0.14)" transform="rotate(-10 110 213)"/>
+
+  <!-- Chest panel -->
+  <rect x="93" y="226" width="114" height="82" rx="13" fill="#1D4ED8"/>
+  <!-- Lights -->
+  <circle cx="120" cy="254" r="13" fill="#FCD34D"/>
+  <circle cx="150" cy="254" r="13" fill="#34D399"/>
+  <circle cx="180" cy="254" r="13" fill="#F87171"/>
+  <circle cx="120" cy="254" r="6" fill="white" opacity="0.42"/>
+  <circle cx="150" cy="254" r="6" fill="white" opacity="0.42"/>
+  <circle cx="180" cy="254" r="6" fill="white" opacity="0.42"/>
+  <!-- Mini screen -->
+  <rect x="103" y="278" width="94" height="22" rx="6" fill="#0F172A"/>
+  <rect x="108" y="284" width="48" height="5" rx="2.5" fill="#60A5FA"/>
+  <rect x="108" y="293" width="28" height="3" rx="1.5" fill="#93C5FD" opacity="0.65"/>
+
+  <!-- Arms -->
+  <rect x="20" y="207" width="48" height="84" rx="24" fill="#60A5FA"/>
+  <circle cx="44" cy="304" r="25" fill="#3B82F6"/>
+  <circle cx="44" cy="304" r="15" fill="#2563EB"/>
+  <rect x="232" y="207" width="48" height="84" rx="24" fill="#60A5FA"/>
+  <circle cx="256" cy="304" r="25" fill="#3B82F6"/>
+  <circle cx="256" cy="304" r="15" fill="#2563EB"/>
+
+  <!-- Waist -->
+  <rect x="96" y="325" width="108" height="20" rx="9" fill="#1D4ED8"/>
+  <rect x="110" y="330" width="80" height="5" rx="2.5" fill="#3B82F6" opacity="0.6"/>
+
+  <!-- Legs -->
+  <rect x="97" y="343" width="44" height="62" rx="12" fill="#3B82F6"/>
+  <rect x="159" y="343" width="44" height="62" rx="12" fill="#3B82F6"/>
+
+  <!-- Feet -->
+  <rect x="84" y="393" width="64" height="24" rx="12" fill="#2563EB"/>
+  <rect x="152" y="393" width="64" height="24" rx="12" fill="#2563EB"/>
+</svg>

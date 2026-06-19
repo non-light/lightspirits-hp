@@ -1,0 +1,7 @@
+<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Single shogi piece, centered -->
+  <path d="M100,18 L172,62 L164,188 L36,188 L28,62 Z" fill="#8B5CF6"/>
+  <path d="M100,18 L172,62 L136,38 Z" fill="rgba(255,255,255,0.2)"/>
+  <path d="M100,34 L160,72 L153,175 L47,175 L40,72 Z" fill="none" stroke="#6D28D9" stroke-width="2"/>
+  <text x="100" y="140" font-family="Georgia,'Times New Roman',serif" font-size="72" fill="white" text-anchor="middle" font-weight="bold">王</text>
+</svg>

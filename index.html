@@ -1737,22 +1737,7 @@ footer{
       <p class="news-header-en">News</p>
       <p class="news-header-jp">ニュース</p>
     </div>
-    <div class="news-list">
-      <a href="#" class="news-item">
-        <span class="news-date">2025.06.01</span>
-        <span class="news-cat">Press</span>
-        <span class="news-title">ロボット制作プロジェクト、新フェーズ始動のお知らせ</span>
-      </a>
-      <a href="#" class="news-item">
-        <span class="news-date">2025.05.20</span>
-        <span class="news-cat">Project</span>
-        <span class="news-title">YUiプロジェクト、開発フェーズへ正式移行</span>
-      </a>
-      <a href="#" class="news-item">
-        <span class="news-date">2025.05.08</span>
-        <span class="news-cat">Release</span>
-        <span class="news-title">召喚将棋 v2.0 メジャーアップデートリリース</span>
-      </a>
+    <div class="news-list" id="news-list">
     </div>
   </div>
 </section>
@@ -2578,57 +2563,84 @@ footer{
 (function(){
   var PROXY = 'https://api.allorigins.win/raw?url=';
   var RSS   = 'https://note.com/morikentiger/rss';
-  var container = document.getElementById('note-feed');
-  if (!container) return;
+  var NOTE_URL = 'https://note.com/morikentiger';
+
+  function get(el, tag){ return (el.getElementsByTagName(tag)[0]||{}).textContent||''; }
+
+  function fmtDate(pubDate){
+    var d = new Date(pubDate);
+    return isNaN(d) ? '' :
+      d.getFullYear() + '.' +
+      String(d.getMonth()+1).padStart(2,'0') + '.' +
+      String(d.getDate()).padStart(2,'0');
+  }
+
+  function parseItems(text){
+    var xml = new DOMParser().parseFromString(text, 'text/xml');
+    return Array.from(xml.getElementsByTagName('item'));
+  }
+
+  function fillNews(items){
+    var list = document.getElementById('news-list');
+    if (!list) return;
+    var html = items.slice(0, 3).map(function(item){
+      var title   = get(item,'title').trim();
+      var link    = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
+      var dateStr = fmtDate(get(item,'pubDate'));
+      return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="news-item">'
+        + '<span class="news-date">'+dateStr+'</span>'
+        + '<span class="news-cat">note</span>'
+        + '<span class="news-title">'+title+'</span>'
+        + '</a>';
+    }).join('');
+    list.innerHTML = html;
+  }
+
+  function fillLog(items){
+    var container = document.getElementById('note-feed');
+    if (!container) return;
+    var cards = items.slice(0, 6).map(function(item, i){
+      var title    = get(item,'title').trim();
+      var link     = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
+      var dateStr  = fmtDate(get(item,'pubDate'));
+      var descHtml = get(item,'description');
+      var tmp = document.createElement('div');
+      tmp.innerHTML = descHtml;
+      var h2 = tmp.querySelector('h2');
+      var p  = tmp.querySelector('p');
+      var excerpt = ((h2&&h2.textContent)||(p&&p.textContent)||'').trim().replace(/\s+/g,' ').slice(0,75);
+      var cls = 'blog-card'+(i===0?' featured':'');
+      return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="'+cls+'">'
+        + '<div class="blog-meta"><span class="blog-date">'+dateStr+'</span><span class="blog-cat">note</span></div>'
+        + '<h3 class="blog-title">'+title+'</h3>'
+        + (excerpt?'<p class="blog-excerpt">'+excerpt+'…</p>':'')
+        + '<span class="blog-arrow">→ noteで読む</span>'
+        + '</a>';
+    });
+    container.innerHTML =
+      '<div class="blog-main">'+cards.slice(0,2).join('')+'</div>'
+      +(cards.length>2?'<div class="blog-sub">'+cards.slice(2).join('')+'</div>':'');
+  }
 
   fetch(PROXY + encodeURIComponent(RSS))
     .then(function(r){ if(!r.ok) throw 0; return r.text(); })
     .then(function(text){
-      var xml = new DOMParser().parseFromString(text, 'text/xml');
-      var items = Array.from(xml.getElementsByTagName('item')).slice(0, 6);
+      var items = parseItems(text);
       if (!items.length) throw 0;
-
-      function get(el, tag){ return (el.getElementsByTagName(tag)[0]||{}).textContent||''; }
-
-      var cards = items.map(function(item, i){
-        var title   = get(item,'title').trim();
-        var link    = get(item,'link').trim() || get(item,'guid').trim() || 'https://note.com/morikentiger';
-        var pubDate = get(item,'pubDate');
-        var descHtml= get(item,'description');
-
-        /* 本文から見出し or 冒頭一文を抽出 */
-        var tmp = document.createElement('div');
-        tmp.innerHTML = descHtml;
-        var h2 = tmp.querySelector('h2');
-        var p  = tmp.querySelector('p');
-        var excerpt = ((h2&&h2.textContent)||(p&&p.textContent)||'').trim().replace(/\s+/g,' ').slice(0,75);
-
-        /* 日付フォーマット */
-        var d = new Date(pubDate);
-        var dateStr = isNaN(d) ? '' :
-          d.getFullYear() + '.' +
-          String(d.getMonth()+1).padStart(2,'0') + '.' +
-          String(d.getDate()).padStart(2,'0');
-
-        var cls = 'blog-card' + (i===0?' featured':'');
-        return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="'+cls+'">'
-          + '<div class="blog-meta">'
-          +   '<span class="blog-date">'+dateStr+'</span>'
-          +   '<span class="blog-cat">note</span>'
-          + '</div>'
-          + '<h3 class="blog-title">'+title+'</h3>'
-          + (excerpt ? '<p class="blog-excerpt">'+excerpt+'…</p>' : '')
-          + '<span class="blog-arrow">→ noteで読む</span>'
-          + '</a>';
-      });
-
-      container.innerHTML =
-        '<div class="blog-main">'+cards.slice(0,2).join('')+'</div>'
-        + (cards.length>2 ? '<div class="blog-sub">'+cards.slice(2).join('')+'</div>' : '');
+      fillNews(items);
+      fillLog(items);
     })
     .catch(function(){
-      container.innerHTML = '<div class="note-loading">記事を取得できませんでした。'
-        +'<br><a href="https://note.com/morikentiger" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></div>';
+      var list = document.getElementById('news-list');
+      if (list) list.innerHTML =
+        '<a href="'+NOTE_URL+'" target="_blank" rel="noopener noreferrer" class="news-item">'
+        +'<span class="news-cat">note</span>'
+        +'<span class="news-title">note.comで記事を読む →</span>'
+        +'</a>';
+      var feed = document.getElementById('note-feed');
+      if (feed) feed.innerHTML =
+        '<div class="note-loading">記事を取得できませんでした。'
+        +'<br><a href="'+NOTE_URL+'" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></div>';
     });
 })();
 </script>

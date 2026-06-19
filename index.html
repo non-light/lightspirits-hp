@@ -1437,6 +1437,18 @@ footer{
 [data-theme="corporate"] .strength-diagram-title { color: #1c1b18; }
 [data-theme="corporate"] .strength-diagram-sub   { color: #4a4840; }
 
+/* 企業テーマ：アコーディオン */
+[data-theme="corporate"] .profile-section-title { color: var(--gold); border-bottom-color: var(--gold-dim); }
+[data-theme="corporate"] .profile-details { background: var(--black-4); border-color: var(--border); }
+[data-theme="corporate"] .profile-details summary { color: var(--white); }
+[data-theme="corporate"] .profile-details-chev { color: var(--muted); }
+[data-theme="corporate"] .profile-details-body { color: var(--muted); }
+[data-theme="corporate"] .profile-details-body ul li { color: var(--muted); }
+[data-theme="corporate"] .profile-dtag-h { color: var(--gold-light); }
+[data-theme="corporate"] .profile-dtag { background: var(--black-2); color: var(--white); border-color: var(--border); }
+[data-theme="corporate"] .profile-dtbl td:first-child { color: var(--gold); }
+[data-theme="corporate"] .profile-dtbl td { border-bottom-color: var(--border); color: var(--muted); }
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -2062,6 +2074,80 @@ footer{
           <span class="founder-tag">YUi Project</span>
           <span class="founder-tag">Japan-based</span>
         </div>
+
+        <h4 class="profile-section-title">もっと詳しく知りたい方へ</h4>
+        <details class="profile-details">
+          <summary>保有資格・学歴<span class="profile-details-chev">▼</span></summary>
+          <div class="profile-details-body">
+            <ul>
+              <li>OpenAI Trusted Access for Cyber（TAC）認定取得</li>
+              <li>東京理科大学大学院 工学研究科 機械工学専攻 修士課程修了</li>
+              <li>東京理科大学 工学部 機械工学科 卒業</li>
+            </ul>
+          </div>
+        </details>
+        <details class="profile-details">
+          <summary>できること（全領域）<span class="profile-details-chev">▼</span></summary>
+          <div class="profile-details-body">
+            <p class="profile-dtag-h">AI開発</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">生成AIサービス開発</span><span class="profile-dtag">音声会話AI</span><span class="profile-dtag">業務効率化AI</span><span class="profile-dtag">AIエージェント</span><span class="profile-dtag">LoRAファインチューニング</span><span class="profile-dtag">独自AIモデル構築</span><span class="profile-dtag">AI活用コンサル</span><span class="profile-dtag">AI導入支援・社内教育</span>
+            </div>
+            <p class="profile-dtag-h">アプリ・システム開発</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">Webアプリ</span><span class="profile-dtag">iPhoneアプリ</span><span class="profile-dtag">Androidアプリ</span><span class="profile-dtag">シミュレーター</span><span class="profile-dtag">業務システム</span><span class="profile-dtag">AI連携システム</span><span class="profile-dtag">API連携</span>
+            </div>
+            <p class="profile-dtag-h">ロボット開発</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">ロボット設計</span><span class="profile-dtag">制御ソフト</span><span class="profile-dtag">自律移動ロボット</span><span class="profile-dtag">二足歩行ロボット</span><span class="profile-dtag">四足歩行ロボット</span><span class="profile-dtag">マイクロマウス</span><span class="profile-dtag">Raspberry Pi</span><span class="profile-dtag">ROS制御</span>
+            </div>
+            <p class="profile-dtag-h">試作・ハードウェア</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">3DCAD設計</span><span class="profile-dtag">3Dプリンタ試作</span><span class="profile-dtag">CNC加工</span><span class="profile-dtag">電子回路試作</span><span class="profile-dtag">IoT機器試作</span>
+            </div>
+          </div>
+        </details>
+        <details class="profile-details">
+          <summary>主な実績<span class="profile-details-chev">▼</span></summary>
+          <div class="profile-details-body">
+            <table class="profile-dtbl">
+              <tr><td>四足歩行ロボット</td><td>猫型四足歩行ロボットを設計・製作。KONDOLAND競技会にて優勝。</td></tr>
+              <tr><td>二足歩行ロボット</td><td>ROBO-ONE規格（約60cm）をハードウェア設計から制御ソフトまで約1か月で開発。</td></tr>
+              <tr><td>マイクロマウス</td><td>ルネサスマイコンで迷路探索ロボットを開発。16×16迷路を完走。</td></tr>
+              <tr><td>自動運転研究</td><td>歩行者追い越し時の安全な自動運転手法を研究。独自の経路生成を開発。</td></tr>
+              <tr><td>AIサービス開発</td><td>生成AI・音声AIを活用したシステム開発、企業向けAI導入支援を多数実施。</td></tr>
+            </table>
+          </div>
+        </details>
+        <details class="profile-details">
+          <summary>技術スキル<span class="profile-details-chev">▼</span></summary>
+          <div class="profile-details-body">
+            <table class="profile-dtbl">
+              <tr><td>プログラミング</td><td>C / C++ / Python / JavaScript / HTML / CSS / Swift / Java</td></tr>
+              <tr><td>AI</td><td>OpenAI API / LLM / LoRA / 音声AI / AI Agent / Claude Code</td></tr>
+              <tr><td>ロボット</td><td>ROS / 自律移動 / 経路計画 / Raspberry Pi / マイコン制御</td></tr>
+              <tr><td>CAD・製造</td><td>SolidWorks / Fusion 360 / CNC加工 / 3Dプリンタ</td></tr>
+              <tr><td>OS</td><td>macOS / Linux（Ubuntu）/ Windows</td></tr>
+            </table>
+          </div>
+        </details>
+        <details class="profile-details">
+          <summary>企業向け提供サービス<span class="profile-details-chev">▼</span></summary>
+          <div class="profile-details-body">
+            <p class="profile-dtag-h">AI顧問</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">AI導入相談</span><span class="profile-dtag">AI活用戦略策定</span><span class="profile-dtag">社内AI教育</span><span class="profile-dtag">業務効率化支援</span>
+            </div>
+            <p class="profile-dtag-h">技術顧問</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">新規事業技術支援</span><span class="profile-dtag">PoC開発</span><span class="profile-dtag">プロトタイプ開発</span><span class="profile-dtag">技術選定</span><span class="profile-dtag">開発体制構築</span>
+            </div>
+            <p class="profile-dtag-h">開発受託</p>
+            <div class="profile-dtags">
+              <span class="profile-dtag">AIサービス開発</span><span class="profile-dtag">Webサービス開発</span><span class="profile-dtag">アプリ開発</span><span class="profile-dtag">ロボット開発</span><span class="profile-dtag">IoT開発</span>
+            </div>
+          </div>
+        </details>
       </div>
       <!-- 一般向けプロフィール詳細 -->
       <div class="for-general">

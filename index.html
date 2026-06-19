@@ -972,6 +972,8 @@ footer{
 .for-general, .for-corporate { display: none; }
 [data-theme="general"]   .for-general   { display: block; }
 [data-theme="corporate"] .for-corporate { display: block; }
+[data-theme="corporate"] .for-general   { display: none; }
+[data-theme="general"]   .for-corporate { display: none; }
 
 /* ===== GENERAL THEME (一般・個人向け) ===== */
 :root[data-theme="general"] {
@@ -1254,6 +1256,8 @@ footer{
   background: linear-gradient(145deg, #DBEAFE, #E0F2FE, #F0FDFA);
   border-left: none;
 }
+[data-theme="general"]   .hero-right-inner { width: 100%; height: 100%; }
+[data-theme="corporate"] .hero-right-inner { width: 100%; height: 100%; }
 
 /* アクセント文字 — グラデーション */
 [data-theme="general"] .hero-title .accent {
@@ -1594,11 +1598,11 @@ footer{
     <div class="hero-right-inner">
       <!-- 一般向け -->
       <div class="for-general hero-right-personal">
+        <img src="images/S__21758013.jpg" alt="雷神ロボット" class="hero-illust-photo">
       </div>
       <!-- 企業向け -->
-      <div class="for-corporate">
-        <div class="hero-right-symbol">LS</div>
-        <p class="hero-right-label">Light Spirits — Est. 2024</p>
+      <div class="for-corporate hero-right-personal">
+        <img src="images/raijin-robot.jpg" alt="雷神ロボット実機" class="hero-robot-photo">
       </div>
     </div>
   </div>

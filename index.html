@@ -1187,22 +1187,37 @@ footer{
 [data-theme="general"] .news-cat { border-radius: 20px; border-color: #BFD9EF; }
 
 /* Hero right — general: personal avatar */
-.hero-right-personal { text-align: center; }
-.hero-personal-avatar {
-  width: 160px; height: 160px; border-radius: 50%; overflow: hidden;
-  margin: 0 auto 1.25rem;
-  box-shadow: 0 8px 32px rgba(2,132,199,0.2);
-  border: 5px solid rgba(255,255,255,0.8);
+.hero-right-personal { text-align: center; width: 100%; }
+
+/* ===== 一般向け ヒーロー画像ショーケース ===== */
+.hero-img-showcase { display: flex; flex-direction: column; gap: 0.7rem; }
+.him-main {
+  border-radius: 18px; overflow: hidden; height: 220px;
+  background: linear-gradient(135deg, #BAE6FD 0%, #A7F3D0 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem; position: relative;
 }
-.hero-personal-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.hero-personal-name {
-  font-family: 'Noto Sans JP', sans-serif; font-size: 1.1rem; font-weight: 700;
-  color: #0C3A56; margin-bottom: 0.4rem;
+.him-main > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.him-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.him-sub {
+  border-radius: 14px; overflow: hidden; height: 130px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 2.5rem; position: relative; gap: 0.3rem;
 }
-.hero-personal-tagline {
-  font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem;
-  color: rgba(2,132,199,0.75); letter-spacing: 0.04em;
-}
+.him-shogi { background: linear-gradient(135deg, #FDE68A 0%, #FCD34D 100%); }
+.him-shogi > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.him-avatar { background: linear-gradient(135deg, #EDE9FE 0%, #DBEAFE 100%); }
+.him-avatar-img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: relative; z-index: 1; }
+.him-name { font-size: 0.75rem; font-weight: 700; color: #0C3A56; position: relative; z-index: 1; font-family: 'Noto Sans JP', sans-serif; }
+
+/* ===== Worksカード サムネイル画像 ===== */
+[data-theme="general"] .work-thumb { position: relative; height: 200px; }
+.wt-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+
+/* ===== セクション装飾画像（一般向け） ===== */
+.section-deco { position: absolute; pointer-events: none; z-index: 0; }
+[data-theme="general"] .section-deco-1 { right: 0; top: 2rem; width: 160px; opacity: 0.12; transform: rotate(12deg); }
+[data-theme="general"] .section-deco-2 { left: -20px; bottom: 2rem; width: 120px; opacity: 0.10; transform: rotate(-8deg); }
 
 /* ===== GENERAL THEME — 文字色修正 & かわいいデザイン ===== */
 
@@ -1577,11 +1592,24 @@ footer{
     <div class="hero-right-inner">
       <!-- 一般向け -->
       <div class="for-general hero-right-personal">
-        <div class="hero-personal-avatar">
-          <img src="images/moriken339.jpg" alt="もりけん">
+        <div class="hero-img-showcase">
+          <!-- メイン画像：ロボットキャラクター -->
+          <div class="him-main">
+            <img src="images/hero-robot.png" alt="ロボット" onerror="this.style.display='none'">
+            <span aria-hidden="true">🤖</span>
+          </div>
+          <!-- サブ行：将棋＋もりけん -->
+          <div class="him-row">
+            <div class="him-sub him-shogi">
+              <img src="images/deco-shogi.png" alt="将棋駒" onerror="this.style.display='none'">
+              <span aria-hidden="true">♟</span>
+            </div>
+            <div class="him-sub him-avatar">
+              <img src="images/moriken339.jpg" alt="もりけん" class="him-avatar-img">
+              <span class="him-name">もりけん</span>
+            </div>
+          </div>
         </div>
-        <p class="hero-personal-name">もりけん</p>
-        <p class="hero-personal-tagline">ゲーム × 学び × テクノロジー</p>
       </div>
       <!-- 企業向け -->
       <div class="for-corporate">
@@ -1859,7 +1887,9 @@ footer{
 <div class="divider"></div>
 
 <!-- WORKS -->
-<section id="works">
+<section id="works" style="position:relative;overflow:hidden">
+  <img src="images/deco-robot-sm.png" alt="" aria-hidden="true" class="section-deco section-deco-1" onerror="this.style.display='none'">
+  <img src="images/deco-shogi-sm.png" alt="" aria-hidden="true" class="section-deco section-deco-2" onerror="this.style.display='none'">
   <div class="sec-eyebrow">Our Works</div>
   <div class="sec-head">
     <h2 class="sec-en">Our <span class="accent">Works</span></h2>
@@ -1869,7 +1899,10 @@ footer{
   <div class="for-general">
     <div class="works-grid">
       <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">♟</div>
+        <div class="work-thumb">
+          <img src="images/work-shogi.jpg" alt="召喚将棋" class="wt-img" onerror="this.style.display='none'">
+          ♟
+        </div>
         <div class="work-info">
           <p class="work-tag">ゲーム</p>
           <p class="work-title">召喚将棋</p>
@@ -1877,7 +1910,10 @@ footer{
         </div>
       </a>
       <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">🧱</div>
+        <div class="work-thumb">
+          <img src="images/work-blocks.jpg" alt="BreakBlockBuild" class="wt-img" onerror="this.style.display='none'">
+          🧱
+        </div>
         <div class="work-info">
           <p class="work-tag">ゲーム</p>
           <p class="work-title">BreakBlockBuild</p>
@@ -1885,7 +1921,10 @@ footer{
         </div>
       </a>
       <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">🚀</div>
+        <div class="work-thumb">
+          <img src="images/work-sns.jpg" alt="SNS Antigravity" class="wt-img" onerror="this.style.display='none'">
+          🚀
+        </div>
         <div class="work-info">
           <p class="work-tag">Webサービス</p>
           <p class="work-title">SNS Antigravity</p>

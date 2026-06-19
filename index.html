@@ -1189,6 +1189,7 @@ footer{
 /* Hero right — general: personal avatar */
 .hero-right-personal { text-align: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 .hero-robot-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 0; display: block; }
+.hero-illust-photo { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block; }
 
 /* ===== 一般向け ヒーロー画像ショーケース ===== */
 .hero-img-showcase { display: flex; flex-direction: column; gap: 0.7rem; }
@@ -1593,22 +1594,7 @@ footer{
     <div class="hero-right-inner">
       <!-- 一般向け -->
       <div class="for-general hero-right-personal">
-        <div class="hero-img-showcase">
-          <div class="him-main">
-            <img src="images/hero-robot.svg" alt="ロボットイラスト" onerror="this.style.display='none'">
-            <span aria-hidden="true">🤖</span>
-          </div>
-          <div class="him-row">
-            <div class="him-sub him-shogi">
-              <img src="images/deco-shogi.svg" alt="将棋駒" onerror="this.style.display='none'">
-              <span aria-hidden="true">♟</span>
-            </div>
-            <div class="him-sub him-avatar">
-              <img src="images/moriken339.jpg" alt="もりけん" class="him-avatar-img">
-              <span class="him-name">もりけん</span>
-            </div>
-          </div>
-        </div>
+        <img src="images/raijin-illust.jpg" alt="雷神ロボットイラスト" class="hero-illust-photo">
       </div>
       <!-- 企業向け -->
       <div class="for-corporate hero-right-personal">

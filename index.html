@@ -1367,6 +1367,39 @@ footer{
 }
 .achievement-desc { font-size: 0.8rem; color: #374151; line-height: 1.7; }
 
+/* ===== これまで作ってきたもの ===== */
+.profile-works-sub { font-size: 0.82rem; color: #6b6a64; margin: -0.4rem 0 0.85rem; }
+.profile-works-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.profile-works-card { background: #fff; border: 1px solid #E0F2FE; border-radius: 12px; padding: 0.9rem 1rem; }
+.profile-works-card .pwc-icon { font-size: 1.4rem; display: block; margin-bottom: 0.35rem; }
+.profile-works-card h5 { font-family:'Noto Sans JP',sans-serif; font-size: 0.85rem; font-weight: 700; color: #0C3A56; margin: 0 0 0.3rem; }
+.profile-works-card p { font-size: 0.75rem; color: #374151; margin: 0; line-height: 1.6; }
+.profile-example { background: #F0F9FF; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 0.5rem; }
+.profile-example-eyebrow { font-size: 0.72rem; color: #0369A1; font-weight: 700; margin: 0 0 0.25rem; letter-spacing: 0.04em; }
+.profile-example-q { font-size: 0.9rem; font-weight: 700; color: #0C3A56; margin: 0 0 0.75rem; }
+.profile-example-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+.profile-chip { background: #DBEAFE; color: #1e40af; font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 6px; }
+.profile-chip-done { background: #D1FAE5; color: #065f46; }
+.profile-chip-arrow { color: #9CA3AF; font-size: 0.75rem; }
+.profile-example-note { font-size: 0.78rem; color: #374151; margin: 0; line-height: 1.6; }
+
+/* ===== もっと詳しく知りたい方へ（アコーディオン） ===== */
+.profile-details { background: #fff; border: 1px solid #E0F2FE; border-radius: 12px; margin-bottom: 0.55rem; overflow: hidden; }
+.profile-details summary { cursor: pointer; list-style: none; padding: 0.8rem 1.1rem; font-size: 0.85rem; font-weight: 700; color: #0C3A56; display: flex; align-items: center; justify-content: space-between; }
+.profile-details summary::-webkit-details-marker { display: none; }
+.profile-details-chev { font-size: 0.65rem; color: #9CA3AF; transition: transform 0.2s; display: inline-block; }
+.profile-details[open] .profile-details-chev { transform: rotate(180deg); }
+.profile-details-body { padding: 0 1.1rem 0.9rem; }
+.profile-details-body ul { margin: 0; padding-left: 1.2em; font-size: 0.8rem; color: #374151; line-height: 1.8; }
+.profile-details-body ul li { margin-bottom: 0.25rem; }
+.profile-dtag-h { font-size: 0.72rem; font-weight: 700; color: #0369A1; margin: 0.65rem 0 0.35rem; }
+.profile-dtags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.25rem; }
+.profile-dtag { font-size: 0.72rem; background: #F0F9FF; color: #0C3A56; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid #BFD9EF; }
+.profile-dtbl { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.profile-dtbl td { padding: 0.45rem 0; border-bottom: 1px solid #E0F2FE; vertical-align: top; }
+.profile-dtbl td:first-child { color: #0369A1; width: 32%; padding-right: 0.6rem; font-weight: 700; white-space: nowrap; }
+.profile-dtbl tr:last-child td { border-bottom: none; }
+
 /* ===== 主な実績（Worksサブセクション） ===== */
 .works-achievement-heading {
   font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; font-weight: 700;
@@ -2088,6 +2121,85 @@ footer{
               <p class="achievement-desc">生成AIや音声AIを活用したシステム開発、企業向けAI導入支援を多数実施。</p>
             </div>
           </div>
+
+          <h4 class="profile-section-title">これまで作ってきたもの</h4>
+          <p class="profile-works-sub">抽象的な話ではなく、実際にこういうものを作ってきました。</p>
+          <div class="profile-works-cards">
+            <div class="profile-works-card">
+              <span class="pwc-icon">🤖</span>
+              <h5>ロボット</h5>
+              <p>歩く・走る・迷路を解く・猫のように動く・人型。大会で優勝した経験も。</p>
+            </div>
+            <div class="profile-works-card">
+              <span class="pwc-icon">🧠</span>
+              <h5>AI</h5>
+              <p>話題のAIを使うだけでなく、自分のAIを育てたり、AIに仕事をさせたりできます。</p>
+            </div>
+            <div class="profile-works-card">
+              <span class="pwc-icon">📱</span>
+              <h5>アプリ</h5>
+              <p>スマホアプリ、ホームページ、業務ツール、シミュレーターなどを作れます。</p>
+            </div>
+          </div>
+          <div class="profile-example">
+            <p class="profile-example-eyebrow">たとえば、こんな相談も</p>
+            <p class="profile-example-q">「高齢者と会話するロボットが欲しい」</p>
+            <div class="profile-example-flow">
+              <span class="profile-chip">ロボットを作る</span>
+              <span class="profile-chip-arrow">→</span>
+              <span class="profile-chip">会話するAIを作る</span>
+              <span class="profile-chip-arrow">→</span>
+              <span class="profile-chip">アプリでつなぐ</span>
+              <span class="profile-chip-arrow">→</span>
+              <span class="profile-chip profile-chip-done">全部つないで完成</span>
+            </div>
+            <p class="profile-example-note">この一連を、別々の会社に頼まず、ひとりで通しでできます。だから話が通じやすく、試作までが早い。</p>
+          </div>
+
+          <h4 class="profile-section-title">もっと詳しく知りたい方へ</h4>
+          <details class="profile-details">
+            <summary>保有資格・学歴<span class="profile-details-chev">▼</span></summary>
+            <div class="profile-details-body">
+              <ul>
+                <li>OpenAI Trusted Access for Cyber（TAC）認定取得</li>
+                <li>東京理科大学大学院 工学研究科 機械工学専攻 修士課程修了</li>
+                <li>東京理科大学 工学部 機械工学科 卒業</li>
+              </ul>
+            </div>
+          </details>
+          <details class="profile-details">
+            <summary>できること（全領域）<span class="profile-details-chev">▼</span></summary>
+            <div class="profile-details-body">
+              <p class="profile-dtag-h">AI開発</p>
+              <div class="profile-dtags">
+                <span class="profile-dtag">生成AIサービス開発</span><span class="profile-dtag">音声会話AI</span><span class="profile-dtag">業務効率化AI</span><span class="profile-dtag">AIエージェント</span><span class="profile-dtag">LoRAファインチューニング</span><span class="profile-dtag">独自AIモデル構築</span><span class="profile-dtag">AI活用コンサル</span><span class="profile-dtag">AI導入支援・社内教育</span>
+              </div>
+              <p class="profile-dtag-h">アプリ・システム開発</p>
+              <div class="profile-dtags">
+                <span class="profile-dtag">Webアプリ</span><span class="profile-dtag">iPhoneアプリ</span><span class="profile-dtag">Androidアプリ</span><span class="profile-dtag">シミュレーター</span><span class="profile-dtag">業務システム</span><span class="profile-dtag">AI連携システム</span><span class="profile-dtag">API連携</span>
+              </div>
+              <p class="profile-dtag-h">ロボット開発</p>
+              <div class="profile-dtags">
+                <span class="profile-dtag">ロボット設計</span><span class="profile-dtag">制御ソフト</span><span class="profile-dtag">自律移動ロボット</span><span class="profile-dtag">二足歩行ロボット</span><span class="profile-dtag">四足歩行ロボット</span><span class="profile-dtag">マイクロマウス</span><span class="profile-dtag">Raspberry Pi</span><span class="profile-dtag">ROS制御</span>
+              </div>
+              <p class="profile-dtag-h">試作・ハードウェア</p>
+              <div class="profile-dtags">
+                <span class="profile-dtag">3DCAD設計</span><span class="profile-dtag">3Dプリンタ試作</span><span class="profile-dtag">CNC加工</span><span class="profile-dtag">電子回路試作</span><span class="profile-dtag">IoT機器試作</span>
+              </div>
+            </div>
+          </details>
+          <details class="profile-details">
+            <summary>技術スキル<span class="profile-details-chev">▼</span></summary>
+            <div class="profile-details-body">
+              <table class="profile-dtbl">
+                <tr><td>プログラミング</td><td>C / C++ / Python / JavaScript / HTML / CSS / Swift / Java</td></tr>
+                <tr><td>AI</td><td>OpenAI API / LLM / LoRA / 音声AI / AI Agent / Claude Code</td></tr>
+                <tr><td>ロボット</td><td>ROS / 自律移動 / 経路計画 / Raspberry Pi / マイコン制御</td></tr>
+                <tr><td>CAD・製造</td><td>SolidWorks / Fusion 360 / CNC加工 / 3Dプリンタ</td></tr>
+                <tr><td>OS</td><td>macOS / Linux（Ubuntu）/ Windows</td></tr>
+              </table>
+            </div>
+          </details>
         </div>
       </div>
     </div>

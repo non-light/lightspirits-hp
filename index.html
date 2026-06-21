@@ -62,13 +62,19 @@ nav{
   letter-spacing:0.15em;
   text-decoration:none;
   flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:0.4em;
 }
 .nav-logo-img{
-  height:32px;
+  height:36px;
   width:auto;
-  vertical-align:middle;
-  margin-right:0.4em;
   border-radius:4px;
+  flex-shrink:0;
+}
+.nav-logo-texts{
+  display:flex;
+  flex-direction:column;
 }
 .nav-logo span{
   font-family:'Space Mono',monospace;
@@ -1678,8 +1684,10 @@ footer{
 <nav>
   <a href="#hero" class="nav-logo">
     <img src="images/logo.jpg" alt="らいとすぴりっつ ロゴ" class="nav-logo-img">
-    らいとすぴりっつ
-    <span>Light Spirits</span>
+    <span class="nav-logo-texts">
+      らいとすぴりっつ
+      <span>Light Spirits</span>
+    </span>
   </a>
   <ul class="nav-center">
     <li>

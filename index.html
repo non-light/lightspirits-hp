@@ -1787,6 +1787,50 @@ footer{
 @media(max-width:900px){
   .mascot-wrap.speaking, .moriken-wrap.speaking { transform: scale(1.7); }
 }
+
+/* ===== 導火線スクロールライト（スマホのみ） ===== */
+.fuse-line { display: none; }
+@media(max-width:900px){
+  .fuse-line {
+    display: block;
+    position: fixed;
+    top: 0; bottom: 0; left: 10px;
+    width: 2px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(201,168,76,0.28) 7%,
+      rgba(201,168,76,0.28) 93%,
+      transparent 100%);
+    z-index: 250;
+    pointer-events: none;
+  }
+  [data-theme="general"] .fuse-line {
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(2,132,199,0.22) 7%,
+      rgba(2,132,199,0.22) 93%,
+      transparent 100%);
+  }
+  .fuse-spark {
+    position: absolute;
+    left: 50%; top: 0;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, #FFF6D8 0%, #F5C842 45%, rgba(245,166,35,0) 72%);
+    box-shadow:
+      0 0 8px 3px rgba(245,200,66,0.8),
+      0 0 20px 8px rgba(245,166,35,0.35);
+  }
+  .fuse-spark::before {
+    content: '';
+    position: absolute;
+    left: 50%; bottom: 50%;
+    width: 2px; height: 26px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(245,200,66,0) 0%, rgba(245,200,66,0.7) 100%);
+  }
+}
 </style>
 </head>
 <body>
@@ -2640,6 +2684,10 @@ footer{
 </footer>
 
 <!-- MASCOT (左下) -->
+<div class="fuse-line" id="fuse-line" aria-hidden="true">
+  <div class="fuse-spark" id="fuse-spark"></div>
+</div>
+
 <div class="mascot-wrap" id="mascot">
   <div class="mascot-bubble hidden" id="mascot-bubble">
     <p class="mascot-bubble-name">⚡ LS雷神</p>
@@ -2878,6 +2926,35 @@ footer{
 
   makeDraggable(mWrap, document.getElementById('mascot-toggle'));
   makeDraggable(rWrap, document.getElementById('moriken-toggle'));
+
+  // ===== 導火線スクロールライト =====
+  (function(){
+    var spark = document.getElementById('fuse-spark');
+    if(!spark) return;
+    var cur = 0, target = 0, raf = null;
+    function calc(){
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      target = max > 0 ? (window.scrollY / max) : 0;
+    }
+    function tick(){
+      cur += (target - cur) * 0.08;
+      if(Math.abs(target - cur) < 0.0008){
+        cur = target;
+        spark.style.top = (cur * 100) + '%';
+        raf = null;
+        return;
+      }
+      spark.style.top = (cur * 100) + '%';
+      raf = requestAnimationFrame(tick);
+    }
+    function kick(){
+      calc();
+      if(!raf) raf = requestAnimationFrame(tick);
+    }
+    window.addEventListener('scroll', kick, {passive:true});
+    window.addEventListener('resize', kick);
+    kick();
+  })();
 
   // 画面リサイズ時にはみ出さないよう補正
   window.addEventListener('resize', function(){

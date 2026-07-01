@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>らいとすぴりっつ | 魂に火を灯す — AI × ロボット × 教育</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -1359,6 +1359,101 @@ footer{
 [data-theme="general"] .yui-status { color: #374151; }
 [data-theme="general"] .status-dot { background: #0284C7; }
 
+/* ===== GENERAL THEME — 案A 青空とそよ風 ===== */
+
+/* 丸ゴシック見出し（企業向けは角ゴシックのまま） */
+[data-theme="general"] h3,
+[data-theme="general"] h4,
+[data-theme="general"] .hero-title,
+[data-theme="general"] .hero-title-jp,
+[data-theme="general"] .sec-jp,
+[data-theme="general"] .nav-logo,
+[data-theme="general"] .about-card-jp,
+[data-theme="general"] .service-name-jp,
+[data-theme="general"] .work-title,
+[data-theme="general"] .yui-title-jp,
+[data-theme="general"] .profile-section-title,
+[data-theme="general"] .profile-service-name,
+[data-theme="general"] .achievement-title,
+[data-theme="general"] .profile-example-q {
+  font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+}
+
+/* 青空グラデーション — ヒーロー */
+[data-theme="general"] #hero {
+  background: linear-gradient(180deg, #D8EEFC 0%, #EAF6FE 55%, #FFF9F0 100%);
+}
+
+/* ドット模様 — 色付きセクション */
+[data-theme="general"] #services,
+[data-theme="general"] #founder {
+  background-color: #F0F9FF;
+  background-image: radial-gradient(rgba(2,132,199,0.08) 2px, transparent 2px);
+  background-size: 26px 26px;
+}
+[data-theme="general"] #yui {
+  background: linear-gradient(180deg, #F0F9FF 0%, #F5F3FF 100%);
+}
+[data-theme="general"] footer {
+  background-color: #F0F9FF;
+  background-image: radial-gradient(rgba(2,132,199,0.06) 2px, transparent 2px);
+  background-size: 26px 26px;
+}
+
+/* 波形セクション区切り — 波の色は直前セクションの背景色 */
+[data-theme="general"] #services,
+[data-theme="general"] #works,
+[data-theme="general"] #yui,
+[data-theme="general"] #blog,
+[data-theme="general"] #founder,
+[data-theme="general"] #contact,
+[data-theme="general"] footer { position: relative; }
+[data-theme="general"] #services::before,
+[data-theme="general"] #works::before,
+[data-theme="general"] #yui::before,
+[data-theme="general"] #blog::before,
+[data-theme="general"] #founder::before,
+[data-theme="general"] #contact::before,
+[data-theme="general"] footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 52px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+[data-theme="general"] #services::before,
+[data-theme="general"] #yui::before,
+[data-theme="general"] #founder::before,
+[data-theme="general"] footer::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFFFF' d='M0,32 C240,64 480,0 720,32 C960,64 1200,0 1440,32 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+}
+[data-theme="general"] #works::before,
+[data-theme="general"] #contact::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23F0F9FF' d='M0,32 C240,64 480,0 720,32 C960,64 1200,0 1440,32 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+}
+[data-theme="general"] #blog::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23F5F3FF' d='M0,32 C240,64 480,0 720,32 C960,64 1200,0 1440,32 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+}
+
+/* 角丸強化 */
+[data-theme="general"] .about-profile,
+[data-theme="general"] .about-card,
+[data-theme="general"] .service-card,
+[data-theme="general"] .blog-card { border-radius: 22px; }
+[data-theme="general"] .work-card,
+[data-theme="general"] .founder-card,
+[data-theme="general"] .avatar-bubble { border-radius: 26px; }
+[data-theme="general"] .news-inner { border-radius: 18px; }
+[data-theme="general"] .contact-link { border-radius: 16px; }
+[data-theme="general"] .form-input,
+[data-theme="general"] .form-select,
+[data-theme="general"] .form-textarea { border-radius: 14px; }
+[data-theme="general"] .profile-service-item,
+[data-theme="general"] .profile-achievement,
+[data-theme="general"] .profile-details { border-radius: 16px; }
+[data-theme="general"] .profile-example { border-radius: 26px; }
+
 /* ===== GENERAL THEME — 日本語優先 ===== */
 
 /* nav-en/nav-jp: テーマ別表示切り替え */
@@ -1369,7 +1464,7 @@ footer{
 /* セクション見出し: 一般向けは日本語を大きく */
 [data-theme="general"] .sec-en { display: none; }
 [data-theme="general"] .sec-jp {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
   font-size: clamp(1.4rem, 2.5vw, 2.4rem);
   font-weight: 700; color: #0C3A56;
   letter-spacing: 0.02em; line-height: 1.3;

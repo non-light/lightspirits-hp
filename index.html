@@ -1771,6 +1771,16 @@ footer{
   .moriken-img-wrap { width: 160px; }
   .moriken-bubble { font-size: 0.75rem; max-width: 155px; }
 }
+
+/* ===== マスコット ドラッグ移動＆会話時拡大 ===== */
+.mascot-wrap  { transform-origin: bottom left;  transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1); }
+.moriken-wrap { transform-origin: bottom right; transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1); }
+.mascot-wrap.speaking, .moriken-wrap.speaking { transform: scale(2); }
+.mascot-img-wrap, .moriken-img-wrap { touch-action: none; cursor: grab; }
+.mascot-img-wrap:active, .moriken-img-wrap:active { cursor: grabbing; }
+@media(max-width:900px){
+  .mascot-wrap.speaking, .moriken-wrap.speaking { transform: scale(1.7); }
+}
 </style>
 </head>
 <body>
@@ -2762,6 +2772,8 @@ footer{
   var mText   = document.getElementById('mascot-text');
   var rBubble = document.getElementById('moriken-bubble');
   var rText   = document.getElementById('moriken-text');
+  var mWrap   = document.getElementById('mascot');
+  var rWrap   = document.getElementById('moriken-wrap');
 
   function setText(el, txt) { if(el) el.innerHTML = txt.replace(/\n/g,'<br>'); }
 
@@ -2771,12 +2783,16 @@ footer{
     setText(rText, d.moriken);
     if(mBubble) mBubble.classList.remove('hidden');
     if(rBubble) rBubble.classList.remove('hidden');
+    if(mWrap) mWrap.classList.add('speaking');
+    if(rWrap) rWrap.classList.add('speaking');
     visible = true;
   }
 
   function hideAll() {
     if(mBubble) mBubble.classList.add('hidden');
     if(rBubble) rBubble.classList.add('hidden');
+    if(mWrap) mWrap.classList.remove('speaking');
+    if(rWrap) rWrap.classList.remove('speaking');
     visible = false;
   }
 
@@ -2790,6 +2806,7 @@ footer{
   }
 
   function onToggle() {
+    if(suppressClick) return;
     if(visible) {
       hideAll();
     } else {
@@ -2810,6 +2827,59 @@ footer{
   ['mascot-toggle','moriken-toggle'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) el.addEventListener('click', onToggle);
+  });
+
+  // ===== ドラッグ＆ドロップで移動 =====
+  var suppressClick = false;
+
+  function makeDraggable(wrap, handle) {
+    if(!wrap || !handle) return;
+    handle.addEventListener('pointerdown', function(e){
+      if(e.button !== undefined && e.button !== 0) return;
+      var startX = e.clientX, startY = e.clientY;
+      var origLeft   = wrap.offsetLeft;
+      var origBottom = window.innerHeight - wrap.offsetTop - wrap.offsetHeight;
+      var dragging = false;
+      try { handle.setPointerCapture(e.pointerId); } catch(err) {}
+
+      function onMove(ev){
+        var dx = ev.clientX - startX, dy = ev.clientY - startY;
+        if(!dragging && Math.abs(dx) + Math.abs(dy) < 6) return;
+        dragging = true;
+        var maxLeft   = window.innerWidth  - wrap.offsetWidth;
+        var maxBottom = window.innerHeight - wrap.offsetHeight;
+        wrap.style.left   = Math.min(Math.max(origLeft + dx, 0), Math.max(maxLeft, 0)) + 'px';
+        wrap.style.bottom = Math.min(Math.max(origBottom - dy, 0), Math.max(maxBottom, 0)) + 'px';
+        wrap.style.right  = 'auto';
+        wrap.style.top    = 'auto';
+      }
+      function onUp(){
+        handle.removeEventListener('pointermove', onMove);
+        handle.removeEventListener('pointerup', onUp);
+        handle.removeEventListener('pointercancel', onUp);
+        if(dragging){
+          suppressClick = true;
+          setTimeout(function(){ suppressClick = false; }, 0);
+        }
+      }
+      handle.addEventListener('pointermove', onMove);
+      handle.addEventListener('pointerup', onUp);
+      handle.addEventListener('pointercancel', onUp);
+    });
+  }
+
+  makeDraggable(mWrap, document.getElementById('mascot-toggle'));
+  makeDraggable(rWrap, document.getElementById('moriken-toggle'));
+
+  // 画面リサイズ時にはみ出さないよう補正
+  window.addEventListener('resize', function(){
+    [mWrap, rWrap].forEach(function(w){
+      if(!w || !w.style.left) return;
+      var maxLeft = Math.max(window.innerWidth - w.offsetWidth, 0);
+      if(parseFloat(w.style.left) > maxLeft) w.style.left = maxLeft + 'px';
+      var maxBottom = Math.max(window.innerHeight - w.offsetHeight, 0);
+      if(parseFloat(w.style.bottom) > maxBottom) w.style.bottom = maxBottom + 'px';
+    });
   });
 })();
 </script>

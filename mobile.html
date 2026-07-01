@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>らいとすぴりっつ | 人々の魂に火を灯す</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0A0A0A;
+      --bg2:     #111111;
+      --fg:      #FFFFFF;
+      --gold:    #D4AF37;
+      --gold2:   rgba(212, 175, 55, 0.6);
+      --gold-bg: rgba(212, 175, 55, 0.04);
+      --border:  rgba(212, 175, 55, 0.12);
+      --muted:   rgba(255, 255, 255, 0.48);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      transition: color 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-catch {
+      font-size: clamp(38px, 7vw, 80px);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 1.0s forwards;
+    }
+
+    .hero-catch span { color: var(--gold); }
+
+    .hero-sub {
+      margin-top: 40px;
+      font-size: clamp(13px, 1.6vw, 17px);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 2.2;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 1.6s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.8s forwards;
+    }
+
+    .scroll-indicator span {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 52px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(212,175,55,0.15);
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scrollDown 1.8s ease-in-out 3s infinite;
+    }
+
+    @keyframes scrollDown {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── 導火線スクロールライト ── */
+    .fuse-line {
+      position: fixed;
+      top: 0; bottom: 0; left: 10px;
+      width: 2px;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(212,175,55,0.18) 7%,
+        rgba(212,175,55,0.18) 93%,
+        transparent 100%);
+      z-index: 150;
+      pointer-events: none;
+    }
+
+    .fuse-spark {
+      position: absolute;
+      left: 50%; top: 0;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #FFF6D8 0%, #F5C842 45%, rgba(245,166,35,0) 72%);
+      box-shadow:
+        0 0 8px 3px rgba(245,200,66,0.8),
+        0 0 20px 8px rgba(245,166,35,0.35);
+    }
+
+    .fuse-spark::before {
+      content: '';
+      position: absolute;
+      left: 50%; bottom: 50%;
+      width: 2px; height: 26px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(245,200,66,0) 0%, rgba(245,200,66,0.7) 100%);
+    }
+
+    /* ── SECTION BASE ── */
+    .section-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 128px 48px;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy { background: var(--bg); }
+
+    .philosophy-headline {
+      font-size: clamp(30px, 5vw, 60px);
+      font-weight: 300;
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+    }
+
+    .philosophy-headline strong {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .philosophy-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 56px 0;
+      opacity: 0.5;
+    }
+
+    .philosophy-body {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 2.4;
+      max-width: 600px;
+    }
+
+    /* ── VALUES ── */
+    #values { background: var(--bg2); }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .value-card {
+      padding: 64px 56px;
+      background: var(--bg2);
+      transition: background 0.4s;
+    }
+
+    .value-card:hover { background: #161616; }
+
+    .value-title {
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .value-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 2.2;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 0;
+    }
+
+    .service-item {
+      background: var(--bg);
+      padding: 44px 40px;
+      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .service-item:hover { background: #0f0f0f; }
+
+    .service-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+
+    .service-name {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    /* ── WORKS ── */
+    #works { background: var(--bg2); }
+
+    .works-list {
+      border: 1px solid var(--border);
+    }
+
+    .work-row {
+      display: block;
+      padding: 40px 36px;
+      text-decoration: none;
+      color: var(--fg);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .work-row:last-child { border-bottom: none; }
+    .work-row:hover { background: #161616; }
+
+    .work-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--gold2);
+      text-transform: uppercase;
+    }
+
+    .work-name {
+      display: block;
+      margin-top: 12px;
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .work-desc {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 2.1;
+      max-width: 560px;
+    }
+
+    .work-arrow {
+      position: absolute;
+      right: 32px;
+      top: 44px;
+      color: var(--gold2);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    /* ── LOG (note) ── */
+    #log { background: var(--bg); }
+
+    .log-list { border-top: 1px solid var(--border); }
+
+    .log-item {
+      display: block;
+      padding: 32px 8px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .log-item:hover { background: #0f0f0f; }
+
+    .log-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold2);
+    }
+
+    .log-title {
+      display: block;
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+    }
+
+    .log-excerpt {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .log-loading {
+      padding: 40px 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .log-more {
+      display: inline-block;
+      margin-top: 40px;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      border-bottom: 1px solid var(--gold2);
+      padding-bottom: 4px;
+      transition: opacity 0.3s;
+    }
+
+    .log-more:hover { opacity: 0.7; }
+
+    /* ── MESSAGE ── */
+    #message {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .message-text {
+      font-size: clamp(22px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.85;
+      letter-spacing: 0.06em;
+    }
+
+    .message-text strong {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .message-brand {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .message-brand-name {
+      font-size: 13px;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+    }
+
+    .message-brand-copy {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      line-height: 1.9;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: #060606;
+      border-top: 1px solid var(--border);
+    }
+
+    #contact .section-wrap { text-align: center; }
+
+    .contact-lead {
+      font-size: clamp(20px, 3.5vw, 40px);
+      font-weight: 300;
+      line-height: 1.85;
+      letter-spacing: 0.06em;
+    }
+
+    .contact-lead em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .contact-note {
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      margin-top: 60px;
+      padding: 18px 64px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .contact-btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .contact-links {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .contact-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      transition: color 0.3s;
+    }
+
+    .contact-links a:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #060606;
+    }
+
+    .footer-logo {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-pc {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+
+    .footer-pc:hover { color: var(--gold); }
+
+    /* ── REVEAL ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .section-wrap { padding: 88px 24px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .value-card { padding: 48px 32px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .work-row { padding: 32px 24px; }
+      .work-arrow { right: 20px; top: 34px; }
+      footer { padding: 28px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導火線スクロールライト -->
+  <div class="fuse-line" id="fuse-line" aria-hidden="true">
+    <div class="fuse-spark" id="fuse-spark"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">らいとすぴりっつ</div>
+    <ul class="nav-links">
+      <li><a href="#philosophy">考え方</a></li>
+      <li><a href="#values">大切にしていること</a></li>
+      <li><a href="#services">できること</a></li>
+      <li><a href="#works">作品</a></li>
+      <li><a href="#log">記録</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <h1 class="hero-catch">
+        人々の魂に<span>火を灯す</span>。
+      </h1>
+      <p class="hero-sub">
+        AIの先にいる、<br>
+        あなたの可能性のために。
+      </p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="section-wrap">
+      <p class="section-label reveal">Philosophy</p>
+      <h2 class="philosophy-headline reveal reveal-delay-1">
+        AIが主役じゃない。<br>
+        <strong>主役は人。</strong>
+      </h2>
+      <div class="philosophy-divider reveal reveal-delay-2"></div>
+      <p class="philosophy-body reveal reveal-delay-3">
+        AIは、人が本来持っている可能性を解放するための道具です。<br><br>
+        私たちは技術そのものではなく、<br>
+        挑戦する人を応援します。
+      </p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values">
+    <div class="section-wrap">
+      <p class="section-label reveal">Values</p>
+      <div class="values-grid">
+        <div class="value-card reveal reveal-delay-1">
+          <h3 class="value-title">楽しんだもの＝価値</h3>
+          <p class="value-body">
+            楽しさは甘えではない。<br><br>
+            楽しさは挑戦を生み、<br>
+            学びを生み、<br>
+            価値を生み出す。<br><br>
+            私たちはそう信じています。
+          </p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <h3 class="value-title">人々の魂に火を灯す</h3>
+          <p class="value-body">
+            誰かの可能性が動き出す瞬間をつくる。<br><br>
+            その小さな火が、<br>
+            人生や仕事を変える力になると<br>
+            信じています。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-wrap">
+      <p class="section-label reveal">What We Do</p>
+      <div class="services-grid">
+        <div class="service-item reveal">
+          <div class="service-dot"></div>
+          <div class="service-name">AI活用支援</div>
+        </div>
+        <div class="service-item reveal reveal-delay-1">
+          <div class="service-dot"></div>
+          <div class="service-name">ChatGPT導入</div>
+        </div>
+        <div class="service-item reveal reveal-delay-2">
+          <div class="service-dot"></div>
+          <div class="service-name">AIエージェント構築</div>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-dot"></div>
+          <div class="service-name">DX推進</div>
+        </div>
+        <div class="service-item reveal reveal-delay-1">
+          <div class="service-dot"></div>
+          <div class="service-name">研修・教育</div>
+        </div>
+        <div class="service-item reveal reveal-delay-2">
+          <div class="service-dot"></div>
+          <div class="service-name">ロボット制作</div>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-dot"></div>
+          <div class="service-name">伴走支援</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="section-wrap">
+      <p class="section-label reveal">Works</p>
+      <div class="works-list">
+        <a class="work-row reveal" href="http://lightspirits.jp/works/summon-shogi/" target="_blank" rel="noopener">
+          <span class="work-tag">Game</span>
+          <span class="work-arrow">→</span>
+          <span class="work-name">召喚将棋</span>
+          <p class="work-desc">駒を「召喚」する独自ルールのブラウザ将棋ゲーム。将棋未経験者でも楽しめる新感覚の対戦体験。</p>
+        </a>
+        <a class="work-row reveal reveal-delay-1" href="https://morikentiger.github.io/BreakBlockBuild/" target="_blank" rel="noopener">
+          <span class="work-tag">Game</span>
+          <span class="work-arrow">→</span>
+          <span class="work-name">BreakBlockBuild</span>
+          <p class="work-desc">ブロックを壊し、積み上げ、新たな世界をつくるブラウザアクションゲーム。直感的な操作で誰でも楽しめます。</p>
+        </a>
+        <a class="work-row reveal reveal-delay-2" href="https://antigravity-sns.vercel.app/" target="_blank" rel="noopener">
+          <span class="work-tag">Web Service</span>
+          <span class="work-arrow">→</span>
+          <span class="work-name">SNS Antigravity</span>
+          <p class="work-desc">重力に逆らう自由なコミュニケーションの場。独自開発のSNSプラットフォームで、新しいつながりを体験。</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOG (note) -->
+  <section id="log">
+    <div class="section-wrap">
+      <p class="section-label reveal">Journal</p>
+      <div class="log-list" id="note-feed">
+        <p class="log-loading">Loading…</p>
+      </div>
+      <a class="log-more" href="https://note.com/morikentiger" target="_blank" rel="noopener noreferrer">note.comで全ての記事を読む →</a>
+    </div>
+  </section>
+
+  <!-- MESSAGE -->
+  <section id="message">
+    <div class="section-wrap">
+      <p class="section-label reveal" style="justify-content: center;">Message</p>
+      <p class="message-text reveal reveal-delay-1">
+        未来は、<br>
+        AIが作るものではありません。<br><br>
+        <strong>人とAIが共に創るものです。</strong>
+      </p>
+      <div class="message-brand reveal reveal-delay-2">
+        <span class="message-brand-name">らいとすぴりっつ</span>
+        <p class="message-brand-copy">
+          挑戦する人の隣で走り続けます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-wrap">
+      <p class="section-label reveal" style="justify-content: center;">Contact</p>
+      <p class="contact-lead reveal reveal-delay-1">
+        あなたの中の<em>火</em>を、<br>
+        もっと大きくするために。
+      </p>
+      <p class="contact-note reveal reveal-delay-2">お気軽にご相談ください。</p>
+      <a href="mailto:info@lightspirits.jp" class="contact-btn reveal reveal-delay-3">
+        GET IN TOUCH
+      </a>
+      <div class="contact-links reveal reveal-delay-3">
+        <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a>
+        <a href="https://x.com/kuromoriken" target="_blank" rel="noopener">𝕏 @kuromoriken</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">らいとすぴりっつ</span>
+    <a class="footer-pc" href="index.html?pc=1">PC版サイトを見る</a>
+    <span class="footer-copy">© 2026 Light Spirits. All rights reserved.</span>
+  </footer>
+
+  <script>
+    // ── CANVAS: 暗闇の中の金色の光が広がるアニメーション ──
+    const canvas = document.getElementById('hero-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, time = 0, particles = [];
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function Particle() {
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = Math.random() * 20;
+      const speed = Math.random() * 0.6 + 0.08;
+      const life  = Math.random() * 280 + 140;
+      return {
+        x: W/2 + Math.cos(angle) * dist,
+        y: H/2 + Math.sin(angle) * dist,
+        vx: Math.cos(angle) * speed * (0.6 + Math.random()),
+        vy: Math.sin(angle) * speed * (0.6 + Math.random()) - 0.05,
+        size: Math.random() * 1.8 + 0.3,
+        life, maxLife: life
+      };
+    }
+
+    for (let i = 0; i < 80; i++) {
+      const p = Particle();
+      p.life = Math.random() * p.maxLife;
+      particles.push(p);
+    }
+
+    function draw() {
+      time++;
+      ctx.clearRect(0, 0, W, H);
+
+      const maxR  = Math.min(W, H) * 0.55;
+      const curR  = Math.min(time * 1.8, maxR);
+      const glow  = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, curR);
+      glow.addColorStop(0,   'rgba(212,175,55,0.10)');
+      glow.addColorStop(0.4, 'rgba(212,175,55,0.04)');
+      glow.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      const coreAlpha = Math.min(time / 80, 1) * 0.55;
+      const core = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, 60);
+      core.addColorStop(0,   `rgba(255,230,120,${coreAlpha})`);
+      core.addColorStop(0.3, `rgba(212,175,55,${coreAlpha * 0.5})`);
+      core.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = core;
+      ctx.fillRect(0, 0, W, H);
+
+      if (time % 2 === 0 && particles.length < 180) particles.push(Particle());
+
+      particles = particles.filter(p => p.life > 0);
+
+      for (const p of particles) {
+        p.x  += p.vx;
+        p.y  += p.vy;
+        p.vx *= 0.999;
+        p.vy *= 0.999;
+        p.life--;
+
+        const ratio = p.life / p.maxLife;
+        const alpha = Math.sin(ratio * Math.PI) * 0.75;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * ratio, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212,175,55,${alpha})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // ── REVEAL ON SCROLL ──
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      }),
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── 導火線スクロールライト ──
+    (function(){
+      const spark = document.getElementById('fuse-spark');
+      if (!spark) return;
+      let cur = 0, target = 0, raf = null;
+      function calc() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        target = max > 0 ? (window.scrollY / max) : 0;
+      }
+      function tick() {
+        cur += (target - cur) * 0.08;
+        if (Math.abs(target - cur) < 0.0008) {
+          cur = target;
+          spark.style.top = (cur * 100) + '%';
+          raf = null;
+          return;
+        }
+        spark.style.top = (cur * 100) + '%';
+        raf = requestAnimationFrame(tick);
+      }
+      function kick() {
+        calc();
+        if (!raf) raf = requestAnimationFrame(tick);
+      }
+      window.addEventListener('scroll', kick, { passive: true });
+      window.addEventListener('resize', kick);
+      kick();
+    })();
+
+    // ── note RSS ──
+    (function(){
+      const PROXY = 'https://api.allorigins.win/raw?url=';
+      const RSS   = 'https://note.com/morikentiger/rss';
+      const NOTE_URL = 'https://note.com/morikentiger';
+      const feed = document.getElementById('note-feed');
+      if (!feed) return;
+
+      function get(el, tag) { return (el.getElementsByTagName(tag)[0] || {}).textContent || ''; }
+      function fmtDate(pubDate) {
+        const d = new Date(pubDate);
+        return isNaN(d) ? '' : d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
+      }
+
+      fetch(PROXY + encodeURIComponent(RSS))
+        .then(r => { if (!r.ok) throw 0; return r.text(); })
+        .then(text => {
+          const xml = new DOMParser().parseFromString(text, 'text/xml');
+          const items = Array.from(xml.getElementsByTagName('item'));
+          if (!items.length) throw 0;
+          feed.innerHTML = items.slice(0, 4).map(item => {
+            const title = get(item, 'title').trim();
+            const link  = get(item, 'link').trim() || get(item, 'guid').trim() || NOTE_URL;
+            const dateStr = fmtDate(get(item, 'pubDate'));
+            const tmp = document.createElement('div');
+            tmp.innerHTML = get(item, 'description');
+            const h2 = tmp.querySelector('h2'), p = tmp.querySelector('p');
+            const excerpt = ((h2 && h2.textContent) || (p && p.textContent) || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+            return '<a class="log-item" href="' + link + '" target="_blank" rel="noopener noreferrer">'
+              + '<span class="log-date">' + dateStr + '</span>'
+              + '<span class="log-title">' + title + '</span>'
+              + (excerpt ? '<p class="log-excerpt">' + excerpt + '…</p>' : '')
+              + '</a>';
+          }).join('');
+        })
+        .catch(() => {
+          feed.innerHTML = '<p class="log-loading">記事を取得できませんでした。<br>'
+            + '<a href="' + NOTE_URL + '" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></p>';
+        });
+    })();
+  </script>
+</body>
+</html>

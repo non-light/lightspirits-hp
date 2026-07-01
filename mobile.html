@@ -10,13 +10,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #0A0A0A;
-      --bg2:     #111111;
+      --bg:      #050505;
+      --bg2:     #0D0D0D;
       --fg:      #FFFFFF;
-      --gold:    #D4AF37;
-      --gold2:   rgba(212, 175, 55, 0.6);
-      --gold-bg: rgba(212, 175, 55, 0.04);
-      --border:  rgba(212, 175, 55, 0.12);
+      --gold:    #D6A84F;
+      --warm:    #F4D78B;
+      --ember:   #C86B2A;
+      --gold2:   rgba(214, 168, 79, 0.6);
+      --border:  rgba(214, 168, 79, 0.12);
       --muted:   rgba(255, 255, 255, 0.48);
     }
 
@@ -29,6 +30,66 @@
       font-weight: 300;
       line-height: 1.8;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── レイヤー構成 ──
+       content: z-auto / fx-canvas(火の粉・火花): z4 / fuse-svg(導火線): z5 / nav: z200 */
+
+    #fx-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    #fuse-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 5;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    #fuse-base {
+      fill: none;
+      stroke: rgba(214, 168, 79, 0.13);
+      stroke-width: 2;
+    }
+
+    #fuse-burn {
+      fill: none;
+      stroke: var(--warm);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(244,215,139,0.85)) drop-shadow(0 0 16px rgba(200,107,42,0.5));
+    }
+
+    #fuse-ball {
+      fill: #FFF6D8;
+      filter: drop-shadow(0 0 8px var(--warm)) drop-shadow(0 0 20px var(--ember));
+    }
+
+    /* ── 火種（ファーストビュー） ── */
+    .fire-seed {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 12px; height: 12px;
+      margin: -6px 0 0 -6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF6D8 0%, var(--warm) 40%, rgba(200,107,42,0) 72%);
+      box-shadow:
+        0 0 16px 6px rgba(244,215,139,0.55),
+        0 0 44px 18px rgba(200,107,42,0.25);
+      animation: breathe 2.6s ease-in-out infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1);    opacity: 0.85; }
+      50%      { transform: scale(1.4);  opacity: 1; }
     }
 
     /* ── NAV ── */
@@ -40,7 +101,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10,10,10,0.85);
+      background: rgba(5,5,5,0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -79,14 +140,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background: #050505;
-    }
-
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      background: var(--bg);
     }
 
     .hero-content {
@@ -131,6 +185,7 @@
       gap: 10px;
       opacity: 0;
       animation: fadeUp 1s ease 2.8s forwards;
+      z-index: 2;
     }
 
     .scroll-indicator span {
@@ -146,7 +201,7 @@
       height: 52px;
       position: relative;
       overflow: hidden;
-      background: rgba(212,175,55,0.15);
+      background: rgba(214,168,79,0.15);
     }
 
     .scroll-line::after {
@@ -169,41 +224,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── 導火線スクロールライト ── */
-    .fuse-line {
-      position: fixed;
-      top: 0; bottom: 0; left: 10px;
-      width: 2px;
-      background: linear-gradient(180deg,
-        transparent 0%,
-        rgba(212,175,55,0.18) 7%,
-        rgba(212,175,55,0.18) 93%,
-        transparent 100%);
-      z-index: 150;
-      pointer-events: none;
-    }
-
-    .fuse-spark {
-      position: absolute;
-      left: 50%; top: 0;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, #FFF6D8 0%, #F5C842 45%, rgba(245,166,35,0) 72%);
-      box-shadow:
-        0 0 8px 3px rgba(245,200,66,0.8),
-        0 0 20px 8px rgba(245,166,35,0.35);
-    }
-
-    .fuse-spark::before {
-      content: '';
-      position: absolute;
-      left: 50%; bottom: 50%;
-      width: 2px; height: 26px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, rgba(245,200,66,0) 0%, rgba(245,200,66,0.7) 100%);
-    }
-
     /* ── SECTION BASE ── */
     .section-wrap {
       max-width: 1000px;
@@ -215,12 +235,13 @@
       font-family: 'Inter', sans-serif;
       font-size: 10px;
       letter-spacing: 0.5em;
-      color: var(--gold);
+      color: rgba(255, 255, 255, 0.26);
       text-transform: uppercase;
       margin-bottom: 56px;
       display: flex;
       align-items: center;
       gap: 16px;
+      transition: color 0.8s ease;
     }
 
     .section-label::after {
@@ -228,8 +249,25 @@
       flex: 1;
       max-width: 48px;
       height: 1px;
-      background: var(--gold);
-      opacity: 0.4;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    /* 着火ノード（導火線の経由点） */
+    .fuse-node {
+      flex: none;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      transition: background 0.7s ease, box-shadow 0.7s ease;
+    }
+
+    .section-label.lit { color: var(--gold); }
+    .section-label.lit .fuse-node {
+      background: var(--warm);
+      box-shadow:
+        0 0 10px 2px rgba(244,215,139,0.65),
+        0 0 24px 6px rgba(200,107,42,0.3);
     }
 
     /* ── PHILOSOPHY ── */
@@ -279,7 +317,7 @@
       transition: background 0.4s;
     }
 
-    .value-card:hover { background: #161616; }
+    .value-card:hover { background: #141414; }
 
     .value-title {
       font-size: 19px;
@@ -317,7 +355,7 @@
       gap: 20px;
     }
 
-    .service-item:hover { background: #0f0f0f; }
+    .service-item:hover { background: #0b0b0b; }
 
     .service-dot {
       width: 6px;
@@ -337,9 +375,7 @@
     /* ── WORKS ── */
     #works { background: var(--bg2); }
 
-    .works-list {
-      border: 1px solid var(--border);
-    }
+    .works-list { border: 1px solid var(--border); }
 
     .work-row {
       display: block;
@@ -352,7 +388,7 @@
     }
 
     .work-row:last-child { border-bottom: none; }
-    .work-row:hover { background: #161616; }
+    .work-row:hover { background: #141414; }
 
     .work-tag {
       font-family: 'Inter', sans-serif;
@@ -401,7 +437,7 @@
       transition: background 0.3s;
     }
 
-    .log-item:hover { background: #0f0f0f; }
+    .log-item:hover { background: #0b0b0b; }
 
     .log-date {
       font-family: 'Inter', sans-serif;
@@ -491,7 +527,7 @@
 
     /* ── CONTACT ── */
     #contact {
-      background: #060606;
+      background: #030303;
       border-top: 1px solid var(--border);
     }
 
@@ -526,12 +562,33 @@
       font-size: 12px;
       letter-spacing: 0.3em;
       font-family: 'Inter', sans-serif;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s, color 0.5s, border-color 0.5s, box-shadow 0.6s;
+      position: relative;
     }
 
     .contact-btn:hover {
       background: var(--gold);
       color: var(--bg);
+    }
+
+    /* 火が宿った状態 */
+    .contact-btn.burned {
+      color: var(--warm);
+      border-color: var(--warm);
+      box-shadow:
+        0 0 18px rgba(244,215,139,0.35),
+        inset 0 0 14px rgba(244,215,139,0.12);
+    }
+
+    /* 着火の瞬間のフラッシュ */
+    .contact-btn.ignite-flash {
+      animation: ctaIgnite 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    @keyframes ctaIgnite {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.12); box-shadow: 0 0 46px 14px rgba(244,215,139,0.7), inset 0 0 20px rgba(244,215,139,0.3); }
+      100% { transform: scale(1); }
     }
 
     .contact-links {
@@ -561,7 +618,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      background: #060606;
+      background: #030303;
     }
 
     .footer-logo {
@@ -602,6 +659,18 @@
     .reveal-delay-2 { transition-delay: 0.22s; }
     .reveal-delay-3 { transition-delay: 0.34s; }
 
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001s !important;
+      }
+      .fire-seed, #fx-canvas, #fuse-ball { display: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 18px 24px; }
@@ -622,10 +691,15 @@
 </head>
 <body>
 
-  <!-- 導火線スクロールライト -->
-  <div class="fuse-line" id="fuse-line" aria-hidden="true">
-    <div class="fuse-spark" id="fuse-spark"></div>
-  </div>
+  <!-- 火の粉・火花 canvas -->
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <!-- 導火線 SVG（base=未燃の経路 / burn=燃えた跡 / ball=火の玉ヘッド） -->
+  <svg id="fuse-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path id="fuse-base" d=""/>
+    <path id="fuse-burn" d=""/>
+    <circle id="fuse-ball" r="5" opacity="0"/>
+  </svg>
 
   <!-- NAV -->
   <nav>
@@ -642,7 +716,7 @@
 
   <!-- HERO -->
   <section id="hero">
-    <canvas id="hero-canvas"></canvas>
+    <div class="fire-seed" id="fire-seed"></div>
     <div class="hero-content">
       <h1 class="hero-catch">
         人々の魂に<span>火を灯す</span>。
@@ -661,13 +735,13 @@
   <!-- PHILOSOPHY -->
   <section id="philosophy">
     <div class="section-wrap">
-      <p class="section-label reveal">Philosophy</p>
-      <h2 class="philosophy-headline reveal reveal-delay-1">
+      <p class="section-label"><span class="fuse-node"></span>Philosophy</p>
+      <h2 class="philosophy-headline reveal">
         AIが主役じゃない。<br>
         <strong>主役は人。</strong>
       </h2>
-      <div class="philosophy-divider reveal reveal-delay-2"></div>
-      <p class="philosophy-body reveal reveal-delay-3">
+      <div class="philosophy-divider reveal reveal-delay-1"></div>
+      <p class="philosophy-body reveal reveal-delay-2">
         AIは、人が本来持っている可能性を解放するための道具です。<br><br>
         私たちは技術そのものではなく、<br>
         挑戦する人を応援します。
@@ -678,7 +752,7 @@
   <!-- VALUES -->
   <section id="values">
     <div class="section-wrap">
-      <p class="section-label reveal">Values</p>
+      <p class="section-label"><span class="fuse-node"></span>Values</p>
       <div class="values-grid">
         <div class="value-card reveal reveal-delay-1">
           <h3 class="value-title">楽しんだもの＝価値</h3>
@@ -706,7 +780,7 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="section-wrap">
-      <p class="section-label reveal">What We Do</p>
+      <p class="section-label"><span class="fuse-node"></span>What We Do</p>
       <div class="services-grid">
         <div class="service-item reveal">
           <div class="service-dot"></div>
@@ -743,7 +817,7 @@
   <!-- WORKS -->
   <section id="works">
     <div class="section-wrap">
-      <p class="section-label reveal">Works</p>
+      <p class="section-label"><span class="fuse-node"></span>Works</p>
       <div class="works-list">
         <a class="work-row reveal" href="http://lightspirits.jp/works/summon-shogi/" target="_blank" rel="noopener">
           <span class="work-tag">Game</span>
@@ -770,7 +844,7 @@
   <!-- LOG (note) -->
   <section id="log">
     <div class="section-wrap">
-      <p class="section-label reveal">Journal</p>
+      <p class="section-label"><span class="fuse-node"></span>Journal</p>
       <div class="log-list" id="note-feed">
         <p class="log-loading">Loading…</p>
       </div>
@@ -781,13 +855,13 @@
   <!-- MESSAGE -->
   <section id="message">
     <div class="section-wrap">
-      <p class="section-label reveal" style="justify-content: center;">Message</p>
-      <p class="message-text reveal reveal-delay-1">
+      <p class="section-label" style="justify-content: center;"><span class="fuse-node"></span>Message</p>
+      <p class="message-text reveal">
         未来は、<br>
         AIが作るものではありません。<br><br>
         <strong>人とAIが共に創るものです。</strong>
       </p>
-      <div class="message-brand reveal reveal-delay-2">
+      <div class="message-brand reveal reveal-delay-1">
         <span class="message-brand-name">らいとすぴりっつ</span>
         <p class="message-brand-copy">
           挑戦する人の隣で走り続けます。
@@ -799,13 +873,13 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-wrap">
-      <p class="section-label reveal" style="justify-content: center;">Contact</p>
-      <p class="contact-lead reveal reveal-delay-1">
+      <p class="section-label" style="justify-content: center;"><span class="fuse-node"></span>Contact</p>
+      <p class="contact-lead reveal">
         あなたの中の<em>火</em>を、<br>
         もっと大きくするために。
       </p>
-      <p class="contact-note reveal reveal-delay-2">お気軽にご相談ください。</p>
-      <a href="mailto:info@lightspirits.jp" class="contact-btn reveal reveal-delay-3">
+      <p class="contact-note reveal reveal-delay-1">お気軽にご相談ください。</p>
+      <a href="mailto:info@lightspirits.jp" class="contact-btn reveal reveal-delay-2" id="cta-btn">
         GET IN TOUCH
       </a>
       <div class="contact-links reveal reveal-delay-3">
@@ -823,161 +897,341 @@
   </footer>
 
   <script>
-    // ── CANVAS: 暗闇の中の金色の光が広がるアニメーション ──
-    const canvas = document.getElementById('hero-canvas');
-    const ctx    = canvas.getContext('2d');
-    let W, H, time = 0, particles = [];
+  (function () {
+    'use strict';
 
-    function resize() {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function Particle() {
-      const angle = Math.random() * Math.PI * 2;
-      const dist  = Math.random() * 20;
-      const speed = Math.random() * 0.6 + 0.08;
-      const life  = Math.random() * 280 + 140;
+    var svg      = document.getElementById('fuse-svg');
+    var basePath = document.getElementById('fuse-base');
+    var burnPath = document.getElementById('fuse-burn');
+    var ball     = document.getElementById('fuse-ball');
+    var seed     = document.getElementById('fire-seed');
+    var cta      = document.getElementById('cta-btn');
+    var canvas   = document.getElementById('fx-canvas');
+    var labels   = Array.prototype.slice.call(document.querySelectorAll('.section-label'));
+    var nodes    = Array.prototype.slice.call(document.querySelectorAll('.fuse-node'));
+
+    /* ============ 導火線パスの構築 ============ */
+    var totalLen = 0;
+    var nodeLens = [];   // 各ノードのパス長
+    var pathTopY = 0, pathBottomY = 0;
+
+    function docPos(el) {
+      var r = el.getBoundingClientRect();
       return {
-        x: W/2 + Math.cos(angle) * dist,
-        y: H/2 + Math.sin(angle) * dist,
-        vx: Math.cos(angle) * speed * (0.6 + Math.random()),
-        vy: Math.sin(angle) * speed * (0.6 + Math.random()) - 0.05,
-        size: Math.random() * 1.8 + 0.3,
-        life, maxLife: life
+        x: r.left + r.width / 2 + window.scrollX,
+        y: r.top + r.height / 2 + window.scrollY
       };
     }
 
-    for (let i = 0; i < 80; i++) {
-      const p = Particle();
-      p.life = Math.random() * p.maxLife;
-      particles.push(p);
+    function buildPath() {
+      var docH = document.documentElement.scrollHeight;
+      svg.setAttribute('width', window.innerWidth);
+      svg.setAttribute('height', docH);
+      svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + docH);
+      svg.style.height = docH + 'px';
+
+      var hero = document.getElementById('hero');
+      var start = { x: window.innerWidth / 2, y: hero.offsetTop + hero.offsetHeight / 2 };
+      var pts = [start];
+      nodes.forEach(function (n) { pts.push(docPos(n)); });
+      pts.push(docPos(cta));
+
+      // 各点を経由する滑らかなベジェ曲線（縦方向に単調）
+      var d = 'M ' + pts[0].x + ' ' + pts[0].y;
+      for (var i = 1; i < pts.length; i++) {
+        var q = pts[i - 1], p = pts[i];
+        var dy = (p.y - q.y) * 0.45;
+        d += ' C ' + q.x + ' ' + (q.y + dy) + ', ' + p.x + ' ' + (p.y - dy) + ', ' + p.x + ' ' + p.y;
+      }
+      basePath.setAttribute('d', d);
+      burnPath.setAttribute('d', d);
+
+      totalLen = basePath.getTotalLength();
+      burnPath.style.strokeDasharray = totalLen;
+      burnPath.style.strokeDashoffset = totalLen;
+
+      pathTopY = pts[0].y;
+      pathBottomY = pts[pts.length - 1].y;
+
+      nodeLens = nodes.map(function (n) { return bisectY(docPos(n).y); });
     }
 
-    function draw() {
-      time++;
-      ctx.clearRect(0, 0, W, H);
+    /* y座標 → パス長（縦方向に単調なので二分探索できる） */
+    function bisectY(targetY) {
+      var lo = 0, hi = totalLen;
+      for (var i = 0; i < 24; i++) {
+        var mid = (lo + hi) / 2;
+        if (basePath.getPointAtLength(mid).y < targetY) lo = mid; else hi = mid;
+      }
+      return (lo + hi) / 2;
+    }
 
-      const maxR  = Math.min(W, H) * 0.55;
-      const curR  = Math.min(time * 1.8, maxR);
-      const glow  = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, curR);
-      glow.addColorStop(0,   'rgba(212,175,55,0.10)');
-      glow.addColorStop(0.4, 'rgba(212,175,55,0.04)');
-      glow.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H);
+    /* ============ canvas（火の粉・火花・爆発） ============ */
+    var ctx = canvas.getContext('2d');
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var VW = 0, VH = 0;
+    var particles = [];
 
-      const coreAlpha = Math.min(time / 80, 1) * 0.55;
-      const core = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, 60);
-      core.addColorStop(0,   `rgba(255,230,120,${coreAlpha})`);
-      core.addColorStop(0.3, `rgba(212,175,55,${coreAlpha * 0.5})`);
-      core.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = core;
-      ctx.fillRect(0, 0, W, H);
+    function resizeCanvas() {
+      VW = window.innerWidth;
+      VH = window.innerHeight;
+      canvas.width  = VW * DPR;
+      canvas.height = VH * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
 
-      if (time % 2 === 0 && particles.length < 180) particles.push(Particle());
+    function rand(a, b) { return a + Math.random() * (b - a); }
 
-      particles = particles.filter(p => p.life > 0);
+    var EMBERS = ['#D6A84F', '#C86B2A', '#F4D78B'];
+    var BURST  = ['#FFFFFF', '#D6A84F', '#C86B2A', '#F4D78B'];
 
-      for (const p of particles) {
-        p.x  += p.vx;
-        p.y  += p.vy;
-        p.vx *= 0.999;
-        p.vy *= 0.999;
+    // 常時舞い上がる火の粉
+    function spawnAmbient() {
+      particles.push({
+        x: rand(0, VW), y: VH + 6,
+        vx: rand(-0.15, 0.15), vy: rand(-0.65, -0.25),
+        size: rand(0.6, 1.9),
+        life: rand(260, 420), max: 420,
+        color: EMBERS[(Math.random() * EMBERS.length) | 0],
+        type: 'ambient'
+      });
+    }
+
+    // 火の玉が移動中に放つ火花
+    function spawnTrail(x, y) {
+      particles.push({
+        x: x, y: y,
+        vx: rand(-0.7, 0.7), vy: rand(-0.9, 0.1),
+        size: rand(0.6, 1.6),
+        life: rand(28, 60), max: 60,
+        color: EMBERS[(Math.random() * EMBERS.length) | 0],
+        type: 'trail'
+      });
+    }
+
+    // フィナーレの爆発
+    function explode(x, y) {
+      for (var i = 0; i < 52; i++) {
+        var a = Math.random() * Math.PI * 2;
+        var sp = rand(1.5, 6.5);
+        particles.push({
+          x: x, y: y,
+          vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 0.6,
+          size: rand(1, 2.6),
+          life: rand(60, 120), max: 120,
+          color: BURST[(Math.random() * BURST.length) | 0],
+          type: 'burst'
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, VW, VH);
+      ctx.globalCompositeOperation = 'lighter';
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
         p.life--;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
 
-        const ratio = p.life / p.maxLife;
-        const alpha = Math.sin(ratio * Math.PI) * 0.75;
+        if (p.type === 'burst') {
+          p.vx *= 0.96; p.vy = p.vy * 0.96 + 0.02;  // 減速＋微重力
+        } else if (p.type === 'ambient') {
+          p.vx += rand(-0.01, 0.01);                 // ゆらぎ
+        }
+        p.x += p.vx; p.y += p.vy;
+
+        var ratio = p.life / p.max;
+        var alpha = (p.type === 'ambient')
+          ? Math.sin(ratio * Math.PI) * 0.55
+          : ratio * 0.9;
+
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = p.color;
+        ctx.globalAlpha = alpha;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * ratio, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(212,175,55,${alpha})`;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
         ctx.fill();
       }
-
-      requestAnimationFrame(draw);
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+      ctx.globalCompositeOperation = 'source-over';
     }
-    draw();
 
-    // ── REVEAL ON SCROLL ──
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      }),
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    /* ============ tick ループ ============ */
+    var burnCur = 0, burnTarget = 0;
+    var exploded = false;
+    var frame = 0;
+    var seedGone = false;
 
-    // ── 導火線スクロールライト ──
-    (function(){
-      const spark = document.getElementById('fuse-spark');
-      if (!spark) return;
-      let cur = 0, target = 0, raf = null;
-      function calc() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        target = max > 0 ? (window.scrollY / max) : 0;
-      }
-      function tick() {
-        cur += (target - cur) * 0.08;
-        if (Math.abs(target - cur) < 0.0008) {
-          cur = target;
-          spark.style.top = (cur * 100) + '%';
-          raf = null;
-          return;
+    function calcTarget() {
+      var focusY = window.scrollY + window.innerHeight * 0.6;
+      if (focusY < pathTopY) focusY = pathTopY;
+      if (focusY > pathBottomY) focusY = pathBottomY;
+      burnTarget = bisectY(focusY);
+    }
+
+    function updateSeed() {
+      if (!seed) return;
+      var p = Math.min(window.scrollY / (window.innerHeight * 0.55), 1);
+      if (p <= 0) {
+        if (seedGone) {
+          seed.style.display = '';
+          seed.style.animation = '';
+          seed.style.transform = '';
+          seed.style.opacity = '';
+          seedGone = false;
         }
-        spark.style.top = (cur * 100) + '%';
-        raf = requestAnimationFrame(tick);
+        return;
       }
-      function kick() {
-        calc();
-        if (!raf) raf = requestAnimationFrame(tick);
+      if (p >= 1) {
+        seed.style.display = 'none';
+        seedGone = true;
+        return;
       }
-      window.addEventListener('scroll', kick, { passive: true });
-      window.addEventListener('resize', kick);
-      kick();
-    })();
+      seed.style.display = '';
+      seed.style.animation = 'none';
+      var s = 1 + Math.pow(p, 2) * 16;   // 指数的に拡大
+      seed.style.transform = 'scale(' + s + ')';
+      seed.style.opacity = String(1 - p);
+      seedGone = false;
+    }
 
-    // ── note RSS ──
-    (function(){
-      const PROXY = 'https://api.allorigins.win/raw?url=';
-      const RSS   = 'https://note.com/morikentiger/rss';
-      const NOTE_URL = 'https://note.com/morikentiger';
-      const feed = document.getElementById('note-feed');
-      if (!feed) return;
+    function tick() {
+      frame++;
 
-      function get(el, tag) { return (el.getElementsByTagName(tag)[0] || {}).textContent || ''; }
-      function fmtDate(pubDate) {
-        const d = new Date(pubDate);
-        return isNaN(d) ? '' : d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
+      // 燃え進み（双方向・スムーズ追従）
+      burnCur += (burnTarget - burnCur) * 0.1;
+      if (Math.abs(burnTarget - burnCur) < 0.3) burnCur = burnTarget;
+      burnPath.style.strokeDashoffset = Math.max(totalLen - burnCur, 0);
+
+      // 火の玉ヘッド（flicker付き）
+      var tip = basePath.getPointAtLength(burnCur);
+      ball.setAttribute('cx', tip.x);
+      ball.setAttribute('cy', tip.y);
+      ball.setAttribute('r', 4.5 + Math.sin(frame * 0.35) * 0.9 + Math.random() * 0.5);
+      ball.setAttribute('opacity', burnCur > 1 ? String(0.85 + Math.random() * 0.15) : '0');
+
+      // 移動中は火花を放出（viewport座標へ変換）
+      if (Math.abs(burnTarget - burnCur) > 1.5) {
+        var vy = tip.y - window.scrollY;
+        if (vy > -20 && vy < VH + 20) {
+          spawnTrail(tip.x, vy);
+          if (Math.random() < 0.5) spawnTrail(tip.x, vy);
+        }
       }
 
-      fetch(PROXY + encodeURIComponent(RSS))
-        .then(r => { if (!r.ok) throw 0; return r.text(); })
-        .then(text => {
-          const xml = new DOMParser().parseFromString(text, 'text/xml');
-          const items = Array.from(xml.getElementsByTagName('item'));
-          if (!items.length) throw 0;
-          feed.innerHTML = items.slice(0, 4).map(item => {
-            const title = get(item, 'title').trim();
-            const link  = get(item, 'link').trim() || get(item, 'guid').trim() || NOTE_URL;
-            const dateStr = fmtDate(get(item, 'pubDate'));
-            const tmp = document.createElement('div');
-            tmp.innerHTML = get(item, 'description');
-            const h2 = tmp.querySelector('h2'), p = tmp.querySelector('p');
-            const excerpt = ((h2 && h2.textContent) || (p && p.textContent) || '').trim().replace(/\s+/g, ' ').slice(0, 60);
-            return '<a class="log-item" href="' + link + '" target="_blank" rel="noopener noreferrer">'
-              + '<span class="log-date">' + dateStr + '</span>'
-              + '<span class="log-title">' + title + '</span>'
-              + (excerpt ? '<p class="log-excerpt">' + excerpt + '…</p>' : '')
-              + '</a>';
-          }).join('');
-        })
-        .catch(() => {
-          feed.innerHTML = '<p class="log-loading">記事を取得できませんでした。<br>'
-            + '<a href="' + NOTE_URL + '" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></p>';
-        });
-    })();
+      // 着火の連鎖
+      for (var i = 0; i < nodeLens.length; i++) {
+        labels[i].classList.toggle('lit', burnCur >= nodeLens[i] - 2);
+      }
+
+      // フィナーレ
+      if (burnCur >= totalLen - 6) {
+        if (!exploded) {
+          exploded = true;
+          var r = cta.getBoundingClientRect();
+          explode(r.left + r.width / 2, r.top + r.height / 2);
+          cta.classList.add('burned', 'ignite-flash');
+          setTimeout(function () { cta.classList.remove('ignite-flash'); }, 800);
+        }
+      } else if (burnCur < totalLen * 0.9) {
+        exploded = false;
+        cta.classList.remove('burned');
+      }
+
+      // 火種
+      updateSeed();
+
+      // 火の粉
+      if (frame % 7 === 0 && particles.length < 90) spawnAmbient();
+      drawParticles();
+
+      requestAnimationFrame(tick);
+    }
+
+    /* ============ 初期化 ============ */
+    function rebuild() {
+      var progress = totalLen > 0 ? burnCur / totalLen : 0;
+      buildPath();
+      if (reduced) {
+        burnPath.style.strokeDashoffset = 0;
+        return;
+      }
+      burnCur = progress * totalLen;
+      calcTarget();
+    }
+
+    if (reduced) {
+      // 静的フォールバック：全て点灯・線は完全に描画
+      buildPath();
+      burnPath.style.strokeDashoffset = 0;
+      labels.forEach(function (l) { l.classList.add('lit'); });
+      cta.classList.add('burned');
+    } else {
+      resizeCanvas();
+      buildPath();
+      calcTarget();
+      burnCur = burnTarget;
+
+      window.addEventListener('scroll', calcTarget, { passive: true });
+      window.addEventListener('resize', function () { resizeCanvas(); rebuild(); });
+      window.addEventListener('load', rebuild);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(rebuild);
+
+      requestAnimationFrame(tick);
+    }
+
+    /* ============ note RSS ============ */
+    var PROXY = 'https://api.allorigins.win/raw?url=';
+    var RSS = 'https://note.com/morikentiger/rss';
+    var NOTE_URL = 'https://note.com/morikentiger';
+    var feed = document.getElementById('note-feed');
+
+    function get(el, tag) { return (el.getElementsByTagName(tag)[0] || {}).textContent || ''; }
+    function fmtDate(pubDate) {
+      var d = new Date(pubDate);
+      return isNaN(d) ? '' : d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    }
+
+    fetch(PROXY + encodeURIComponent(RSS))
+      .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+      .then(function (text) {
+        var xml = new DOMParser().parseFromString(text, 'text/xml');
+        var items = Array.prototype.slice.call(xml.getElementsByTagName('item'));
+        if (!items.length) throw 0;
+        feed.innerHTML = items.slice(0, 4).map(function (item) {
+          var title = get(item, 'title').trim();
+          var link = get(item, 'link').trim() || get(item, 'guid').trim() || NOTE_URL;
+          var dateStr = fmtDate(get(item, 'pubDate'));
+          var tmp = document.createElement('div');
+          tmp.innerHTML = get(item, 'description');
+          var h2 = tmp.querySelector('h2'), p = tmp.querySelector('p');
+          var excerpt = ((h2 && h2.textContent) || (p && p.textContent) || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+          return '<a class="log-item" href="' + link + '" target="_blank" rel="noopener noreferrer">'
+            + '<span class="log-date">' + dateStr + '</span>'
+            + '<span class="log-title">' + title + '</span>'
+            + (excerpt ? '<p class="log-excerpt">' + excerpt + '…</p>' : '')
+            + '</a>';
+        }).join('');
+        rebuild();
+      })
+      .catch(function () {
+        feed.innerHTML = '<p class="log-loading">記事を取得できませんでした。<br>'
+          + '<a href="' + NOTE_URL + '" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></p>';
+        rebuild();
+      });
+
+    /* ============ REVEAL ON SCROLL ============ */
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+  })();
   </script>
 </body>
 </html>

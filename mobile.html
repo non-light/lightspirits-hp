@@ -1076,9 +1076,12 @@
     var seedGone = false;
 
     function calcTarget() {
-      var focusY = window.scrollY + window.innerHeight * 0.6;
-      if (focusY < pathTopY) focusY = pathTopY;
-      if (focusY > pathBottomY) focusY = pathBottomY;
+      // スクロール0 → 起点（灯）、最下部 → 終点（CTA）に正確に対応させる
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var f = max > 0 ? window.scrollY / max : 0;
+      if (f < 0) f = 0;
+      if (f > 1) f = 1;
+      var focusY = pathTopY + f * (pathBottomY - pathTopY);
       burnTarget = bisectY(focusY);
     }
 

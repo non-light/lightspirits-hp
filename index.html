@@ -20,7 +20,7 @@
 </script>
 <title>らいとすぴりっつ | 魂に火を灯す — AI × ロボット × 教育</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -1437,12 +1437,12 @@ footer{
   pointer-events: none;
 }
 [data-theme="general"] #services::before,
-[data-theme="general"] #yui::before,
+[data-theme="general"] #works::before,
 [data-theme="general"] #founder::before,
 [data-theme="general"] footer::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFFFF' d='M0,32 C240,64 480,0 720,32 C960,64 1200,0 1440,32 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
 }
-[data-theme="general"] #works::before,
+[data-theme="general"] #yui::before,
 [data-theme="general"] #contact::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23F0F9FF' d='M0,32 C240,64 480,0 720,32 C960,64 1200,0 1440,32 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
 }
@@ -1845,6 +1845,93 @@ footer{
     background: linear-gradient(180deg, rgba(245,200,66,0) 0%, rgba(245,200,66,0.7) 100%);
   }
 }
+
+/* ===== CORPORATE THEME — 差別化強化 ===== */
+
+/* 案1: 企業向けはマスコット非表示 */
+[data-theme="corporate"] .mascot-wrap,
+[data-theme="corporate"] .moriken-wrap { display: none; }
+
+/* 案4: 企業向け見出しは明朝体 */
+[data-theme="corporate"] .hero-title,
+[data-theme="corporate"] .hero-title-jp,
+[data-theme="corporate"] .sec-en,
+[data-theme="corporate"] .sec-jp,
+[data-theme="corporate"] .work-title,
+[data-theme="corporate"] .blog-title,
+[data-theme="corporate"] .yui-title,
+[data-theme="corporate"] .yui-title-jp,
+[data-theme="corporate"] .founder-bio h3,
+[data-theme="corporate"] .profile-section-title,
+[data-theme="corporate"] .achievement-title,
+[data-theme="corporate"] .nav-logo,
+[data-theme="corporate"] .footer-logo {
+  font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
+}
+
+/* 案5: 企業向けは静かな動き（弾まない） */
+[data-theme="corporate"] .work-card:hover,
+[data-theme="corporate"] .service-card:hover,
+[data-theme="corporate"] .blog-card:hover { transform: none; }
+
+/* 案5: ボタンは金の光がすっと走る */
+[data-theme="corporate"] .btn-gold { position: relative; overflow: hidden; }
+[data-theme="corporate"] .btn-gold::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+[data-theme="corporate"] .btn-gold:hover::after { left: 130%; }
+
+/* 案3: 企業向け 実績カウンター */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 0 0 4rem;
+}
+.stat {
+  background: var(--black-2);
+  padding: 2.2rem 1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
+  font-size: 2.6rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-unit {
+  font-size: 1.1rem;
+  margin-left: 2px;
+}
+.stat-label {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+@media(max-width:900px){
+  .stat { padding: 1.4rem 0.5rem; }
+  .stat-num { font-size: 1.8rem; }
+}
+
+/* 案2: 企業向け 火の粉canvas */
+#ember-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: none;
+}
+[data-theme="corporate"] #ember-canvas { display: block; }
 </style>
 </head>
 <body>
@@ -1988,6 +2075,23 @@ footer{
   <div class="sec-head">
     <h2 class="sec-en">About <span class="accent">Us</span></h2>
     <span class="sec-jp">らいとすぴりっつについて</span>
+  </div>
+  <!-- 企業向け 実績カウンター -->
+  <div class="for-corporate">
+    <div class="stats-strip">
+      <div class="stat">
+        <p class="stat-num"><span class="stat-count" data-target="20">0</span><span class="stat-unit">年+</span></p>
+        <p class="stat-label">ロボット・AI開発歴</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num"><span class="stat-count" data-target="3">0</span><span class="stat-unit">領域</span></p>
+        <p class="stat-label">AI × ロボット × 教育</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num"><span class="stat-count" data-target="6">0</span><span class="stat-unit">種</span></p>
+        <p class="stat-label">提供サービス</p>
+      </div>
+    </div>
   </div>
   <div class="about-grid">
     <div class="about-text">
@@ -2702,6 +2806,8 @@ footer{
   <div class="fuse-spark" id="fuse-spark"></div>
 </div>
 
+<canvas id="ember-canvas" aria-hidden="true"></canvas>
+
 <div class="mascot-wrap" id="mascot">
   <div class="mascot-bubble hidden" id="mascot-bubble">
     <p class="mascot-bubble-name">⚡ LS雷神</p>
@@ -3001,12 +3107,116 @@ footer{
   // ===== テーマ切り替え（一般向け ↔ 企業向け）=====
   const tabBtns = document.querySelectorAll('.tab-btn');
 
+  // ===== テーマ別セクション順序 =====
+  // 一般向け: 作品を先に（まず遊んでもらう） / 企業向け: サービス→実績の順
+  const worksSec = document.getElementById('works');
+  const servicesSec = document.getElementById('services');
+  const worksAnchor = worksSec ? worksSec.nextElementSibling : null;
+
+  function applySectionOrder(theme) {
+    if (!worksSec || !servicesSec || !worksAnchor) return;
+    if (theme === 'general') {
+      servicesSec.parentNode.insertBefore(worksSec, servicesSec);
+    } else {
+      worksAnchor.parentNode.insertBefore(worksSec, worksAnchor);
+    }
+  }
+
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       tabBtns.forEach(b => b.classList.toggle('active', b === btn));
       document.documentElement.dataset.theme = btn.dataset.tab;
+      applySectionOrder(btn.dataset.tab);
     });
   });
+
+  applySectionOrder(document.documentElement.dataset.theme);
+
+  // ===== 企業向け 実績カウントアップ =====
+  const counts = document.querySelectorAll('.stat-count');
+  if (counts.length && 'IntersectionObserver' in window) {
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        cio.unobserve(e.target);
+        const el = e.target;
+        const target = +el.dataset.target;
+        let startTs = null;
+        const step = ts => {
+          if (startTs === null) startTs = ts;
+          const p = Math.min((ts - startTs) / 1200, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    counts.forEach(c => cio.observe(c));
+  }
+})();
+
+// ===== 企業向け 火の粉（黒背景に舞い上がる金の粒子） =====
+(function () {
+  const canvas = document.getElementById('ember-canvas');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ctx = canvas.getContext('2d');
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, parts = [], frame = 0;
+  const COLORS = ['#C9A84C', '#C86B2A', '#E8C97A'];
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function tick() {
+    frame++;
+    const active = document.documentElement.dataset.theme === 'corporate' && window.innerWidth > 900;
+    if (!active) {
+      if (parts.length) { parts = []; ctx.clearRect(0, 0, W, H); }
+      requestAnimationFrame(tick);
+      return;
+    }
+    if (frame % 9 === 0 && parts.length < 32) {
+      parts.push({
+        x: Math.random() * W, y: H + 6,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(0.2 + Math.random() * 0.4),
+        size: 0.6 + Math.random() * 1.4,
+        life: 300 + Math.random() * 160, max: 460,
+        color: COLORS[(Math.random() * COLORS.length) | 0]
+      });
+    }
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.life--;
+      if (p.life <= 0 || p.y < -10) { parts.splice(i, 1); continue; }
+      p.vx += (Math.random() - 0.5) * 0.02;
+      p.x += p.vx;
+      p.y += p.vy;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = p.color;
+      ctx.globalAlpha = Math.sin((p.life / p.max) * Math.PI) * 0.4;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>

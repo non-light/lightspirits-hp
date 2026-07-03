@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
+<!-- 修正(SEO): noindexを解除。検索エンジンへの登録を全面的に妨げていたため -->
+<meta name="description" content="AI開発・ロボット開発・アプリ開発を、企画から試作・完成までひとつの窓口で。構想段階からの技術相談やAI顧問にも対応。中小企業・新規事業の開発パートナー、らいとすぴりっつ。">
 <script>
 (function(){
   try {
@@ -18,7 +19,8 @@
   } catch (e) {}
 })();
 </script>
-<title>らいとすぴりっつ | 魂に火を灯す — AI × ロボット × 教育</title>
+<!-- 修正(SEO): 検索キーワード（AI・ロボット・アプリ開発）と強み（一貫開発）をタイトルに -->
+<title>らいとすぴりっつ | AI・ロボット・アプリ開発をひとつの窓口で — 魂に火を灯す</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -1945,6 +1947,75 @@ footer{
   display: none;
 }
 [data-theme="corporate"] #ember-canvas { display: block; }
+
+/* 追加: こんなお悩みはありませんか（企業向け） */
+.pain-box {
+  border: 1px solid var(--border);
+  background: var(--black-2);
+  padding: 2.2rem 2.4rem;
+  margin: 0 0 4rem;
+}
+.pain-box-title {
+  font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 1.3rem;
+}
+.pain-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.pain-box li {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  padding-left: 1.7em;
+  position: relative;
+}
+.pain-box li::before { content: '✔'; position: absolute; left: 0; color: var(--gold); }
+.pain-box-answer { margin-top: 1.5rem; color: var(--white); font-size: 0.95rem; line-height: 1.9; }
+.pain-box-answer strong { color: var(--gold); }
+
+/* 追加: ご相談から納品までの流れ（企業向け） */
+.dev-flow { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 0.9rem; }
+.dev-step {
+  flex: 1;
+  min-width: 150px;
+  border: 1px solid var(--border);
+  background: var(--black-2);
+  padding: 1.15rem 1.05rem;
+}
+.dev-step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  margin-bottom: 0.45rem;
+}
+.dev-step-name { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.35rem; }
+.dev-step-desc { color: var(--muted); font-size: 0.75rem; line-height: 1.75; }
+.dev-flow-note { color: var(--muted); font-size: 0.8rem; }
+
+/* 追加: よくあるご相談チップ（企業向け） */
+.consult-list { margin-top: 2.2rem; }
+.consult-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.consult-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.consult-chips li {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+}
+
+/* 追加: FAQ（企業向け） */
+#faq .faq-wrap { max-width: 780px; }
+#faq .profile-details summary { font-size: 0.92rem; padding: 1rem 1.2rem; }
+#faq .faq-a { padding: 0 1.2rem 1rem; color: var(--muted); font-size: 0.85rem; line-height: 2; }
 </style>
 </head>
 <body>
@@ -2054,7 +2125,8 @@ footer{
         だから、話が早い。形になるのも早い。
       </p>
       <div class="hero-cta">
-        <a href="#contact" class="btn-gold">プロジェクトを相談する</a>
+        <!-- 修正(CTA): 「プロジェクト」だと大型案件限定に見えるため、初回接触の心理的ハードルを下げる文言に -->
+        <a href="#contact" class="btn-gold">まずは相談してみる</a>
         <a href="#works" class="btn-outline">実績を見る</a>
       </div>
     </div>
@@ -2186,6 +2258,20 @@ footer{
     <span class="sec-jp">らいとすぴりっつの強み</span>
   </div>
 
+  <!-- 追加: 訪問者の悩みを先に言語化し、「自分向けのページだ」と感じてもらう（悩み→解決の流れの起点） -->
+  <div class="for-corporate">
+    <div class="pain-box">
+      <p class="pain-box-title">こんなお悩みはありませんか？</p>
+      <ul>
+        <li>AIを導入したいが、何から始めればいいか分からない</li>
+        <li>ロボットやアプリの構想はあるが、複数の会社に分けて頼むのは大変そう</li>
+        <li>発注の前に、そもそも技術的に実現できるのかを知りたい</li>
+        <li>試作品を早くつくって、社内や取引先に見せたい</li>
+      </ul>
+      <p class="pain-box-answer">そのお悩み、<strong>ひとつの窓口</strong>で解決できます。<br>らいとすぴりっつは、AI・ロボット・アプリを横断して開発できる、数少ない開発パートナーです。</p>
+    </div>
+  </div>
+
   <!-- 比較図：一般的な開発 vs らいとすぴりっつ -->
   <div class="strength-diagram">
     <p class="strength-diagram-title for-general">らいとすぴりっつだけで、全部つながる</p>
@@ -2305,10 +2391,47 @@ footer{
       <a href="#contact" class="strength-btn strength-btn-primary">一緒につくる →</a>
     </div>
   </div>
+  <!-- 追加: 開発の流れを示し、「頼んだあとどうなるか」の不安を解消（信頼感の向上） -->
+  <div class="for-corporate">
+    <div class="strength-diagram">
+      <p class="strength-diagram-title">ご相談から納品までの流れ</p>
+      <p class="strength-diagram-sub">すべての工程を同じ担当者が受け持つため、言った内容が途中で変わりません</p>
+      <div class="dev-flow">
+        <div class="dev-step">
+          <p class="dev-step-num">STEP 01</p>
+          <p class="dev-step-name">ご相談</p>
+          <p class="dev-step-desc">構想段階でOK。やりたいことをそのままお聞かせください。</p>
+        </div>
+        <div class="dev-step">
+          <p class="dev-step-num">STEP 02</p>
+          <p class="dev-step-name">ヒアリング・企画</p>
+          <p class="dev-step-desc">課題を整理し、実現方法と進め方をご提案します。</p>
+        </div>
+        <div class="dev-step">
+          <p class="dev-step-num">STEP 03</p>
+          <p class="dev-step-name">試作</p>
+          <p class="dev-step-desc">まず動くものをつくり、方向性を確認します。</p>
+        </div>
+        <div class="dev-step">
+          <p class="dev-step-num">STEP 04</p>
+          <p class="dev-step-name">開発</p>
+          <p class="dev-step-desc">試作の手応えをもとに、本開発を進めます。</p>
+        </div>
+        <div class="dev-step">
+          <p class="dev-step-num">STEP 05</p>
+          <p class="dev-step-name">納品・伴走</p>
+          <p class="dev-step-desc">納品後の改善や運用のご相談にも対応します。</p>
+        </div>
+      </div>
+      <p class="dev-flow-note">※ 途中の工程だけのご依頼（試作のみ・技術相談のみ）も歓迎です。</p>
+    </div>
+  </div>
+
   <div class="for-corporate">
     <div class="strength-cta">
       <a href="#works" class="strength-btn strength-btn-secondary">実績を見る</a>
-      <a href="#contact" class="strength-btn strength-btn-primary">プロジェクトを相談する →</a>
+      <!-- 修正(CTA): このセクションの文脈（試作までが早い）に合わせた具体的な行動喚起に -->
+      <a href="#contact" class="strength-btn strength-btn-primary">試作について相談する →</a>
     </div>
   </div>
 </section>
@@ -2524,6 +2647,9 @@ footer{
       </div>
     </div>
   </div>
+  <!-- 提案: お客様の声セクションの設置場所。実案件の掲載許可が取れ次第、
+       ここ（実績の直後）に「お客様の声」を追加すると、実績→第三者の評価→相談の流れがつくれます。
+       構成例: 会社名（または業種）/ 相談内容 / 一言コメント / 担当者名 -->
 </section>
 
 <div class="divider"></div>
@@ -2661,7 +2787,7 @@ footer{
             <div class="profile-details-body">
               <p class="profile-dtag-h">AI開発</p>
               <div class="profile-dtags">
-                <span class="profile-dtag">生成AIサービス開発</span><span class="profile-dtag">音声会話AI</span><span class="profile-dtag">業務効率化AI</span><span class="profile-dtag">AIエージェント</span><span class="profile-dtag">LoRAファインチューニング</span><span class="profile-dtag">独自AIモデル構築</span><span class="profile-dtag">AI活用コンサル</span><span class="profile-dtag">AI導入支援・社内教育</span>
+                <span class="profile-dtag">生成AIサービス開発</span><span class="profile-dtag">音声会話AI</span><span class="profile-dtag">業務効率化AI</span><span class="profile-dtag">AIエージェント</span><span class="profile-dtag">専用AIのカスタマイズ（LoRA）</span><span class="profile-dtag">独自AIモデル構築</span><span class="profile-dtag">AI活用コンサル</span><span class="profile-dtag">AI導入支援・社内教育</span>
               </div>
               <p class="profile-dtag-h">アプリ・システム開発</p>
               <div class="profile-dtags">
@@ -2697,6 +2823,39 @@ footer{
 
 <div class="divider"></div>
 
+<!-- 追加: FAQ（企業向けのみ）。発注前の不安を先回りで解消し、問い合わせのハードルを下げる -->
+<section id="faq" class="for-corporate">
+  <div class="sec-eyebrow">FAQ</div>
+  <div class="sec-head">
+    <h2 class="sec-en"><span class="accent">FAQ</span></h2>
+    <span class="sec-jp">よくあるご質問</span>
+  </div>
+  <div class="faq-wrap">
+    <details class="profile-details">
+      <summary>技術に詳しくなくても相談できますか？<span class="profile-details-chev">▼</span></summary>
+      <p class="faq-a">はい、大丈夫です。「何ができるか分からない」段階からのご相談を歓迎しています。やりたいことを伺いながら、実現方法はこちらからご提案します。</p>
+    </details>
+    <details class="profile-details">
+      <summary>相談したら、必ず発注しなければいけませんか？<span class="profile-details-chev">▼</span></summary>
+      <p class="faq-a">いいえ。「技術的に実現できそうか」「どれくらいの規模になりそうか」を確認するだけのご相談も歓迎です。まず話してみて、それからご判断ください。</p>
+    </details>
+    <details class="profile-details">
+      <summary>小さな案件でも依頼できますか？<span class="profile-details-chev">▼</span></summary>
+      <p class="faq-a">はい。試作機1台、業務ツールひとつ、研修1回といった単位からお受けしています。途中の工程だけ（試作のみ・技術相談のみ）のご依頼も可能です。</p>
+    </details>
+    <details class="profile-details">
+      <summary>継続的に相談できる契約はありますか？<span class="profile-details-chev">▼</span></summary>
+      <p class="faq-a">AI顧問として、定期的な技術相談・AI活用のアドバイスを行う形にも対応しています。詳しくはお問い合わせください。</p>
+    </details>
+    <details class="profile-details">
+      <summary>遠方の会社でも対応できますか？<span class="profile-details-chev">▼</span></summary>
+      <p class="faq-a">はい。お打ち合わせはオンラインでも対応しています。まずはお気軽にご連絡ください。</p>
+    </details>
+  </div>
+</section>
+
+<div class="divider for-corporate"></div>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="sec-eyebrow">Contact</div>
@@ -2719,6 +2878,19 @@ footer{
           <span class="contact-link-icon">𝕏</span>
           @moriken339
         </a>
+      </div>
+      <!-- 追加: 相談の具体例を見せて「これなら聞いてみよう」を引き出す（AI顧問・技術相談のキーワードも明示） -->
+      <div class="for-corporate">
+        <div class="consult-list">
+          <p class="consult-title">よくあるご相談</p>
+          <ul class="consult-chips">
+            <li>高齢者と会話するロボットをつくりたい</li>
+            <li>ChatGPTを自社の業務に組み込みたい</li>
+            <li>紙の帳票をアプリにしたい</li>
+            <li>新規事業のアイデアが実現可能か知りたい</li>
+            <li>AI顧問として定期的に相談したい</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div>

@@ -2012,6 +2012,21 @@ footer{
   border-radius: 999px;
 }
 
+/* 追加: フォーム送信ボタン（button要素用リセット）と直送メール案内 */
+button.btn-gold {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+.contact-fallback {
+  margin-top: 0.9rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.contact-fallback a { color: var(--gold); }
+
 /* 追加: FAQ（企業向け） */
 #faq .faq-wrap { max-width: 780px; }
 #faq .profile-details summary { font-size: 0.92rem; padding: 1rem 1.2rem; }
@@ -2893,24 +2908,29 @@ footer{
         </div>
       </div>
     </div>
-    <div>
+    <form id="contact-form" action="https://formsubmit.co/info@lightspirits.jp" method="POST">
+      <input type="hidden" name="_subject" value="【らいとすぴりっつHP】お問い合わせ">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://lightspirits.jp/thanks.html">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label class="form-label">お名前 *</label>
-        <input type="text" class="form-input" id="contact-name" placeholder="山田 太郎">
+        <input type="text" class="form-input" id="contact-name" name="お名前" placeholder="山田 太郎" required>
       </div>
       <div class="form-group">
         <label class="form-label">貴社名</label>
-        <input type="text" class="form-input" id="contact-company" placeholder="株式会社〇〇">
+        <input type="text" class="form-input" id="contact-company" name="貴社名" placeholder="株式会社〇〇">
       </div>
       <div class="form-group">
         <label class="form-label">メールアドレス *</label>
-        <input type="email" class="form-input" id="contact-email" placeholder="your@email.com">
+        <input type="email" class="form-input" id="contact-email" name="email" placeholder="your@email.com" required>
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ項目</label>
         <!-- 一般向け -->
         <div class="for-general">
-          <select class="form-select" id="contact-topic-general">
+          <select class="form-select" id="contact-topic-general" name="お問い合わせ項目">
             <option value="">選択してください</option>
             <option>ゲームのご相談・フィードバック</option>
             <option>Webサイト制作のご依頼（個人）</option>
@@ -2921,7 +2941,7 @@ footer{
         </div>
         <!-- 企業向け -->
         <div class="for-corporate">
-          <select class="form-select" id="contact-topic-corporate">
+          <select class="form-select" id="contact-topic-corporate" name="お問い合わせ項目">
             <option value="">選択してください</option>
             <option>ロボット制作のご依頼</option>
             <option>AI活用支援のご相談</option>
@@ -2936,11 +2956,13 @@ footer{
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ内容</label>
-        <textarea class="form-textarea" id="contact-message" placeholder="プロジェクトの概要やご希望をお聞かせください…"></textarea>
+        <textarea class="form-textarea" id="contact-message" name="お問い合わせ内容" placeholder="プロジェクトの概要やご希望をお聞かせください…" required></textarea>
       </div>
-      <!-- 修正: 事務的な「メールで送る」を、行動を後押しする文言に -->
-      <a href="mailto:info@lightspirits.jp" class="btn-gold" id="contact-send" style="margin-top:0.5rem">この内容で相談する</a>
-    </div>
+      <!-- 修正: mailto方式をやめ、訪問者の環境に依存しないフォーム送信（FormSubmit）に変更 -->
+      <button type="submit" class="btn-gold" id="contact-send" style="margin-top:0.5rem">この内容で相談する</button>
+      <!-- 追加(②併用): フォームが使えない場合のメール直送の案内 -->
+      <p class="contact-fallback">フォームが送信できない場合は <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接メールをお送りください。</p>
+    </form>
   </div>
 </section>
 
@@ -3396,10 +3418,10 @@ footer{
 
   applySectionOrder(document.documentElement.dataset.theme);
 
-  // ===== お問い合わせ：入力内容をメール本文に埋め込んで送信 =====
-  const sendBtn = document.getElementById('contact-send');
-  if (sendBtn) {
-    // 入力内容を自動保存し、メーラー起動でページを離れても復元する
+  // ===== お問い合わせフォーム（FormSubmit送信） =====
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    // 入力内容を自動保存し、送信前にページを離れても復元する
     const FIELD_IDS = ['contact-name', 'contact-company', 'contact-email',
                        'contact-message', 'contact-topic-general', 'contact-topic-corporate'];
     FIELD_IDS.forEach(id => {
@@ -3414,41 +3436,15 @@ footer{
       el.addEventListener('change', save);
     });
 
-    sendBtn.addEventListener('click', e => {
-      const val = id => (document.getElementById(id)?.value || '').trim();
-      const name    = val('contact-name');
-      const company = val('contact-company');
-      const email   = val('contact-email');
-      const message = val('contact-message');
-      const topicId = document.documentElement.dataset.theme === 'corporate'
-        ? 'contact-topic-corporate' : 'contact-topic-general';
-      const topic = val(topicId);
-
-      const missing = [];
-      if (!name)    missing.push('お名前');
-      if (!email)   missing.push('メールアドレス');
-      if (!message) missing.push('お問い合わせ内容');
-      if (missing.length) {
-        e.preventDefault();
-        alert(missing.join('・') + 'をご入力ください。');
-        return;
-      }
-
-      const subject = '【お問い合わせ】' + (topic || 'ご相談') + '（' + name + '様）';
-      const body = [
-        'お名前：' + name,
-        '貴社名：' + (company || '—'),
-        'メールアドレス：' + email,
-        'お問い合わせ項目：' + (topic || '未選択'),
-        '',
-        '── お問い合わせ内容 ──',
-        message
-      ].join('\r\n');
-
-      // リンク自身のhrefに埋め込み、ブラウザ標準のメーラー起動に任せる（location.href書き換えより互換性が高い）
-      sendBtn.href = 'mailto:info@lightspirits.jp'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
+    contactForm.addEventListener('submit', () => {
+      // 表示中テーマの「お問い合わせ項目」だけを送信する（非表示側はdisabledで除外）
+      const corporate = document.documentElement.dataset.theme === 'corporate';
+      const gSel = document.getElementById('contact-topic-general');
+      const cSel = document.getElementById('contact-topic-corporate');
+      if (gSel) gSel.disabled = corporate;
+      if (cSel) cSel.disabled = !corporate;
+      // 送信できたら下書き保存はクリア
+      FIELD_IDS.forEach(id => { try { sessionStorage.removeItem('ls-form-' + id); } catch (err) {} });
     });
   }
 

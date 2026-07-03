@@ -3399,8 +3399,22 @@ footer{
   // ===== お問い合わせ：入力内容をメール本文に埋め込んで送信 =====
   const sendBtn = document.getElementById('contact-send');
   if (sendBtn) {
+    // 入力内容を自動保存し、メーラー起動でページを離れても復元する
+    const FIELD_IDS = ['contact-name', 'contact-company', 'contact-email',
+                       'contact-message', 'contact-topic-general', 'contact-topic-corporate'];
+    FIELD_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      try {
+        const saved = sessionStorage.getItem('ls-form-' + id);
+        if (saved && !el.value) el.value = saved;
+      } catch (err) {}
+      const save = () => { try { sessionStorage.setItem('ls-form-' + id, el.value); } catch (err) {} };
+      el.addEventListener('input', save);
+      el.addEventListener('change', save);
+    });
+
     sendBtn.addEventListener('click', e => {
-      e.preventDefault();
       const val = id => (document.getElementById(id)?.value || '').trim();
       const name    = val('contact-name');
       const company = val('contact-company');
@@ -3415,6 +3429,7 @@ footer{
       if (!email)   missing.push('メールアドレス');
       if (!message) missing.push('お問い合わせ内容');
       if (missing.length) {
+        e.preventDefault();
         alert(missing.join('・') + 'をご入力ください。');
         return;
       }
@@ -3430,7 +3445,8 @@ footer{
         message
       ].join('\r\n');
 
-      location.href = 'mailto:info@lightspirits.jp'
+      // リンク自身のhrefに埋め込み、ブラウザ標準のメーラー起動に任せる（location.href書き換えより互換性が高い）
+      sendBtn.href = 'mailto:info@lightspirits.jp'
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(body);
     });

@@ -161,6 +161,7 @@
     }
 
     .hero-catch span { color: var(--gold); }
+    .hero-catch #hero-period { color: var(--fg); }
 
     .hero-sub {
       margin-top: 40px;
@@ -719,7 +720,7 @@
     <div class="fire-seed" id="fire-seed"></div>
     <div class="hero-content">
       <h1 class="hero-catch">
-        人々の魂に<span>火を灯す</span>。
+        人々の魂に<br><span>火を灯す</span><span id="hero-period">。</span>
       </h1>
       <p class="hero-sub">
         AIの先にいる、<br>
@@ -933,7 +934,15 @@
       svg.style.height = docH + 'px';
 
       var hero = document.getElementById('hero');
-      var start = { x: window.innerWidth / 2, y: hero.offsetTop + hero.offsetHeight / 2 };
+      var period = document.getElementById('hero-period');
+      var start = period
+        ? docPos(period)
+        : { x: window.innerWidth / 2, y: hero.offsetTop + hero.offsetHeight / 2 };
+      // 火種を「。」の位置に重ねる
+      if (seed) {
+        seed.style.left = start.x + 'px';
+        seed.style.top = (start.y - hero.offsetTop) + 'px';
+      }
       var pts = [start];
       nodes.forEach(function (n) { pts.push(docPos(n)); });
       pts.push(docPos(cta));
@@ -1180,6 +1189,9 @@
       window.addEventListener('resize', function () { resizeCanvas(); rebuild(); });
       window.addEventListener('load', rebuild);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(rebuild);
+      // タイトルの登場アニメーション完了後に「。」の最終位置で再計算
+      var catchEl = document.querySelector('.hero-catch');
+      if (catchEl) catchEl.addEventListener('animationend', rebuild);
 
       requestAnimationFrame(tick);
     }

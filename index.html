@@ -193,6 +193,7 @@ nav{
 }
 .nav-contact-btn:hover{background:var(--gold-light)}
 .tab-switcher.nav-tab-switcher{margin-bottom:0;align-self:center;align-items:center}
+.tab-switcher.mobile-tab-switcher{display:none}
 .nav-tab-switcher .tab-btn{padding:0.42rem 1rem;font-size:0.7rem}
 .nav-tab-switcher .tab-label{padding:0.42rem 0.7rem;font-size:0.58rem}
 
@@ -1669,8 +1670,20 @@ footer{
   .nav-center{display:none}
   .nav-right .nav-lang{display:none}
   .nav-tab-switcher{display:none}
+  .tab-switcher.mobile-tab-switcher{
+    display:flex;
+    position:fixed;
+    top:72px;left:50%;transform:translateX(-50%);
+    z-index:199;
+    margin:0;
+    background:rgba(5,5,5,0.92);
+    backdrop-filter:blur(16px);
+    box-shadow:0 4px 16px rgba(0,0,0,0.18);
+  }
+  .mobile-tab-switcher .tab-btn{padding:0.6rem 1.1rem;font-size:0.72rem}
   section{padding:4.5rem 1.5rem}
-  #hero{grid-template-columns:1fr;padding-top:100px}
+  #hero{grid-template-columns:1fr;padding-top:132px}
+  [data-theme="general"] #hero,[data-theme="corporate"] #hero{padding-top:132px}
   .hero-left{padding:3rem 1.5rem}
   .hero-right{display:none}
   .about-grid,.contact-grid,.founder-grid{grid-template-columns:1fr;gap:3rem}
@@ -1978,6 +1991,13 @@ footer{
     <a href="#contact" class="nav-contact-btn"><span class="nav-en">Contact</span><span class="nav-jp">お問い合わせ</span></a>
   </div>
 </nav>
+
+<!-- スマホ用テーマ切り替え（900px以下でナビ直下に固定表示） -->
+<div class="tab-switcher mobile-tab-switcher">
+  <button class="tab-btn active" data-tab="general">一般・個人向け</button>
+  <div class="tab-divider"></div>
+  <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -3157,7 +3177,7 @@ footer{
 
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+      tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === btn.dataset.tab));
       document.documentElement.dataset.theme = btn.dataset.tab;
       applySectionOrder(btn.dataset.tab);
     });

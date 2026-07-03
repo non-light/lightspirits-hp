@@ -2854,7 +2854,7 @@ footer{
   function fillNews(items){
     var list = document.getElementById('news-list');
     if (!list) return;
-    var html = items.slice(0, 3).map(function(item){
+    var html = items.slice(0, 2).map(function(item){
       var title   = get(item,'title').trim();
       var link    = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
       var dateStr = fmtDate(get(item,'pubDate'));
@@ -2870,7 +2870,7 @@ footer{
   function fillLog(items){
     var container = document.getElementById('note-feed');
     if (!container) return;
-    var cards = items.slice(0, 6).map(function(item, i){
+    var cards = items.slice(0, 2).map(function(item, i){
       var title    = get(item,'title').trim();
       var link     = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
       var dateStr  = fmtDate(get(item,'pubDate'));

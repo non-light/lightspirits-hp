@@ -2701,21 +2701,21 @@ footer{
     <div>
       <div class="form-group">
         <label class="form-label">お名前 *</label>
-        <input type="text" class="form-input" placeholder="山田 太郎">
+        <input type="text" class="form-input" id="contact-name" placeholder="山田 太郎">
       </div>
       <div class="form-group">
         <label class="form-label">貴社名</label>
-        <input type="text" class="form-input" placeholder="株式会社〇〇">
+        <input type="text" class="form-input" id="contact-company" placeholder="株式会社〇〇">
       </div>
       <div class="form-group">
         <label class="form-label">メールアドレス *</label>
-        <input type="email" class="form-input" placeholder="your@email.com">
+        <input type="email" class="form-input" id="contact-email" placeholder="your@email.com">
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ項目</label>
         <!-- 一般向け -->
         <div class="for-general">
-          <select class="form-select">
+          <select class="form-select" id="contact-topic-general">
             <option value="">選択してください</option>
             <option>ゲームのご相談・フィードバック</option>
             <option>Webサイト制作のご依頼（個人）</option>
@@ -2726,7 +2726,7 @@ footer{
         </div>
         <!-- 企業向け -->
         <div class="for-corporate">
-          <select class="form-select">
+          <select class="form-select" id="contact-topic-corporate">
             <option value="">選択してください</option>
             <option>ロボット制作のご依頼</option>
             <option>AI活用支援のご相談</option>
@@ -2741,9 +2741,9 @@ footer{
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ内容</label>
-        <textarea class="form-textarea" placeholder="プロジェクトの概要やご希望をお聞かせください…"></textarea>
+        <textarea class="form-textarea" id="contact-message" placeholder="プロジェクトの概要やご希望をお聞かせください…"></textarea>
       </div>
-      <a href="mailto:info@lightspirits.jp" class="btn-gold" style="margin-top:0.5rem">メールで送る</a>
+      <a href="mailto:info@lightspirits.jp" class="btn-gold" id="contact-send" style="margin-top:0.5rem">メールで送る</a>
     </div>
   </div>
 </section>
@@ -3184,6 +3184,46 @@ footer{
   });
 
   applySectionOrder(document.documentElement.dataset.theme);
+
+  // ===== お問い合わせ：入力内容をメール本文に埋め込んで送信 =====
+  const sendBtn = document.getElementById('contact-send');
+  if (sendBtn) {
+    sendBtn.addEventListener('click', e => {
+      e.preventDefault();
+      const val = id => (document.getElementById(id)?.value || '').trim();
+      const name    = val('contact-name');
+      const company = val('contact-company');
+      const email   = val('contact-email');
+      const message = val('contact-message');
+      const topicId = document.documentElement.dataset.theme === 'corporate'
+        ? 'contact-topic-corporate' : 'contact-topic-general';
+      const topic = val(topicId);
+
+      const missing = [];
+      if (!name)    missing.push('お名前');
+      if (!email)   missing.push('メールアドレス');
+      if (!message) missing.push('お問い合わせ内容');
+      if (missing.length) {
+        alert(missing.join('・') + 'をご入力ください。');
+        return;
+      }
+
+      const subject = '【お問い合わせ】' + (topic || 'ご相談') + '（' + name + '様）';
+      const body = [
+        'お名前：' + name,
+        '貴社名：' + (company || '—'),
+        'メールアドレス：' + email,
+        'お問い合わせ項目：' + (topic || '未選択'),
+        '',
+        '── お問い合わせ内容 ──',
+        message
+      ].join('\r\n');
+
+      location.href = 'mailto:info@lightspirits.jp'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+    });
+  }
 
   // ===== 企業向け 実績カウントアップ =====
   const counts = document.querySelectorAll('.stat-count');

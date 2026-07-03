@@ -2787,7 +2787,7 @@ footer{
       +(cards.length>2?'<div class="blog-sub">'+cards.slice(2).join('')+'</div>':'');
   }
 
-  fetch(PROXY + encodeURIComponent(RSS))
+  fetch(PROXY + encodeURIComponent(RSS) + '&t=' + Date.now())
     .then(function(r){ if(!r.ok) throw 0; return r.text(); })
     .then(function(text){
       var items = parseItems(text);

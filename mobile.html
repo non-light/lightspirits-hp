@@ -720,7 +720,7 @@
     <div class="fire-seed" id="fire-seed"></div>
     <div class="hero-content">
       <h1 class="hero-catch">
-        人々の魂に<br><span>火を灯す</span><span id="hero-period">。</span>
+        人々の魂に<br><span>火を<span id="fuse-origin">灯</span>す</span><span id="hero-period">。</span>
       </h1>
       <p class="hero-sub">
         AIの先にいる、<br>
@@ -934,11 +934,11 @@
       svg.style.height = docH + 'px';
 
       var hero = document.getElementById('hero');
-      var period = document.getElementById('hero-period');
-      var start = period
-        ? docPos(period)
+      var origin = document.getElementById('fuse-origin');
+      var start = origin
+        ? docPos(origin)
         : { x: window.innerWidth / 2, y: hero.offsetTop + hero.offsetHeight / 2 };
-      // 火種を「。」の位置に重ねる
+      // 火種を「灯」の位置に重ねる
       if (seed) {
         seed.style.left = start.x + 'px';
         seed.style.top = (start.y - hero.offsetTop) + 'px';
@@ -1197,7 +1197,6 @@
     }
 
     /* ============ note RSS ============ */
-    var PROXY = 'https://api.allorigins.win/raw?url=';
     var RSS = 'https://note.com/morikentiger/rss';
     var NOTE_URL = 'https://note.com/morikentiger';
     var feed = document.getElementById('note-feed');
@@ -1205,31 +1204,75 @@
     function get(el, tag) { return (el.getElementsByTagName(tag)[0] || {}).textContent || ''; }
     function fmtDate(pubDate) {
       var d = new Date(pubDate);
+      // Safari対策: "2026-06-19 05:56:46" 形式は T 区切りで再試行
+      if (isNaN(d) && /^\d{4}-\d{2}-\d{2} /.test(String(pubDate))) {
+        d = new Date(String(pubDate).replace(' ', 'T'));
+      }
       return isNaN(d) ? '' : d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
     }
 
-    fetch(PROXY + encodeURIComponent(RSS))
-      .then(function (r) { if (!r.ok) throw 0; return r.text(); })
-      .then(function (text) {
-        var xml = new DOMParser().parseFromString(text, 'text/xml');
-        var items = Array.prototype.slice.call(xml.getElementsByTagName('item'));
-        if (!items.length) throw 0;
-        feed.innerHTML = items.slice(0, 4).map(function (item) {
-          var title = get(item, 'title').trim();
-          var link = get(item, 'link').trim() || get(item, 'guid').trim() || NOTE_URL;
-          var dateStr = fmtDate(get(item, 'pubDate'));
-          var tmp = document.createElement('div');
-          tmp.innerHTML = get(item, 'description');
-          var h2 = tmp.querySelector('h2'), p = tmp.querySelector('p');
-          var excerpt = ((h2 && h2.textContent) || (p && p.textContent) || '').trim().replace(/\s+/g, ' ').slice(0, 60);
-          return '<a class="log-item" href="' + link + '" target="_blank" rel="noopener noreferrer">'
-            + '<span class="log-date">' + dateStr + '</span>'
-            + '<span class="log-title">' + title + '</span>'
-            + (excerpt ? '<p class="log-excerpt">' + excerpt + '…</p>' : '')
-            + '</a>';
-        }).join('');
-        rebuild();
-      })
+    function fetchTimeout(url, ms) {
+      if (typeof AbortController === 'undefined') return fetch(url);
+      var c = new AbortController();
+      setTimeout(function () { c.abort(); }, ms);
+      return fetch(url, { signal: c.signal });
+    }
+
+    // 経路1: allorigins（XMLそのまま）。&t= でキャッシュ回避し最新記事を取得
+    function viaAllOrigins() {
+      return fetchTimeout('https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+        .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+        .then(function (text) {
+          var xml = new DOMParser().parseFromString(text, 'text/xml');
+          var items = Array.prototype.slice.call(xml.getElementsByTagName('item'));
+          if (!items.length) throw 0;
+          return items.map(function (item) {
+            return {
+              title: get(item, 'title').trim(),
+              link:  get(item, 'link').trim() || get(item, 'guid').trim() || NOTE_URL,
+              pub:   get(item, 'pubDate'),
+              desc:  get(item, 'description')
+            };
+          });
+        });
+    }
+
+    // 経路2: rss2json（JSON API・CORS対応）
+    function viaRss2Json() {
+      return fetchTimeout('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (j) {
+          if (j.status !== 'ok' || !j.items || !j.items.length) throw 0;
+          return j.items.map(function (it) {
+            return {
+              title: it.title || '',
+              link:  it.link || NOTE_URL,
+              pub:   it.pubDate || '',
+              desc:  it.description || ''
+            };
+          });
+        });
+    }
+
+    function render(items) {
+      feed.innerHTML = items.slice(0, 4).map(function (it) {
+        var dateStr = fmtDate(it.pub);
+        var tmp = document.createElement('div');
+        tmp.innerHTML = it.desc;
+        var h2 = tmp.querySelector('h2'), p = tmp.querySelector('p');
+        var excerpt = ((h2 && h2.textContent) || (p && p.textContent) || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+        return '<a class="log-item" href="' + it.link + '" target="_blank" rel="noopener noreferrer">'
+          + '<span class="log-date">' + dateStr + '</span>'
+          + '<span class="log-title">' + it.title + '</span>'
+          + (excerpt ? '<p class="log-excerpt">' + excerpt + '…</p>' : '')
+          + '</a>';
+      }).join('');
+      rebuild();
+    }
+
+    viaAllOrigins()
+      .catch(viaRss2Json)
+      .then(render)
       .catch(function () {
         feed.innerHTML = '<p class="log-loading">記事を取得できませんでした。<br>'
           + '<a href="' + NOTE_URL + '" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></p>';

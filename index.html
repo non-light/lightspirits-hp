@@ -2832,36 +2832,75 @@ footer{
 <!-- NOTE RSS LOADER -->
 <script>
 (function(){
-  var PROXY = 'https://api.allorigins.win/raw?url=';
-  var RSS   = 'https://note.com/moriken_ls/rss';
+  var RSS      = 'https://note.com/moriken_ls/rss';
   var NOTE_URL = 'https://note.com/moriken_ls';
 
   function get(el, tag){ return (el.getElementsByTagName(tag)[0]||{}).textContent||''; }
 
   function fmtDate(pubDate){
     var d = new Date(pubDate);
+    // Safari対策: "2026-06-19 05:56:46" 形式は T 区切りで再試行
+    if (isNaN(d) && /^\d{4}-\d{2}-\d{2} /.test(String(pubDate))) {
+      d = new Date(String(pubDate).replace(' ', 'T'));
+    }
     return isNaN(d) ? '' :
       d.getFullYear() + '.' +
       String(d.getMonth()+1).padStart(2,'0') + '.' +
       String(d.getDate()).padStart(2,'0');
   }
 
-  function parseItems(text){
-    var xml = new DOMParser().parseFromString(text, 'text/xml');
-    return Array.from(xml.getElementsByTagName('item'));
+  function fetchTimeout(url, ms){
+    if (typeof AbortController === 'undefined') return fetch(url);
+    var c = new AbortController();
+    setTimeout(function(){ c.abort(); }, ms);
+    return fetch(url, { signal: c.signal });
+  }
+
+  // 経路1: allorigins（XMLそのまま）
+  function viaAllOrigins(){
+    return fetchTimeout('https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(text){
+        var xml = new DOMParser().parseFromString(text, 'text/xml');
+        var items = Array.prototype.slice.call(xml.getElementsByTagName('item'));
+        if (!items.length) throw 0;
+        return items.map(function(item){
+          return {
+            title: get(item,'title').trim(),
+            link:  get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL,
+            pub:   get(item,'pubDate'),
+            desc:  get(item,'description')
+          };
+        });
+      });
+  }
+
+  // 経路2: rss2json（JSON API・CORS対応）
+  function viaRss2Json(){
+    return fetchTimeout('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(j){
+        if (j.status !== 'ok' || !j.items || !j.items.length) throw 0;
+        return j.items.map(function(it){
+          return {
+            title: it.title || '',
+            link:  it.link || NOTE_URL,
+            pub:   it.pubDate || '',
+            desc:  it.description || ''
+          };
+        });
+      });
   }
 
   function fillNews(items){
     var list = document.getElementById('news-list');
     if (!list) return;
-    var html = items.slice(0, 2).map(function(item){
-      var title   = get(item,'title').trim();
-      var link    = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
-      var dateStr = fmtDate(get(item,'pubDate'));
-      return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="news-item">'
+    var html = items.slice(0, 2).map(function(it){
+      var dateStr = fmtDate(it.pub);
+      return '<a href="'+it.link+'" target="_blank" rel="noopener noreferrer" class="news-item">'
         + '<span class="news-date">'+dateStr+'</span>'
         + '<span class="news-cat">note</span>'
-        + '<span class="news-title">'+title+'</span>'
+        + '<span class="news-title">'+it.title+'</span>'
         + '</a>';
     }).join('');
     list.innerHTML = html;
@@ -2870,34 +2909,28 @@ footer{
   function fillLog(items){
     var container = document.getElementById('note-feed');
     if (!container) return;
-    var cards = items.slice(0, 2).map(function(item, i){
-      var title    = get(item,'title').trim();
-      var link     = get(item,'link').trim() || get(item,'guid').trim() || NOTE_URL;
-      var dateStr  = fmtDate(get(item,'pubDate'));
-      var descHtml = get(item,'description');
+    var cards = items.slice(0, 2).map(function(it, i){
+      var dateStr = fmtDate(it.pub);
       var tmp = document.createElement('div');
-      tmp.innerHTML = descHtml;
+      tmp.innerHTML = it.desc;
       var h2 = tmp.querySelector('h2');
       var p  = tmp.querySelector('p');
       var excerpt = ((h2&&h2.textContent)||(p&&p.textContent)||'').trim().replace(/\s+/g,' ').slice(0,75);
       var cls = 'blog-card'+(i===0?' featured':'');
-      return '<a href="'+link+'" target="_blank" rel="noopener noreferrer" class="'+cls+'">'
+      return '<a href="'+it.link+'" target="_blank" rel="noopener noreferrer" class="'+cls+'">'
         + '<div class="blog-meta"><span class="blog-date">'+dateStr+'</span><span class="blog-cat">note</span></div>'
-        + '<h3 class="blog-title">'+title+'</h3>'
+        + '<h3 class="blog-title">'+it.title+'</h3>'
         + (excerpt?'<p class="blog-excerpt">'+excerpt+'…</p>':'')
         + '<span class="blog-arrow">→ noteで読む</span>'
         + '</a>';
     });
     container.innerHTML =
-      '<div class="blog-main">'+cards.slice(0,2).join('')+'</div>'
-      +(cards.length>2?'<div class="blog-sub">'+cards.slice(2).join('')+'</div>':'');
+      '<div class="blog-main">'+cards.join('')+'</div>';
   }
 
-  fetch(PROXY + encodeURIComponent(RSS) + '&t=' + Date.now())
-    .then(function(r){ if(!r.ok) throw 0; return r.text(); })
-    .then(function(text){
-      var items = parseItems(text);
-      if (!items.length) throw 0;
+  viaAllOrigins()
+    .catch(viaRss2Json)
+    .then(function(items){
       fillNews(items);
       fillLog(items);
     })

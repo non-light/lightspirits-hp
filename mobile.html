@@ -921,10 +921,29 @@
 
     function docPos(el) {
       var r = el.getBoundingClientRect();
-      return {
-        x: r.left + r.width / 2 + window.scrollX,
-        y: r.top + r.height / 2 + window.scrollY
-      };
+      var x = r.left + r.width / 2 + window.scrollX;
+      var y = r.top + r.height / 2 + window.scrollY;
+      // 登場アニメーション（fadeUp / reveal の translate）中でも
+      // 最終的な位置で測れるよう、先祖要素の移動量を打ち消す
+      var n = el;
+      while (n && n !== document.body) {
+        var t = getComputedStyle(n).transform;
+        if (t && t !== 'none') {
+          var m2 = t.match(/^matrix\(([^)]+)\)$/);
+          var m3 = t.match(/^matrix3d\(([^)]+)\)$/);
+          if (m2) {
+            var p = m2[1].split(',');
+            x -= parseFloat(p[4]) || 0;
+            y -= parseFloat(p[5]) || 0;
+          } else if (m3) {
+            var q = m3[1].split(',');
+            x -= parseFloat(q[12]) || 0;
+            y -= parseFloat(q[13]) || 0;
+          }
+        }
+        n = n.parentElement;
+      }
+      return { x: x, y: y };
     }
 
     function buildPath() {

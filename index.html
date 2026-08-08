@@ -20,7 +20,7 @@
 })();
 </script>
 <!-- 修正(SEO): 検索キーワード（AI・ロボット・アプリ開発）と強み（一貫開発）をタイトルに -->
-<title>らいとすぴりっつ | AI・ロボット・アプリ開発をひとつの窓口で — 魂に火を灯す</title>
+<title>合同会社らいとすぴりっつ | AI・ロボット・アプリ開発をひとつの窓口で — 魂に火を灯す</title>
 <link rel="canonical" href="https://lightspirits.jp/">
 <!-- モバイル幅ではJSで mobile.html に振り分けるため、対応関係を明示 -->
 <link rel="alternate" media="only screen and (max-width: 768px)" href="https://lightspirits.jp/mobile.html">
@@ -189,6 +189,7 @@ nav{
   font-size:0.72rem;
   letter-spacing:0.1em;
   text-transform:uppercase;
+  white-space:nowrap;
   padding:0.5rem 1.25rem;
   background:var(--gold);
   color:var(--black);
@@ -1765,6 +1766,25 @@ footer{
 [data-theme="corporate"] .profile-dtbl td:first-child { color: var(--gold); }
 [data-theme="corporate"] .profile-dtbl td { border-bottom-color: var(--border); color: var(--muted); }
 
+/* ナビを畳むのは900px以下だが、その手前の帯ではヘッダーの中身が
+   横幅に収まらない。余白・字間・メニューの間隔をまとめて詰める */
+@media(min-width:901px) and (max-width:1200px){
+  nav{padding:0 2rem}
+  .nav-logo{font-size:0.92rem;letter-spacing:0.06em}
+  .nav-logo-img{height:32px}
+  .nav-center > li > a{padding:0 0.75rem;font-size:0.7rem;letter-spacing:0.06em}
+  .nav-right{gap:0.6rem}
+  .nav-contact-btn{padding:0.5rem 0.9rem;font-size:0.68rem}
+}
+/* 畳む直前のいちばん狭い帯はさらに詰める。
+   EN切替は900px以下と同じく隠して、メニューと問い合わせボタンを優先する */
+@media(min-width:901px) and (max-width:1000px){
+  nav{padding:0 1.25rem}
+  .nav-center > li > a{padding:0 0.5rem}
+  .nav-right{gap:0.45rem}
+  .nav-right .nav-lang{display:none}
+}
+
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -2137,9 +2157,9 @@ button.btn-gold {
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <img src="images/logo.jpg" alt="らいとすぴりっつ ロゴ" class="nav-logo-img">
+    <img src="images/logo.jpg" alt="合同会社らいとすぴりっつ ロゴ" class="nav-logo-img">
     <span class="nav-logo-texts">
-      らいとすぴりっつ
+      合同会社らいとすぴりっつ
       <span>Light Spirits</span>
     </span>
   </a>
@@ -3117,7 +3137,7 @@ button.btn-gold {
 <footer>
   <div class="footer-top">
     <div class="footer-logo-col">
-      <span class="footer-logo">らいとすぴりっつ</span>
+      <span class="footer-logo">合同会社らいとすぴりっつ</span>
       <span class="footer-logo-en">Light Spirits</span>
       <p>魂に火を灯す<br>AI × ロボット × 教育</p>
     </div>
@@ -3150,7 +3170,7 @@ button.btn-gold {
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 らいとすぴりっつ / Light Spirits. All Rights Reserved.</p>
+    <p class="footer-copy">© 2026 合同会社らいとすぴりっつ / Light Spirits. All Rights Reserved.</p>
     <ul class="footer-bottom-links">
       <li><a href="#">プライバシーポリシー</a></li>
       <li><a href="#">サイトポリシー</a></li>

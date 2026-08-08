@@ -824,6 +824,102 @@ section{padding:7rem 4rem}
   font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;
 }
 
+/* ===== RAIZIN DIARY ===== */
+#raizin{background:var(--black);position:relative;overflow:hidden}
+/* 雷のようなごく淡い光。かわいさを足しつつ地の質感は保つ */
+#raizin::before{
+  content:'';position:absolute;top:-30%;right:-10%;
+  width:60%;height:120%;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(201,168,76,0.07),transparent 65%);
+}
+/* 一般向けテーマ（白×青）では青の光に差し替える */
+[data-theme="general"] #raizin::before{
+  background:radial-gradient(ellipse at center,rgba(2,132,199,0.08),transparent 65%);
+}
+#raizin > *{position:relative}
+.raizin-head{margin-bottom:0.9rem}
+.raizin-catch{
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
+  font-size:0.95rem;letter-spacing:0.08em;
+  color:var(--gold-light);
+  margin-bottom:3.2rem;
+}
+.raizin-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.raizin-card{
+  display:flex;flex-direction:column;
+  background:var(--black-3);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  text-decoration:none;color:inherit;
+  transition:transform .22s ease,border-color .22s,box-shadow .22s;
+}
+.raizin-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold-dim);
+  box-shadow:0 14px 34px rgba(0,0,0,.5);
+}
+[data-theme="general"] .raizin-card:hover{box-shadow:0 12px 28px rgba(2,132,199,.16)}
+.raizin-thumb{
+  position:relative;aspect-ratio:4/3;overflow:hidden;
+  background:linear-gradient(135deg,var(--black-4),var(--black-3));
+}
+.raizin-thumb img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .55s ease;
+}
+.raizin-card:hover .raizin-thumb img{transform:scale(1.06)}
+/* 写真のない投稿はマークで代替 */
+.raizin-thumb.is-empty::after{
+  content:'⚡';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;opacity:.28;
+}
+/* 写真の上に乗るバッジなので、テーマに関わらず写真に対して読める配色で固定する */
+.raizin-date{
+  position:absolute;left:0;bottom:0;
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;
+  color:#FFFFFF;
+  background:rgba(5,5,5,.72);
+  padding:0.35rem 0.8rem;
+  border-top-right-radius:4px;
+}
+.raizin-body{padding:1.25rem 1.4rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.raizin-post-title{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;
+  font-size:0.95rem;line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.raizin-arrow{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  color:var(--gold-dim);margin-top:1.1rem;align-self:flex-end;
+  transition:color .2s;
+}
+.raizin-card:hover .raizin-arrow{color:var(--gold)}
+/* 投稿が3件に満たないあいだ、3列のリズムを保つ枠 */
+.raizin-card.is-soon{
+  pointer-events:none;border-style:dashed;background:transparent;
+}
+.raizin-card.is-soon .raizin-thumb{opacity:.35}
+.raizin-soon-label{
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.16em;
+  color:var(--gold-dim);padding:1.25rem 1.4rem 1.4rem;
+}
+.raizin-loading{
+  grid-column:1/-1;padding:3rem;text-align:center;color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;
+}
+.raizin-loading a{color:var(--gold)}
+/* スマホはmobile.htmlに転送されるが、PC表示を強制した細い画面向けの保険 */
+@media(max-width:900px){
+  .raizin-grid{grid-template-columns:1fr}
+  .raizin-catch{margin-bottom:2.2rem}
+}
+
 /* ===== FOUNDER ===== */
 #founder{background:var(--black)}
 .founder-grid{
@@ -2708,6 +2804,26 @@ button.btn-gold {
 
 <div class="divider"></div>
 
+<!-- RAIZIN DIARY -->
+<section id="raizin">
+  <div class="sec-eyebrow">RAIZIN DIARY</div>
+  <div class="sec-head raizin-head">
+    <h2 class="sec-en"><span class="accent">RAIZIN</span> DIARY</h2>
+    <span class="sec-jp">雷神日記</span>
+  </div>
+  <p class="raizin-catch">雷神、きょうもいます。</p>
+
+  <div class="raizin-grid" id="raizin-feed">
+    <div class="raizin-loading">LOADING...</div>
+  </div>
+
+  <div class="note-more-wrap">
+    <a href="https://www.tumblr.com/blog/raizin-lightspirits" target="_blank" rel="noopener noreferrer" class="note-more-link">雷神日記をもっと見る →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- FOUNDER -->
 <section id="founder">
   <div class="sec-eyebrow">Founder</div>
@@ -3536,6 +3652,153 @@ button.btn-gold {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+})();
+</script>
+
+<!-- RAIZIN DIARY LOADER (Tumblr公式JSON API) -->
+<script>
+(function(){
+  var BLOG     = 'raizin-lightspirits';
+  var API      = 'https://' + BLOG + '.tumblr.com/api/read/json';
+  var POST_URL = 'https://www.tumblr.com/' + BLOG + '/';
+  var BLOG_URL = 'https://www.tumblr.com/blog/' + BLOG;
+  var LIMIT    = 3;
+
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function toDoc(html){
+    var d = document.createElement('div');
+    d.innerHTML = html || '';
+    return d;
+  }
+
+  function fmtDate(unix){
+    var d = new Date(Number(unix) * 1000);
+    if (isNaN(d)) return '';
+    return d.getFullYear() + '.' +
+      String(d.getMonth()+1).padStart(2,'0') + '.' +
+      String(d.getDate()).padStart(2,'0');
+  }
+
+  // 経路1: 通常のfetch。TumblrはOriginを反映したCORSヘッダを返す
+  function viaFetch(){
+    return fetch(API + '?num=' + LIMIT + '&t=' + Date.now())
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(text){
+        // レスポンスは "var tumblr_api_read = {...};" 形式
+        var s = text.indexOf('{'), e = text.lastIndexOf('}');
+        if (s < 0 || e < 0) throw 0;
+        return JSON.parse(text.slice(s, e + 1));
+      });
+  }
+
+  // 経路2: JSONP。CORSが通らない環境向けの保険
+  function viaJsonp(){
+    return new Promise(function(resolve, reject){
+      var cb = 'raizinCb' + Date.now();
+      var el = document.createElement('script');
+      var timer = setTimeout(function(){ cleanup(); reject(); }, 8000);
+      function cleanup(){
+        clearTimeout(timer);
+        try { delete window[cb]; } catch(e){ window[cb] = undefined; }
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }
+      window[cb] = function(data){ cleanup(); resolve(data); };
+      el.onerror = function(){ cleanup(); reject(); };
+      el.src = API + '?num=' + LIMIT + '&callback=' + cb;
+      document.head.appendChild(el);
+    });
+  }
+
+  // srcsetから640w以下で最大のものを選ぶ（原寸は重すぎる）
+  function fromSrcset(img){
+    var ss = img.getAttribute('srcset');
+    if (!ss) return '';
+    var best = '', bestW = 0;
+    ss.split(',').forEach(function(part){
+      var m = part.trim().match(/^(\S+)\s+(\d+)w$/);
+      if (!m) return;
+      var w = Number(m[2]);
+      if (w <= 640 && w > bestW) { bestW = w; best = m[1]; }
+    });
+    return best;
+  }
+
+  function pickImage(post){
+    // 写真投稿・フォトセット
+    if (post['photo-url-500']) return post['photo-url-500'];
+    if (post.photos && post.photos.length && post.photos[0]['photo-url-500']) {
+      return post.photos[0]['photo-url-500'];
+    }
+    // テキスト投稿の本文に埋め込まれた写真
+    var body = post['regular-body'] || post['photo-caption'] || post['video-caption'] || '';
+    var img = toDoc(body).querySelector('img');
+    if (!img) return '';
+    return fromSrcset(img) || img.getAttribute('src') || '';
+  }
+
+  function pickTitle(post){
+    var t = (post['regular-title'] || '').trim();
+    if (t) return t;
+    var body = post['regular-body'] || post['photo-caption'] || '';
+    var doc = toDoc(body);
+    var h = doc.querySelector('h1,h2,h3');
+    if (h && h.textContent.trim()) return h.textContent.trim();
+    var p = doc.querySelector('p');
+    if (p && p.textContent.trim()) return p.textContent.trim().slice(0, 40);
+    return post.slug ? decodeURIComponent(post.slug) : '雷神日記';
+  }
+
+  function cardHtml(post){
+    var title = pickTitle(post);
+    var img   = pickImage(post);
+    var date  = fmtDate(post['unix-timestamp']);
+    var link  = POST_URL + post.id;
+
+    var thumb = img
+      ? '<div class="raizin-thumb"><img src="'+esc(img)+'" alt="'+esc(title)+'" loading="lazy" decoding="async">'
+      : '<div class="raizin-thumb is-empty">';
+    thumb += (date ? '<span class="raizin-date">'+esc(date)+'</span>' : '') + '</div>';
+
+    return '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer" class="raizin-card">'
+      + thumb
+      + '<div class="raizin-body">'
+      +   '<h3 class="raizin-post-title">'+esc(title)+'</h3>'
+      +   '<span class="raizin-arrow">→ Tumblrで読む</span>'
+      + '</div>'
+      + '</a>';
+  }
+
+  function soonHtml(){
+    return '<div class="raizin-card is-soon">'
+      + '<div class="raizin-thumb is-empty"></div>'
+      + '<div class="raizin-soon-label">COMING SOON</div>'
+      + '</div>';
+  }
+
+  function render(data){
+    var box = document.getElementById('raizin-feed');
+    if (!box) return;
+    var posts = (data && data.posts) || [];
+    if (!posts.length) throw 0;
+
+    var html = posts.slice(0, LIMIT).map(cardHtml).join('');
+    for (var i = posts.length; i < LIMIT; i++) html += soonHtml();
+    box.innerHTML = html;
+  }
+
+  function fail(){
+    var box = document.getElementById('raizin-feed');
+    if (!box) return;
+    box.innerHTML = '<div class="raizin-loading">雷神日記はTumblrで公開中です。'
+      + '<br><a href="'+BLOG_URL+'" target="_blank" rel="noopener noreferrer">Tumblrで見る →</a></div>';
+  }
+
+  viaFetch().catch(viaJsonp).then(render).catch(fail);
 })();
 </script>
 </body>

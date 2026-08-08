@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 個別配布用のLP（moriken_lp.html / lp-natural.html など）は
+# 各ページの <meta name="robots" content="noindex, nofollow"> で除外している。
+# ここで Disallow するとクローラーが noindex 自体を読めなくなるため、あえて許可する。
+
+Sitemap: https://lightspirits.jp/sitemap.xml

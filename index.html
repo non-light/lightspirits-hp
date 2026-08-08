@@ -917,6 +917,15 @@ section{padding:7rem 4rem}
   font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;
 }
 .raizin-loading a{color:var(--gold)}
+/* キャッチコピー「雷神、きょうもいます。」と対になる一文 */
+.raizin-x{margin-top:1.2rem;font-size:0.82rem}
+.raizin-x a{
+  display:inline-flex;align-items:center;gap:0.5em;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+}
+.raizin-x a:hover{color:var(--gold)}
+.raizin-x-mark{font-size:1rem;color:var(--gold);line-height:1}
 /* スマホはmobile.htmlに転送されるが、PC表示を強制した細い画面向けの保険 */
 @media(max-width:900px){
   .raizin-grid{grid-template-columns:1fr}
@@ -2841,6 +2850,9 @@ button.btn-gold {
 
   <div class="note-more-wrap">
     <a href="https://www.tumblr.com/blog/raizin-lightspirits" target="_blank" rel="noopener noreferrer" class="note-more-link">雷神日記をもっと見る →</a>
+    <p class="raizin-x">
+      <a href="https://x.com/raizin_ls" target="_blank" rel="noopener noreferrer"><span class="raizin-x-mark">𝕏</span>雷神、Xにもいます。⚡️</a>
+    </p>
   </div>
 </section>
 
@@ -3167,6 +3179,7 @@ button.btn-gold {
         <li><a href="#blog">LOG</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="https://x.com/moriken339" target="_blank" rel="noopener">𝕏 @moriken339</a></li>
+        <li><a href="https://x.com/raizin_ls" target="_blank" rel="noopener">𝕏 @raizin_ls（雷神）</a></li>
         <li><a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a></li>
       </ul>
     </div>

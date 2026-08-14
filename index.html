@@ -2767,6 +2767,16 @@ button.btn-gold {
   <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
 
   <div class="yt-grid" id="yt-grid">
+    <a class="yt-card" href="https://www.youtube.com/watch?v=CD41urxoI98" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/CD41urxoI98/hqdefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">うごくぼくーがんばりましたー（ロボット大会）</p>
+      </div>
+    </a>
     <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/SqSZl4lZHEE" target="_blank" rel="noopener">
       <div class="yt-thumb">
         <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
@@ -2789,16 +2799,6 @@ button.btn-gold {
       <div class="yt-info">
         <p class="yt-tag">2026.08.14</p>
         <p class="yt-title">IMG 6194</p>
-      </div>
-    </a>
-    <a class="yt-card" href="https://www.youtube.com/watch?v=K7gK-sMFPl0" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/K7gK-sMFPl0/hqdefault.jpg" alt="" loading="lazy">
-        <span class="yt-play" aria-hidden="true"></span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">2026.08.14</p>
-        <p class="yt-title">D WARS3　バトル　ダークサンダー　ＶＳ　ウィルトス</p>
       </div>
     </a>
   </div>
@@ -3396,9 +3396,14 @@ button.btn-gold {
     return fetch(url, { signal: c.signal });
   }
 
+  // 中継サービスは rss_url ごとに結果をキャッシュする。中継先URLの外側に付けた
+  // パラメータは無視されるため、キャッシュ回避の値は rss_url の中に入れる。
+  // 5分単位に丸めることで、新着を最大5分で反映しつつキャッシュも活かす
+  function feedUrl(){ return RSS + '&t=' + Math.floor(Date.now() / 300000); }
+
   // 経路1: rss2json（JSON API・CORS対応）
   function viaRss2Json(){
-    return fetchTimeout('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+    return fetchTimeout('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl()), 8000)
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(j){
         if (j.status !== 'ok' || !j.items || !j.items.length) throw 0;
@@ -3410,7 +3415,7 @@ button.btn-gold {
 
   // 経路2: allorigins（Atomをそのまま取得）
   function viaAllOrigins(){
-    return fetchTimeout('https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+    return fetchTimeout('https://api.allorigins.win/raw?url=' + encodeURIComponent(feedUrl()), 8000)
       .then(function(r){ if(!r.ok) throw 0; return r.text(); })
       .then(function(text){
         var xml = new DOMParser().parseFromString(text, 'text/xml');

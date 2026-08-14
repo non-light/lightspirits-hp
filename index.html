@@ -748,8 +748,15 @@ section{padding:7rem 4rem}
   position:relative;aspect-ratio:16/9;background:var(--black-4);
   border-bottom:1px solid var(--border);overflow:hidden;
 }
-.yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
-.yt-card:hover .yt-thumb img{transform:scale(1.05)}
+.yt-thumb img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+/* ショート（縦動画）は同じ画像をぼかして背景に敷き、16:9枠に収める */
+.yt-thumb-bg{filter:blur(18px) brightness(0.5);transform:scale(1.15)}
+.yt-thumb-fg{transition:transform 0.3s}
+.yt-card-short .yt-thumb-fg{object-fit:contain}
+.yt-card:hover .yt-thumb-fg{transform:scale(1.05)}
 .yt-play{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:54px;height:38px;border-radius:9px;background:rgba(0,0,0,0.62);
@@ -765,6 +772,7 @@ section{padding:7rem 4rem}
   font-family:'Space Mono',monospace;font-size:0.66rem;
   background:rgba(0,0,0,0.78);color:#fff;padding:0.1rem 0.35rem;border-radius:3px;
 }
+.yt-time-short{background:rgba(255,0,0,0.88);letter-spacing:0.06em}
 .yt-info{padding:1.25rem 1.5rem 1.5rem}
 .yt-tag{
   font-family:'Space Mono',monospace;font-size:0.6rem;
@@ -2758,38 +2766,39 @@ button.btn-gold {
   </div>
   <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
 
-  <div class="yt-grid">
+  <div class="yt-grid" id="yt-grid">
+    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/SqSZl4lZHEE" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time yt-time-short">ショート</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">【PD制御】ライントレースさせてみたver3 1</p>
+      </div>
+    </a>
+    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/CgPW-rX054w" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time yt-time-short">ショート</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">IMG 6194</p>
+      </div>
+    </a>
     <a class="yt-card" href="https://www.youtube.com/watch?v=K7gK-sMFPl0" target="_blank" rel="noopener">
       <div class="yt-thumb">
-        <img src="https://i.ytimg.com/vi/K7gK-sMFPl0/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/K7gK-sMFPl0/hqdefault.jpg" alt="" loading="lazy">
         <span class="yt-play" aria-hidden="true"></span>
-        <span class="yt-time">3:50</span>
       </div>
       <div class="yt-info">
-        <p class="yt-tag">Robot Battle</p>
-        <p class="yt-title">D WARS3 バトル ダークサンダー VS ウィルトス</p>
-      </div>
-    </a>
-    <a class="yt-card" href="https://www.youtube.com/watch?v=j-PoyJUea60" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img src="https://i.ytimg.com/vi/j-PoyJUea60/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
-        <span class="yt-play" aria-hidden="true"></span>
-        <span class="yt-time">1:39</span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">Robot Battle</p>
-        <p class="yt-title">D WARS バトル ダークサンダー VS ドリラー</p>
-      </div>
-    </a>
-    <a class="yt-card" href="https://www.youtube.com/watch?v=89h2g6faxnU" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img src="https://i.ytimg.com/vi/89h2g6faxnU/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
-        <span class="yt-play" aria-hidden="true"></span>
-        <span class="yt-time">2:44</span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">Robot Event</p>
-        <p class="yt-title">The 6th KONDO LAND, Dark Liger</p>
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">D WARS3　バトル　ダークサンダー　ＶＳ　ウィルトス</p>
       </div>
     </a>
   </div>
@@ -3341,6 +3350,112 @@ button.btn-gold {
         '<div class="note-loading">記事を取得できませんでした。'
         +'<br><a href="'+NOTE_URL+'" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></div>';
     });
+})();
+</script>
+
+<!-- YOUTUBE RSS LOADER — チャンネルの最新3本（ショート含む）を自動表示 -->
+<script>
+(function(){
+  var CHANNEL_ID = 'UCX9FIw5gDfCfDD48HY_KZ1w';
+  var RSS   = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var LIMIT = 3;
+
+  var grid = document.getElementById('yt-grid');
+  if (!grid) return;
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  function fmtDate(pub){
+    var d = new Date(pub);
+    // Safari対策: "2026-08-14 09:30:50" 形式は T 区切りで再試行
+    if (isNaN(d) && /^\d{4}-\d{2}-\d{2} /.test(String(pub))) {
+      d = new Date(String(pub).replace(' ', 'T'));
+    }
+    return isNaN(d) ? '' :
+      d.getFullYear() + '.' +
+      String(d.getMonth()+1).padStart(2,'0') + '.' +
+      String(d.getDate()).padStart(2,'0');
+  }
+
+  // 動画IDは link（/shorts/ID または watch?v=ID）から、無ければ guid（yt:video:ID）から
+  function videoId(link, guid){
+    var m = /(?:\/shorts\/|[?&]v=)([A-Za-z0-9_-]{11})/.exec(link || '');
+    if (m) return m[1];
+    m = /yt:video:([A-Za-z0-9_-]{11})/.exec(guid || '');
+    return m ? m[1] : '';
+  }
+
+  function fetchTimeout(url, ms){
+    if (typeof AbortController === 'undefined') return fetch(url);
+    var c = new AbortController();
+    setTimeout(function(){ c.abort(); }, ms);
+    return fetch(url, { signal: c.signal });
+  }
+
+  // 経路1: rss2json（JSON API・CORS対応）
+  function viaRss2Json(){
+    return fetchTimeout('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(j){
+        if (j.status !== 'ok' || !j.items || !j.items.length) throw 0;
+        return j.items.map(function(it){
+          return { title: it.title, link: it.link, pub: it.pubDate, guid: it.guid };
+        });
+      });
+  }
+
+  // 経路2: allorigins（Atomをそのまま取得）
+  function viaAllOrigins(){
+    return fetchTimeout('https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS) + '&t=' + Date.now(), 8000)
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(text){
+        var xml = new DOMParser().parseFromString(text, 'text/xml');
+        var entries = Array.prototype.slice.call(xml.getElementsByTagName('entry'));
+        if (!entries.length) throw 0;
+        return entries.map(function(en){
+          var link = '';
+          var links = en.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+            if (links[i].getAttribute('rel') === 'alternate') { link = links[i].getAttribute('href') || ''; break; }
+          }
+          function txt(tag){ var e = en.getElementsByTagName(tag)[0]; return e ? e.textContent : ''; }
+          return { title: txt('title'), link: link, pub: txt('published'), guid: txt('id') };
+        });
+      });
+  }
+
+  function card(it){
+    var id = videoId(it.link, it.guid);
+    if (!id) return '';
+    // ショートは縦動画。oardefault.jpg は縦動画にだけ存在する
+    var isShort = /\/shorts\//.test(it.link || '');
+    var url  = it.link || ('https://www.youtube.com/watch?v=' + id);
+    var img  = 'https://i.ytimg.com/vi/' + id + (isShort ? '/oardefault.jpg' : '/hqdefault.jpg');
+    return '<a class="yt-card' + (isShort ? ' yt-card-short' : '') + '" href="' + esc(url) + '" target="_blank" rel="noopener">'
+      + '<div class="yt-thumb">'
+      + (isShort ? '<img class="yt-thumb-bg" src="' + esc(img) + '" alt="" loading="lazy" aria-hidden="true">' : '')
+      + '<img class="yt-thumb-fg" src="' + esc(img) + '" alt="" loading="lazy">'
+      + '<span class="yt-play" aria-hidden="true"></span>'
+      + (isShort ? '<span class="yt-time yt-time-short">ショート</span>' : '')
+      + '</div>'
+      + '<div class="yt-info">'
+      + '<p class="yt-tag">' + esc(fmtDate(it.pub)) + '</p>'
+      + '<p class="yt-title">' + esc(it.title) + '</p>'
+      + '</div></a>';
+  }
+
+  viaRss2Json()
+    .catch(viaAllOrigins)
+    .then(function(items){
+      var html = items.slice(0, LIMIT).map(card).join('');
+      // 取得できたときだけ差し替える（失敗時はHTMLに書いてある3本をそのまま残す）
+      if (html) grid.innerHTML = html;
+    })
+    .catch(function(){ /* フォールバックの静的カードを表示したままにする */ });
 })();
 </script>
 

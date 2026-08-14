@@ -377,25 +377,80 @@
       line-height: 1.6;
     }
 
-    /* ── WORKS ── */
+    /* ── WORKS (YouTube) ── */
     #works { background: var(--bg2); }
 
-    .works-list { border: 1px solid var(--border); }
-
-    .work-row {
-      display: block;
-      padding: 40px 36px;
-      text-decoration: none;
-      color: var(--fg);
-      border-bottom: 1px solid var(--border);
-      transition: background 0.3s;
-      position: relative;
+    .yt-lead {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 2.1;
+      margin-bottom: 28px;
+      max-width: 560px;
     }
 
-    .work-row:last-child { border-bottom: none; }
-    .work-row:hover { background: #141414; }
+    .yt-list { display: flex; flex-direction: column; gap: 20px; }
 
-    .work-tag {
+    .yt-card {
+      display: block;
+      text-decoration: none;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: border-color 0.3s;
+    }
+
+    .yt-card:hover { border-color: var(--gold2); }
+
+    .yt-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #141414;
+    }
+
+    .yt-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .yt-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px; height: 36px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .yt-play::after {
+      content: '';
+      border-style: solid;
+      border-width: 7px 0 7px 13px;
+      border-color: transparent transparent transparent #fff;
+      margin-left: 2px;
+    }
+
+    .yt-card:hover .yt-play { background: #FF0000; }
+
+    .yt-time {
+      position: absolute;
+      right: 8px; bottom: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .yt-info { padding: 20px 24px 24px; }
+
+    .yt-tag {
       font-family: 'Inter', sans-serif;
       font-size: 9px;
       letter-spacing: 0.3em;
@@ -403,30 +458,13 @@
       text-transform: uppercase;
     }
 
-    .work-name {
-      display: block;
+    .yt-title {
       margin-top: 12px;
-      font-size: 19px;
+      font-size: 16px;
       font-weight: 400;
       color: var(--gold);
       letter-spacing: 0.05em;
-    }
-
-    .work-desc {
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 2.1;
-      max-width: 560px;
-    }
-
-    .work-arrow {
-      position: absolute;
-      right: 32px;
-      top: 44px;
-      color: var(--gold2);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
+      line-height: 1.7;
     }
 
     /* ── LOG (note) ── */
@@ -798,8 +836,7 @@
       .values-grid { grid-template-columns: 1fr; }
       .value-card { padding: 48px 32px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .work-row { padding: 32px 24px; }
-      .work-arrow { right: 20px; top: 34px; }
+      .yt-info { padding: 18px 20px 22px; }
       footer { padding: 28px 24px; }
     }
 
@@ -827,7 +864,7 @@
       <li><a href="#philosophy">考え方</a></li>
       <li><a href="#values">大切にしていること</a></li>
       <li><a href="#services">できること</a></li>
-      <li><a href="#works">作品</a></li>
+      <li><a href="#works">動画</a></li>
       <li><a href="#log">記録</a></li>
       <li><a href="#contact">お問い合わせ</a></li>
     </ul>
@@ -936,27 +973,44 @@
   <!-- WORKS -->
   <section id="works">
     <div class="section-wrap">
-      <p class="section-label"><span class="fuse-node"></span>Works</p>
-      <div class="works-list">
-        <a class="work-row reveal" href="http://lightspirits.jp/works/summon-shogi/" target="_blank" rel="noopener">
-          <span class="work-tag">Game</span>
-          <span class="work-arrow">→</span>
-          <span class="work-name">召喚将棋</span>
-          <p class="work-desc">駒を「召喚」する独自ルールのブラウザ将棋ゲーム。将棋未経験者でも楽しめる新感覚の対戦体験。</p>
+      <p class="section-label"><span class="fuse-node"></span>YouTube</p>
+      <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。</p>
+      <div class="yt-list">
+        <a class="yt-card reveal" href="https://www.youtube.com/watch?v=K7gK-sMFPl0" target="_blank" rel="noopener">
+          <div class="yt-thumb">
+            <img src="https://i.ytimg.com/vi/K7gK-sMFPl0/hqdefault.jpg" alt="" loading="lazy">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-time">3:50</span>
+          </div>
+          <div class="yt-info">
+            <p class="yt-tag">Robot Battle</p>
+            <p class="yt-title">D WARS3 バトル ダークサンダー VS ウィルトス</p>
+          </div>
         </a>
-        <a class="work-row reveal reveal-delay-1" href="https://morikentiger.github.io/BreakBlockBuild/" target="_blank" rel="noopener">
-          <span class="work-tag">Game</span>
-          <span class="work-arrow">→</span>
-          <span class="work-name">BreakBlockBuild</span>
-          <p class="work-desc">ブロックを壊し、積み上げ、新たな世界をつくるブラウザアクションゲーム。直感的な操作で誰でも楽しめます。</p>
+        <a class="yt-card reveal reveal-delay-1" href="https://www.youtube.com/watch?v=j-PoyJUea60" target="_blank" rel="noopener">
+          <div class="yt-thumb">
+            <img src="https://i.ytimg.com/vi/j-PoyJUea60/hqdefault.jpg" alt="" loading="lazy">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-time">1:39</span>
+          </div>
+          <div class="yt-info">
+            <p class="yt-tag">Robot Battle</p>
+            <p class="yt-title">D WARS バトル ダークサンダー VS ドリラー</p>
+          </div>
         </a>
-        <a class="work-row reveal reveal-delay-2" href="https://antigravity-sns.vercel.app/" target="_blank" rel="noopener">
-          <span class="work-tag">Web Service</span>
-          <span class="work-arrow">→</span>
-          <span class="work-name">SNS Antigravity</span>
-          <p class="work-desc">重力に逆らう自由なコミュニケーションの場。独自開発のSNSプラットフォームで、新しいつながりを体験。</p>
+        <a class="yt-card reveal reveal-delay-2" href="https://www.youtube.com/watch?v=89h2g6faxnU" target="_blank" rel="noopener">
+          <div class="yt-thumb">
+            <img src="https://i.ytimg.com/vi/89h2g6faxnU/hqdefault.jpg" alt="" loading="lazy">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-time">2:44</span>
+          </div>
+          <div class="yt-info">
+            <p class="yt-tag">Robot Event</p>
+            <p class="yt-title">The 6th KONDO LAND, Dark Liger</p>
+          </div>
         </a>
       </div>
+      <a class="log-more" href="https://www.youtube.com/@raizin_lightspirits" target="_blank" rel="noopener noreferrer">YouTubeチャンネルで全ての動画を見る →</a>
     </div>
   </section>
 

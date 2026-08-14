@@ -728,6 +728,66 @@ section{padding:7rem 4rem}
 }
 .work-desc{font-size:0.8rem;color:var(--muted);line-height:1.75}
 
+/* ===== YOUTUBE（Worksセクション） ===== */
+.yt-lead{
+  font-size:0.9rem;color:var(--muted);line-height:1.9;
+  margin-bottom:2rem;max-width:62ch;position:relative;z-index:1;
+}
+.yt-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  position:relative;z-index:1;
+}
+.yt-card{
+  background:var(--black-3);border:1px solid var(--border);
+  overflow:hidden;transition:border-color 0.22s,transform 0.22s;
+  text-decoration:none;color:inherit;display:block;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+}
+.yt-card:hover{border-color:var(--gold-dim);transform:translateY(-4px)}
+.yt-thumb{
+  position:relative;aspect-ratio:16/9;background:var(--black-4);
+  border-bottom:1px solid var(--border);overflow:hidden;
+}
+.yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.yt-card:hover .yt-thumb img{transform:scale(1.05)}
+.yt-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:54px;height:38px;border-radius:9px;background:rgba(0,0,0,0.62);
+  display:flex;align-items:center;justify-content:center;transition:background 0.22s;
+}
+.yt-play::after{
+  content:'';border-style:solid;border-width:8px 0 8px 14px;
+  border-color:transparent transparent transparent #fff;margin-left:2px;
+}
+.yt-card:hover .yt-play{background:#FF0000}
+.yt-time{
+  position:absolute;right:0.5rem;bottom:0.5rem;
+  font-family:'Space Mono',monospace;font-size:0.66rem;
+  background:rgba(0,0,0,0.78);color:#fff;padding:0.1rem 0.35rem;border-radius:3px;
+}
+.yt-info{padding:1.25rem 1.5rem 1.5rem}
+.yt-tag{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.5rem;
+}
+.yt-title{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:0.92rem;
+  line-height:1.6;margin:0;
+}
+.yt-channel{
+  display:inline-flex;align-items:center;gap:0.6rem;margin-top:2.5rem;
+  font-family:'Noto Sans JP',sans-serif;font-size:0.88rem;font-weight:600;
+  text-decoration:none;color:var(--white);
+  border:1px solid var(--border);border-radius:999px;padding:0.7rem 1.6rem;
+  transition:border-color 0.2s,color 0.2s;position:relative;z-index:1;
+}
+.yt-channel:hover{border-color:#FF0000}
+.yt-channel-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:18px;border-radius:5px;background:#FF0000;color:#fff;
+  font-size:0.55rem;line-height:1;
+}
+
 /* ===== YUi ===== */
 #yui{background:var(--black);position:relative;overflow:hidden}
 .yui-bg{
@@ -1373,6 +1433,20 @@ footer{
 .him-avatar-img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: relative; z-index: 1; }
 .him-name { font-size: 0.75rem; font-weight: 700; color: #0C3A56; position: relative; z-index: 1; font-family: 'Noto Sans JP', sans-serif; }
 
+/* ===== YouTubeカード（一般向けテーマ） ===== */
+[data-theme="general"] .yt-lead    { color: #374151; }
+[data-theme="general"] .yt-card {
+  background: #fff; border-color: #E0F2FE; border-radius: 16px;
+  clip-path: none; box-shadow: 0 4px 16px rgba(2,132,199,0.07);
+}
+[data-theme="general"] .yt-card:hover { border-color: #38BDF8; }
+[data-theme="general"] .yt-thumb   { border-bottom-color: #E0F2FE; }
+[data-theme="general"] .yt-tag     { color: #0284C7; }
+[data-theme="general"] .yt-title   { color: #0C3A56; }
+[data-theme="general"] .yt-channel {
+  background: #fff; color: #0C3A56; border-color: #BAE6FD;
+}
+
 /* ===== Worksカード サムネイル画像 ===== */
 [data-theme="general"] .work-thumb { position: relative; height: 200px; }
 .wt-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
@@ -1819,7 +1893,7 @@ footer{
   .hero-left{padding:3rem 1.5rem}
   .hero-right{display:none}
   .about-grid,.contact-grid,.founder-grid{grid-template-columns:1fr;gap:3rem}
-  .services-grid,.works-grid{grid-template-columns:1fr}
+  .services-grid,.works-grid,.yt-grid{grid-template-columns:1fr}
   .about-cards{grid-template-columns:1fr 1fr}
   .blog-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr;padding:3rem 1.5rem 2rem}
@@ -2193,7 +2267,7 @@ button.btn-gold {
         <a href="#services">DX支援</a>
       </div>
     </li>
-    <li><a href="#works"><span class="nav-en">Works</span><span class="nav-jp">作品</span></a></li>
+    <li><a href="#works"><span class="nav-en">YouTube</span><span class="nav-jp">動画</span></a></li>
     <li><a href="#yui">YUi Project</a></li>
     <li><a href="#blog"><span class="nav-en">LOG</span><span class="nav-jp">ブログ</span></a></li>
   </ul>
@@ -2249,7 +2323,7 @@ button.btn-gold {
         あなたの可能性を広げるパートナーです。
       </p>
       <div class="hero-cta">
-        <a href="#works" class="btn-gold">作品を見る・遊ぶ</a>
+        <a href="#works" class="btn-gold">動画を見る</a>
         <a href="#contact" class="btn-outline">一緒につくる</a>
       </div>
     </div>
@@ -2532,7 +2606,7 @@ button.btn-gold {
   <!-- CTA -->
   <div class="for-general">
     <div class="strength-cta">
-      <a href="#works" class="strength-btn strength-btn-secondary">作品を見る・遊ぶ</a>
+      <a href="#works" class="strength-btn strength-btn-secondary">動画を見る</a>
       <a href="#contact" class="strength-btn strength-btn-primary">一緒につくる →</a>
     </div>
   </div>
@@ -2675,126 +2749,55 @@ button.btn-gold {
 
 <div class="divider"></div>
 
-<!-- WORKS -->
+<!-- WORKS / YOUTUBE -->
 <section id="works" style="position:relative;overflow:hidden">
-  <img src="images/deco-robot-sm.png" alt="" aria-hidden="true" class="section-deco section-deco-1" onerror="this.style.display='none'">
-  <img src="images/deco-shogi-sm.png" alt="" aria-hidden="true" class="section-deco section-deco-2" onerror="this.style.display='none'">
-  <div class="sec-eyebrow">Our Works</div>
+  <div class="sec-eyebrow">YouTube</div>
   <div class="sec-head">
-    <h2 class="sec-en">Our <span class="accent">Works</span></h2>
-    <span class="sec-jp">制作実績</span>
+    <h2 class="sec-en">You<span class="accent">Tube</span></h2>
+    <span class="sec-jp">動画で見る実績</span>
   </div>
-  <!-- 一般向け実績 -->
-  <div class="for-general">
-    <div class="works-grid">
-      <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">
-          <img src="images/work-shogi.jpg" alt="召喚将棋" class="wt-img" onerror="this.style.display='none'">
-          ♟
-        </div>
-        <div class="work-info">
-          <p class="work-tag">ゲーム</p>
-          <p class="work-title">召喚将棋</p>
-          <p class="work-desc">駒を「召喚」する独自ルールのブラウザ将棋ゲーム。将棋未経験者でも楽しめる新感覚の対戦体験。</p>
-        </div>
-      </a>
-      <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">
-          <img src="images/work-blocks.jpg" alt="BreakBlockBuild" class="wt-img" onerror="this.style.display='none'">
-          🧱
-        </div>
-        <div class="work-info">
-          <p class="work-tag">ゲーム</p>
-          <p class="work-title">BreakBlockBuild</p>
-          <p class="work-desc">ブロックを壊し、積み上げ、新たな世界をつくるブラウザアクションゲーム。直感的な操作で誰でも楽しめます。</p>
-        </div>
-      </a>
-      <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">
-          <img src="images/work-sns.jpg" alt="SNS Antigravity" class="wt-img" onerror="this.style.display='none'">
-          🚀
-        </div>
-        <div class="work-info">
-          <p class="work-tag">Webサービス</p>
-          <p class="work-title">SNS Antigravity</p>
-          <p class="work-desc">重力に逆らう自由なコミュニケーションの場。独自開発のSNSプラットフォームで、新しいつながりを体験。</p>
-        </div>
-      </a>
-    </div>
+  <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
+
+  <div class="yt-grid">
+    <a class="yt-card" href="https://www.youtube.com/watch?v=K7gK-sMFPl0" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img src="https://i.ytimg.com/vi/K7gK-sMFPl0/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time">3:50</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">Robot Battle</p>
+        <p class="yt-title">D WARS3 バトル ダークサンダー VS ウィルトス</p>
+      </div>
+    </a>
+    <a class="yt-card" href="https://www.youtube.com/watch?v=j-PoyJUea60" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img src="https://i.ytimg.com/vi/j-PoyJUea60/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time">1:39</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">Robot Battle</p>
+        <p class="yt-title">D WARS バトル ダークサンダー VS ドリラー</p>
+      </div>
+    </a>
+    <a class="yt-card" href="https://www.youtube.com/watch?v=89h2g6faxnU" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img src="https://i.ytimg.com/vi/89h2g6faxnU/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time">2:44</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">Robot Event</p>
+        <p class="yt-title">The 6th KONDO LAND, Dark Liger</p>
+      </div>
+    </a>
   </div>
 
-  <!-- 企業向け実績 -->
-  <div class="for-corporate">
-    <div class="works-grid">
-      <a href="https://antigravity-sns.vercel.app/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">🚀</div>
-        <div class="work-info">
-          <p class="work-tag">Web Service</p>
-          <p class="work-title">SNS Antigravity</p>
-          <!-- 修正: 技術用語（フルスクラッチ等）を減らし、一貫開発の証明として提示 -->
-          <p class="work-desc">SNS型のWebサービスを、企画から公開まで一人で開発。画面のデザインから裏側の仕組みまで、一貫して担当した実績です。</p>
-        </div>
-      </a>
-      <a href="http://lightspirits.jp/works/summon-shogi/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">♟</div>
-        <div class="work-info">
-          <p class="work-tag">Game Dev</p>
-          <p class="work-title">召喚将棋</p>
-          <!-- 修正: 「インタラクティブコンテンツ」等の用語を平易に -->
-          <p class="work-desc">独自ルールのブラウザゲームを、ルール設計から画面まで開発。遊びやすさを含めて設計した実績です。</p>
-        </div>
-      </a>
-      <a href="https://morikentiger.github.io/BreakBlockBuild/" class="work-card" target="_blank" rel="noopener">
-        <div class="work-thumb">🧱</div>
-        <div class="work-info">
-          <p class="work-tag">Interactive</p>
-          <p class="work-title">BreakBlockBuild</p>
-          <!-- 修正: 「エンゲージメント向上に貢献」等の抽象語を具体化 -->
-          <p class="work-desc">その場で反応が返ってくる体験型のブラウザゲームを設計・開発。「触って楽しい」仕掛けづくりを得意としています。</p>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 主な実績（両テーマ共通） -->
-  <h3 class="works-achievement-heading">主な実績</h3>
-  <div class="works-grid">
-    <div class="work-card work-card-static">
-      <div class="work-thumb">🏆</div>
-      <div class="work-info">
-        <p class="work-tag">Award</p>
-        <p class="work-title">ロボット競技会優勝</p>
-        <p class="work-desc">自ら設計・製作した四足歩行ロボットでロボット競技会優勝。</p>
-      </div>
-    </div>
-    <div class="work-card work-card-static">
-      <div class="work-thumb">🦾</div>
-      <div class="work-info">
-        <p class="work-tag">Robot Dev</p>
-        <p class="work-title">二足歩行ロボット開発</p>
-        <p class="work-desc">ロボット本体の設計からプログラム開発まで一人で担当し、短期間で開発を実現。</p>
-      </div>
-    </div>
-    <div class="work-card work-card-static">
-      <div class="work-thumb">🚗</div>
-      <div class="work-info">
-        <p class="work-tag">Research</p>
-        <p class="work-title">自動運転技術の研究</p>
-        <p class="work-desc">大学院では安全な自動運転技術の研究に取り組み、独自の制御技術を開発。</p>
-      </div>
-    </div>
-    <div class="work-card work-card-static">
-      <div class="work-thumb">✨</div>
-      <div class="work-info">
-        <p class="work-tag">AI</p>
-        <p class="work-title">AIサービス開発</p>
-        <p class="work-desc">生成AIや音声AIを活用したシステム開発、企業向けAI導入支援を多数実施。</p>
-      </div>
-    </div>
-  </div>
-  <!-- 提案: お客様の声セクションの設置場所。実案件の掲載許可が取れ次第、
-       ここ（実績の直後）に「お客様の声」を追加すると、実績→第三者の評価→相談の流れがつくれます。
-       構成例: 会社名（または業種）/ 相談内容 / 一言コメント / 担当者名 -->
+  <a class="yt-channel" href="https://www.youtube.com/@raizin_lightspirits" target="_blank" rel="noopener">
+    <span class="yt-channel-icon" aria-hidden="true">▶</span>
+    チャンネルで動画をすべて見る
+  </a>
 </section>
 
 <div class="divider"></div>
@@ -3175,7 +3178,7 @@ button.btn-gold {
     <div>
       <p class="footer-col-title">Links</p>
       <ul class="footer-links-list">
-        <li><a href="#works">Works</a></li>
+        <li><a href="#works">YouTube</a></li>
         <li><a href="#blog">LOG</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="https://x.com/moriken339" target="_blank" rel="noopener">𝕏 @moriken339</a></li>

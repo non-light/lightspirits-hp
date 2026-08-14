@@ -2767,14 +2767,14 @@ button.btn-gold {
   <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
 
   <div class="yt-grid" id="yt-grid">
-    <a class="yt-card" href="https://www.youtube.com/watch?v=CD41urxoI98" target="_blank" rel="noopener">
+    <a class="yt-card" href="https://www.youtube.com/watch?v=T74ZqsjnrZE" target="_blank" rel="noopener">
       <div class="yt-thumb">
-        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/CD41urxoI98/hqdefault.jpg" alt="" loading="lazy">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/T74ZqsjnrZE/hqdefault.jpg" alt="" loading="lazy">
         <span class="yt-play" aria-hidden="true"></span>
       </div>
       <div class="yt-info">
-        <p class="yt-tag">2026.08.14</p>
-        <p class="yt-title">うごくぼくーがんばりましたー（ロボット大会）</p>
+        <p class="yt-tag">2026.08.15</p>
+        <p class="yt-title">動くぼく！ロボット大会がんばりました！</p>
       </div>
     </a>
     <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/SqSZl4lZHEE" target="_blank" rel="noopener">
@@ -3360,6 +3360,17 @@ button.btn-gold {
   var RSS   = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
   var LIMIT = 3;
 
+  // 常に先頭に固定する1本。残りの枠を新しい順で埋める
+  var PINNED_ID = 'T74ZqsjnrZE';
+  // フィードは直近15本しか返さないため、固定動画が範囲外になったとき用の控え。
+  // フィードに載っている間はそちらのタイトル・日付が優先される
+  var PINNED_FALLBACK = {
+    title: '動くぼく！ロボット大会がんばりました！',
+    link:  'https://www.youtube.com/watch?v=' + PINNED_ID,
+    pub:   '2026-08-14T21:57:23+00:00',
+    guid:  'yt:video:' + PINNED_ID
+  };
+
   var grid = document.getElementById('yt-grid');
   if (!grid) return;
 
@@ -3370,10 +3381,16 @@ button.btn-gold {
   }
 
   function fmtDate(pub){
-    var d = new Date(pub);
-    // Safari対策: "2026-08-14 09:30:50" 形式は T 区切りで再試行
-    if (isNaN(d) && /^\d{4}-\d{2}-\d{2} /.test(String(pub))) {
-      d = new Date(String(pub).replace(' ', 'T'));
+    var s = String(pub);
+    var d = new Date(s);
+    // rss2json は "2026-08-14 21:57:23"（UTC・タイムゾーン表記なし）を返す。
+    // そのままだとローカル時刻として読まれ日付がずれるので、UTCとして解釈させる
+    if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s)) {
+      d = new Date(s.replace(' ', 'T') + 'Z');
+    }
+    // Safari対策: 上で解釈できなかった場合も T 区切りで再試行
+    if (isNaN(d) && /^\d{4}-\d{2}-\d{2} /.test(s)) {
+      d = new Date(s.replace(' ', 'T'));
     }
     return isNaN(d) ? '' :
       d.getFullYear() + '.' +
@@ -3453,10 +3470,19 @@ button.btn-gold {
       + '</div></a>';
   }
 
+  // 固定動画を先頭に置き、残りを新しい順で埋める（固定動画の重複は除く）
+  function arrange(items){
+    var pinned = null, rest = [];
+    items.forEach(function(it){
+      if (videoId(it.link, it.guid) === PINNED_ID) pinned = it; else rest.push(it);
+    });
+    return [pinned || PINNED_FALLBACK].concat(rest).slice(0, LIMIT);
+  }
+
   viaRss2Json()
     .catch(viaAllOrigins)
     .then(function(items){
-      var html = items.slice(0, LIMIT).map(card).join('');
+      var html = arrange(items).map(card).join('');
       // 取得できたときだけ差し替える（失敗時はHTMLに書いてある3本をそのまま残す）
       if (html) grid.innerHTML = html;
     })

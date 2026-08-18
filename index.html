@@ -237,7 +237,7 @@ nav{
   white-space:nowrap;
   padding-left:2rem;
 }
-.ticker-track a{
+.ticker-track a,.ticker-track .ticker-item{
   font-family:'Space Grotesk',sans-serif;
   font-size:0.72rem;
   color:var(--muted);
@@ -1269,6 +1269,11 @@ footer{
 /* Ticker hidden */
 [data-theme="general"] .ticker { display: none; }
 [data-theme="general"] #hero   { padding-top: 80px; }
+/* ティッカーは position:fixed で 36px ぶんの場所を取る。
+   ニュースが0件で出ないときは、その余白を残さない */
+@media(min-width:901px){
+  :root:not(.has-ticker) #hero { padding-top: 80px; }
+}
 
 /* Buttons — pill, no angular clip */
 [data-theme="general"] .btn-gold {
@@ -2947,19 +2952,10 @@ button.btn-gold {
   <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
 </div>
 
-<!-- TICKER -->
-<div class="ticker">
+<!-- TICKER — 中身は data/news.js から組み立てる。0件ならこの要素ごと消える -->
+<div class="ticker" id="ticker" hidden>
   <div class="ticker-label">NEWS</div>
-  <div class="ticker-track" id="tickerTrack">
-    <a href="#"><span class="ticker-date">2025.06.01</span>ロボット制作における「意図」の設計——新しいプロジェクト始動</a>
-    <a href="#"><span class="ticker-date">2025.05.20</span>YUiプロジェクト、開発フェーズへ移行</a>
-    <a href="#"><span class="ticker-date">2025.05.08</span>召喚将棋 v2.0 リリース</a>
-    <a href="#"><span class="ticker-date">2025.04.15</span>SNS Antigravity 正式公開</a>
-    <a href="#"><span class="ticker-date">2025.06.01</span>ロボット制作における「意図」の設計——新しいプロジェクト始動</a>
-    <a href="#"><span class="ticker-date">2025.05.20</span>YUiプロジェクト、開発フェーズへ移行</a>
-    <a href="#"><span class="ticker-date">2025.05.08</span>召喚将棋 v2.0 リリース</a>
-    <a href="#"><span class="ticker-date">2025.04.15</span>SNS Antigravity 正式公開</a>
-  </div>
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
 <!-- HERO -->
@@ -4156,6 +4152,8 @@ button.btn-gold {
 
 <!-- 会話データ。追加・修正はこのファイルだけで完結する -->
 <script src="data/conversations.js"></script>
+<!-- ニュース。追加・修正はこのファイルだけで完結する -->
+<script src="data/news.js"></script>
 <script>
 (function(){
   var dialogues = [
@@ -4965,6 +4963,40 @@ button.btn-gold {
 
   show(order[0]);
   root.classList.add('is-ready');
+})();
+</script>
+<!-- NEWSティッカー。data/news.js を読んで組み立て、0件なら帯ごと出さない -->
+<script>
+(function(){
+  var bar   = document.getElementById('ticker');
+  var track = document.getElementById('tickerTrack');
+  if (!bar || !track) return;
+
+  var items = (window.LS_NEWS || []).filter(function(n, i){
+    if (!n || !n.text || !String(n.text).trim()) { console.warn('[ニュース] 見出しが空です: [' + i + ']'); return false; }
+    if (!/^\d{4}\.\d{2}\.\d{2}$/.test(n.date || '')) { console.warn('[ニュース] 日付は YYYY.MM.DD 形式にしてください: ' + n.date); return false; }
+    return true;
+  });
+
+  // 古いお知らせが出たままにならないよう、0件なら帯ごと取り除く
+  if (!items.length) { bar.parentNode.removeChild(bar); return; }
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function html1(n){
+    var inner = '<span class="ticker-date">' + esc(n.date) + '</span>' + esc(n.text);
+    return n.url
+      ? '<a class="ticker-item" href="' + esc(n.url) + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
+      : '<span class="ticker-item">' + inner + '</span>';   // URLが無いときは、押せないリンクにしない
+  }
+
+  // 横スクロールは -50% までの移動なので、同じ並びを2組ぶん用意する
+  var one = items.map(html1).join('');
+  track.innerHTML = one + one;
+  bar.hidden = false;
+  document.documentElement.classList.add('has-ticker');
 })();
 </script>
 </body>

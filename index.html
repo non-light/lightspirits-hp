@@ -2176,11 +2176,12 @@ button.btn-gold {
     #E7E9E4 24%,
     #DCE4E9 31%,
     #C6D9EE 38%,
-    #9CBCE6 44%,
-    #7099CE 48%,
-    #4C71AC 51%,
-    #37588F 54%,
-    #2C4C7C 58%,
+    #A8C6E9 44%,
+    #9ABADF 48%,
+    #5E85BC 50%,
+    #35597F 52%,
+    #284672 55%,
+    #24406C 58%,
     #1E3860 64%,
     #16294A 70%,
     #101E38 78%,
@@ -2266,16 +2267,13 @@ button.btn-gold {
 [data-theme="general"] #raizin::before{
   background:radial-gradient(ellipse at center,rgba(232,201,122,0.07),transparent 65%);
 }
-/* YUi — 夜のはじまり */
-[data-theme="general"] #yui .yui-title-jp{color:rgba(238,244,254,0.92)}
+/* YUi — 空がまだ明るいうちに出るので、濃い文字で読ませる */
+[data-theme="general"] #yui .yui-title-jp,
 [data-theme="general"] #yui .yui-sub,
-[data-theme="general"] #yui .yui-status{color:rgba(240,245,254,0.95)}
-[data-theme="general"] #yui .yui-badge{
-  color:#F0DCA8;border-color:rgba(232,201,122,0.45);
-  background:rgba(9,17,34,0.45);border-radius:20px;
-}
-[data-theme="general"] #yui .yui-title{color:#EEF4FE;text-shadow:0 0 42px rgba(180,205,245,0.45)}
-[data-theme="general"] #yui .status-dot{background:#E8C97A}
+[data-theme="general"] #yui .yui-status{color:#14263F}
+[data-theme="general"] #yui .yui-badge{color:#0B2B4A;border-color:rgba(11,43,74,.35)}
+[data-theme="general"] #yui .yui-title{color:#1B3B6B}
+[data-theme="general"] #yui .status-dot{background:#14263F}
 [data-theme="general"] .yui-bg{
   background:radial-gradient(ellipse 62% 46% at 50% 52%,rgba(232,201,122,0.09),transparent 70%);
 }
@@ -2476,6 +2474,24 @@ button.btn-gold {
 [data-theme="general"] #company .sec-head::after{
   background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
 }
+
+/* FAQ は夜のいちばん深いところに出る。白いカードのままでは夜空から浮くので、
+   代表プロフィールのアコーディオンと同じガラスの見た目に合わせる */
+[data-theme="general"] #faq .sec-en,
+[data-theme="general"] #faq .sec-jp{color:#EEF4FE}
+[data-theme="general"] #faq .sec-en .accent{color:#E8C97A}
+[data-theme="general"] #faq .sec-eyebrow{background:rgba(9,17,34,0.45);color:#F0DCA8}
+[data-theme="general"] #faq .sec-head::after{
+  background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
+}
+[data-theme="general"] #faq .profile-details{
+  background:rgba(12,22,42,0.55);border-color:rgba(232,201,122,0.22);
+  backdrop-filter:blur(6px);
+}
+[data-theme="general"] #faq .profile-details:hover{border-color:rgba(232,201,122,0.45)}
+[data-theme="general"] #faq .profile-details summary{color:#EEF4FE}
+[data-theme="general"] #faq .profile-details-chev{color:#B99B57}
+[data-theme="general"] #faq .faq-a{color:rgba(226,236,252,0.80)}
 
 /* ===== もりけん × 雷神 会話セクション =====
    会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
@@ -2952,6 +2968,8 @@ button.btn-gold {
   </div>
 </section>
 
+<div class="divider"></div>
+
 <!-- NEWS -->
 <section id="news" style="padding:0">
   <div class="news-inner">
@@ -3045,6 +3063,152 @@ button.btn-gold {
         <p class="about-card-jp">DX推進・伴走支援</p>
         <!-- 修正: 「共成長できる組織」を、支援内容が分かる表現に -->
         <p class="about-card-desc">現場に寄り添い、定着するまで伴走するDX支援</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORKS / YOUTUBE -->
+<section id="works" style="position:relative;overflow:hidden">
+  <div class="sec-eyebrow">YouTube</div>
+  <div class="sec-head">
+    <h2 class="sec-en">You<span class="accent">Tube</span></h2>
+    <span class="sec-jp">動画で見る実績</span>
+  </div>
+  <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
+
+  <div class="yt-grid" id="yt-grid">
+    <a class="yt-card" href="https://www.youtube.com/watch?v=T74ZqsjnrZE" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/T74ZqsjnrZE/hqdefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.15</p>
+        <p class="yt-title">動くぼく！ロボット大会がんばりました！</p>
+      </div>
+    </a>
+    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/SqSZl4lZHEE" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time yt-time-short">ショート</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">【PD制御】ライントレースさせてみたver3 1</p>
+      </div>
+    </a>
+    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/CgPW-rX054w" target="_blank" rel="noopener">
+      <div class="yt-thumb">
+        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
+        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy">
+        <span class="yt-play" aria-hidden="true"></span>
+        <span class="yt-time yt-time-short">ショート</span>
+      </div>
+      <div class="yt-info">
+        <p class="yt-tag">2026.08.14</p>
+        <p class="yt-title">IMG 6194</p>
+      </div>
+    </a>
+  </div>
+
+  <a class="yt-channel" href="https://www.youtube.com/@raizin_lightspirits" target="_blank" rel="noopener">
+    <span class="yt-channel-icon" aria-hidden="true">▶</span>
+    チャンネルで動画をすべて見る
+  </a>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-eyebrow">Our Services</div>
+  <div class="sec-head">
+    <h2 class="sec-en">Our <span class="accent">Services</span></h2>
+    <span class="sec-jp">提供サービス</span>
+  </div>
+
+  <!-- 一般向けサービス -->
+  <div class="for-general">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎮</div>
+        <p class="service-num">SVC — 01</p>
+        <h3 class="service-name-en">Game Development</h3>
+        <p class="service-name-jp">ゲーム開発</p>
+        <p class="service-desc">ブラウザで気軽に遊べるオリジナルゲームを企画・開発。「楽しい」を入り口に、新しい体験と挑戦のきっかけをつくります。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <p class="service-num">SVC — 02</p>
+        <h3 class="service-name-en">Web Development</h3>
+        <p class="service-name-jp">Webサイト制作（個人向け）</p>
+        <p class="service-desc">個人・フリーランス・小規模活動向けのWebサイト制作。あなたの活動や想いを、丁寧にかたちにします。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📚</div>
+        <p class="service-num">SVC — 03</p>
+        <h3 class="service-name-en">Learning Support</h3>
+        <p class="service-name-jp">学習・教育支援</p>
+        <p class="service-desc">AIやプログラミングを楽しく学べるワークショップ・コンテンツ制作。「できた！」という体験を、一人ひとりに届けます。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <p class="service-num">SVC — 04</p>
+        <h3 class="service-name-en">Collaboration</h3>
+        <p class="service-name-jp">クリエイター協業</p>
+        <p class="service-desc">「一緒に何か作りたい」を歓迎します。ゲーム・Web・AI・ロボットが交わるアイデアなら、なんでもご相談ください。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 企業向けサービス -->
+  <div class="for-corporate">
+    <div class="services-grid">
+      <div class="service-card">
+        <p class="service-num">SVC — 01</p>
+        <h3 class="service-name-en">Robot Manufacturing</h3>
+        <p class="service-name-jp">ロボット制作</p>
+        <!-- 修正: 専門用語を減らし、一貫対応のメリット（仕様変更に強い）を明記 -->
+        <p class="service-desc">小型〜中型ロボットの企画・試作・製作に対応。本体の設計から中身のソフトウェアまで一貫して担当するため、途中の仕様変更にも素早く対応できます。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 02</p>
+        <h3 class="service-name-en">AI Implementation</h3>
+        <p class="service-name-jp">AI活用支援</p>
+        <!-- 修正: 「可能性を解放」を、導入効果（作業時間の削減）が伝わる表現に -->
+        <p class="service-desc">ChatGPTの導入から業務の自動化まで対応します。自社の業務に合う形でAIを組み込み、日々の作業時間を減らします。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 03</p>
+        <h3 class="service-name-en">DX &amp; Transformation</h3>
+        <p class="service-name-jp">DX推進・伴走支援</p>
+        <!-- 修正: 理念語を減らし、「導入して終わりではない」という安心感を訴求 -->
+        <p class="service-desc">ツールの導入から業務フローの見直しまで対応。導入して終わりではなく、現場に定着するまで伴走します。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 04</p>
+        <h3 class="service-name-en">Education &amp; Training</h3>
+        <p class="service-name-jp">研修・教育支援</p>
+        <!-- 修正: 比喩（火種）を、研修で得られる変化が分かる表現に -->
+        <p class="service-desc">AIやDXを学ぶ研修・ワークショップを提供します。「難しそう」を「使ってみたい」に変え、社内にAIを使いこなす人材を育てます。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 05</p>
+        <h3 class="service-name-en">Web Development</h3>
+        <p class="service-name-jp">Webサイト制作（法人向け）</p>
+        <!-- 修正: 「戦略をかたちに」を、具体的な提供範囲が分かる表現に -->
+        <p class="service-desc">中小企業・スタートアップ向けのWebサイト制作。伝えたい価値が正しく伝わるよう、構成から文章まで丁寧に設計します。</p>
+      </div>
+      <div class="service-card">
+        <p class="service-num">SVC — 06</p>
+        <h3 class="service-name-en">Collaboration &amp; Advisory</h3>
+        <p class="service-name-jp">コラボレーション・技術監修</p>
+        <p class="service-desc">取材・共同制作・技術監修など、柔軟にご相談ください。AI・ロボット・教育が交差するプロジェクトを歓迎します。</p>
       </div>
     </div>
   </div>
@@ -3240,152 +3404,6 @@ button.btn-gold {
 
 <div class="divider"></div>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="sec-eyebrow">Our Services</div>
-  <div class="sec-head">
-    <h2 class="sec-en">Our <span class="accent">Services</span></h2>
-    <span class="sec-jp">提供サービス</span>
-  </div>
-
-  <!-- 一般向けサービス -->
-  <div class="for-general">
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🎮</div>
-        <p class="service-num">SVC — 01</p>
-        <h3 class="service-name-en">Game Development</h3>
-        <p class="service-name-jp">ゲーム開発</p>
-        <p class="service-desc">ブラウザで気軽に遊べるオリジナルゲームを企画・開発。「楽しい」を入り口に、新しい体験と挑戦のきっかけをつくります。</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <p class="service-num">SVC — 02</p>
-        <h3 class="service-name-en">Web Development</h3>
-        <p class="service-name-jp">Webサイト制作（個人向け）</p>
-        <p class="service-desc">個人・フリーランス・小規模活動向けのWebサイト制作。あなたの活動や想いを、丁寧にかたちにします。</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📚</div>
-        <p class="service-num">SVC — 03</p>
-        <h3 class="service-name-en">Learning Support</h3>
-        <p class="service-name-jp">学習・教育支援</p>
-        <p class="service-desc">AIやプログラミングを楽しく学べるワークショップ・コンテンツ制作。「できた！」という体験を、一人ひとりに届けます。</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🤝</div>
-        <p class="service-num">SVC — 04</p>
-        <h3 class="service-name-en">Collaboration</h3>
-        <p class="service-name-jp">クリエイター協業</p>
-        <p class="service-desc">「一緒に何か作りたい」を歓迎します。ゲーム・Web・AI・ロボットが交わるアイデアなら、なんでもご相談ください。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 企業向けサービス -->
-  <div class="for-corporate">
-    <div class="services-grid">
-      <div class="service-card">
-        <p class="service-num">SVC — 01</p>
-        <h3 class="service-name-en">Robot Manufacturing</h3>
-        <p class="service-name-jp">ロボット制作</p>
-        <!-- 修正: 専門用語を減らし、一貫対応のメリット（仕様変更に強い）を明記 -->
-        <p class="service-desc">小型〜中型ロボットの企画・試作・製作に対応。本体の設計から中身のソフトウェアまで一貫して担当するため、途中の仕様変更にも素早く対応できます。</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">SVC — 02</p>
-        <h3 class="service-name-en">AI Implementation</h3>
-        <p class="service-name-jp">AI活用支援</p>
-        <!-- 修正: 「可能性を解放」を、導入効果（作業時間の削減）が伝わる表現に -->
-        <p class="service-desc">ChatGPTの導入から業務の自動化まで対応します。自社の業務に合う形でAIを組み込み、日々の作業時間を減らします。</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">SVC — 03</p>
-        <h3 class="service-name-en">DX &amp; Transformation</h3>
-        <p class="service-name-jp">DX推進・伴走支援</p>
-        <!-- 修正: 理念語を減らし、「導入して終わりではない」という安心感を訴求 -->
-        <p class="service-desc">ツールの導入から業務フローの見直しまで対応。導入して終わりではなく、現場に定着するまで伴走します。</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">SVC — 04</p>
-        <h3 class="service-name-en">Education &amp; Training</h3>
-        <p class="service-name-jp">研修・教育支援</p>
-        <!-- 修正: 比喩（火種）を、研修で得られる変化が分かる表現に -->
-        <p class="service-desc">AIやDXを学ぶ研修・ワークショップを提供します。「難しそう」を「使ってみたい」に変え、社内にAIを使いこなす人材を育てます。</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">SVC — 05</p>
-        <h3 class="service-name-en">Web Development</h3>
-        <p class="service-name-jp">Webサイト制作（法人向け）</p>
-        <!-- 修正: 「戦略をかたちに」を、具体的な提供範囲が分かる表現に -->
-        <p class="service-desc">中小企業・スタートアップ向けのWebサイト制作。伝えたい価値が正しく伝わるよう、構成から文章まで丁寧に設計します。</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">SVC — 06</p>
-        <h3 class="service-name-en">Collaboration &amp; Advisory</h3>
-        <p class="service-name-jp">コラボレーション・技術監修</p>
-        <p class="service-desc">取材・共同制作・技術監修など、柔軟にご相談ください。AI・ロボット・教育が交差するプロジェクトを歓迎します。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- WORKS / YOUTUBE -->
-<section id="works" style="position:relative;overflow:hidden">
-  <div class="sec-eyebrow">YouTube</div>
-  <div class="sec-head">
-    <h2 class="sec-en">You<span class="accent">Tube</span></h2>
-    <span class="sec-jp">動画で見る実績</span>
-  </div>
-  <p class="yt-lead">これまでに設計・製作したロボットや、3Dプリンターで出力した造形物を、動画で公開しています。実際に動いているところを、そのままご覧いただけます。</p>
-
-  <div class="yt-grid" id="yt-grid">
-    <a class="yt-card" href="https://www.youtube.com/watch?v=T74ZqsjnrZE" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/T74ZqsjnrZE/hqdefault.jpg" alt="" loading="lazy">
-        <span class="yt-play" aria-hidden="true"></span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">2026.08.15</p>
-        <p class="yt-title">動くぼく！ロボット大会がんばりました！</p>
-      </div>
-    </a>
-    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/SqSZl4lZHEE" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
-        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/SqSZl4lZHEE/oardefault.jpg" alt="" loading="lazy">
-        <span class="yt-play" aria-hidden="true"></span>
-        <span class="yt-time yt-time-short">ショート</span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">2026.08.14</p>
-        <p class="yt-title">【PD制御】ライントレースさせてみたver3 1</p>
-      </div>
-    </a>
-    <a class="yt-card yt-card-short" href="https://www.youtube.com/shorts/CgPW-rX054w" target="_blank" rel="noopener">
-      <div class="yt-thumb">
-        <img class="yt-thumb-bg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy" aria-hidden="true">
-        <img class="yt-thumb-fg" src="https://i.ytimg.com/vi/CgPW-rX054w/oardefault.jpg" alt="" loading="lazy">
-        <span class="yt-play" aria-hidden="true"></span>
-        <span class="yt-time yt-time-short">ショート</span>
-      </div>
-      <div class="yt-info">
-        <p class="yt-tag">2026.08.14</p>
-        <p class="yt-title">IMG 6194</p>
-      </div>
-    </a>
-  </div>
-
-  <a class="yt-channel" href="https://www.youtube.com/@raizin_lightspirits" target="_blank" rel="noopener">
-    <span class="yt-channel-icon" aria-hidden="true">▶</span>
-    チャンネルで動画をすべて見る
-  </a>
-</section>
-
-<div class="divider"></div>
-
 <!-- YUi -->
 <section id="yui">
   <div class="yui-bg"></div>
@@ -3405,19 +3423,18 @@ button.btn-gold {
 
 <div class="divider"></div>
 
-<!-- BLOG / LOG -->
-<section id="blog">
-  <div class="sec-eyebrow">LOG</div>
+<!-- もりけん × 雷神 会話。中身は data/conversations.js から組み立てる（PCのみ） -->
+<section id="dialogue" aria-labelledby="dlg-title">
+  <div class="sec-eyebrow">Dialogue</div>
   <div class="sec-head">
-    <h2 class="sec-en"><span class="accent">LOG</span></h2>
-    <span class="sec-jp">制作ログ・思考の記録</span>
+    <h2 class="sec-en" id="dlg-title"><span class="accent">MORIKEN</span> &times; RAIZIN</h2>
+    <span class="sec-jp">もりけんと雷神の話</span>
   </div>
-  <div class="blog-grid" id="note-feed">
-    <div class="note-loading" data-feed-loading>LOADING...</div>
-  </div>
-  <div class="note-more-wrap">
-    <a href="https://note.com/moriken_ls" target="_blank" rel="noopener noreferrer" class="note-more-link">note.comで全ての記事を読む →</a>
-  </div>
+  <p class="dlg-lead">
+    かたい説明のかわりに、ふたりの会話で。気になるところだけ読んでください。
+  </p>
+  <div class="dlg-tabs" id="dlg-tabs" role="tablist"></div>
+  <div class="dlg-list" id="dlg-list"></div>
 </section>
 
 <div class="divider"></div>
@@ -3443,18 +3460,21 @@ button.btn-gold {
   </div>
 </section>
 
-<!-- もりけん × 雷神 会話。中身は data/conversations.js から組み立てる（PCのみ） -->
-<section id="dialogue" aria-labelledby="dlg-title">
-  <div class="sec-eyebrow">Dialogue</div>
+<div class="divider"></div>
+
+<!-- BLOG / LOG -->
+<section id="blog">
+  <div class="sec-eyebrow">LOG</div>
   <div class="sec-head">
-    <h2 class="sec-en" id="dlg-title"><span class="accent">MORIKEN</span> &times; RAIZIN</h2>
-    <span class="sec-jp">もりけんと雷神の話</span>
+    <h2 class="sec-en"><span class="accent">LOG</span></h2>
+    <span class="sec-jp">制作ログ・思考の記録</span>
   </div>
-  <p class="dlg-lead">
-    かたい説明のかわりに、ふたりの会話で。気になるところだけ読んでください。
-  </p>
-  <div class="dlg-tabs" id="dlg-tabs" role="tablist"></div>
-  <div class="dlg-list" id="dlg-list"></div>
+  <div class="blog-grid" id="note-feed">
+    <div class="note-loading" data-feed-loading>LOADING...</div>
+  </div>
+  <div class="note-more-wrap">
+    <a href="https://note.com/moriken_ls" target="_blank" rel="noopener noreferrer" class="note-more-link">note.comで全ての記事を読む →</a>
+  </div>
 </section>
 
 <div class="divider"></div>
@@ -3623,7 +3643,57 @@ button.btn-gold {
   </div>
 </section>
 
-<div class="divider for-corporate"></div>
+<div class="divider"></div>
+
+<!-- 会社概要 — 値は確認できたものだけ。未確定は TODO を残してある -->
+<section id="company" aria-labelledby="company-title">
+  <div class="sec-eyebrow">Company</div>
+  <div class="sec-head">
+    <h2 class="sec-en" id="company-title"><span class="accent">Company</span> Profile</h2>
+    <span class="sec-jp">会社概要</span>
+  </div>
+  <table class="company-table">
+    <tbody>
+      <tr>
+        <th>商号</th>
+        <td>合同会社らいとすぴりっつ（ライトスピリッツ）</td>
+      </tr>
+      <tr>
+        <th>英文表記</th>
+        <td>lightspirits</td>
+      </tr>
+      <tr>
+        <th>代表社員</th>
+        <td>森田 健太</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td>茨城県守谷市けやき台３丁目８－１５</td>
+      </tr>
+      <tr>
+        <th>設立</th>
+        <td>2026年8月8日</td>
+      </tr>
+      <tr>
+        <th>法人番号</th>
+        <td>5050003010326</td>
+      </tr>
+      <tr>
+        <th>事業内容</th>
+        <td>
+          <!-- 下記はサイト内のサービス紹介から起こしたものです。実態と合っているかご確認ください -->
+          AIの活用支援・導入研修／ロボットの設計・開発／Webサービス・スマートフォンアプリ・業務システムの開発／DX推進の伴走支援／技術教育・研修
+        </td>
+      </tr>
+      <tr>
+        <th>連絡先</th>
+        <td><a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
 
 <!-- CONTACT -->
 <section id="contact">
@@ -3716,82 +3786,6 @@ button.btn-gold {
       <p class="contact-fallback">フォームが送信できない場合は <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接メールをお送りください。</p>
     </form>
   </div>
-</section>
-
-<!-- AVATAR POPUP -->
-<div class="avatar-overlay" id="avatarOverlay">
-  <div class="avatar-bubble">
-    <button class="avatar-bubble-close" id="avatarClose">✕</button>
-    <p class="bubble-name">森田 健太（もりた けんた）</p>
-    <p class="bubble-name-sub">プロフィール</p>
-
-    <p class="bubble-p">東京理科大学大学院（機械工学専攻）修士課程修了。</p>
-    <p class="bubble-p">20年以上にわたり、ロボット開発・システム開発・AI開発に携わってきました。</p>
-    <p class="bubble-p">学生時代にはロボット競技会で優勝を経験し、その後もロボット技術やソフトウェア開発の現場で実績を積み重ねています。現在は、ChatGPTをはじめとする生成AIや音声会話AIの開発、企業向けのAI導入支援や研修などを行っています。</p>
-
-    <p class="bubble-h">強み</p>
-    <p class="bubble-p">私の強みは、アイデアを形にする力です。</p>
-    <p class="bubble-p">多くの開発現場では、機械設計、電子回路、プログラム、AI開発をそれぞれ別の専門家が担当します。しかし私は、</p>
-    <div class="bubble-msg">「アイデアを考える → 設計する → 試作品を作る → AIを組み込む → 実際に動かす」</div>
-    <p class="bubble-p">までを一人で対応できます。</p>
-
-    <p class="bubble-h">こんな相談ができます</p>
-    <ul class="bubble-list">
-      <li>AIを活用した新しいサービスを作りたい</li>
-      <li>業務を自動化したい</li>
-      <li>ロボットを開発したい</li>
-      <li>新規事業のアイデアを形にしたい</li>
-    </ul>
-    <p class="bubble-p">といった、まだ具体化していない段階からご相談いただけます。</p>
-  </div>
-</div>
-
-<!-- 会社概要 — 値は確認できたものだけ。未確定は TODO を残してある -->
-<section id="company" aria-labelledby="company-title">
-  <div class="sec-eyebrow">Company</div>
-  <div class="sec-head">
-    <h2 class="sec-en" id="company-title"><span class="accent">Company</span> Profile</h2>
-    <span class="sec-jp">会社概要</span>
-  </div>
-  <table class="company-table">
-    <tbody>
-      <tr>
-        <th>商号</th>
-        <td>合同会社らいとすぴりっつ（ライトスピリッツ）</td>
-      </tr>
-      <tr>
-        <th>英文表記</th>
-        <td>lightspirits</td>
-      </tr>
-      <tr>
-        <th>代表社員</th>
-        <td>森田 健太</td>
-      </tr>
-      <tr>
-        <th>所在地</th>
-        <td>茨城県守谷市けやき台３丁目８－１５</td>
-      </tr>
-      <tr>
-        <th>設立</th>
-        <td>2026年8月8日</td>
-      </tr>
-      <tr>
-        <th>法人番号</th>
-        <td>5050003010326</td>
-      </tr>
-      <tr>
-        <th>事業内容</th>
-        <td>
-          <!-- 下記はサイト内のサービス紹介から起こしたものです。実態と合っているかご確認ください -->
-          AIの活用支援・導入研修／ロボットの設計・開発／Webサービス・スマートフォンアプリ・業務システムの開発／DX推進の伴走支援／技術教育・研修
-        </td>
-      </tr>
-      <tr>
-        <th>連絡先</th>
-        <td><a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a></td>
-      </tr>
-    </tbody>
-  </table>
 </section>
 
 <!-- FOOTER -->

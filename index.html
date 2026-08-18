@@ -189,10 +189,6 @@ nav{
   transition:background 0.2s;
 }
 .nav-contact-btn:hover{background:var(--gold-light)}
-.tab-switcher.nav-tab-switcher{margin-bottom:0;align-self:center;align-items:center}
-.tab-switcher.mobile-tab-switcher{display:none}
-.nav-tab-switcher .tab-btn{padding:0.42rem 1rem;font-size:0.7rem}
-.nav-tab-switcher .tab-label{padding:0.42rem 0.7rem;font-size:0.58rem}
 
 /* ===== TICKER ===== */
 .ticker{
@@ -582,59 +578,6 @@ section{padding:7rem 4rem}
 .about-card-desc{font-size:0.75rem;color:var(--muted);line-height:1.7}
 
 /* ===== TAB SWITCHER ===== */
-.tab-switcher{
-  display:flex;
-  gap:0;
-  margin-bottom:3rem;
-  border:1px solid var(--border);
-  width:fit-content;
-}
-.tab-btn{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:0.75rem;
-  font-weight:700;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  padding:0.85rem 2.25rem;
-  background:transparent;
-  color:var(--muted);
-  border:none;
-  cursor:pointer;
-  position:relative;
-  transition:color 0.2s,background 0.2s;
-  white-space:nowrap;
-}
-.tab-btn::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:0;right:0;
-  height:2px;
-  background:var(--gold);
-  transform:scaleX(0);
-  transition:transform 0.25s ease;
-}
-.tab-btn.active{
-  color:var(--gold);
-  background:rgba(201,168,76,0.06);
-}
-.tab-btn.active::after{transform:scaleX(1)}
-.tab-btn:not(.active):hover{color:var(--white)}
-.tab-divider{
-  width:1px;
-  background:var(--border);
-  flex-shrink:0;
-}
-.tab-label{
-  font-family:'Space Mono',monospace;
-  font-size:0.62rem;
-  letter-spacing:0.18em;
-  color:var(--gold-dim);
-  padding:0.85rem 1.25rem;
-  display:flex;
-  align-items:center;
-  border-right:1px solid var(--border);
-  white-space:nowrap;
-}
 
 /* ===== SERVICES ===== */
 #services{background:var(--black)}
@@ -1184,12 +1127,11 @@ footer{
 .footer-bottom-links a{font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
 .footer-bottom-links a:hover{color:var(--gold)}
 
-/* ===== AUDIENCE CONTENT SWITCHING ===== */
-.for-general, .for-corporate { display: none; }
-[data-theme="general"]   .for-general   { display: block; }
-[data-theme="corporate"] .for-corporate { display: block; }
-[data-theme="corporate"] .for-general   { display: none; }
-[data-theme="general"]   .for-corporate { display: none; }
+/* ===== 一般向け・企業向けの統合 =====
+   2026-08-18 に出し分けをやめ、1ページに統合した。
+   .for-general / .for-corporate は、どちら向けの文章かを示す目印としてだけ残している
+   （消すと本文中のどれが誰に向けたものか分からなくなるため）。 */
+.for-general, .for-corporate { display: block; }
 
 /* ===== GENERAL THEME (一般・個人向け) ===== */
 :root[data-theme="general"] {
@@ -1230,7 +1172,6 @@ footer{
 [data-theme="general"] .founder-avatar {
   background: linear-gradient(135deg,#7DD3FC,#0284C7);
 }
-[data-theme="general"] .tab-btn.active { background: rgba(2,132,199,0.09); }
 [data-theme="general"] .avatar-overlay { background: rgba(240,249,255,0.9); }
 [data-theme="general"] .avatar-bubble {
   background: #FFFFFF;
@@ -1353,17 +1294,6 @@ footer{
 }
 
 /* Tab switcher — pill */
-[data-theme="general"] .tab-switcher {
-  border-radius: 50px; overflow: hidden; border: 2px solid #BFD9EF; background: #F0F9FF;
-}
-[data-theme="general"] .tab-label { background: transparent; border-right-color: #BFD9EF; color: rgba(2,132,199,0.65); }
-[data-theme="general"] .tab-btn {
-  font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem;
-  letter-spacing: 0.03em; text-transform: none;
-}
-[data-theme="general"] .tab-btn.active { background: #0284C7; color: #FFFFFF; }
-[data-theme="general"] .tab-btn.active::after { display: none; }
-[data-theme="general"] .tab-btn:not(.active):hover { background: rgba(2,132,199,0.08); color: #0284C7; }
 
 /* Blog — rounded cards */
 [data-theme="general"] .blog-grid { background: none; border: none; gap: 1rem; }
@@ -1875,21 +1805,9 @@ footer{
 @media(max-width:900px){
   nav{padding:0 1.5rem}
   .nav-center{display:none}
-  .nav-tab-switcher{display:none}
-  .tab-switcher.mobile-tab-switcher{
-    display:flex;
-    position:fixed;
-    top:72px;left:50%;transform:translateX(-50%);
-    z-index:199;
-    margin:0;
-    background:rgba(5,5,5,0.92);
-    backdrop-filter:blur(16px);
-    box-shadow:0 4px 16px rgba(0,0,0,0.18);
-  }
-  .mobile-tab-switcher .tab-btn{padding:0.6rem 1.1rem;font-size:0.72rem}
   section{padding:4.5rem 1.5rem}
-  #hero{grid-template-columns:1fr;padding-top:132px}
-  [data-theme="general"] #hero,[data-theme="corporate"] #hero{padding-top:132px}
+  #hero{grid-template-columns:1fr;padding-top:96px}
+  [data-theme="general"] #hero{padding-top:96px}
   .hero-left{padding:3rem 1.5rem}
   .hero-right{display:none}
   .about-grid,.contact-grid,.founder-grid{grid-template-columns:1fr;gap:3rem}
@@ -2374,8 +2292,6 @@ button.btn-gold {
 [data-theme="general"] .hero-eyebrow{
   background:rgba(201,168,76,0.13);color:#8A6E24;
 }
-[data-theme="general"] .tab-switcher{background:rgba(255,253,248,0.85);border-color:#DFD3B4}
-[data-theme="general"] .tab-label{border-right-color:#E3D9C1;color:rgba(120,98,44,0.75)}
 [data-theme="general"] .news-inner{background:rgba(255,253,248,0.92)}
 [data-theme="general"] #about .sec-eyebrow,
 [data-theme="general"] #strength .sec-eyebrow{background:rgba(201,168,76,0.13);color:#8A6E24}
@@ -2563,18 +2479,22 @@ button.btn-gold {
 
 /* ===== もりけん × 雷神 会話セクション =====
    会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
-   表示条件：PCのみ（768px以下は非表示）／企業・法人向けテーマのみ。
-   一般・個人向けでは、同じ会話をマスコットのふきだしが担当する。
-   配色は企業テーマの変数（黒×金）に乗せて、他セクションと地続きにする。 */
+   表示条件：PCのみ（768px以下は非表示）。
+   夜空の上に置くため、配色はこのブロック内で完結させ、他セクションに依存させない。 */
 #dialogue{display:none}
-[data-theme="corporate"] #dialogue.is-ready{display:block; background:var(--black-2)}
+#dialogue.is-ready{display:block}
 /* モバイル振り分けと同じ 768px。ここより狭い画面には一切出さない */
 @media(max-width:768px){
   #dialogue{display:none !important}
 }
 
+#dialogue .sec-en,
+#dialogue .sec-jp{color:#EEF4FE}
+#dialogue .sec-en .accent{color:#E8C97A}
+#dialogue .sec-eyebrow{background:rgba(9,17,34,0.45);color:#F0DCA8}
+#dialogue .sec-head::after{background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25))}
 #dialogue .dlg-lead{
-  font-size:0.9rem;color:var(--muted);line-height:1.95;
+  font-size:0.9rem;color:rgba(226,236,252,0.80);line-height:1.95;
   max-width:62ch;margin:0 0 2.4rem;
 }
 
@@ -2583,40 +2503,41 @@ button.btn-gold {
 #dialogue .dlg-tab{
   font-family:'Noto Sans JP',sans-serif;font-size:0.78rem;letter-spacing:0.04em;
   padding:0.5rem 1.1rem;cursor:pointer;
-  background:var(--black-3);border:1px solid var(--border);border-radius:2px;
-  color:var(--muted);transition:background .2s,border-color .2s,color .2s;
+  background:rgba(12,22,42,0.5);border:1px solid rgba(232,201,122,0.26);border-radius:50px;
+  color:rgba(238,244,254,0.86);transition:background .2s,border-color .2s,color .2s;
 }
-#dialogue .dlg-tab:hover{border-color:var(--gold-dim);color:var(--white)}
+#dialogue .dlg-tab:hover{border-color:rgba(232,201,122,0.55);color:#F5E3B0}
 #dialogue .dlg-tab[aria-selected="true"]{
-  background:var(--gold);border-color:var(--gold);color:#0a0a0a;font-weight:700;
+  background:rgba(232,201,122,0.16);border-color:#E8C97A;color:#F5E3B0;font-weight:700;
 }
 #dialogue .dlg-count{
   font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;
-  color:var(--gold-dim);margin:0 0 1rem;
+  color:rgba(226,236,252,0.55);margin:0 0 1rem;
 }
 
 /* 会話1本ぶん。既定は見出しだけ、クリックで開く */
 #dialogue .dlg-list{display:flex;flex-direction:column;gap:0.6rem}
 #dialogue .dlg-item{
-  background:var(--black-3);border:1px solid var(--border);border-radius:6px;
+  background:rgba(12,22,42,0.55);border:1px solid rgba(232,201,122,0.22);border-radius:22px;
   padding:1.5rem 1.9rem;transition:border-color .2s,background .2s;
+  box-shadow:0 6px 26px rgba(0,0,0,0.28);backdrop-filter:blur(6px);
 }
-#dialogue .dlg-item:not([open]){padding:1.05rem 1.9rem}
-#dialogue .dlg-item:hover{border-color:var(--gold-dim)}
-#dialogue .dlg-item[open]{background:var(--black-4)}
+#dialogue .dlg-item:not([open]){background:rgba(12,22,42,0.38);padding:1.05rem 1.9rem}
+#dialogue .dlg-item:hover{border-color:rgba(232,201,122,0.45)}
+#dialogue .dlg-item[open]{background:rgba(12,22,42,0.55)}
 #dialogue .dlg-item-title{
   font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:0.95rem;
-  color:var(--white);margin:0;cursor:pointer;list-style:none;
+  color:#EEF4FE;margin:0;cursor:pointer;list-style:none;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   transition:color .2s;
 }
 #dialogue .dlg-item-title::-webkit-details-marker{display:none}
-#dialogue .dlg-item-title:hover{color:var(--gold-light)}
+#dialogue .dlg-item-title:hover{color:#F5E3B0}
 #dialogue .dlg-item-title::after{
-  content:'▼';flex:0 0 auto;font-size:0.6rem;color:var(--gold-dim);transition:transform .2s;
+  content:'▼';flex:0 0 auto;font-size:0.6rem;color:#B99B57;transition:transform .2s;
 }
 #dialogue .dlg-item[open] > .dlg-item-title{
-  margin-bottom:1.4rem;padding-bottom:0.8rem;border-bottom:1px solid var(--border);
+  margin-bottom:1.4rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(232,201,122,0.18);
 }
 #dialogue .dlg-item[open] > .dlg-item-title::after{transform:rotate(180deg)}
 
@@ -2626,22 +2547,22 @@ button.btn-gold {
 #dialogue .dlg-line.is-moriken{flex-direction:row-reverse}
 #dialogue .dlg-avatar{
   flex:0 0 auto;width:44px;height:44px;border-radius:50%;overflow:hidden;
-  background:var(--black-2);border:1px solid var(--border);
+  background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.28);
 }
 #dialogue .dlg-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 #dialogue .dlg-body{max-width:74%;min-width:0}
 #dialogue .dlg-name{
   font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;
-  color:var(--gold-dim);margin:0 0 0.35rem;text-transform:uppercase;
+  color:#B99B57;margin:0 0 0.35rem;text-transform:uppercase;
 }
 #dialogue .dlg-line.is-moriken .dlg-name{text-align:right}
 #dialogue .dlg-bubble{
-  border-radius:4px;padding:0.8rem 1.1rem;
-  font-size:0.87rem;line-height:1.95;color:var(--muted);
+  border-radius:16px;padding:0.8rem 1.1rem;
+  font-size:0.87rem;line-height:1.95;color:rgba(238,244,254,0.92);
   overflow-wrap:anywhere;word-break:normal;
 }
-#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.20)}
-#dialogue .dlg-line.is-moriken .dlg-bubble{background:var(--black-2);border:1px solid var(--border)}
+#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.20)}
+#dialogue .dlg-line.is-moriken .dlg-bubble{background:rgba(120,160,220,0.12);border:1px solid rgba(150,185,235,0.22)}
 
 /* 既存の 900px ブレークポイントに合わせて、狭いPC幅では詰める */
 @media(max-width:900px){
@@ -2982,21 +2903,9 @@ button.btn-gold {
     <li><a href="#blog"><span class="nav-en">LOG</span><span class="nav-jp">ブログ</span></a></li>
   </ul>
   <div class="nav-right">
-    <div class="tab-switcher nav-tab-switcher">
-      <button class="tab-btn active" data-tab="general">一般・個人向け</button>
-      <div class="tab-divider"></div>
-      <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
-    </div>
     <a href="#contact" class="nav-contact-btn"><span class="nav-en">Contact</span><span class="nav-jp">お問い合わせ</span></a>
   </div>
 </nav>
-
-<!-- スマホ用テーマ切り替え（900px以下でナビ直下に固定表示） -->
-<div class="tab-switcher mobile-tab-switcher">
-  <button class="tab-btn active" data-tab="general">一般・個人向け</button>
-  <div class="tab-divider"></div>
-  <button class="tab-btn" data-tab="corporate">企業・法人向け</button>
-</div>
 
 <!-- TICKER — 中身は data/news.js から組み立てる。0件ならこの要素ごと消える -->
 <div class="ticker" id="ticker" hidden>
@@ -3027,28 +2936,6 @@ button.btn-gold {
         <a href="#contact" class="btn-outline">一緒につくる</a>
       </div>
     </div>
-    <!-- 企業向け -->
-    <div class="for-corporate">
-      <!-- 修正: 最大の強み（3領域の一貫開発）をファーストビューで明示 -->
-      <p class="hero-eyebrow">AI × ロボット × アプリ 一貫開発</p>
-      <h1 class="hero-title">
-        <span class="accent">魂</span>に<br>
-        火を灯す
-      </h1>
-      <!-- 修正: 抽象的な表現を、依頼メリットが一読で伝わる一文に -->
-      <p class="hero-title-jp">AI・ロボット・アプリの開発を、ひとつの窓口で。</p>
-      <!-- 修正: 詩的な表現を整理し、差別化ポイント（企画→完成まで一貫）を明記 -->
-      <p class="hero-sub">
-        企画から設計・試作・AI開発・完成まで、<br>
-        らいとすぴりっつが一貫して担当します。<br>
-        だから、話が早い。形になるのも早い。
-      </p>
-      <div class="hero-cta">
-        <!-- 修正(CTA): 「プロジェクト」だと大型案件限定に見えるため、初回接触の心理的ハードルを下げる文言に -->
-        <a href="#contact" class="btn-gold">まずは相談してみる</a>
-        <a href="#works" class="btn-outline">実績を見る</a>
-      </div>
-    </div>
   </div>
   <div class="hero-right">
     <div class="hero-right-glow"></div>
@@ -3056,10 +2943,6 @@ button.btn-gold {
       <!-- 一般向け -->
       <div class="for-general hero-right-personal">
         <img src="images/S__21758013.jpg" alt="雷神ロボット" class="hero-illust-photo">
-      </div>
-      <!-- 企業向け -->
-      <div class="for-corporate hero-right-personal">
-        <img src="images/raijin-robot.jpg" alt="雷神ロボット実機" class="hero-robot-photo">
       </div>
     </div>
   </div>
@@ -3799,31 +3682,27 @@ button.btn-gold {
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ項目</label>
-        <!-- 一般向け -->
-        <div class="for-general">
-          <select class="form-select" id="contact-topic-general" name="お問い合わせ項目">
-            <option value="">選択してください</option>
-            <option>ゲームのご相談・フィードバック</option>
-            <option>Webサイト制作のご依頼（個人）</option>
-            <option>学習・教育についてのご相談</option>
-            <option>コラボ・共同制作のご提案</option>
-            <option>その他</option>
-          </select>
-        </div>
-        <!-- 企業向け -->
-        <div class="for-corporate">
-          <select class="form-select" id="contact-topic-corporate" name="お問い合わせ項目">
-            <option value="">選択してください</option>
+        <select class="form-select" id="contact-topic" name="お問い合わせ項目">
+          <option value="">選択してください</option>
+          <optgroup label="法人のご相談">
             <option>ロボット制作のご依頼</option>
             <option>AI活用支援のご相談</option>
             <option>DX推進・伴走支援のご相談</option>
             <option>研修・教育支援のご相談</option>
             <option>Webサイト制作のご依頼（法人）</option>
+          </optgroup>
+          <optgroup label="個人・クリエイターのご相談">
+            <option>ゲームのご相談・フィードバック</option>
+            <option>Webサイト制作のご依頼（個人）</option>
+            <option>学習・教育についてのご相談</option>
+            <option>コラボ・共同制作のご提案</option>
+          </optgroup>
+          <optgroup label="その他">
             <option>YUiプロジェクトについて</option>
             <option>取材・コラボレーション</option>
             <option>その他</option>
-          </select>
-        </div>
+          </optgroup>
+        </select>
       </div>
       <div class="form-group">
         <label class="form-label">お問い合わせ内容</label>
@@ -4510,55 +4389,14 @@ button.btn-gold {
   overlay.addEventListener('click', e => { if(e.target===overlay) shut(); });
   document.addEventListener('keydown', e => { if(e.key==='Escape') shut(); });
 
-  // ===== テーマ切り替え（一般向け ↔ 企業向け）=====
-  const tabBtns = document.querySelectorAll('.tab-btn');
-
-  // ===== テーマ別セクション順序 =====
-  // 一般向け: 作品を先に（まず遊んでもらう） / 企業向け: サービス→実績の順
-  const worksSec = document.getElementById('works');
-  const servicesSec = document.getElementById('services');
-  const worksAnchor = worksSec ? worksSec.nextElementSibling : null;
-  // 修正(構成): 企業向けは「強み（差別化）」を理念より先に見せ、結論先出しで離脱を防ぐ
-  const strengthSec = document.getElementById('strength');
-  const aboutSec = document.getElementById('about');
-  const strengthDivider = strengthSec ? strengthSec.previousElementSibling : null;
-  const strengthAnchor = strengthSec ? strengthSec.nextElementSibling : null;
-
-  function applySectionOrder(theme) {
-    if (worksSec && servicesSec && worksAnchor) {
-      if (theme === 'general') {
-        servicesSec.parentNode.insertBefore(worksSec, servicesSec);
-      } else {
-        worksAnchor.parentNode.insertBefore(worksSec, worksAnchor);
-      }
-    }
-    if (strengthSec && aboutSec && strengthDivider && strengthAnchor) {
-      if (theme === 'corporate') {
-        aboutSec.parentNode.insertBefore(strengthSec, aboutSec);
-        aboutSec.parentNode.insertBefore(strengthDivider, aboutSec);
-      } else {
-        strengthAnchor.parentNode.insertBefore(strengthSec, strengthAnchor);
-        strengthSec.parentNode.insertBefore(strengthDivider, strengthSec);
-      }
-    }
-  }
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === btn.dataset.tab));
-      document.documentElement.dataset.theme = btn.dataset.tab;
-      applySectionOrder(btn.dataset.tab);
-    });
-  });
-
-  applySectionOrder(document.documentElement.dataset.theme);
+  // テーマ切り替えは 2026-08-18 に撤去。セクションの並びはHTMLの記述順そのもの。
 
   // ===== お問い合わせフォーム（FormSubmit送信） =====
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     // 入力内容を自動保存し、送信前にページを離れても復元する
     const FIELD_IDS = ['contact-name', 'contact-company', 'contact-email',
-                       'contact-message', 'contact-topic-general', 'contact-topic-corporate'];
+                       'contact-message', 'contact-topic'];
     FIELD_IDS.forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -4572,18 +4410,12 @@ button.btn-gold {
     });
 
     contactForm.addEventListener('submit', () => {
-      // 表示中テーマの「お問い合わせ項目」だけを送信する（非表示側はdisabledで除外）
-      const corporate = document.documentElement.dataset.theme === 'corporate';
-      const gSel = document.getElementById('contact-topic-general');
-      const cSel = document.getElementById('contact-topic-corporate');
-      if (gSel) gSel.disabled = corporate;
-      if (cSel) cSel.disabled = !corporate;
       // 送信できたら下書き保存はクリア
       FIELD_IDS.forEach(id => { try { sessionStorage.removeItem('ls-form-' + id); } catch (err) {} });
     });
   }
 
-  // ===== 企業向け 実績カウントアップ =====
+  // ===== 実績カウントアップ =====
   // HTMLには最終値を書いてあるので、JSが動かない環境でも数字は正しく出る。
   // 加算を見せるときだけ 0 に戻してから動かす。
   const counts = document.querySelectorAll('.stat-count');

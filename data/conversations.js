@@ -1892,15 +1892,6 @@ window.LS_CONVERSATIONS = (window.LS_CONVERSATIONS || []).concat([
     ]
   },
   {
-    id: 'chat-006',
-    category: 'chat',
-    title: 'できるかな？',
-    lines: [
-      { speaker: 'moriken', text: 'できるかな？' },
-      { speaker: 'raizin', text: '作って確かめてみようよ。' }
-    ]
-  },
-  {
     id: 'chat-007',
     category: 'chat',
     title: '楽しい？',
@@ -2937,12 +2928,6 @@ window.LS_CONVERSATIONS = (window.LS_CONVERSATIONS || []).concat([
       { speaker: 'raizin', text: 'それで、作る人も使う人も楽しめるやつ。' },
       { speaker: 'moriken', text: 'それが一番だ。' }
     ]
-  },
-
-  { id: 'chat-101', category: 'chat', title: 'もりけん！最近何つくってる？',
-    lines: [
-      { speaker: 'raizin',  text: 'もりけん！最近何つくってる？' },
-      { speaker: 'moriken', text: '新しいロボットと格闘中だよ🤖' }
-    ] }
+  }
 
 ]);

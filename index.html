@@ -4122,43 +4122,75 @@ button.btn-gold {
 <!-- マスコットのひとこと。追加・修正はこのファイルだけで完結する -->
 <script src="data/bubbles.js"></script>
 <script>
-/* 画面の隅の雷神ともりけんは、押されたときだけ単発のひとことを言う。
-   かけあいは「もりけんと雷神の話」セクションの担当。ここは愛嬌担当。
+/* 画面の隅の雷神ともりけんは、押されたときだけ喋る。
+   単発のひとことと、1往復の一言かけあいの2種類。
+   2往復以上は「もりけんと雷神の話」セクションの担当（ふきだしでは読みづらいため）。
    2026-08-19に自動表示を廃止（本文側のふきだしと重なって読めなくなるため）。 */
 (function(){
-  var SPEAK = 7000;          // ひとことが出ている時間
-  var FIRST_VISIT_DELAY = 2600;   // 初回だけ、読み込み後にひとこと出すまでの待ち
+  var SPEAK = 7000;               // 出ている時間
+  var FIRST_VISIT_DELAY = 2600;   // 初回だけ、読み込み後に喋るまでの待ち
   var SEEN_KEY = 'ls-mascot-greeted';
 
   var data = window.LS_BUBBLES || {};
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function setText(el, txt) { if (el) el.innerHTML = String(txt).replace(/\n/g, '<br>'); }
+  var mBubble = document.getElementById('mascot-bubble');
+  var mText   = document.getElementById('mascot-text');
+  var rBubble = document.getElementById('moriken-bubble');
+  var rText   = document.getElementById('moriken-text');
 
-  /* キャラ1体ぶんの独立した仕掛け。互いの状態には触れない */
+  function setText(el, txt) { if (el) el.innerHTML = String(txt).replace(/\n/g, '<br>'); }
+  function show(bubble, handle, on) {
+    if (!bubble) return;
+    bubble.classList[on ? 'remove' : 'add']('hidden');
+    if (handle) handle.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+
+  var okStr = function(t){ return typeof t === 'string' && t.trim(); };
+  var pairs = (data.pairs || []).filter(function(p){
+    return p && okStr(p.raizin) && okStr(p.moriken);
+  });
+
+  /* キャラ1体ぶんの独立した仕掛け。
+     自分の単発と、ふたりのかけあいの両方を持ち、押されるたびに順番に出す。 */
   function makeMascot(o){
-    var lines = (data[o.key] || []).filter(function(t){
-      return typeof t === 'string' && t.trim();
-    });
     var handle = document.getElementById(o.handle);
-    var bubble = document.getElementById(o.bubble);
-    var text   = document.getElementById(o.text);
-    if (!handle || !bubble || !text) return null;
-    if (!lines.length) { console.warn('[ひとこと] ' + o.key + ' のせりふがありません'); return null; }
+    if (!handle || !mBubble || !rBubble) return null;
+
+    var solo = (data[o.key] || []).filter(okStr);
+    // 単発とかけあいを1本の順番にまとめる
+    var deck = solo.map(function(t){ return { solo: t }; })
+                   .concat(pairs.map(function(p){ return { pair: p }; }));
+    if (!deck.length) { console.warn('[ひとこと] ' + o.key + ' のせりふがありません'); return null; }
 
     var i = -1, timer = null, open = false;
 
     function hide(){
       if (timer) { clearTimeout(timer); timer = null; }
-      bubble.classList.add('hidden');
+      show(mBubble, o.key === 'raizin' ? handle : null, false);
+      show(rBubble, o.key === 'moriken' ? handle : null, false);
       handle.setAttribute('aria-expanded', 'false');
       open = false;
     }
     function speak(){
       if (timer) { clearTimeout(timer); timer = null; }   // 連打してもタイマーは常に1本
-      i = (i + 1) % lines.length;                          // 順番に出す
-      setText(text, lines[i]);
-      bubble.classList.remove('hidden');
+      i = (i + 1) % deck.length;
+      var item = deck[i];
+
+      if (item.pair) {                       // 一言かけあい：2つ同時に出す
+        setText(mText, item.pair.raizin);
+        setText(rText, item.pair.moriken);
+        show(mBubble, null, true);
+        show(rBubble, null, true);
+      } else if (o.key === 'raizin') {        // 単発：押された側だけ
+        setText(mText, item.solo);
+        show(mBubble, null, true);
+        show(rBubble, null, false);
+      } else {
+        setText(rText, item.solo);
+        show(rBubble, null, true);
+        show(mBubble, null, false);
+      }
       handle.setAttribute('aria-expanded', 'true');
       open = true;
       timer = setTimeout(hide, SPEAK);
@@ -4172,19 +4204,16 @@ button.btn-gold {
     handle.setAttribute('tabindex', '0');
     handle.setAttribute('aria-label', o.label);
     handle.setAttribute('aria-expanded', 'false');
-    handle.setAttribute('aria-controls', o.bubble);
     handle.addEventListener('click', toggle);
     handle.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(); }
     });
 
-    return { speak: speak, count: lines.length };
+    return { speak: speak, count: deck.length };
   }
 
-  var raizin  = makeMascot({ key:'raizin',  handle:'mascot-toggle',  bubble:'mascot-bubble',
-                             text:'mascot-text',  label:'雷神のひとことを見る' });
-  var moriken = makeMascot({ key:'moriken', handle:'moriken-toggle', bubble:'moriken-bubble',
-                             text:'moriken-text', label:'もりけんのひとことを見る' });
+  var raizin  = makeMascot({ key:'raizin',  handle:'mascot-toggle',  label:'雷神のひとことを見る' });
+  var moriken = makeMascot({ key:'moriken', handle:'moriken-toggle', label:'もりけんのひとことを見る' });
 
   /* 押せることに気づいてもらうため、初回訪問のときだけ雷神が一度だけ喋る。
      2回目以降は出さない。動きを抑える設定のときも出さない。 */

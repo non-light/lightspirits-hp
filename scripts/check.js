@@ -73,7 +73,7 @@ function checkConversations(){
   if (!errors.length) ok('会話データ ' + list.length + ' 件、カテゴリー ' + Object.keys(cats).length + ' 種類 — 書式OK');
 }
 
-/* ---------- 1b. ひとことデータ ---------- */
+/* ---------- 1b. ひとこと・かけあいデータ ---------- */
 function checkBubbles(){
   var path = 'data/bubbles.js';
   if (!fs.existsSync(path)) { fail(path + ' が見つかりません'); return; }
@@ -88,39 +88,59 @@ function checkBubbles(){
 
   var b = win.LS_BUBBLES;
   if (!b || typeof b !== 'object' || Array.isArray(b)) {
-    fail('LS_BUBBLES は { raizin: [...], moriken: [...] } の形にしてください');
+    fail('LS_BUBBLES は { raizin: [...], moriken: [...], pairs: [...] } の形にしてください');
     return;
   }
 
-  var total = 0;
+  function text(t, at){
+    if (typeof t !== 'string' || !t.trim()) { fail(at + ' が空です'); return false; }
+    if (/raijin/i.test(t)) fail(at + ' に RAIJIN があります。正しい綴りは RAIZIN です');
+    return true;
+  }
+
+  var solo = 0;
   ['raizin', 'moriken'].forEach(function(key){
     var list = b[key];
     if (!Array.isArray(list)) { fail('LS_BUBBLES.' + key + ' が配列ではありません'); return; }
-    if (!list.length) { fail('LS_BUBBLES.' + key + ' が空です。1つ以上必要です'); return; }
-
     var seen = {};
     list.forEach(function(t, i){
       var at = 'bubbles.js の ' + key + '[' + i + ']';
-      if (typeof t !== 'string' || !t.trim()) { fail(at + ' が空です'); return; }
-      if (/raijin/i.test(t)) fail(at + ' に RAIJIN があります。正しい綴りは RAIZIN です');
+      if (!text(t, at)) return;
+      // ひとりで喋るぶんは、返事を待つ形にできない
+      if (/[？?]\s*$/.test(t))
+        fail(at + ' は疑問で終わっています。ひとりで喋るぶんは返事が来ません: 「'
+           + t.replace(/\n/g, '') + '」。かけあいにするなら pairs へ移してください');
       var k = t.replace(/\s/g, '');
-      if (seen[k]) fail(at + ' は ' + key + '[' + seen[k].i + '] と同じ文です');
-      else seen[k] = { i: i };
-      total++;
+      if (seen[k]) fail(at + ' は ' + key + '[' + seen[k] + '] と同じ文です'); else seen[k] = i;
+      solo++;
     });
   });
 
-  // 相手の返事を待つ形は、単発では宙に浮く
-  ['raizin', 'moriken'].forEach(function(key){
-    (b[key] || []).forEach(function(t, i){
-      if (typeof t === 'string' && /[？?]\s*$/.test(t))
-        fail('bubbles.js の ' + key + '[' + i + '] は疑問で終わっています。'
-           + '固定マスコットは単発で喋るため、返事が来ません: 「' + t.replace(/\n/g, '') + '」');
+  var pairs = b.pairs;
+  var np = 0;
+  if (pairs !== undefined) {
+    if (!Array.isArray(pairs)) { fail('LS_BUBBLES.pairs が配列ではありません'); return; }
+    var seenP = {};
+    pairs.forEach(function(p, i){
+      var at = 'bubbles.js の pairs[' + i + ']';
+      if (!p || typeof p !== 'object') { fail(at + ' が空です'); return; }
+      // ふきだしは2つしかないので、1往復を超えるものは持てない
+      var extra = Object.keys(p).filter(function(k){ return k !== 'raizin' && k !== 'moriken'; });
+      if (extra.length)
+        fail(at + ' に ' + extra.join('/') + ' があります。かけあいは1往復までです。'
+           + '長い会話は data/conversations.js へ');
+      if (!text(p.raizin, at + ' の raizin')) return;
+      if (!text(p.moriken, at + ' の moriken')) return;
+      var k = (p.raizin + '|' + p.moriken).replace(/\s/g, '');
+      if (seenP[k] !== undefined) fail(at + ' は pairs[' + seenP[k] + '] と同じかけあいです');
+      else seenP[k] = i;
+      np++;
     });
-  });
+  }
 
-  if (!errors.length) ok('ひとこと ' + total + ' 件（雷神 ' + (b.raizin||[]).length
-                       + ' / もりけん ' + (b.moriken||[]).length + '） — 書式OK');
+  if (!errors.length)
+    ok('ひとこと ' + solo + ' 件（雷神 ' + (b.raizin||[]).length + ' / もりけん ' + (b.moriken||[]).length
+     + '）＋ 一言かけあい ' + np + ' 件 — 書式OK');
 }
 
 /* ---------- 2. リンク切れ ---------- */

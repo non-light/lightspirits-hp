@@ -142,6 +142,29 @@ function checkBubbles(){
     });
   }
 
+  var chats = b.chats, nc = 0, nl = 0;
+  if (chats !== undefined) {
+    if (!Array.isArray(chats)) { fail('LS_BUBBLES.chats が配列ではありません'); return; }
+    var seenC = {};
+    chats.forEach(function(c, i){
+      var at = 'bubbles.js の chats[' + i + ']' + (c && c.id ? '（' + c.id + '）' : '');
+      if (!c || !Array.isArray(c.lines) || c.lines.length < 2) { fail(at + ' は2行以上にしてください'); return; }
+      c.lines.forEach(function(l, j){
+        var w = at + ' の ' + (j+1) + '行目';
+        if (!l || (l.speaker !== 'raizin' && l.speaker !== 'moriken'))
+          fail(w + ' の speaker は raizin か moriken だけです');
+        else text(l.text, w);
+      });
+      if (c.id) {
+        if (seenC[c.id] !== undefined) fail(at + ' は chats[' + seenC[c.id] + '] と同じ id です');
+        else seenC[c.id] = i;
+      }
+      nc++; nl += c.lines.length;
+    });
+  }
+
+  if (!errors.length)
+    ok('雑談 ' + nc + ' 件（' + nl + 'せりふ）');
   if (!errors.length)
     ok('ひとこと ' + solo + ' 件（雷神 ' + (b.raizin||[]).length + ' / もりけん ' + (b.moriken||[]).length
      + '）＋ 一言かけあい ' + np + ' 件 — 書式OK');

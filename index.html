@@ -4234,6 +4234,13 @@ button.btn-gold {
     var a = { who:'raizin', text:p.raizin }, b = { who:'moriken', text:p.moriken };
     deck.push(p.first === 'moriken' ? [b, a] : [a, b]);
   });
+  // 往復の多い雑談。ウィンドウは1行ずつ出すので長さの制限はない
+  (d.chats   || []).forEach(function(c){
+    if (!c || !c.lines || !c.lines.length) return;
+    var ls = c.lines.filter(function(l){ return l && ok(l.text) && (l.speaker==='raizin'||l.speaker==='moriken'); })
+                    .map(function(l){ return { who:l.speaker, text:l.text }; });
+    if (ls.length) deck.push(ls);
+  });
   if (!deck.length) return;
 
   var recent = [], timer = null, playing = false, suppressed = false;
@@ -4275,7 +4282,7 @@ button.btn-gold {
   var advance = null;   // 表示中だけ、次へ進む関数が入る
 
   function play(idx){
-    if (suppressed) { schedule(); return; }
+    if (suppressed) { schedule(2); return; }
     var lines = deck[idx], i = 0;
     playing = true;
     put(lines[0]);
@@ -4284,7 +4291,7 @@ button.btn-gold {
     function step(){
       if (timer) { clearTimeout(timer); timer = null; }
       i++;
-      if (i >= lines.length) { advance = null; close(); schedule(); return; }
+      if (i >= lines.length) { advance = null; close(); schedule(lines.length); return; }
       // 入れ替わりはひと呼吸おいて、読み飛ばしを防ぐ
       if (still) { put(lines[i]); timer = setTimeout(step, dur(lines[i])); return; }
       win.classList.add('is-swapping');
@@ -4300,9 +4307,11 @@ button.btn-gold {
     timer = setTimeout(step, dur(lines[0]));
   }
 
-  function schedule(){
+  function schedule(lines){
     if (timer) { clearTimeout(timer); timer = null; }
-    timer = setTimeout(function(){ play(pick()); }, rand(REST_MIN, REST_MAX));
+    // 長く喋ったあとほど長く黙る。会話が続いている感じにしない
+    var extra = Math.max(0, ((lines || 2) - 2)) * 2500;
+    timer = setTimeout(function(){ play(pick()); }, rand(REST_MIN, REST_MAX) + extra);
   }
 
   /* 押されたら早送り。表示中でなければ、その場で会話を始める */
@@ -4355,7 +4364,7 @@ button.btn-gold {
 
   document.addEventListener('visibilitychange', function(){
     if (document.hidden) { close(); if (timer) { clearTimeout(timer); timer = null; } }
-    else if (!suppressed && !timer) schedule();
+    else if (!suppressed && !timer) schedule(2);
   });
 
   timer = setTimeout(function(){ play(pick()); }, FIRST_DELAY);

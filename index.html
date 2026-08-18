@@ -2222,6 +2222,14 @@ button.btn-gold {
   font-family: inherit;
   font-size: inherit;
 }
+.form-privacy {
+  margin-top: 1.2rem;
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.form-privacy a { color: var(--gold); }
+
 .contact-fallback {
   margin-top: 0.9rem;
   font-size: 0.75rem;
@@ -3822,6 +3830,8 @@ button.btn-gold {
         <textarea class="form-textarea" id="contact-message" name="お問い合わせ内容" placeholder="プロジェクトの概要やご希望をお聞かせください…" required></textarea>
       </div>
       <!-- 修正: mailto方式をやめ、訪問者の環境に依存しないフォーム送信（FormSubmit）に変更 -->
+      <!-- 個人情報を送信する直前に、取り扱いを確認できる導線を置く -->
+      <p class="form-privacy">送信の前に <a href="privacy.html">プライバシーポリシー</a> をご確認ください。ご入力の内容は、お問い合わせへの回答のみに利用します。</p>
       <button type="submit" class="btn-gold" id="contact-send" style="margin-top:0.5rem">この内容で相談する</button>
       <!-- 追加(②併用): フォームが使えない場合のメール直送の案内 -->
       <p class="contact-fallback">フォームが送信できない場合は <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接メールをお送りください。</p>
@@ -3949,8 +3959,8 @@ button.btn-gold {
   <div class="footer-bottom">
     <p class="footer-copy">© 2026 合同会社らいとすぴりっつ / Light Spirits. All Rights Reserved.</p>
     <ul class="footer-bottom-links">
-      <li><a href="#">プライバシーポリシー</a></li>
-      <li><a href="#">サイトポリシー</a></li>
+      <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <li><a href="terms.html">サイトポリシー</a></li>
     </ul>
   </div>
 </footer>

@@ -1781,11 +1781,7 @@ footer{
   transform: translateY(0);
 }
 .mascot-bubble.hidden { opacity: 0; pointer-events: none; transform: translateY(6px); }
-/* まだ先がある会話のとき、ふきだしの下に出す案内 */
-.bubble-more {
-  display: block; margin-top: 0.5rem;
-  font-size: 0.68rem; letter-spacing: 0.06em; color: #8A6E24; font-weight: 700;
-}
+
 .mascot-bubble-name {
   font-size: 0.7rem;
   font-weight: 700;
@@ -1864,6 +1860,16 @@ footer{
   user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
 }
 .mascot-img-wrap:active, .moriken-img-wrap:active { cursor: grabbing; }
+/* キーボードで辿れるので、フォーカスは必ず見えるようにする */
+.mascot-img-wrap:focus-visible, .moriken-img-wrap:focus-visible {
+  outline: 3px solid #0284C7;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot-img-wrap, .moriken-img-wrap { transition: none; }
+  .mascot-img-wrap:hover, .moriken-img-wrap:hover { transform: none; }
+}
 .mascot-img-wrap img, .moriken-img-wrap img {
   pointer-events: none; -webkit-user-drag: none; user-drag: none;
 }
@@ -4113,142 +4119,90 @@ button.btn-gold {
 <script src="data/conversations.js"></script>
 <!-- ニュース。追加・修正はこのファイルだけで完結する -->
 <script src="data/news.js"></script>
-<!-- マスコットのふきだし。追加・修正はこのファイルだけで完結する -->
+<!-- マスコットのひとこと。追加・修正はこのファイルだけで完結する -->
 <script src="data/bubbles.js"></script>
 <script>
+/* 画面の隅の雷神ともりけんは、押されたときだけ単発のひとことを言う。
+   かけあいは「もりけんと雷神の話」セクションの担当。ここは愛嬌担当。
+   2026-08-19に自動表示を廃止（本文側のふきだしと重なって読めなくなるため）。 */
 (function(){
-  var idx = 0;
-  var visible = false;
-  var autoTimer;
+  var SPEAK = 7000;          // ひとことが出ている時間
+  var FIRST_VISIT_DELAY = 2600;   // 初回だけ、読み込み後にひとこと出すまでの待ち
+  var SEEN_KEY = 'ls-mascot-greeted';
 
-  var mBubble = document.getElementById('mascot-bubble');
-  var mText   = document.getElementById('mascot-text');
-  var rBubble = document.getElementById('moriken-bubble');
-  var rText   = document.getElementById('moriken-text');
-  var mWrap   = document.getElementById('mascot');
-  var rWrap   = document.getElementById('moriken-wrap');
+  var data = window.LS_BUBBLES || {};
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function setText(el, txt) { if(el) el.innerHTML = String(txt).replace(/\n/g,'<br>'); }
+  function setText(el, txt) { if (el) el.innerHTML = String(txt).replace(/\n/g, '<br>'); }
 
-  /* ふきだしのネタは data/bubbles.js だけから作る。
-     セクションの「もりけんと雷神の話」（conversations.js）とは混ぜない。
-     3往復以上あるものは、クリックで最後まで再生できる。 */
-  var pool = [];
-  (window.LS_BUBBLES || []).forEach(function(b, i){
-    if (!b || !b.lines || b.lines.length < 2) { console.warn('[ふきだし] 2行以上必要です: ' + ((b && b.id) || '[' + i + ']')); return; }
-    var a = b.lines[0], c = b.lines[1];
-    if (a.speaker === c.speaker) { console.warn('[ふきだし] 1行目と2行目は別の話し手にしてください: ' + b.id); return; }
-    var rz = a.speaker === 'raizin' ? a : c;
-    var mk = a.speaker === 'raizin' ? c : a;
-    pool.push({ m: rz.text, r: mk.text, conv: b.lines.length > 2 ? b : null });
-  });
-  if (!pool.length) return;
+  /* キャラ1体ぶんの独立した仕掛け。互いの状態には触れない */
+  function makeMascot(o){
+    var lines = (data[o.key] || []).filter(function(t){
+      return typeof t === 'string' && t.trim();
+    });
+    var handle = document.getElementById(o.handle);
+    var bubble = document.getElementById(o.bubble);
+    var text   = document.getElementById(o.text);
+    if (!handle || !bubble || !text) return null;
+    if (!lines.length) { console.warn('[ひとこと] ' + o.key + ' のせりふがありません'); return null; }
 
-  var cur = null;        // いま出しているネタ
-  var readTo = 0;        // その会話を何行目まで見せたか。クリックで続きから再開する
-  var playTimer = null;  // 消すまでの待ち／再生の次の一行までの待ち
-  var playing = false;   // 会話を再生中か（自動表示の一往復と区別する）
+    var i = -1, timer = null, open = false;
 
-  function hasMore() {
-    return !!(cur && cur.conv && readTo < cur.conv.lines.length);
-  }
-
-  function showDialogue(i) {
-    cur = pool[((i % pool.length) + pool.length) % pool.length];
-    readTo = cur.conv ? 2 : 0;              // 自動表示で見せるのは冒頭の一往復
-    setText(mText, cur.m);
-    // まだ先があるなら、止まって見えないよう案内を添える
-    setText(rText, cur.r + (hasMore() ? '<span class="bubble-more">▸ クリックでつづき</span>' : ''));
-    if(mBubble) mBubble.classList.remove('hidden');
-    if(rBubble) rBubble.classList.remove('hidden');
-    visible = true;
-  }
-
-  function hideAll() {
-    if (playTimer) { clearTimeout(playTimer); playTimer = null; }
-    playing = false;
-    if(mBubble) mBubble.classList.add('hidden');
-    if(rBubble) rBubble.classList.add('hidden');
-    visible = false;
-  }
-
-  /* 会話をまるごと再生する。読む速さに合わせて一行ずつ出す */
-  /* from 行目から再生する。ふきだしが一度消えたあとでも、
-     すでに読んだ最後のせりふを戻してから続けるので、話が途切れない。 */
-  function playConversation(c, from) {
-    if (playTimer) { clearTimeout(playTimer); playTimer = null; }
-    playing = true;
-    from = from || 0;
-
-    var lastR = '', lastM = '';
-    for (var k = 0; k < from; k++) {
-      if (c.lines[k].speaker === 'raizin') lastR = c.lines[k].text; else lastM = c.lines[k].text;
+    function hide(){
+      if (timer) { clearTimeout(timer); timer = null; }
+      bubble.classList.add('hidden');
+      handle.setAttribute('aria-expanded', 'false');
+      open = false;
     }
-    setText(mText, lastR); setText(rText, lastM);
-    if (mBubble) mBubble.classList[lastR ? 'remove' : 'add']('hidden');
-    if (rBubble) rBubble.classList[lastM ? 'remove' : 'add']('hidden');
-    visible = true;
-
-    var i = from;
-    (function step(){
-      if (i >= c.lines.length) {
-        readTo = c.lines.length;
-        playTimer = setTimeout(function(){ hideAll(); startCycle(); }, 2200);
-        return;
-      }
-      var l = c.lines[i++];
-      readTo = i;
-      var isR = l.speaker === 'raizin';
-      setText(isR ? mText : rText, l.text);
-      var b = isR ? mBubble : rBubble;
-      if (b) b.classList.remove('hidden');
-      playTimer = setTimeout(step, Math.min(5200, Math.max(2400, 1500 + l.text.length * 110)));
-    })();
-  }
-
-  // 拡大表示は目に入りやすいので、出る回数はかなり絞る
-  var CYCLE = 240000;   // 次に話しかけるまでの間隔
-  var SPEAK = 7000;     // 出ている時間
-
-  function startCycle() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(function(){
-      idx = Math.floor(Math.random() * pool.length);
-      showDialogue(idx);
-      playTimer = setTimeout(hideAll, SPEAK);
-    }, CYCLE);
-  }
-
-  /* クリックの意味を一つに絞る：読みかけの会話があるなら「続き」、なければ「次の話」。
-     ふきだしが消えたあとでも続きから読めるようにしてある。 */
-  function onToggle() {
-    if(suppressClick) return;
-    if (playing) { hideAll(); startCycle(); return; }   // 再生中にもう一度押したら閉じる
-    if (hasMore()) {
-      clearInterval(autoTimer);
-      playConversation(cur.conv, readTo);
-      return;
+    function speak(){
+      if (timer) { clearTimeout(timer); timer = null; }   // 連打してもタイマーは常に1本
+      i = (i + 1) % lines.length;                          // 順番に出す
+      setText(text, lines[i]);
+      bubble.classList.remove('hidden');
+      handle.setAttribute('aria-expanded', 'true');
+      open = true;
+      timer = setTimeout(hide, SPEAK);
     }
-    idx = Math.floor(Math.random() * pool.length);
-    showDialogue(idx);
-    clearInterval(autoTimer);
-    playTimer = setTimeout(function(){ hideAll(); startCycle(); }, 10000);
+    function toggle(){
+      if (typeof suppressClick !== 'undefined' && suppressClick) return;  // ドラッグ直後は無視
+      if (open) hide(); else speak();
+    }
+
+    handle.setAttribute('role', 'button');
+    handle.setAttribute('tabindex', '0');
+    handle.setAttribute('aria-label', o.label);
+    handle.setAttribute('aria-expanded', 'false');
+    handle.setAttribute('aria-controls', o.bubble);
+    handle.addEventListener('click', toggle);
+    handle.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(); }
+    });
+
+    return { speak: speak, count: lines.length };
   }
 
-  // 初回グリーティング。読み込み直後に飛び出さないよう少し待つ
-  setTimeout(function(){
-    showDialogue(0);
-    playTimer = setTimeout(function(){
-      hideAll();
-      startCycle();
-    }, SPEAK);
-  }, 6000);
+  var raizin  = makeMascot({ key:'raizin',  handle:'mascot-toggle',  bubble:'mascot-bubble',
+                             text:'mascot-text',  label:'雷神のひとことを見る' });
+  var moriken = makeMascot({ key:'moriken', handle:'moriken-toggle', bubble:'moriken-bubble',
+                             text:'moriken-text', label:'もりけんのひとことを見る' });
 
-  ['mascot-toggle','moriken-toggle'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el) el.addEventListener('click', onToggle);
-  });
+  /* 押せることに気づいてもらうため、初回訪問のときだけ雷神が一度だけ喋る。
+     2回目以降は出さない。動きを抑える設定のときも出さない。 */
+  if (raizin && !still) {
+    var seen = false;
+    try { seen = localStorage.getItem(SEEN_KEY) === '1'; } catch (e) { seen = true; }
+    if (!seen) {
+      setTimeout(function(){
+        raizin.speak();
+        try { localStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+      }, FIRST_VISIT_DELAY);
+    }
+  }
+})();
+</script>
 
+<script>
+(function(){
   // ===== ドラッグ＆ドロップで移動 =====
   var suppressClick = false;
 

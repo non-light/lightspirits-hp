@@ -73,7 +73,7 @@ function checkConversations(){
   if (!errors.length) ok('会話データ ' + list.length + ' 件、カテゴリー ' + Object.keys(cats).length + ' 種類 — 書式OK');
 }
 
-/* ---------- 1b. ふきだしデータ ---------- */
+/* ---------- 1b. ひとことデータ ---------- */
 function checkBubbles(){
   var path = 'data/bubbles.js';
   if (!fs.existsSync(path)) { fail(path + ' が見つかりません'); return; }
@@ -86,35 +86,41 @@ function checkBubbles(){
     return;
   }
 
-  var list = win.LS_BUBBLES;
-  if (!Array.isArray(list)) { fail('LS_BUBBLES が配列ではありません'); return; }
+  var b = win.LS_BUBBLES;
+  if (!b || typeof b !== 'object' || Array.isArray(b)) {
+    fail('LS_BUBBLES は { raizin: [...], moriken: [...] } の形にしてください');
+    return;
+  }
 
-  var SPEAKERS = { raizin: 1, moriken: 1 };
-  var idRe = /^bubble-\d{3}$/;
-  var seen = {}, n = 0;
+  var total = 0;
+  ['raizin', 'moriken'].forEach(function(key){
+    var list = b[key];
+    if (!Array.isArray(list)) { fail('LS_BUBBLES.' + key + ' が配列ではありません'); return; }
+    if (!list.length) { fail('LS_BUBBLES.' + key + ' が空です。1つ以上必要です'); return; }
 
-  list.forEach(function(b, i){
-    var at = 'bubbles.js の ' + (b && b.id ? '"' + b.id + '"' : '[' + i + '] 番目');
-    if (!b || !b.id) { fail(at + ' に id がありません'); return; }
-    if (!idRe.test(b.id)) fail(at + ' の id は bubble-001 の形にしてください');
-    if (seen[b.id]) fail('ふきだしの id が重複しています: ' + b.id);
-    seen[b.id] = 1;
-
-    if (!Array.isArray(b.lines) || b.lines.length < 2) { fail(at + ' は2行以上にしてください'); return; }
-    b.lines.forEach(function(l, j){
-      if (!l || !SPEAKERS[l.speaker])
-        fail(at + ' の ' + (j+1) + '行目 の speaker は raizin か moriken だけです');
-      if (typeof l.text !== 'string' || !l.text.trim())
-        fail(at + ' の ' + (j+1) + '行目 の text が空です');
-      if (typeof l.text === 'string' && /raijin/i.test(l.text))
-        fail(at + ' に RAIJIN があります。正しい綴りは RAIZIN です');
+    var seen = {};
+    list.forEach(function(t, i){
+      var at = 'bubbles.js の ' + key + '[' + i + ']';
+      if (typeof t !== 'string' || !t.trim()) { fail(at + ' が空です'); return; }
+      if (/raijin/i.test(t)) fail(at + ' に RAIJIN があります。正しい綴りは RAIZIN です');
+      var k = t.replace(/\s/g, '');
+      if (seen[k]) fail(at + ' は ' + key + '[' + seen[k].i + '] と同じ文です');
+      else seen[k] = { i: i };
+      total++;
     });
-    if (b.lines[0].speaker === b.lines[1].speaker)
-      fail(at + ' の1行目と2行目は別の話し手にしてください（同時に表示されるため）');
-    n++;
   });
 
-  ok('ふきだし ' + n + ' 件 — 書式OK');
+  // 相手の返事を待つ形は、単発では宙に浮く
+  ['raizin', 'moriken'].forEach(function(key){
+    (b[key] || []).forEach(function(t, i){
+      if (typeof t === 'string' && /[？?]\s*$/.test(t))
+        fail('bubbles.js の ' + key + '[' + i + '] は疑問で終わっています。'
+           + '固定マスコットは単発で喋るため、返事が来ません: 「' + t.replace(/\n/g, '') + '」');
+    });
+  });
+
+  if (!errors.length) ok('ひとこと ' + total + ' 件（雷神 ' + (b.raizin||[]).length
+                       + ' / もりけん ' + (b.moriken||[]).length + '） — 書式OK');
 }
 
 /* ---------- 2. リンク切れ ---------- */

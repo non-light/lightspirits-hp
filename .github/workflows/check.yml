@@ -1,0 +1,30 @@
+# 公開前の軽い検査。
+#
+# ・デプロイは一切しません。GitHub Pages は今までどおり main ブランチの
+#   中身をそのまま配信します（Pages の設定には触れていません）。
+# ・依存パッケージのインストールもキャッシュもありません。ubuntu-latest に
+#   最初から入っている Node だけで、数秒で終わります。
+# ・検査内容は scripts/check.js を参照してください。
+#   手元で動かす場合: node scripts/check.js
+
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:      # 手動でも回せるように
+
+permissions:
+  contents: read          # 読み取りだけ。書き込み権限は与えない
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 会話データ・リンク切れ・綴りを検査
+        run: node scripts/check.js

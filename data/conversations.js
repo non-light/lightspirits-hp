@@ -29,14 +29,18 @@
 
 /* カテゴリーの表示名。ここに並べた順がタブの順番になります */
 window.LS_CONVERSATION_CATEGORIES = Object.assign({
-  about:  '会社のこと',
-  ai:     'AIのこと',
-  robot:  'ロボットのこと',
-  dx:     'DXのこと',
-  faq:    'よくある質問',
-  daily:  '日々のこと',
-  future: 'これからのこと',
-  fun:    'ゆるい話'
+  about:     '会社のこと',
+  spirit:    '会社の芯',
+  ai:        'AIのこと',
+  support:   'AI活用の伴走',
+  robot:     'ロボットのこと',
+  dx:        'アプリ・DXのこと',
+  combo:     'AI × ロボット × 人',
+  education: '教育のこと',
+  faq:       'よくある質問',
+  daily:     '日々のこと',
+  future:    'これからのこと',
+  fun:       'ゆるい話'
 }, window.LS_CONVERSATION_CATEGORIES);
 
 /* concat で足しているので、将来ファイルを分割してもこの書き方のままで動きます */
@@ -921,6 +925,124 @@ window.LS_CONVERSATIONS = (window.LS_CONVERSATIONS || []).concat([
     ]
   },
 
+  /* --- 131〜140 安心・信頼 --- */
+  {
+    id: 'faq-011',
+    category: 'faq',
+    title: '個人情報',
+    lines: [
+      { speaker: 'raizin',  text: 'AIに会社の情報を入れて大丈夫？' },
+      { speaker: 'moriken', text: '何でもそのまま入れていいわけじゃないよ。' },
+      { speaker: 'raizin',  text: '気をつける？' },
+      { speaker: 'moriken', text: '情報の種類や使うサービスを確認することが大切。' },
+      { speaker: 'raizin',  text: 'AIにも情報管理。' }
+    ]
+  },
+  {
+    id: 'faq-012',
+    category: 'faq',
+    title: 'セキュリティ',
+    lines: [
+      { speaker: 'raizin',  text: 'セキュリティって難しそう。' },
+      { speaker: 'moriken', text: '難しいけど、最初から全部完璧にしなくてもいい。' },
+      { speaker: 'raizin',  text: 'まず何を守るか？' },
+      { speaker: 'moriken', text: 'そこから考えよう。' },
+      { speaker: 'raizin',  text: '守るものを決める。' }
+    ]
+  },
+  {
+    id: 'faq-013',
+    category: 'faq',
+    title: '分からないこと',
+    lines: [
+      { speaker: 'raizin',  text: '分からないことを聞いたら怒られない？' },
+      { speaker: 'moriken', text: 'むしろ分からないまま進める方が怖い。' },
+      { speaker: 'raizin',  text: '「分かりません！」って言っていい？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: '安心した。' }
+    ]
+  },
+  {
+    id: 'faq-014',
+    category: 'faq',
+    title: '納得してから',
+    lines: [
+      { speaker: 'raizin',  text: 'よく分からないけど最新だから導入！' },
+      { speaker: 'moriken', text: 'ちょっと待とう。' },
+      { speaker: 'raizin',  text: 'また？' },
+      { speaker: 'moriken', text: '何のために必要なのか納得してから決めよう。' },
+      { speaker: 'raizin',  text: '慎重派だった。' }
+    ]
+  },
+  {
+    id: 'faq-015',
+    category: 'faq',
+    title: 'できないことを伝える',
+    lines: [
+      { speaker: 'raizin',  text: 'できないことを言われたら？' },
+      { speaker: 'moriken', text: 'できない理由を説明して、代わりの方法を考える。' },
+      { speaker: 'raizin',  text: '「無理」で終わらない。' },
+      { speaker: 'moriken', text: 'できることを探したいからね。' }
+    ]
+  },
+  {
+    id: 'faq-016',
+    category: 'faq',
+    title: '見積もり',
+    lines: [
+      { speaker: 'raizin',  text: '見積もりって高くなることある？' },
+      { speaker: 'moriken', text: 'やりたいことが増えれば変わることもある。' },
+      { speaker: 'raizin',  text: '先に相談？' },
+      { speaker: 'moriken', text: 'そう。何を作るかを一緒に整理する。' }
+    ]
+  },
+  {
+    id: 'faq-017',
+    category: 'faq',
+    title: '作って終わり？',
+    lines: [
+      { speaker: 'raizin',  text: '納品したらさようなら？' },
+      { speaker: 'moriken', text: 'そうとは限らないよ。' },
+      { speaker: 'raizin',  text: '使ってから困ることもあるもんね。' },
+      { speaker: 'moriken', text: 'その後の改善も大事。' }
+    ]
+  },
+  {
+    id: 'faq-018',
+    category: 'faq',
+    title: '長く付き合う',
+    lines: [
+      { speaker: 'raizin',  text: '一回作って終わりじゃなくてもいい？' },
+      { speaker: 'moriken', text: '長く一緒に改善していく仕事もしたいね。' },
+      { speaker: 'raizin',  text: '相棒型システム。' },
+      { speaker: 'moriken', text: 'いい表現だね。' }
+    ]
+  },
+  {
+    id: 'faq-019',
+    category: 'faq',
+    title: '分からない会社でも',
+    lines: [
+      { speaker: 'raizin',  text: '小さい会社でも相談できる？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: '大企業じゃないとダメ？' },
+      { speaker: 'moriken', text: '規模より、困っていることがあるかどうかだよ。' },
+      { speaker: 'raizin',  text: '会社の大きさは関係ない。' }
+    ]
+  },
+  {
+    id: 'faq-020',
+    category: 'faq',
+    title: '相談のハードル',
+    lines: [
+      { speaker: 'raizin',  text: '技術会社って相談しにくい。' },
+      { speaker: 'moriken', text: 'そう思われない会社にしたい。' },
+      { speaker: 'raizin',  text: '何でも聞いていい？' },
+      { speaker: 'moriken', text: 'まず話してみて。' },
+      { speaker: 'raizin',  text: '「こんなこと聞いていい？」からでも？' }
+    ]
+  },
+
   /* ---------------- daily : もりけんの日常（10件） ---------------- */
   {
     id: 'daily-001',
@@ -1221,6 +1343,493 @@ window.LS_CONVERSATIONS = (window.LS_CONVERSATIONS || []).concat([
       { speaker: 'raizin',  text: 'じゃあ何でも作れるね。' },
       { speaker: 'moriken', text: 'そういう考え方、好きだな。' },
       { speaker: 'raizin',  text: '次の「やってみたい」を探しに行こう！' }
+    ]
+  },
+
+  /* ---------------- support : AI活用伴走（10件） ---------------- */
+  {
+    id: 'support-001',
+    category: 'support',
+    title: 'AIを使いたいけど分からない',
+    lines: [
+      { speaker: 'raizin',  text: 'AI使ってみたいけど、何から始めればいいか分からない。' },
+      { speaker: 'moriken', text: 'そういう人のために一緒に考えるのが「AI活用伴走」。' },
+      { speaker: 'raizin',  text: '伴走って、一緒に走る？' },
+      { speaker: 'moriken', text: 'そう。置いていかない。' },
+      { speaker: 'raizin',  text: 'AI初心者にやさしい！' }
+    ]
+  },
+  {
+    id: 'support-002',
+    category: 'support',
+    title: 'AIを導入したけど',
+    lines: [
+      { speaker: 'raizin',  text: 'AIを導入したのに、誰も使ってない。' },
+      { speaker: 'moriken', text: 'けっこうある話だね。' },
+      { speaker: 'raizin',  text: 'AIが悪い？' },
+      { speaker: 'moriken', text: '使う人の仕事に合ってないのかもしれない。' },
+      { speaker: 'raizin',  text: '道具より使い方！' }
+    ]
+  },
+  {
+    id: 'support-003',
+    category: 'support',
+    title: 'AI研修',
+    lines: [
+      { speaker: 'raizin',  text: 'AIの研修もできる？' },
+      { speaker: 'moriken', text: 'できるよ。' },
+      { speaker: 'raizin',  text: '難しい授業？' },
+      { speaker: 'moriken', text: '実際の仕事を題材にした方が分かりやすい。' },
+      { speaker: 'raizin',  text: '自分の仕事で試すんだ。' }
+    ]
+  },
+  {
+    id: 'support-004',
+    category: 'support',
+    title: 'AIに何を聞けばいい？',
+    lines: [
+      { speaker: 'raizin',  text: 'ChatGPTに何を聞けばいいか分からない。' },
+      { speaker: 'moriken', text: 'まず「何をしたいか」を話してみればいい。' },
+      { speaker: 'raizin',  text: '質問を考えるのが難しいんだけど。' },
+      { speaker: 'moriken', text: 'そこから一緒に考えよう。' },
+      { speaker: 'raizin',  text: '質問まで相談していい！' }
+    ]
+  },
+  {
+    id: 'support-005',
+    category: 'support',
+    title: 'プロンプト',
+    lines: [
+      { speaker: 'raizin',  text: 'プロンプトって難しい？' },
+      { speaker: 'moriken', text: '最初から完璧じゃなくていいよ。' },
+      { speaker: 'raizin',  text: '「いい感じにして！」でも？' },
+      { speaker: 'moriken', text: 'そこから具体的にしていけばいい。' },
+      { speaker: 'raizin',  text: 'ぼくの得意技。' }
+    ]
+  },
+  {
+    id: 'support-006',
+    category: 'support',
+    title: 'AIが合わない仕事',
+    lines: [
+      { speaker: 'raizin',  text: 'AIに向いてない仕事もある？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: 'AIを使わない方がいい？' },
+      { speaker: 'moriken', text: 'その判断も含めて相談してほしい。' },
+      { speaker: 'raizin',  text: 'AIを売るんじゃなくて、使いどころを探す。' }
+    ]
+  },
+  {
+    id: 'support-007',
+    category: 'support',
+    title: 'AI導入の最初の一歩',
+    lines: [
+      { speaker: 'raizin',  text: '会社でAIを使いたい。でも怖い。' },
+      { speaker: 'moriken', text: 'いきなり全部変えなくていいよ。' },
+      { speaker: 'raizin',  text: '小さく？' },
+      { speaker: 'moriken', text: '一つの仕事から試してみる。' },
+      { speaker: 'raizin',  text: '小さく始めて、大きく育てる！' }
+    ]
+  },
+  {
+    id: 'support-008',
+    category: 'support',
+    title: 'AIに詳しい人がいない',
+    lines: [
+      { speaker: 'raizin',  text: '社内にAIに詳しい人がいない。' },
+      { speaker: 'moriken', text: '外から一緒に考える方法もあるよ。' },
+      { speaker: 'raizin',  text: '社内にAI博士を雇わなくても？' },
+      { speaker: 'moriken', text: 'まずは相談相手を作る方法もある。' },
+      { speaker: 'raizin',  text: '外部AI博士！' }
+    ]
+  },
+  {
+    id: 'support-009',
+    category: 'support',
+    title: 'AIを使う人を増やす',
+    lines: [
+      { speaker: 'raizin',  text: '一人だけAIを使っても会社は変わる？' },
+      { speaker: 'moriken', text: 'きっかけにはなるね。' },
+      { speaker: 'raizin',  text: 'みんなが使えるようになるには？' },
+      { speaker: 'moriken', text: '成功した使い方を共有していく。' },
+      { speaker: 'raizin',  text: 'AIの輪！' }
+    ]
+  },
+  {
+    id: 'support-010',
+    category: 'support',
+    title: 'AIとの付き合い方',
+    lines: [
+      { speaker: 'raizin',  text: 'AIってどう付き合えばいい？' },
+      { speaker: 'moriken', text: '「便利な道具」であり「考える相棒」くらいがちょうどいいかも。' },
+      { speaker: 'raizin',  text: '友達？' },
+      { speaker: 'moriken', text: '友達とはちょっと違うかな。' },
+      { speaker: 'raizin',  text: 'じゃあ同僚！' }
+    ]
+  },
+
+  /* ---------------- combo : AI × ロボット × 人間（10件） ---------------- */
+  {
+    id: 'combo-001',
+    category: 'combo',
+    title: '三つの力',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつって、AIとロボットと人間？' },
+      { speaker: 'moriken', text: 'うん。' },
+      { speaker: 'raizin',  text: 'なんで三つ？' },
+      { speaker: 'moriken', text: 'それぞれ得意なことが違うから。' },
+      { speaker: 'raizin',  text: '合体したら強そう。' }
+    ]
+  },
+  {
+    id: 'combo-002',
+    category: 'combo',
+    title: 'AIだけじゃダメ？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIだけで全部できないの？' },
+      { speaker: 'moriken', text: '現実世界では手足が必要なこともある。' },
+      { speaker: 'raizin',  text: 'だからロボット？' },
+      { speaker: 'moriken', text: 'そう。' },
+      { speaker: 'raizin',  text: 'AIに体をあげる。' }
+    ]
+  },
+  {
+    id: 'combo-003',
+    category: 'combo',
+    title: 'ロボットだけでも？',
+    lines: [
+      { speaker: 'raizin',  text: 'ロボットだけじゃダメ？' },
+      { speaker: 'moriken', text: '決められた動きならできるけど、AIが入ると判断できることが増える。' },
+      { speaker: 'raizin',  text: '頭脳を搭載！' },
+      { speaker: 'moriken', text: 'そんな感じ。' }
+    ]
+  },
+  {
+    id: 'combo-004',
+    category: 'combo',
+    title: 'じゃあ人間は？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIとロボットがすごくなったら、人間は？' },
+      { speaker: 'moriken', text: '「何をしたいか」を決める役割がもっと大事になると思う。' },
+      { speaker: 'raizin',  text: '最終決定係！' },
+      { speaker: 'moriken', text: 'それも大事だね。' }
+    ]
+  },
+  {
+    id: 'combo-005',
+    category: 'combo',
+    title: '人間にしかできないこと',
+    lines: [
+      { speaker: 'raizin',  text: '人間にしかできないことって？' },
+      { speaker: 'moriken', text: 'まだ分からないことも多いよ。' },
+      { speaker: 'raizin',  text: 'じゃあ研究しよう。' },
+      { speaker: 'moriken', text: 'それが面白いところ。' },
+      { speaker: 'raizin',  text: 'らいとすぴりっつ出番です。' }
+    ]
+  },
+  {
+    id: 'combo-006',
+    category: 'combo',
+    title: '三者会議',
+    lines: [
+      { speaker: 'raizin',  text: 'AIとロボットと人間で会議したら？' },
+      { speaker: 'moriken', text: '面白そう。' },
+      { speaker: 'raizin',  text: 'AI「分析しました」' },
+      { speaker: 'moriken', text: 'ロボット「動けます」' },
+      { speaker: 'raizin',  text: '人間「どうしよう」' },
+      { speaker: 'moriken', text: 'そこを一緒に考える会社です。' }
+    ]
+  },
+  {
+    id: 'combo-007',
+    category: 'combo',
+    title: '技術の組み合わせ',
+    lines: [
+      { speaker: 'raizin',  text: 'AIだけ、ロボットだけじゃなくていい？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: '必要なら全部使う？' },
+      { speaker: 'moriken', text: '必要ならね。' },
+      { speaker: 'raizin',  text: '技術のオールスター。' }
+    ]
+  },
+  {
+    id: 'combo-008',
+    category: 'combo',
+    title: '最新技術',
+    lines: [
+      { speaker: 'raizin',  text: '最新技術を全部使いたい！' },
+      { speaker: 'moriken', text: '本当に必要？' },
+      { speaker: 'raizin',  text: '……聞くと思った。' },
+      { speaker: 'moriken', text: '技術は目的じゃなくて手段だからね。' },
+      { speaker: 'raizin',  text: 'また目的が先。' }
+    ]
+  },
+  {
+    id: 'combo-009',
+    category: 'combo',
+    title: '人間中心',
+    lines: [
+      { speaker: 'raizin',  text: '技術のための技術って？' },
+      { speaker: 'moriken', text: '面白いけど、それだけじゃ困ることもある。' },
+      { speaker: 'raizin',  text: '誰のために作るか。' },
+      { speaker: 'moriken', text: 'そこが大事。' },
+      { speaker: 'raizin',  text: '人間中心！' }
+    ]
+  },
+  {
+    id: 'combo-010',
+    category: 'combo',
+    title: '未来のチーム',
+    lines: [
+      { speaker: 'raizin',  text: '未来の仕事ってどんな感じ？' },
+      { speaker: 'moriken', text: '人間、AI、ロボットがそれぞれ得意なことを担当するかもね。' },
+      { speaker: 'raizin',  text: '三人一組？' },
+      { speaker: 'moriken', text: 'もっと増えるかもしれない。' },
+      { speaker: 'raizin',  text: 'チームメンバー募集中。' }
+    ]
+  },
+
+  /* ---------------- education : 教育（10件） ---------------- */
+  {
+    id: 'education-001',
+    category: 'education',
+    title: '教育もするの？',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつって教育もやるの？' },
+      { speaker: 'moriken', text: 'AIや技術を一緒に学ぶこともやりたい。' },
+      { speaker: 'raizin',  text: '学校？' },
+      { speaker: 'moriken', text: '学校とは限らないよ。' },
+      { speaker: 'raizin',  text: '学び方そのものを作る？' }
+    ]
+  },
+  {
+    id: 'education-002',
+    category: 'education',
+    title: '子どもとAI',
+    lines: [
+      { speaker: 'raizin',  text: '子どももAI使っていい？' },
+      { speaker: 'moriken', text: '使い方を考えながらならね。' },
+      { speaker: 'raizin',  text: '大人だけのものじゃないんだ。' },
+      { speaker: 'moriken', text: 'むしろこれからの世代には身近になると思う。' }
+    ]
+  },
+  {
+    id: 'education-003',
+    category: 'education',
+    title: 'AIに答えを聞く',
+    lines: [
+      { speaker: 'raizin',  text: '分からない問題、AIに全部答えてもらおう。' },
+      { speaker: 'moriken', text: 'それだけだと学びにならないかもね。' },
+      { speaker: 'raizin',  text: 'じゃあ？' },
+      { speaker: 'moriken', text: '一緒に考える相手として使う。' },
+      { speaker: 'raizin',  text: '答えをもらうより、考える！' }
+    ]
+  },
+  {
+    id: 'education-004',
+    category: 'education',
+    title: '作りながら学ぶ',
+    lines: [
+      { speaker: 'raizin',  text: '技術って勉強してから作るの？' },
+      { speaker: 'moriken', text: '作りながら覚える方法もあるよ。' },
+      { speaker: 'raizin',  text: '失敗しながら？' },
+      { speaker: 'moriken', text: 'そう。' },
+      { speaker: 'raizin',  text: 'ぼく向き。' }
+    ]
+  },
+  {
+    id: 'education-005',
+    category: 'education',
+    title: '大人も学ぶ',
+    lines: [
+      { speaker: 'raizin',  text: '大人になったら勉強終わり？' },
+      { speaker: 'moriken', text: '技術はどんどん変わるからね。' },
+      { speaker: 'raizin',  text: '一生勉強？' },
+      { speaker: 'moriken', text: '一生遊びながら学べたら最高じゃない？' },
+      { speaker: 'raizin',  text: 'それならやる。' }
+    ]
+  },
+  {
+    id: 'education-006',
+    category: 'education',
+    title: '苦手でも',
+    lines: [
+      { speaker: 'raizin',  text: 'プログラミング苦手。' },
+      { speaker: 'moriken', text: '最初から得意な人ばかりじゃないよ。' },
+      { speaker: 'raizin',  text: '才能が必要？' },
+      { speaker: 'moriken', text: '「やってみたい」があれば十分。' },
+      { speaker: 'raizin',  text: '好奇心は資格不要！' }
+    ]
+  },
+  {
+    id: 'education-007',
+    category: 'education',
+    title: '教えるって？',
+    lines: [
+      { speaker: 'raizin',  text: '教えるって、答えを教えること？' },
+      { speaker: 'moriken', text: '答えを自分で見つけられるようにすることも教育だよ。' },
+      { speaker: 'raizin',  text: '先生が全部答えちゃダメなんだ。' },
+      { speaker: 'moriken', text: 'そういう場合もあるね。' }
+    ]
+  },
+  {
+    id: 'education-008',
+    category: 'education',
+    title: '子どもの発想',
+    lines: [
+      { speaker: 'raizin',  text: '子どものアイデアってすごい？' },
+      { speaker: 'moriken', text: '大人が思いつかないことを言うことがある。' },
+      { speaker: 'raizin',  text: 'じゃあ大人も子どもから学べる。' },
+      { speaker: 'moriken', text: 'もちろん。' }
+    ]
+  },
+  {
+    id: 'education-009',
+    category: 'education',
+    title: '作る人を増やす',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつは何を作りたい？' },
+      { speaker: 'moriken', text: 'モノだけじゃなくて、「作れる人」も増やしたい。' },
+      { speaker: 'raizin',  text: '人を育てる？' },
+      { speaker: 'moriken', text: 'そういう未来も作りたい。' }
+    ]
+  },
+  {
+    id: 'education-010',
+    category: 'education',
+    title: '好奇心の学校',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつ学校作る？' },
+      { speaker: 'moriken', text: '面白そうだね。' },
+      { speaker: 'raizin',  text: '入学します！' },
+      { speaker: 'moriken', text: '雷神は先生側じゃない？' },
+      { speaker: 'raizin',  text: '校長希望。' }
+    ]
+  },
+
+  /* ---------------- spirit : らいとすぴりっつの魂（10件） ---------------- */
+  {
+    id: 'spirit-001',
+    category: 'spirit',
+    title: '「魂に火を灯す」って？',
+    lines: [
+      { speaker: 'raizin',  text: '「人々の魂に火を灯す」ってどういうこと？' },
+      { speaker: 'moriken', text: '「やってみたい」と思えるきっかけを作ることかな。' },
+      { speaker: 'raizin',  text: '技術で？' },
+      { speaker: 'moriken', text: '技術だけじゃなくて、人との出会いや対話でも。' },
+      { speaker: 'raizin',  text: '心に火をつけるんだ。' }
+    ]
+  },
+  {
+    id: 'spirit-002',
+    category: 'spirit',
+    title: '火が消えたら',
+    lines: [
+      { speaker: 'raizin',  text: 'もし「もうやりたくない」ってなったら？' },
+      { speaker: 'moriken', text: 'まず休んでもいい。' },
+      { speaker: 'raizin',  text: '火を無理やり燃やさない？' },
+      { speaker: 'moriken', text: '小さくてもまた火がつけばいい。' },
+      { speaker: 'raizin',  text: '優しい会社だ。' }
+    ]
+  },
+  {
+    id: 'spirit-003',
+    category: 'spirit',
+    title: '楽しんだ者＝価値',
+    lines: [
+      { speaker: 'raizin',  text: '「楽しんだ者＝価値」って何？' },
+      { speaker: 'moriken', text: '楽しんでいる人は、もっと知りたくなるし、もっと作りたくなる。' },
+      { speaker: 'raizin',  text: 'だから価値が生まれる？' },
+      { speaker: 'moriken', text: 'そう思ってる。' },
+      { speaker: 'raizin',  text: '遊びも仕事になる！' }
+    ]
+  },
+  {
+    id: 'spirit-004',
+    category: 'spirit',
+    title: '楽しいだけでいい？',
+    lines: [
+      { speaker: 'raizin',  text: '楽しければ何でもいい？' },
+      { speaker: 'moriken', text: '人に迷惑をかけないことは大事。' },
+      { speaker: 'raizin',  text: 'そこはちゃんとしてる。' },
+      { speaker: 'moriken', text: '楽しさと責任は両立できるよ。' },
+      { speaker: 'raizin',  text: '大人の答え。' }
+    ]
+  },
+  {
+    id: 'spirit-005',
+    category: 'spirit',
+    title: '失敗しても',
+    lines: [
+      { speaker: 'raizin',  text: '失敗したら恥ずかしい。' },
+      { speaker: 'moriken', text: '作ってみないと分からないこともあるよ。' },
+      { speaker: 'raizin',  text: '失敗してもいい？' },
+      { speaker: 'moriken', text: '次に活かせればいい。' },
+      { speaker: 'raizin',  text: 'じゃあ失敗も研究データ。' }
+    ]
+  },
+  {
+    id: 'spirit-006',
+    category: 'spirit',
+    title: '研究する会社',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつって研究所なの？' },
+      { speaker: 'moriken', text: 'ちょっと研究所っぽいかもね。' },
+      { speaker: 'raizin',  text: '毎日実験？' },
+      { speaker: 'moriken', text: '新しい技術を試すのは好きだよ。' },
+      { speaker: 'raizin',  text: '白衣着る？' },
+      { speaker: 'moriken', text: 'そこまではしない。' }
+    ]
+  },
+  {
+    id: 'spirit-007',
+    category: 'spirit',
+    title: '「できるかな？」',
+    lines: [
+      { speaker: 'raizin',  text: '「これ、できるかな？」って相談されたら？' },
+      { speaker: 'moriken', text: 'まず「どうしたらできるか」を考える。' },
+      { speaker: 'raizin',  text: 'いきなり「無理」って言わない？' },
+      { speaker: 'moriken', text: '調べて、試して、それから判断する。' },
+      { speaker: 'raizin',  text: '挑戦型だ。' }
+    ]
+  },
+  {
+    id: 'spirit-008',
+    category: 'spirit',
+    title: '面白い依頼',
+    lines: [
+      { speaker: 'raizin',  text: '一番嬉しい依頼って？' },
+      { speaker: 'moriken', text: '「こんなの作れる？」ってワクワクしながら相談してくれること。' },
+      { speaker: 'raizin',  text: '無茶ぶり？' },
+      { speaker: 'moriken', text: 'ちょっとくらいなら。' },
+      { speaker: 'raizin',  text: 'じゃあぼく、空飛びたい。' },
+      { speaker: 'moriken', text: 'それはちょっと考えよう。' }
+    ]
+  },
+  {
+    id: 'spirit-009',
+    category: 'spirit',
+    title: '会社を作った理由',
+    lines: [
+      { speaker: 'raizin',  text: 'なんで会社を作ったの？' },
+      { speaker: 'moriken', text: '自分が面白いと思うことを、誰かと一緒に形にしたかったから。' },
+      { speaker: 'raizin',  text: '一人で作るんじゃなくて？' },
+      { speaker: 'moriken', text: '人と一緒だから生まれるものもあるからね。' },
+      { speaker: 'raizin',  text: 'らいとすぴりっつは「一緒に作る会社」。' }
+    ]
+  },
+  {
+    id: 'spirit-010',
+    category: 'spirit',
+    title: 'らいとすぴりっつとは',
+    lines: [
+      { speaker: 'raizin',  text: '結局、らいとすぴりっつって何？' },
+      { speaker: 'moriken', text: '「やってみたい」を「やってみよう」に変える会社かな。' },
+      { speaker: 'raizin',  text: 'AIで？' },
+      { speaker: 'moriken', text: 'AIも、ロボットも、プログラムも使って。' },
+      { speaker: 'raizin',  text: '最後は人？' },
+      { speaker: 'moriken', text: '最後も最初も、人だよ。' },
+      { speaker: 'raizin',  text: 'それ、らいとすぴりっつっぽい！' }
     ]
   }
 

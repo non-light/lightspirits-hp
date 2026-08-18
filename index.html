@@ -175,17 +175,6 @@ nav{
   align-items:center;
   gap:1rem;
 }
-.nav-lang{
-  font-family:'Space Mono',monospace;
-  font-size:0.65rem;
-  letter-spacing:0.1em;
-  color:var(--muted);
-  text-decoration:none;
-  border:1px solid var(--border);
-  padding:0.3rem 0.75rem;
-  transition:color 0.2s,border-color 0.2s;
-}
-.nav-lang:hover{color:var(--gold);border-color:var(--gold-dim)}
 .nav-contact-btn{
   font-family:'Space Grotesk',sans-serif;
   font-size:0.72rem;
@@ -1880,14 +1869,12 @@ footer{
   nav{padding:0 1.25rem}
   .nav-center > li > a{padding:0 0.5rem}
   .nav-right{gap:0.45rem}
-  .nav-right .nav-lang{display:none}
 }
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
   nav{padding:0 1.5rem}
   .nav-center{display:none}
-  .nav-right .nav-lang{display:none}
   .nav-tab-switcher{display:none}
   .tab-switcher.mobile-tab-switcher{
     display:flex;
@@ -2931,11 +2918,9 @@ button.btn-gold {
       </div>
     </li>
     <li><a href="#works"><span class="nav-en">YouTube</span><span class="nav-jp">動画</span></a></li>
-    <li><a href="#yui">YUi Project</a></li>
     <li><a href="#blog"><span class="nav-en">LOG</span><span class="nav-jp">ブログ</span></a></li>
   </ul>
   <div class="nav-right">
-    <a href="#" class="nav-lang">EN</a>
     <div class="tab-switcher nav-tab-switcher">
       <button class="tab-btn active" data-tab="general">一般・個人向け</button>
       <div class="tab-divider"></div>

@@ -2475,6 +2475,62 @@ button.btn-gold {
   background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
 }
 
+
+/* ===== スマホ用メニュー =====
+   900px以下では .nav-center が隠れるため、ハンバーガーから同じ行き先を出す。
+   配色は一般向けの見た目（クリーム地・青のアクセント）に合わせる。 */
+.nav-burger{
+  display:none;
+  width:40px;height:40px;padding:0;
+  background:transparent;border:1px solid #DFD3B4;border-radius:10px;
+  cursor:pointer;align-items:center;justify-content:center;
+  flex-direction:column;gap:5px;
+}
+.nav-burger span{
+  display:block;width:18px;height:2px;border-radius:2px;background:#0C3A56;
+  transition:transform .25s ease,opacity .2s ease;
+}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.nav-drawer{
+  position:fixed;top:64px;left:0;right:0;
+  z-index:199;
+  background:rgba(250,247,240,0.98);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid #E6DFCC;
+  box-shadow:0 12px 32px rgba(120,98,44,0.12);
+  padding:0.6rem 1.5rem 1.2rem;
+  max-height:calc(100svh - 64px);
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.nav-drawer[hidden]{display:none}
+.nav-drawer a{
+  font-family:'Noto Sans JP',sans-serif;font-size:0.92rem;font-weight:700;
+  color:#0C3A56;text-decoration:none;
+  padding:0.95rem 0.2rem;border-bottom:1px solid #EDE4CE;
+}
+.nav-drawer a:last-of-type{border-bottom:none}
+.nav-drawer a:active{color:#0284C7}
+.nav-drawer .nav-drawer-cta{
+  margin-top:1rem;border:none;border-radius:50px;text-align:center;
+  background:linear-gradient(135deg,#0284C7,#38BDF8);color:#fff;
+  padding:0.95rem 1rem;box-shadow:0 4px 16px rgba(2,132,199,0.25);
+}
+@media(max-width:900px){
+  .nav-burger{display:flex}
+}
+/* 幅が足りないとハンバーガーが画面外に出る。
+   ドロワーの中に同じ導線があるので、ヘッダーの問い合わせボタンは下げる */
+@media(max-width:620px){
+  .nav-right .nav-contact-btn{display:none}
+}
+@media(min-width:901px){
+  .nav-drawer{display:none !important}
+}
+
 /* FAQ は夜のいちばん深いところに出る。白いカードのままでは夜空から浮くので、
    代表プロフィールのアコーディオンと同じガラスの見た目に合わせる */
 [data-theme="general"] #faq .sec-en,
@@ -2495,14 +2551,11 @@ button.btn-gold {
 
 /* ===== もりけん × 雷神 会話セクション =====
    会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
-   表示条件：PCのみ（768px以下は非表示）。
+   スマホでも表示する（2026-08-18に解除）。150件あるので既定は見出しだけ、
+   読みたいものを開いてもらう。
    夜空の上に置くため、配色はこのブロック内で完結させ、他セクションに依存させない。 */
 #dialogue{display:none}
 #dialogue.is-ready{display:block}
-/* モバイル振り分けと同じ 768px。ここより狭い画面には一切出さない */
-@media(max-width:768px){
-  #dialogue{display:none !important}
-}
 
 #dialogue .sec-en,
 #dialogue .sec-jp{color:#EEF4FE}
@@ -2920,8 +2973,27 @@ button.btn-gold {
   </ul>
   <div class="nav-right">
     <a href="#contact" class="nav-contact-btn"><span class="nav-en">Contact</span><span class="nav-jp">お問い合わせ</span></a>
+    <!-- 900px以下ではメニューが隠れるので、代わりの入口を出す -->
+    <button class="nav-burger" id="navBurger" type="button"
+            aria-label="メニューを開く" aria-expanded="false" aria-controls="navDrawer">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- スマホ用メニュー。ナビと同じ行き先を並べる -->
+<div class="nav-drawer" id="navDrawer" hidden>
+  <a href="#about">らいとすぴりっつについて</a>
+  <a href="#works">動画</a>
+  <a href="#services">サービス</a>
+  <a href="#strength">強み・依頼の流れ</a>
+  <a href="#dialogue">もりけんと雷神の話</a>
+  <a href="#blog">ブログ</a>
+  <a href="#founder">代表・森田健太</a>
+  <a href="#faq">よくあるご質問</a>
+  <a href="#company">会社概要</a>
+  <a href="#contact" class="nav-drawer-cta">お問い合わせ</a>
+</div>
 
 <!-- TICKER — 中身は data/news.js から組み立てる。0件ならこの要素ごと消える -->
 <div class="ticker" id="ticker" hidden>
@@ -4165,8 +4237,7 @@ button.btn-gold {
      全文はクリックしたときだけ再生するので、自動表示の長さは今までどおり。 */
   var pool = dialogues.map(function(d){ return { m: d.mascot, r: d.moriken, conv: null }; });
 
-  // 会話セクションと同じ 768px。狭い画面では従来のかけあいだけにする
-  if (!window.matchMedia('(max-width: 768px)').matches && window.LS_CONVERSATIONS) {
+  if (window.LS_CONVERSATIONS) {
     window.LS_CONVERSATIONS.forEach(function(c){
       if (!c || !c.lines || c.lines.length < 2) return;
       var a = c.lines[0], b = c.lines[1];
@@ -4815,12 +4886,6 @@ button.btn-gold {
   var root = document.getElementById('dialogue');
   if (!root) return;
 
-  // モバイル振り分けと同じ 768px。狭い画面では DOM ごと捨て、余白も画像も残さない
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    root.parentNode.removeChild(root);
-    return;
-  }
-
   var data = window.LS_CONVERSATIONS;
   var catNames = window.LS_CONVERSATION_CATEGORIES || {};
   if (!data || !data.length) { root.parentNode.removeChild(root); return; }
@@ -4881,10 +4946,13 @@ button.btn-gold {
   var tabs = document.getElementById('dlg-tabs');
   var list = document.getElementById('dlg-list');
 
+  // 画面が狭いときは先頭も開かない。縦に長くなりすぎないようにする
+  var openFirst = !window.matchMedia('(max-width: 700px)').matches;
+
   function show(cat){
     var hit = items.filter(function(c){ return c.category === cat; });
     list.innerHTML = '<p class="dlg-count">' + hit.length + ' 件</p>'
-                   + hit.map(function(c, i){ return itemHtml(c, i === 0); }).join('');
+                   + hit.map(function(c, i){ return itemHtml(c, openFirst && i === 0); }).join('');
     [].forEach.call(tabs.children, function(b){
       b.setAttribute('aria-selected', b.dataset.cat === cat ? 'true' : 'false');
     });
@@ -4964,6 +5032,36 @@ button.btn-gold {
         + '<a class="note-more-link" href="' + f.url + '" target="_blank" rel="noopener noreferrer">'
         + f.label + '</a></div></div>';
     }, WAIT);
+  });
+})();
+</script>
+<!-- スマホ用メニューの開閉 -->
+<script>
+(function(){
+  var btn = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  if (!btn || !drawer) return;
+
+  function setOpen(open){
+    drawer.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  }
+
+  btn.addEventListener('click', function(){ setOpen(drawer.hidden); });
+  drawer.addEventListener('click', function(e){          // 行き先を選んだら閉じる
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('click', function(e){        // 外を触ったら閉じる
+    if (drawer.hidden) return;
+    if (drawer.contains(e.target) || btn.contains(e.target)) return;
+    setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !drawer.hidden) { setOpen(false); btn.focus(); }
+  });
+  window.matchMedia('(min-width: 901px)').addEventListener('change', function(m){
+    if (m.matches) setOpen(false);                       // PC幅に戻したら開けっぱなしにしない
   });
 })();
 </script>

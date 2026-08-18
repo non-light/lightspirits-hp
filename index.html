@@ -3094,15 +3094,15 @@ button.btn-gold {
   <div class="for-corporate">
     <div class="stats-strip">
       <div class="stat">
-        <p class="stat-num"><span class="stat-count" data-target="20">0</span><span class="stat-unit">年+</span></p>
+        <p class="stat-num"><span class="stat-count" data-target="20">20</span><span class="stat-unit">年+</span></p>
         <p class="stat-label">ロボット・AI開発歴</p>
       </div>
       <div class="stat">
-        <p class="stat-num"><span class="stat-count" data-target="3">0</span><span class="stat-unit">領域</span></p>
+        <p class="stat-num"><span class="stat-count" data-target="3">3</span><span class="stat-unit">領域</span></p>
         <p class="stat-label">AI × ロボット × 教育</p>
       </div>
       <div class="stat">
-        <p class="stat-num"><span class="stat-count" data-target="6">0</span><span class="stat-unit">種</span></p>
+        <p class="stat-num"><span class="stat-count" data-target="6">6</span><span class="stat-unit">種</span></p>
         <p class="stat-label">提供サービス</p>
       </div>
     </div>
@@ -4588,14 +4588,18 @@ button.btn-gold {
   }
 
   // ===== 企業向け 実績カウントアップ =====
+  // HTMLには最終値を書いてあるので、JSが動かない環境でも数字は正しく出る。
+  // 加算を見せるときだけ 0 に戻してから動かす。
   const counts = document.querySelectorAll('.stat-count');
-  if (counts.length && 'IntersectionObserver' in window) {
+  const stillCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (counts.length && !stillCount && 'IntersectionObserver' in window) {
     const cio = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         cio.unobserve(e.target);
         const el = e.target;
         const target = +el.dataset.target;
+        el.textContent = '0';          // 加算の見せ場のため、ここで初めて 0 にする
         let startTs = null;
         const step = ts => {
           if (startTs === null) startTs = ts;

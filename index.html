@@ -2389,9 +2389,11 @@ button.btn-gold {
 
 /* ===== 遊星歯車（太陽系の見立て）— ヒーロー左に金の線画で ===== */
 [data-theme="general"] .ns-gear{
-  position:absolute;top:-118px;left:-148px;width:600px;height:600px;
-  opacity:0.5;
+  position:absolute;top:-150px;left:-285px;width:1090px;height:1090px;
+  opacity:0.42;
 }
+/* 拡大しても線は髪の毛のまま（名刺の金線の細さを保つ） */
+.ns-gear svg *{vector-effect:non-scaling-stroke}
 .ns-gear .pg-hair{opacity:0.45}
 .ns-gear .pg-core{fill:#C9A84C;stroke:none}
 .ns-gear .pg-ring{opacity:0.85}
@@ -2413,7 +2415,11 @@ button.btn-gold {
   .ns-gear .pg-carrier,.ns-gear .pg-sun,.ns-gear .pg-planet-spin{animation:none}
 }
 @media(max-width:1100px){
-  [data-theme="general"] .ns-gear{width:420px;height:420px;left:-140px;top:-80px;opacity:0.4}
+  [data-theme="general"] .ns-gear{width:800px;height:800px;left:-225px;top:-120px;opacity:0.38}
+}
+/* 背の低い画面では、歯車が次のセクションまではみ出さないよう縮める */
+@media(max-height:820px){
+  [data-theme="general"] .ns-gear{width:880px;height:880px;left:-235px;top:-130px}
 }
 
 /* ===== 黄金比の星座（黄金螺旋）===== */
@@ -2427,6 +2433,18 @@ button.btn-gold {
 }
 @media(max-width:900px){
   [data-theme="general"] .ns-golden{width:210px;height:139px;right:2%}
+}
+
+/* ===== 月 — 夜のいちばん深いあたりに、ゆっくり満ち欠けする ===== */
+[data-theme="general"] .ns-moon{
+  position:absolute;top:83.3%;left:4.5%;width:190px;height:190px;
+  opacity:0.92;
+}
+.ns-moon svg{width:100%;height:100%;display:block;overflow:visible}
+.ns-moon .moon-ashen{fill:#AFC0DC;opacity:0.10}
+.ns-moon .moon-craters{fill:#C6AF80;opacity:0.30}
+@media(max-width:900px){
+  [data-theme="general"] .ns-moon{width:130px;height:130px;left:3%;top:84%}
 }
 
 /* ===== 夜のゾーン（LOG以降）— 文字とカードを夜空用に ===== */
@@ -2674,6 +2692,33 @@ button.btn-gold {
   <div class="ns-const ns-c6"></div>
   <div class="ns-const ns-c7"></div>
   <div class="ns-const ns-c8"></div>
+  <div class="ns-moon">
+    <svg viewBox="0 0 120 120" width="100%" height="100%" aria-hidden="true">
+      <defs>
+        <radialGradient id="moonFace" cx="38%" cy="30%" r="76%">
+          <stop offset="0"    stop-color="#FFFAEC"/>
+          <stop offset="0.55" stop-color="#F2E5C6"/>
+          <stop offset="1"    stop-color="#DCC79A"/>
+        </radialGradient>
+        <filter id="moonBlur" x="-70%" y="-70%" width="240%" height="240%">
+          <feGaussianBlur stdDeviation="7"/>
+        </filter>
+        <clipPath id="moonClip"><path id="moonClipPath" d=""/></clipPath>
+      </defs>
+      <!-- 地球照。新月のときも輪郭がうっすら残る -->
+      <circle class="moon-ashen" cx="60" cy="60" r="44"/>
+      <path id="moonGlow" d="" fill="#F6E3AE" opacity="0.32" filter="url(#moonBlur)"/>
+      <path id="moonLit"  d="" fill="url(#moonFace)"/>
+      <g class="moon-craters" clip-path="url(#moonClip)">
+        <circle cx="47" cy="44" r="9.5"/>
+        <circle cx="72" cy="65" r="6"/>
+        <circle cx="55" cy="79" r="4.6"/>
+        <circle cx="77" cy="39" r="3.4"/>
+        <circle cx="40" cy="68" r="3"/>
+        <circle cx="64" cy="52" r="2.4"/>
+      </g>
+    </svg>
+  </div>
   <div class="ns-rays"></div>
   <div class="ns-horizon">
     <svg viewBox="0 0 1440 190" preserveAspectRatio="none">
@@ -4445,6 +4490,61 @@ button.btn-gold {
   window.addEventListener('load', place);
   window.addEventListener('resize', place);
   if (window.ResizeObserver) new ResizeObserver(place).observe(document.body);
+})();
+</script>
+<!-- 月の満ち欠け。明暗境界線は半径が変わる楕円なので、位相ごとにパスを引き直す -->
+<script>
+(function(){
+  var lit  = document.getElementById('moonLit');
+  var glow = document.getElementById('moonGlow');
+  var clip = document.getElementById('moonClipPath');
+  var moon = document.querySelector('.ns-moon');
+  if (!lit || !moon) return;
+
+  var CX = 60, CY = 60, R = 44;
+  var CYCLE = 120000;   // 一周（新月→満月→新月）にかける時間
+  var STEP  = 160;      // 描き直す間隔。なめらかさと負荷の折り合い
+
+  // p: 0=新月 / 0.25=上弦 / 0.5=満月 / 0.75=下弦
+  function path(p){
+    var t = R * Math.cos(2 * Math.PI * p);      // 明暗境界線の半径（符号が向きを表す）
+    var waxing = p < 0.5;                       // 満ちていく間は右が光る
+    var limb = waxing ? 1 : 0;
+    var term = waxing ? (t > 0 ? 0 : 1) : (t > 0 ? 1 : 0);
+    var rx = Math.max(0.01, Math.abs(t)).toFixed(2);
+    return 'M' + CX + ',' + (CY - R)
+         + 'A' + R + ',' + R + ' 0 0 ' + limb + ' ' + CX + ',' + (CY + R)
+         + 'A' + rx + ',' + R + ' 0 0 ' + term + ' ' + CX + ',' + (CY - R) + 'Z';
+  }
+
+  function draw(p){
+    var d = path(p);
+    lit.setAttribute('d', d);
+    glow.setAttribute('d', d);
+    clip.setAttribute('d', d);
+  }
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (still.matches) { draw(0.38); return; }   // 動かさない設定なら十三夜あたりで止める
+
+  var visible = false, timer = null;
+  function tick(){
+    draw((Date.now() % CYCLE) / CYCLE);
+    timer = setTimeout(tick, STEP);
+  }
+  function sync(){
+    var run = visible && !document.hidden;
+    if (run && !timer) tick();
+    else if (!run && timer) { clearTimeout(timer); timer = null; }
+  }
+
+  draw(0.38);
+  document.addEventListener('visibilitychange', sync);
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(function(es){
+      visible = es[0].isIntersecting; sync();
+    }, {rootMargin: '200px'}).observe(moon);
+  } else { visible = true; sync(); }
 })();
 </script>
 </body>

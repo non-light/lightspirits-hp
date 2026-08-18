@@ -1934,7 +1934,7 @@ footer{
   color: #3B2800;
   font-weight: 500;
   line-height: 1.6;
-  max-width: 200px;
+  max-width: 250px;
   box-shadow: 0 4px 16px rgba(201,168,76,0.22);
   pointer-events: auto;
   opacity: 1;
@@ -1984,7 +1984,7 @@ footer{
   color: #2A1A00;
   font-weight: 500;
   line-height: 1.6;
-  max-width: 200px;
+  max-width: 250px;
   box-shadow: 0 4px 16px rgba(201,168,76,0.2);
   pointer-events: auto;
   opacity: 1;
@@ -2511,108 +2511,93 @@ button.btn-gold {
 
 /* ===== もりけん × 雷神 会話セクション =====
    会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
-   夜空の上に置くため、配色はこのブロック内で完結させ、他セクションの指定に依存させない。
-   表示条件：PCのみ（768px以下は非表示）／一般・個人向けテーマのみ。 */
+   表示条件：PCのみ（768px以下は非表示）／企業・法人向けテーマのみ。
+   一般・個人向けでは、同じ会話をマスコットのふきだしが担当する。
+   配色は企業テーマの変数（黒×金）に乗せて、他セクションと地続きにする。 */
 #dialogue{display:none}
-[data-theme="general"] #dialogue.is-ready{display:block}
+[data-theme="corporate"] #dialogue.is-ready{display:block; background:var(--black-2)}
 /* モバイル振り分けと同じ 768px。ここより狭い画面には一切出さない */
 @media(max-width:768px){
   #dialogue{display:none !important}
 }
 
-#dialogue .dlg-eyebrow{
-  display:inline-block;background:rgba(9,17,34,0.45);color:#F0DCA8;
-  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.28em;
-  text-transform:uppercase;padding:0.25rem 0.9rem;border-radius:20px;margin-bottom:1rem;
-}
-#dialogue .dlg-head{margin-bottom:1.1rem}
-#dialogue .dlg-title{
-  font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;font-weight:700;
-  font-size:clamp(1.4rem,2.5vw,2.4rem);color:#EEF4FE;line-height:1.3;margin:0;
-}
-#dialogue .dlg-title::after{
-  content:'';display:block;width:56px;height:3px;border-radius:99px;margin-top:1.1rem;
-  background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
-}
 #dialogue .dlg-lead{
-  font-size:0.9rem;color:rgba(226,236,252,0.78);line-height:1.95;
-  max-width:62ch;margin:0 0 2.2rem;
+  font-size:0.9rem;color:var(--muted);line-height:1.95;
+  max-width:62ch;margin:0 0 2.4rem;
 }
 
 /* カテゴリー切り替え */
-#dialogue .dlg-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.2rem}
+#dialogue .dlg-tabs{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.2rem}
 #dialogue .dlg-tab{
-  font-family:'Noto Sans JP',sans-serif;font-size:0.8rem;
-  padding:0.5rem 1.15rem;border-radius:50px;cursor:pointer;
-  background:rgba(12,22,42,0.5);border:1px solid rgba(232,201,122,0.26);
-  color:rgba(238,244,254,0.86);transition:background .2s,border-color .2s,color .2s;
+  font-family:'Noto Sans JP',sans-serif;font-size:0.78rem;letter-spacing:0.04em;
+  padding:0.5rem 1.1rem;cursor:pointer;
+  background:var(--black-3);border:1px solid var(--border);border-radius:2px;
+  color:var(--muted);transition:background .2s,border-color .2s,color .2s;
 }
-#dialogue .dlg-tab:hover{border-color:rgba(232,201,122,0.55);color:#F5E3B0}
+#dialogue .dlg-tab:hover{border-color:var(--gold-dim);color:var(--white)}
 #dialogue .dlg-tab[aria-selected="true"]{
-  background:rgba(232,201,122,0.14);border-color:#E8C97A;color:#F5E3B0;font-weight:700;
+  background:var(--gold);border-color:var(--gold);color:#0a0a0a;font-weight:700;
+}
+#dialogue .dlg-count{
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;
+  color:var(--gold-dim);margin:0 0 1rem;
 }
 
-/* 会話1本ぶん */
-#dialogue .dlg-list{display:flex;flex-direction:column;gap:0.7rem}
+/* 会話1本ぶん。既定は見出しだけ、クリックで開く */
+#dialogue .dlg-list{display:flex;flex-direction:column;gap:0.6rem}
 #dialogue .dlg-item{
-  background:rgba(12,22,42,0.55);border:1px solid rgba(232,201,122,0.22);
-  border-radius:22px;padding:1.9rem 2.1rem;
-  box-shadow:0 6px 26px rgba(0,0,0,0.28);backdrop-filter:blur(6px);
+  background:var(--black-3);border:1px solid var(--border);border-radius:6px;
+  padding:1.5rem 1.9rem;transition:border-color .2s,background .2s;
 }
+#dialogue .dlg-item:not([open]){padding:1.05rem 1.9rem}
+#dialogue .dlg-item:hover{border-color:var(--gold-dim)}
+#dialogue .dlg-item[open]{background:var(--black-4)}
 #dialogue .dlg-item-title{
-  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1rem;
-  color:#EEF4FE;margin:0;cursor:pointer;list-style:none;
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:0.95rem;
+  color:var(--white);margin:0;cursor:pointer;list-style:none;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   transition:color .2s;
 }
 #dialogue .dlg-item-title::-webkit-details-marker{display:none}
-#dialogue .dlg-item-title:hover{color:#F5E3B0}
+#dialogue .dlg-item-title:hover{color:var(--gold-light)}
 #dialogue .dlg-item-title::after{
-  content:'▼';flex:0 0 auto;font-size:0.62rem;color:#B99B57;transition:transform .2s;
+  content:'▼';flex:0 0 auto;font-size:0.6rem;color:var(--gold-dim);transition:transform .2s;
 }
 #dialogue .dlg-item[open] > .dlg-item-title{
-  margin-bottom:1.5rem;padding-bottom:0.8rem;
-  border-bottom:1px solid rgba(232,201,122,0.18);
+  margin-bottom:1.4rem;padding-bottom:0.8rem;border-bottom:1px solid var(--border);
 }
 #dialogue .dlg-item[open] > .dlg-item-title::after{transform:rotate(180deg)}
-/* 閉じているあいだは薄く、開くと前に出る */
-#dialogue .dlg-item:not([open]){background:rgba(12,22,42,0.38);padding:1.15rem 2.1rem}
-#dialogue .dlg-item:not([open]):hover{border-color:rgba(232,201,122,0.45)}
-#dialogue .dlg-count{
-  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;
-  color:rgba(226,236,252,0.55);margin:0 0 1.1rem;
-}
 
 /* せりふ。雷神は左、もりけんは右に寄せて一目で区別できるようにする */
-#dialogue .dlg-line{display:flex;gap:0.85rem;align-items:flex-start;margin-bottom:1.1rem}
+#dialogue .dlg-line{display:flex;gap:0.85rem;align-items:flex-start;margin-bottom:1rem}
 #dialogue .dlg-line:last-child{margin-bottom:0}
 #dialogue .dlg-line.is-moriken{flex-direction:row-reverse}
 #dialogue .dlg-avatar{
-  flex:0 0 auto;width:46px;height:46px;border-radius:50%;overflow:hidden;
-  background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.28);
+  flex:0 0 auto;width:44px;height:44px;border-radius:50%;overflow:hidden;
+  background:var(--black-2);border:1px solid var(--border);
 }
 #dialogue .dlg-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 #dialogue .dlg-body{max-width:74%;min-width:0}
 #dialogue .dlg-name{
-  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;
-  color:#B99B57;margin:0 0 0.35rem;
+  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;
+  color:var(--gold-dim);margin:0 0 0.35rem;text-transform:uppercase;
 }
 #dialogue .dlg-line.is-moriken .dlg-name{text-align:right}
 #dialogue .dlg-bubble{
-  position:relative;border-radius:16px;padding:0.85rem 1.15rem;
-  font-size:0.88rem;line-height:1.95;
-  color:rgba(238,244,254,0.92);
+  border-radius:4px;padding:0.8rem 1.1rem;
+  font-size:0.87rem;line-height:1.95;color:var(--muted);
   overflow-wrap:anywhere;word-break:normal;
 }
-#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.20)}
-#dialogue .dlg-line.is-moriken .dlg-bubble{background:rgba(120,160,220,0.12);border:1px solid rgba(150,185,235,0.22)}
+#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.20)}
+#dialogue .dlg-line.is-moriken .dlg-bubble{background:var(--black-2);border:1px solid var(--border)}
 
-/* 既存の 900px ブレークポイントに合わせて、狭いPC幅では縦積みに寄せる */
+/* 既存の 900px ブレークポイントに合わせて、狭いPC幅では詰める */
 @media(max-width:900px){
-  #dialogue .dlg-item{padding:1.4rem 1.3rem;border-radius:18px}
+  #dialogue .dlg-item{padding:1.2rem 1.2rem}
+  #dialogue .dlg-item:not([open]){padding:0.95rem 1.2rem}
   #dialogue .dlg-body{max-width:100%}
-  #dialogue .dlg-avatar{width:38px;height:38px}
-  #dialogue .dlg-bubble{font-size:0.84rem}
+  #dialogue .dlg-avatar{width:36px;height:36px}
+  #dialogue .dlg-bubble{font-size:0.83rem}
 }
 
 /* ===== 夜のゾーン（LOG以降）— 文字とカードを夜空用に ===== */
@@ -3536,9 +3521,10 @@ button.btn-gold {
 
 <!-- もりけん × 雷神 会話。中身は data/conversations.js から組み立てる（PCのみ） -->
 <section id="dialogue" aria-labelledby="dlg-title">
-  <div class="dlg-eyebrow">MORIKEN &times; RAIZIN</div>
-  <div class="dlg-head">
-    <h2 class="dlg-title" id="dlg-title">もりけんと雷神の話</h2>
+  <div class="sec-eyebrow">Dialogue</div>
+  <div class="sec-head">
+    <h2 class="sec-en" id="dlg-title"><span class="accent">MORIKEN</span> &times; RAIZIN</h2>
+    <span class="sec-jp">もりけんと雷神の話</span>
   </div>
   <p class="dlg-lead">
     かたい説明のかわりに、ふたりの会話で。気になるところだけ読んでください。
@@ -4169,6 +4155,8 @@ button.btn-gold {
 })();
 </script>
 
+<!-- 会話データ。追加・修正はこのファイルだけで完結する -->
+<script src="data/conversations.js"></script>
 <script>
 (function(){
   var dialogues = [
@@ -4202,25 +4190,76 @@ button.btn-gold {
   var mWrap   = document.getElementById('mascot');
   var rWrap   = document.getElementById('moriken-wrap');
 
-  function setText(el, txt) { if(el) el.innerHTML = txt.replace(/\n/g,'<br>'); }
+  function setText(el, txt) { if(el) el.innerHTML = String(txt).replace(/\n/g,'<br>'); }
+
+  /* ふきだしのネタ。もともとの短いかけあいに加えて、
+     data/conversations.js の各会話の「最初の一往復」を混ぜる。
+     全文はクリックしたときだけ再生するので、自動表示の長さは今までどおり。 */
+  var pool = dialogues.map(function(d){ return { m: d.mascot, r: d.moriken, conv: null }; });
+
+  // 会話セクションと同じ 768px。狭い画面では従来のかけあいだけにする
+  if (!window.matchMedia('(max-width: 768px)').matches && window.LS_CONVERSATIONS) {
+    window.LS_CONVERSATIONS.forEach(function(c){
+      if (!c || !c.lines || c.lines.length < 2) return;
+      var a = c.lines[0], b = c.lines[1];
+      if (!a || !b || a.speaker === b.speaker) return;
+      var rz = a.speaker === 'raizin' ? a : b;
+      var mk = a.speaker === 'raizin' ? b : a;
+      pool.push({ m: rz.text, r: mk.text, conv: c });
+    });
+  }
+
+  var cur = null;        // いま出しているネタ
+  var playTimer = null;  // 消すまでの待ち／再生の次の一行までの待ち
+  var playing = false;   // 会話を再生中か（自動表示の一往復と区別する）
+
+  function bigger(on) {
+    if(mWrap) mWrap.classList[on ? 'add' : 'remove']('speaking');
+    if(rWrap) rWrap.classList[on ? 'add' : 'remove']('speaking');
+  }
 
   function showDialogue(i) {
-    var d = dialogues[i];
-    setText(mText, d.mascot);
-    setText(rText, d.moriken);
+    cur = pool[((i % pool.length) + pool.length) % pool.length];
+    setText(mText, cur.m);
+    setText(rText, cur.r);
     if(mBubble) mBubble.classList.remove('hidden');
     if(rBubble) rBubble.classList.remove('hidden');
-    if(mWrap) mWrap.classList.add('speaking');
-    if(rWrap) rWrap.classList.add('speaking');
+    bigger(true);
     visible = true;
   }
 
   function hideAll() {
+    if (playTimer) { clearTimeout(playTimer); playTimer = null; }
+    playing = false;
     if(mBubble) mBubble.classList.add('hidden');
     if(rBubble) rBubble.classList.add('hidden');
-    if(mWrap) mWrap.classList.remove('speaking');
-    if(rWrap) rWrap.classList.remove('speaking');
+    bigger(false);
     visible = false;
+  }
+
+  /* 会話をまるごと再生する。読む速さに合わせて一行ずつ出す */
+  function playConversation(c) {
+    if (playTimer) { clearTimeout(playTimer); playTimer = null; }
+    playing = true;
+    setText(mText, ''); setText(rText, '');
+    if(mBubble) mBubble.classList.add('hidden');
+    if(rBubble) rBubble.classList.add('hidden');
+    bigger(true);
+    visible = true;
+
+    var i = 0;
+    (function step(){
+      if (i >= c.lines.length) {
+        playTimer = setTimeout(function(){ hideAll(); startCycle(); }, 2200);
+        return;
+      }
+      var l = c.lines[i++];
+      var isR = l.speaker === 'raizin';
+      setText(isR ? mText : rText, l.text);
+      var b = isR ? mBubble : rBubble;
+      if (b) b.classList.remove('hidden');
+      playTimer = setTimeout(step, Math.min(5200, Math.max(2400, 1500 + l.text.length * 110)));
+    })();
   }
 
   // 拡大表示は目に入りやすいので、出る回数はかなり絞る
@@ -4230,28 +4269,28 @@ button.btn-gold {
   function startCycle() {
     clearInterval(autoTimer);
     autoTimer = setInterval(function(){
-      idx = (idx + 1) % dialogues.length;
+      idx = Math.floor(Math.random() * pool.length);
       showDialogue(idx);
-      setTimeout(hideAll, SPEAK);
+      playTimer = setTimeout(hideAll, SPEAK);
     }, CYCLE);
   }
 
+  /* クリックしたときは、その会話を最後まで見せる。
+     自動で出ているあいだは一往復だけなので、続きが読みたい人向け。 */
   function onToggle() {
     if(suppressClick) return;
-    if(visible) {
-      hideAll();
-    } else {
-      idx = (idx + 1) % dialogues.length;
-      showDialogue(idx);
-      clearInterval(autoTimer);
-      setTimeout(function(){ hideAll(); startCycle(); }, 10000);
-    }
+    if (visible && cur && cur.conv && !playing) { playConversation(cur.conv); return; }
+    if (visible) { hideAll(); startCycle(); return; }
+    idx = Math.floor(Math.random() * pool.length);
+    showDialogue(idx);
+    clearInterval(autoTimer);
+    playTimer = setTimeout(function(){ hideAll(); startCycle(); }, 10000);
   }
 
   // 初回グリーティング。読み込み直後に飛び出さないよう少し待つ
   setTimeout(function(){
     showDialogue(0);
-    setTimeout(function(){
+    playTimer = setTimeout(function(){
       hideAll();
       startCycle();
     }, SPEAK);
@@ -4823,8 +4862,6 @@ button.btn-gold {
   } else { visible = true; sync(); }
 })();
 </script>
-<!-- 会話データ。追加・修正はこのファイルだけで完結する -->
-<script src="data/conversations.js"></script>
 <script>
 (function(){
   var root = document.getElementById('dialogue');

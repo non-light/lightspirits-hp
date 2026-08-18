@@ -2483,7 +2483,12 @@ button.btn-gold {
    スマホでも表示する（2026-08-18に解除）。150件あるので既定は見出しだけ、
    読みたいものを開いてもらう。
    夜空の上に置くため、配色はこのブロック内で完結させ、他セクションに依存させない。 */
-#dialogue{display:none}
+#dialogue{
+  display:none;
+  /* ここを変えれば会話の幅が変わる。他の指定はこの2つを参照している */
+  --dlg-thread-max: 720px;   /* 発言が並ぶ範囲の最大幅 */
+  --dlg-bubble-max: 75%;     /* 1つの吹き出しが取れる幅の上限 */
+}
 #dialogue.is-ready{display:block}
 
 #dialogue .sec-en,
@@ -2540,18 +2545,24 @@ button.btn-gold {
 #dialogue .dlg-item[open] > .dlg-item-title::after{transform:rotate(180deg)}
 
 /* せりふ。雷神は左、もりけんは右に寄せて一目で区別できるようにする */
-#dialogue .dlg-line{display:flex;gap:0.85rem;align-items:flex-start;margin-bottom:1rem}
+/* 画面が広いと左右の吹き出しが数百px離れて視線移動がつらいので、
+   並ぶ範囲そのものを絞る。中央寄せにすると見出しと左端がずれるため左揃え。 */
+#dialogue .dlg-thread{max-width:var(--dlg-thread-max);margin-right:auto}
+#dialogue .dlg-line{display:flex;gap:0.85rem;align-items:flex-start;margin-bottom:0.35rem}
 #dialogue .dlg-line:last-child{margin-bottom:0}
+/* 話し手が変わるところだけ広く空けて、かたまりが見えるようにする */
+#dialogue .dlg-line.is-raizin  + .dlg-line.is-moriken,
+#dialogue .dlg-line.is-moriken + .dlg-line.is-raizin{margin-top:1.15rem}
 #dialogue .dlg-line.is-moriken{flex-direction:row-reverse}
 #dialogue .dlg-avatar{
   flex:0 0 auto;width:44px;height:44px;border-radius:50%;overflow:hidden;
   background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.28);
 }
 #dialogue .dlg-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-#dialogue .dlg-body{max-width:74%;min-width:0}
+#dialogue .dlg-body{max-width:var(--dlg-bubble-max);min-width:0}
 #dialogue .dlg-name{
-  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;
-  color:#B99B57;margin:0 0 0.35rem;text-transform:uppercase;
+  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.16em;
+  color:#D3B87E;margin:0 0 0.35rem;text-transform:uppercase;
 }
 #dialogue .dlg-line.is-moriken .dlg-name{text-align:right}
 #dialogue .dlg-bubble{
@@ -2559,16 +2570,19 @@ button.btn-gold {
   font-size:0.87rem;line-height:1.95;color:rgba(238,244,254,0.92);
   overflow-wrap:anywhere;word-break:normal;
 }
-#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.20)}
-#dialogue .dlg-line.is-moriken .dlg-bubble{background:rgba(120,160,220,0.12);border:1px solid rgba(150,185,235,0.22)}
+#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(232,201,122,0.20);border:1px solid rgba(232,201,122,0.36)}
+#dialogue .dlg-line.is-moriken .dlg-bubble{background:rgba(126,166,226,0.24);border:1px solid rgba(150,185,235,0.38)}
 
 /* 既存の 900px ブレークポイントに合わせて、狭いPC幅では詰める */
 @media(max-width:900px){
+  /* 幅が足りないので max-width は効かない。左右の余白はセクションとカードの padding が持つ */
+  #dialogue{--dlg-bubble-max:85%}
   #dialogue .dlg-item{padding:1.2rem 1.2rem}
   #dialogue .dlg-item:not([open]){padding:0.95rem 1.2rem}
-  #dialogue .dlg-body{max-width:100%}
   #dialogue .dlg-avatar{width:36px;height:36px}
-  #dialogue .dlg-bubble{font-size:0.83rem}
+  #dialogue .dlg-bubble{font-size:0.83rem;line-height:1.8}
+  #dialogue .dlg-line.is-raizin  + .dlg-line.is-moriken,
+  #dialogue .dlg-line.is-moriken + .dlg-line.is-raizin{margin-top:0.95rem}
 }
 
 /* ===== 夜のゾーン（LOG以降）— 文字とカードを夜空用に ===== */
@@ -4814,9 +4828,10 @@ button.btn-gold {
 
   // 100件規模を想定し、既定は見出しだけ。読みたいものを開いてもらう
   function itemHtml(c, first){
+    // .dlg-thread は発言だけを包む器。カードの幅はそのままに、会話の幅だけ絞るために要る
     return '<details class="dlg-item" id="dlg-' + esc(c.id) + '"' + (first ? ' open' : '') + '>'
          +   '<summary class="dlg-item-title">' + esc(c.title || '') + '</summary>'
-         +   c.lines.map(lineHtml).join('')
+         +   '<div class="dlg-thread">' + c.lines.map(lineHtml).join('') + '</div>'
          + '</details>';
   }
 

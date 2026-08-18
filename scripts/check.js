@@ -73,6 +73,50 @@ function checkConversations(){
   if (!errors.length) ok('会話データ ' + list.length + ' 件、カテゴリー ' + Object.keys(cats).length + ' 種類 — 書式OK');
 }
 
+/* ---------- 1b. ふきだしデータ ---------- */
+function checkBubbles(){
+  var path = 'data/bubbles.js';
+  if (!fs.existsSync(path)) { fail(path + ' が見つかりません'); return; }
+
+  var win = {};
+  try {
+    new Function('window', fs.readFileSync(path, 'utf8'))(win);
+  } catch (e) {
+    fail(path + ' が JavaScript として読めません: ' + e.message);
+    return;
+  }
+
+  var list = win.LS_BUBBLES;
+  if (!Array.isArray(list)) { fail('LS_BUBBLES が配列ではありません'); return; }
+
+  var SPEAKERS = { raizin: 1, moriken: 1 };
+  var idRe = /^bubble-\d{3}$/;
+  var seen = {}, n = 0;
+
+  list.forEach(function(b, i){
+    var at = 'bubbles.js の ' + (b && b.id ? '"' + b.id + '"' : '[' + i + '] 番目');
+    if (!b || !b.id) { fail(at + ' に id がありません'); return; }
+    if (!idRe.test(b.id)) fail(at + ' の id は bubble-001 の形にしてください');
+    if (seen[b.id]) fail('ふきだしの id が重複しています: ' + b.id);
+    seen[b.id] = 1;
+
+    if (!Array.isArray(b.lines) || b.lines.length < 2) { fail(at + ' は2行以上にしてください'); return; }
+    b.lines.forEach(function(l, j){
+      if (!l || !SPEAKERS[l.speaker])
+        fail(at + ' の ' + (j+1) + '行目 の speaker は raizin か moriken だけです');
+      if (typeof l.text !== 'string' || !l.text.trim())
+        fail(at + ' の ' + (j+1) + '行目 の text が空です');
+      if (typeof l.text === 'string' && /raijin/i.test(l.text))
+        fail(at + ' に RAIJIN があります。正しい綴りは RAIZIN です');
+    });
+    if (b.lines[0].speaker === b.lines[1].speaker)
+      fail(at + ' の1行目と2行目は別の話し手にしてください（同時に表示されるため）');
+    n++;
+  });
+
+  ok('ふきだし ' + n + ' 件 — 書式OK');
+}
+
 /* ---------- 2. リンク切れ ---------- */
 function checkLinks(){
   var files = ['index.html', 'mobile.html', 'thanks.html'];
@@ -128,6 +172,7 @@ function checkSpelling(){
 }
 
 checkConversations();
+checkBubbles();
 checkLinks();
 checkSpelling();
 

@@ -4099,28 +4099,10 @@ button.btn-gold {
 <script src="data/conversations.js"></script>
 <!-- ニュース。追加・修正はこのファイルだけで完結する -->
 <script src="data/news.js"></script>
+<!-- マスコットのふきだし。追加・修正はこのファイルだけで完結する -->
+<script src="data/bubbles.js"></script>
 <script>
 (function(){
-  var dialogues = [
-    // もりけん発信
-    { mascot: 'そうそう！\nたのしさが原動力⚡',       moriken: '今日もいい仕事\nできそうな予感🔥' },
-    { mascot: 'ぼくも一緒に\nがんばるよ💪',           moriken: '失敗恐れず\nまず動く！それだけ🔥' },
-    { mascot: 'AIもロボットも\nすごい時代だね！',      moriken: 'うまく使えば\n可能性は無限大🔥' },
-    { mascot: 'アプリもロボットも\nまかせてね！',      moriken: 'どんな業種でも\n一緒に考えるよ🙌' },
-    { mascot: 'それ聞いて\nぼくもワクワク！✨',        moriken: 'ゲームで学ぶ\n仕掛けを作りたい🔥' },
-    { mascot: '声かけてみてね👋\nぼくもいるよ！',     moriken: '小さな一歩が\n大きくなるよ🔥' },
-    // 雷神発信
-    { mascot: 'なんでも気軽に\n相談してね！🙌',       moriken: 'どんな相談でも\n大歓迎です😄' },
-    { mascot: 'ロボット・AI・アプリ\n全部つながるよ⚡', moriken: 'ひとりで全部\nやり切ります💪' },
-    { mascot: '大会で優勝も\nしたんだよ！🏆',          moriken: 'あの試合は\n燃えたな〜🔥' },
-    { mascot: 'お問い合わせは\ninfo@lightspirits.jp',   moriken: '小さな相談から\n大歓迎です🙏' },
-    { mascot: '一緒に面白いもの\nつくろう！✨',         moriken: '楽しいが一番！\nまず話しかけて' },
-    { mascot: 'もりけん！\n最近何つくってる？',         moriken: '新しいロボットと\n格闘中だよ🤖' },
-    { mascot: '大会の前って\nドキドキするよね⚡',       moriken: '本番こそ燃える！\nそれが楽しい🔥' },
-    { mascot: 'ゲームで学べる\nってすごいよね！',       moriken: '楽しみながら\n学ぶのが一番✨' },
-    { mascot: '今日はいい天気！\n気分も上がるね☀️',    moriken: 'こんな日は\nモチベが違う🔥' },
-    { mascot: '雨の日もなんか\n好きなんだよね☔',       moriken: '雨音の中の\n集中作業、最高だ' },
-  ];
   var idx = 0;
   var visible = false;
   var autoTimer;
@@ -4134,21 +4116,19 @@ button.btn-gold {
 
   function setText(el, txt) { if(el) el.innerHTML = String(txt).replace(/\n/g,'<br>'); }
 
-  /* ふきだしのネタ。もともとの短いかけあいに加えて、
-     data/conversations.js の各会話の「最初の一往復」を混ぜる。
-     全文はクリックしたときだけ再生するので、自動表示の長さは今までどおり。 */
-  var pool = dialogues.map(function(d){ return { m: d.mascot, r: d.moriken, conv: null }; });
-
-  if (window.LS_CONVERSATIONS) {
-    window.LS_CONVERSATIONS.forEach(function(c){
-      if (!c || !c.lines || c.lines.length < 2) return;
-      var a = c.lines[0], b = c.lines[1];
-      if (!a || !b || a.speaker === b.speaker) return;
-      var rz = a.speaker === 'raizin' ? a : b;
-      var mk = a.speaker === 'raizin' ? b : a;
-      pool.push({ m: rz.text, r: mk.text, conv: c });
-    });
-  }
+  /* ふきだしのネタは data/bubbles.js だけから作る。
+     セクションの「もりけんと雷神の話」（conversations.js）とは混ぜない。
+     3往復以上あるものは、クリックで最後まで再生できる。 */
+  var pool = [];
+  (window.LS_BUBBLES || []).forEach(function(b, i){
+    if (!b || !b.lines || b.lines.length < 2) { console.warn('[ふきだし] 2行以上必要です: ' + ((b && b.id) || '[' + i + ']')); return; }
+    var a = b.lines[0], c = b.lines[1];
+    if (a.speaker === c.speaker) { console.warn('[ふきだし] 1行目と2行目は別の話し手にしてください: ' + b.id); return; }
+    var rz = a.speaker === 'raizin' ? a : c;
+    var mk = a.speaker === 'raizin' ? c : a;
+    pool.push({ m: rz.text, r: mk.text, conv: b.lines.length > 2 ? b : null });
+  });
+  if (!pool.length) return;
 
   var cur = null;        // いま出しているネタ
   var readTo = 0;        // その会話を何行目まで見せたか。クリックで続きから再開する

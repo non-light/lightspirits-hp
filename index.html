@@ -1492,8 +1492,7 @@ footer{
 [data-theme="general"] .yui-title-jp,
 [data-theme="general"] .profile-section-title,
 [data-theme="general"] .profile-service-name,
-[data-theme="general"] .achievement-title,
-[data-theme="general"] .profile-example-q {
+[data-theme="general"] .achievement-title {
   font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
 }
 
@@ -1570,7 +1569,6 @@ footer{
 [data-theme="general"] .profile-service-item,
 [data-theme="general"] .profile-achievement,
 [data-theme="general"] .profile-details { border-radius: 16px; }
-[data-theme="general"] .profile-example { border-radius: 26px; }
 
 /* ===== GENERAL THEME — 日本語優先 ===== */
 
@@ -1639,59 +1637,6 @@ footer{
 .profile-works-card .pwc-icon { font-size: 1.4rem; display: block; margin-bottom: 0.35rem; }
 .profile-works-card h5 { font-family:'Noto Sans JP',sans-serif; font-size: 0.85rem; font-weight: 700; color: #0C3A56; margin: 0 0 0.3rem; }
 .profile-works-card p { font-size: 0.75rem; color: #374151; margin: 0; line-height: 1.6; }
-.profile-example {
-  background: linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);
-  border: 2px solid #3B82F6;
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  margin: 2rem 0 1rem;
-  box-shadow: 0 4px 24px rgba(59,130,246,0.10);
-}
-.profile-example-eyebrow {
-  font-size: 0.72rem; color: #1D4ED8; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  margin: 0 0 0.8rem;
-}
-.profile-example-q {
-  font-size: 1.35rem; font-weight: 800; color: #0C3A56;
-  margin: 0 0 1.8rem; line-height: 1.4;
-  border-left: 4px solid #3B82F6; padding-left: 0.9rem;
-}
-.profile-example-flow {
-  display: flex; align-items: stretch; flex-wrap: wrap;
-  gap: 0; margin-bottom: 1.5rem; justify-content: center;
-}
-.flow-step {
-  display: flex; flex-direction: column; align-items: center;
-  background: #fff; border: 2px solid #BFDBFE; border-radius: 14px;
-  padding: 1rem 1.2rem; min-width: 110px; text-align: center;
-  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
-}
-.flow-step-done {
-  background: #ECFDF5; border-color: #6EE7B7;
-}
-.flow-step-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
-.flow-step-label {
-  font-size: 0.8rem; font-weight: 700; color: #1E40AF; line-height: 1.4;
-}
-.flow-step-done .flow-step-label { color: #065F46; }
-.flow-arrow-wrap {
-  display: flex; align-items: center; padding: 0 0.4rem;
-  color: #60A5FA; font-size: 1.6rem; font-weight: 900;
-}
-.profile-example-note {
-  text-align: center; font-size: 0.9rem; color: #1E3A5F;
-  line-height: 1.8; background: rgba(255,255,255,0.8);
-  border-radius: 10px; padding: 0.85rem 1.2rem; margin: 0;
-}
-@media(max-width:900px){
-  .profile-example { padding: 1.4rem 1.2rem; }
-  .profile-example-q { font-size: 1.1rem; }
-  .flow-step { min-width: 80px; padding: 0.7rem 0.6rem; }
-  .flow-step-icon { font-size: 1.4rem; }
-  .flow-step-label { font-size: 0.72rem; }
-  .flow-arrow-wrap { font-size: 1.2rem; padding: 0 0.2rem; }
-}
 
 /* ===== もっと詳しく知りたい方へ（アコーディオン） ===== */
 .profile-details { background: #fff; border: 1px solid #E0F2FE; border-radius: 12px; margin-bottom: 0.55rem; overflow: hidden; }
@@ -2935,7 +2880,7 @@ button.btn-gold {
   </a>
   <ul class="nav-center">
     <li>
-      <a href="#about"><span class="nav-en">About Us</span><span class="nav-jp">について</span></a>
+      <a href="#about"><span class="nav-en">About Us</span><span class="nav-jp">About</span></a>
       <div class="mega">
         <div class="mega-label">会社情報</div>
         <a href="#about">らいとすぴりっつについて</a>
@@ -3377,32 +3322,6 @@ button.btn-gold {
         <!-- 修正: 表記統一（ホームページ→Webサイト） -->
         <p>スマホアプリ、Webサイト、業務ツール、シミュレーターなどを作れます。</p>
       </div>
-    </div>
-    <div class="profile-example">
-      <p class="profile-example-eyebrow">たとえば、こんな相談も</p>
-      <p class="profile-example-q">「高齢者と会話するロボットが欲しい」</p>
-      <div class="profile-example-flow">
-        <div class="flow-step">
-          <span class="flow-step-icon">🤖</span>
-          <span class="flow-step-label">ロボットを<br>作る</span>
-        </div>
-        <div class="flow-arrow-wrap">→</div>
-        <div class="flow-step">
-          <span class="flow-step-icon">🧠</span>
-          <span class="flow-step-label">会話する<br>AIを作る</span>
-        </div>
-        <div class="flow-arrow-wrap">→</div>
-        <div class="flow-step">
-          <span class="flow-step-icon">📱</span>
-          <span class="flow-step-label">アプリで<br>つなぐ</span>
-        </div>
-        <div class="flow-arrow-wrap">→</div>
-        <div class="flow-step flow-step-done">
-          <span class="flow-step-icon">✅</span>
-          <span class="flow-step-label">全部つないで<br>完成！</span>
-        </div>
-      </div>
-      <p class="profile-example-note">この一連を、別々の会社に頼まず、<strong>らいとすぴりっつだけで通しでできます</strong>。<br>だから<strong>話が通じやすく、試作までが早い</strong>。</p>
     </div>
   </div>
 

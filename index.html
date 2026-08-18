@@ -2509,6 +2509,94 @@ button.btn-gold {
   .ns-moon-label{font-size:0.8rem;margin-top:0.6rem}
 }
 
+/* ===== もりけん × 雷神 会話セクション =====
+   会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
+   夜空の上に置くため、配色はこのブロック内で完結させ、他セクションの指定に依存させない。
+   表示条件：PCのみ（768px以下は非表示）／一般・個人向けテーマのみ。 */
+#dialogue{display:none}
+[data-theme="general"] #dialogue.is-ready{display:block}
+/* モバイル振り分けと同じ 768px。ここより狭い画面には一切出さない */
+@media(max-width:768px){
+  #dialogue{display:none !important}
+}
+
+#dialogue .dlg-eyebrow{
+  display:inline-block;background:rgba(9,17,34,0.45);color:#F0DCA8;
+  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.28em;
+  text-transform:uppercase;padding:0.25rem 0.9rem;border-radius:20px;margin-bottom:1rem;
+}
+#dialogue .dlg-head{margin-bottom:1.1rem}
+#dialogue .dlg-title{
+  font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;font-weight:700;
+  font-size:clamp(1.4rem,2.5vw,2.4rem);color:#EEF4FE;line-height:1.3;margin:0;
+}
+#dialogue .dlg-title::after{
+  content:'';display:block;width:56px;height:3px;border-radius:99px;margin-top:1.1rem;
+  background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
+}
+#dialogue .dlg-lead{
+  font-size:0.9rem;color:rgba(226,236,252,0.78);line-height:1.95;
+  max-width:62ch;margin:0 0 2.2rem;
+}
+
+/* カテゴリー切り替え */
+#dialogue .dlg-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.2rem}
+#dialogue .dlg-tab{
+  font-family:'Noto Sans JP',sans-serif;font-size:0.8rem;
+  padding:0.5rem 1.15rem;border-radius:50px;cursor:pointer;
+  background:rgba(12,22,42,0.5);border:1px solid rgba(232,201,122,0.26);
+  color:rgba(238,244,254,0.86);transition:background .2s,border-color .2s,color .2s;
+}
+#dialogue .dlg-tab:hover{border-color:rgba(232,201,122,0.55);color:#F5E3B0}
+#dialogue .dlg-tab[aria-selected="true"]{
+  background:rgba(232,201,122,0.14);border-color:#E8C97A;color:#F5E3B0;font-weight:700;
+}
+
+/* 会話1本ぶん */
+#dialogue .dlg-list{display:flex;flex-direction:column;gap:1.5rem}
+#dialogue .dlg-item{
+  background:rgba(12,22,42,0.55);border:1px solid rgba(232,201,122,0.22);
+  border-radius:22px;padding:1.9rem 2.1rem;
+  box-shadow:0 6px 26px rgba(0,0,0,0.28);backdrop-filter:blur(6px);
+}
+#dialogue .dlg-item-title{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1rem;
+  color:#EEF4FE;margin:0 0 1.5rem;padding-bottom:0.8rem;
+  border-bottom:1px solid rgba(232,201,122,0.18);
+}
+
+/* せりふ。雷神は左、もりけんは右に寄せて一目で区別できるようにする */
+#dialogue .dlg-line{display:flex;gap:0.85rem;align-items:flex-start;margin-bottom:1.1rem}
+#dialogue .dlg-line:last-child{margin-bottom:0}
+#dialogue .dlg-line.is-moriken{flex-direction:row-reverse}
+#dialogue .dlg-avatar{
+  flex:0 0 auto;width:46px;height:46px;border-radius:50%;overflow:hidden;
+  background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.28);
+}
+#dialogue .dlg-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+#dialogue .dlg-body{max-width:74%;min-width:0}
+#dialogue .dlg-name{
+  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;
+  color:#B99B57;margin:0 0 0.35rem;
+}
+#dialogue .dlg-line.is-moriken .dlg-name{text-align:right}
+#dialogue .dlg-bubble{
+  position:relative;border-radius:16px;padding:0.85rem 1.15rem;
+  font-size:0.88rem;line-height:1.95;
+  color:rgba(238,244,254,0.92);
+  overflow-wrap:anywhere;word-break:normal;
+}
+#dialogue .dlg-line.is-raizin  .dlg-bubble{background:rgba(232,201,122,0.10);border:1px solid rgba(232,201,122,0.20)}
+#dialogue .dlg-line.is-moriken .dlg-bubble{background:rgba(120,160,220,0.12);border:1px solid rgba(150,185,235,0.22)}
+
+/* 既存の 900px ブレークポイントに合わせて、狭いPC幅では縦積みに寄せる */
+@media(max-width:900px){
+  #dialogue .dlg-item{padding:1.4rem 1.3rem;border-radius:18px}
+  #dialogue .dlg-body{max-width:100%}
+  #dialogue .dlg-avatar{width:38px;height:38px}
+  #dialogue .dlg-bubble{font-size:0.84rem}
+}
+
 /* ===== 夜のゾーン（LOG以降）— 文字とカードを夜空用に ===== */
 [data-theme="general"] #blog,
 [data-theme="general"] #raizin,
@@ -3426,6 +3514,19 @@ button.btn-gold {
       <a href="https://x.com/raizin_ls" target="_blank" rel="noopener noreferrer"><span class="raizin-x-mark">𝕏</span>雷神、Xにもいます。⚡️</a>
     </p>
   </div>
+</section>
+
+<!-- もりけん × 雷神 会話。中身は data/conversations.js から組み立てる（PCのみ） -->
+<section id="dialogue" aria-labelledby="dlg-title">
+  <div class="dlg-eyebrow">MORIKEN &times; RAIZIN</div>
+  <div class="dlg-head">
+    <h2 class="dlg-title" id="dlg-title">もりけんと雷神の話</h2>
+  </div>
+  <p class="dlg-lead">
+    かたい説明のかわりに、ふたりの会話で。気になるところだけ読んでください。
+  </p>
+  <div class="dlg-tabs" id="dlg-tabs" role="tablist"></div>
+  <div class="dlg-list" id="dlg-list"></div>
 </section>
 
 <div class="divider"></div>
@@ -4702,6 +4803,98 @@ button.btn-gold {
       visible = es[0].isIntersecting; sync();
     }, {rootMargin: '120px'}).observe(band);
   } else { visible = true; sync(); }
+})();
+</script>
+<!-- 会話データ。追加・修正はこのファイルだけで完結する -->
+<script src="data/conversations.js"></script>
+<script>
+(function(){
+  var root = document.getElementById('dialogue');
+  if (!root) return;
+
+  // モバイル振り分けと同じ 768px。狭い画面では DOM ごと捨て、余白も画像も残さない
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    root.parentNode.removeChild(root);
+    return;
+  }
+
+  var data = window.LS_CONVERSATIONS;
+  var catNames = window.LS_CONVERSATION_CATEGORIES || {};
+  if (!data || !data.length) { root.parentNode.removeChild(root); return; }
+
+  // 話し手の定義。画像はマスコットと同じものを使うので追加の通信は発生しない
+  var SPEAKERS = {
+    raizin:  { name: '雷神',     img: 'images/mascot-raizin.png', alt: 'らいとすぴりっつ マスコットキャラクター 雷神' },
+    moriken: { name: 'もりけん', img: 'images/moriken.png',        alt: 'もりけん キャラクター' }
+  };
+
+  // データの取りこぼしは、公開前に気づけるようコンソールに出す
+  var seen = {}, items = [];
+  data.forEach(function(c, i){
+    var where = 'conversations.js の ' + (c && c.id ? c.id : '[' + i + ']');
+    if (!c || !c.id || !c.category || !c.lines || !c.lines.length) {
+      console.warn('[会話] 項目が不完全です: ' + where); return;
+    }
+    if (seen[c.id]) { console.warn('[会話] IDが重複しています: ' + c.id); return; }
+    if (!catNames[c.category]) { console.warn('[会話] 未定義のカテゴリー "' + c.category + '": ' + where); return; }
+    var ok = c.lines.every(function(l){
+      if (!l || !SPEAKERS[l.speaker]) { console.warn('[会話] speaker は raizin か moriken だけです: ' + where); return false; }
+      return true;
+    });
+    if (!ok) return;
+    seen[c.id] = 1; items.push(c);
+  });
+  if (!items.length) { root.parentNode.removeChild(root); return; }
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function lineHtml(l){
+    var sp = SPEAKERS[l.speaker];
+    return '<div class="dlg-line is-' + l.speaker + '">'
+         +   '<div class="dlg-avatar"><img src="' + sp.img + '" alt="' + esc(sp.alt) + '" loading="lazy" draggable="false"></div>'
+         +   '<div class="dlg-body">'
+         +     '<p class="dlg-name">' + esc(sp.name) + '</p>'
+         +     '<div class="dlg-bubble">' + esc(l.text) + '</div>'
+         +   '</div>'
+         + '</div>';
+  }
+
+  function itemHtml(c){
+    return '<article class="dlg-item" id="dlg-' + esc(c.id) + '">'
+         +   '<h3 class="dlg-item-title">' + esc(c.title || '') + '</h3>'
+         +   c.lines.map(lineHtml).join('')
+         + '</article>';
+  }
+
+  // カテゴリーは、実際に会話があるものだけを定義順に並べる
+  var order = Object.keys(catNames).filter(function(k){
+    return items.some(function(c){ return c.category === k; });
+  });
+
+  var tabs = document.getElementById('dlg-tabs');
+  var list = document.getElementById('dlg-list');
+
+  function show(cat){
+    list.innerHTML = items.filter(function(c){ return c.category === cat; }).map(itemHtml).join('');
+    [].forEach.call(tabs.children, function(b){
+      b.setAttribute('aria-selected', b.dataset.cat === cat ? 'true' : 'false');
+    });
+  }
+
+  tabs.innerHTML = order.map(function(k){
+    return '<button type="button" class="dlg-tab" role="tab" data-cat="' + esc(k) + '" aria-selected="false">'
+         + esc(catNames[k]) + '</button>';
+  }).join('');
+  tabs.addEventListener('click', function(e){
+    var b = e.target.closest('.dlg-tab');
+    if (b) show(b.dataset.cat);
+  });
+
+  show(order[0]);
+  root.classList.add('is-ready');
 })();
 </script>
 </body>

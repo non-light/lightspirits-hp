@@ -7,25 +7,9 @@
 <!-- Google Search Console の所有権確認タグ。確認後も外さないこと（外すと所有権が解除される） -->
 <meta name="google-site-verification" content="h8eq9Dd3hoIn5KaVADRDPXTRhVNOPzO57HQXcTyF0e4" />
 <meta name="description" content="AI開発・ロボット開発・アプリ開発を、企画から試作・完成までひとつの窓口で。構想段階からの技術相談やAI顧問にも対応。中小企業・新規事業の開発パートナー、らいとすぴりっつ。">
-<script>
-(function(){
-  try {
-    if (new URLSearchParams(location.search).get('pc') === '1') {
-      sessionStorage.setItem('forcePC', '1');
-      return;
-    }
-    if (sessionStorage.getItem('forcePC') === '1') return;
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      location.replace('mobile.html' + location.hash);
-    }
-  } catch (e) {}
-})();
-</script>
 <!-- 修正(SEO): 検索キーワード（AI・ロボット・アプリ開発）と強み（一貫開発）をタイトルに -->
 <title>合同会社らいとすぴりっつ | AI・ロボット・アプリ開発をひとつの窓口で — 魂に火を灯す</title>
 <link rel="canonical" href="https://lightspirits.jp/">
-<!-- モバイル幅ではJSで mobile.html に振り分けるため、対応関係を明示 -->
-<link rel="alternate" media="only screen and (max-width: 768px)" href="https://lightspirits.jp/mobile.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -926,7 +910,7 @@ section{padding:7rem 4rem}
 }
 .raizin-x a:hover{color:var(--gold)}
 .raizin-x-mark{font-size:1rem;color:var(--gold);line-height:1}
-/* スマホはmobile.htmlに転送されるが、PC表示を強制した細い画面向けの保険 */
+/* 狭い画面では雷神日記を1列にする */
 @media(max-width:900px){
   .raizin-grid{grid-template-columns:1fr}
   .raizin-catch{margin-bottom:2.2rem}

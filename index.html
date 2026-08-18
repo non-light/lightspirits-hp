@@ -2553,7 +2553,7 @@ button.btn-gold {
 }
 
 /* 会話1本ぶん */
-#dialogue .dlg-list{display:flex;flex-direction:column;gap:1.5rem}
+#dialogue .dlg-list{display:flex;flex-direction:column;gap:0.7rem}
 #dialogue .dlg-item{
   background:rgba(12,22,42,0.55);border:1px solid rgba(232,201,122,0.22);
   border-radius:22px;padding:1.9rem 2.1rem;
@@ -2561,8 +2561,26 @@ button.btn-gold {
 }
 #dialogue .dlg-item-title{
   font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1rem;
-  color:#EEF4FE;margin:0 0 1.5rem;padding-bottom:0.8rem;
+  color:#EEF4FE;margin:0;cursor:pointer;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  transition:color .2s;
+}
+#dialogue .dlg-item-title::-webkit-details-marker{display:none}
+#dialogue .dlg-item-title:hover{color:#F5E3B0}
+#dialogue .dlg-item-title::after{
+  content:'▼';flex:0 0 auto;font-size:0.62rem;color:#B99B57;transition:transform .2s;
+}
+#dialogue .dlg-item[open] > .dlg-item-title{
+  margin-bottom:1.5rem;padding-bottom:0.8rem;
   border-bottom:1px solid rgba(232,201,122,0.18);
+}
+#dialogue .dlg-item[open] > .dlg-item-title::after{transform:rotate(180deg)}
+/* 閉じているあいだは薄く、開くと前に出る */
+#dialogue .dlg-item:not([open]){background:rgba(12,22,42,0.38);padding:1.15rem 2.1rem}
+#dialogue .dlg-item:not([open]):hover{border-color:rgba(232,201,122,0.45)}
+#dialogue .dlg-count{
+  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;
+  color:rgba(226,236,252,0.55);margin:0 0 1.1rem;
 }
 
 /* せりふ。雷神は左、もりけんは右に寄せて一目で区別できるようにする */
@@ -4862,11 +4880,12 @@ button.btn-gold {
          + '</div>';
   }
 
-  function itemHtml(c){
-    return '<article class="dlg-item" id="dlg-' + esc(c.id) + '">'
-         +   '<h3 class="dlg-item-title">' + esc(c.title || '') + '</h3>'
+  // 100件規模を想定し、既定は見出しだけ。読みたいものを開いてもらう
+  function itemHtml(c, first){
+    return '<details class="dlg-item" id="dlg-' + esc(c.id) + '"' + (first ? ' open' : '') + '>'
+         +   '<summary class="dlg-item-title">' + esc(c.title || '') + '</summary>'
          +   c.lines.map(lineHtml).join('')
-         + '</article>';
+         + '</details>';
   }
 
   // カテゴリーは、実際に会話があるものだけを定義順に並べる
@@ -4878,7 +4897,9 @@ button.btn-gold {
   var list = document.getElementById('dlg-list');
 
   function show(cat){
-    list.innerHTML = items.filter(function(c){ return c.category === cat; }).map(itemHtml).join('');
+    var hit = items.filter(function(c){ return c.category === cat; });
+    list.innerHTML = '<p class="dlg-count">' + hit.length + ' 件</p>'
+                   + hit.map(function(c, i){ return itemHtml(c, i === 0); }).join('');
     [].forEach.call(tabs.children, function(b){
       b.setAttribute('aria-selected', b.dataset.cat === cat ? 'true' : 'false');
     });

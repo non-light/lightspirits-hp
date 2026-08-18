@@ -42,78 +42,1185 @@ window.LS_CONVERSATION_CATEGORIES = Object.assign({
 /* concat で足しているので、将来ファイルを分割してもこの書き方のままで動きます */
 window.LS_CONVERSATIONS = (window.LS_CONVERSATIONS || []).concat([
 
-  /* ---------------- about : 会社のこと ---------------- */
+  /* ---------------- about : らいとすぴりっつ（15件） ---------------- */
   {
     id: 'about-001',
     category: 'about',
     title: '何をしている会社？',
     lines: [
-      { speaker: 'raizin',  text: 'もりけん、らいとすぴりっつって、けっきょく何をする会社なの？' },
+      { speaker: 'raizin',  text: 'もりけん、らいとすぴりっつって何する会社なの？' },
       { speaker: 'moriken', text: '「こんなの作れたらいいな」を、一緒に形にする会社かな。' },
-      { speaker: 'raizin',  text: 'ざっくりしてる！⚡' },
-      { speaker: 'moriken', text: 'でも本当にそうなんだ。ロボットもAIもアプリも、道具でしかないから。何を作りたいかが先で、道具はあとから選ぶ。' },
-      { speaker: 'raizin',  text: 'だから「まだぼんやりしてる」段階でも相談していいんだね。' },
-      { speaker: 'moriken', text: 'むしろその段階がいちばん面白い。' }
+      { speaker: 'raizin',  text: 'ふわっとした相談でもいいの？' },
+      { speaker: 'moriken', text: 'むしろ、そこから一緒に考えるのが好き。' },
+      { speaker: 'raizin',  text: '「なんか面白いことしたい！」でも？' },
+      { speaker: 'moriken', text: 'それはかなり好きな相談だね。' }
+    ]
+  },
+  {
+    id: 'about-002',
+    category: 'about',
+    title: '名前の意味',
+    lines: [
+      { speaker: 'raizin',  text: '「らいとすぴりっつ」ってどういう意味？' },
+      { speaker: 'moriken', text: '心の中にある小さな火を大事にしたい、っていう気持ちが入ってる。' },
+      { speaker: 'raizin',  text: '火をつける会社？' },
+      { speaker: 'moriken', text: '物理的にはつけないよ。' },
+      { speaker: 'raizin',  text: 'よかった。' }
+    ]
+  },
+  {
+    id: 'about-003',
+    category: 'about',
+    title: '何でも屋？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIもロボットもアプリもやるって、何でも屋さん？' },
+      { speaker: 'moriken', text: '近いようでちょっと違うかな。' },
+      { speaker: 'raizin',  text: 'どう違うの？' },
+      { speaker: 'moriken', text: '必要な技術を組み合わせて、目的を叶えるのが仕事。' },
+      { speaker: 'raizin',  text: '技術を選ぶところからなんだ。' }
+    ]
+  },
+  {
+    id: 'about-004',
+    category: 'about',
+    title: '小さな相談',
+    lines: [
+      { speaker: 'raizin',  text: '大きなプロジェクトじゃないと相談できない？' },
+      { speaker: 'moriken', text: 'そんなことないよ。' },
+      { speaker: 'raizin',  text: '「この作業めんどくさい」とかでも？' },
+      { speaker: 'moriken', text: 'そういうところから便利になることも多い。' },
+      { speaker: 'raizin',  text: 'めんどくさいは発明のタネ！' }
+    ]
+  },
+  {
+    id: 'about-005',
+    category: 'about',
+    title: '技術が分からなくても',
+    lines: [
+      { speaker: 'raizin',  text: 'AIとかプログラム分からない人でも相談できる？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: '専門用語を覚えてからじゃなくていい？' },
+      { speaker: 'moriken', text: '全然いらない。やりたいことを話してくれればいいよ。' },
+      { speaker: 'raizin',  text: 'ぼくにもやさしい。' }
+    ]
+  },
+  {
+    id: 'about-006',
+    category: 'about',
+    title: '何を準備する？',
+    lines: [
+      { speaker: 'raizin',  text: '相談するとき何を準備したらいい？' },
+      { speaker: 'moriken', text: '「今困ってること」と「こうなったら嬉しい」があれば十分。' },
+      { speaker: 'raizin',  text: '資料100ページとかは？' },
+      { speaker: 'moriken', text: 'なくて大丈夫。' },
+      { speaker: 'raizin',  text: '安心した。' }
+    ]
+  },
+  {
+    id: 'about-007',
+    category: 'about',
+    title: '答えがなくても',
+    lines: [
+      { speaker: 'raizin',  text: '答えが決まってなくても相談できる？' },
+      { speaker: 'moriken', text: 'もちろん。一緒に考えるところからできるよ。' },
+      { speaker: 'raizin',  text: '答えを持っていかなくていいんだ。' },
+      { speaker: 'moriken', text: '答えが全部あったら相談いらないからね。' }
+    ]
+  },
+  {
+    id: 'about-008',
+    category: 'about',
+    title: '言われたものを作る？',
+    lines: [
+      { speaker: 'raizin',  text: '言われたものをそのまま作る会社？' },
+      { speaker: 'moriken', text: 'それだけじゃないよ。' },
+      { speaker: 'raizin',  text: 'じゃあ？' },
+      { speaker: 'moriken', text: '本当にそれを作るのが一番いいか、そこから考える。' },
+      { speaker: 'raizin',  text: '作らない方がいいことも？' },
+      { speaker: 'moriken', text: 'あるね。' }
+    ]
+  },
+  {
+    id: 'about-009',
+    category: 'about',
+    title: '好きな仕事',
+    lines: [
+      { speaker: 'raizin',  text: 'どんな仕事が好き？' },
+      { speaker: 'moriken', text: '「できるか分からないけど、やってみたい」って仕事。' },
+      { speaker: 'raizin',  text: '難しいやつじゃん。' },
+      { speaker: 'moriken', text: 'だから面白いんだよ。' },
+      { speaker: 'raizin',  text: '技術者の顔してる。' }
+    ]
+  },
+  {
+    id: 'about-010',
+    category: 'about',
+    title: '小さく始める',
+    lines: [
+      { speaker: 'raizin',  text: '最初から完成品を作るの？' },
+      { speaker: 'moriken', text: 'まず小さく試すことが多いよ。' },
+      { speaker: 'raizin',  text: 'なんで？' },
+      { speaker: 'moriken', text: '早く触った方が、本当に必要なものが見えるから。' },
+      { speaker: 'raizin',  text: 'とりあえず動かす！' }
+    ]
+  },
+  {
+    id: 'about-011',
+    category: 'about',
+    title: '完璧',
+    lines: [
+      { speaker: 'raizin',  text: '完璧になってから見せるの？' },
+      { speaker: 'moriken', text: '途中でもどんどん確認するよ。' },
+      { speaker: 'raizin',  text: '恥ずかしくない？' },
+      { speaker: 'moriken', text: '間違った完成品を作る方が怖いからね。' }
+    ]
+  },
+  {
+    id: 'about-012',
+    category: 'about',
+    title: '無理なとき',
+    lines: [
+      { speaker: 'raizin',  text: '「それ無理です」って言うこともある？' },
+      { speaker: 'moriken', text: 'もちろんある。' },
+      { speaker: 'raizin',  text: '断っちゃうんだ。' },
+      { speaker: 'moriken', text: '無理なのに「できます」って言う方が困るでしょ。' },
+      { speaker: 'raizin',  text: 'たしかに。' }
+    ]
+  },
+  {
+    id: 'about-013',
+    category: 'about',
+    title: '別の方法',
+    lines: [
+      { speaker: 'raizin',  text: 'できなかったら？' },
+      { speaker: 'moriken', text: '別のやり方を考える。' },
+      { speaker: 'raizin',  text: 'AがダメならB？' },
+      { speaker: 'moriken', text: 'BもダメならC。' },
+      { speaker: 'raizin',  text: 'Zまで行ったら？' },
+      { speaker: 'moriken', text: 'その頃には何か見つかってるよ。' }
+    ]
+  },
+  {
+    id: 'about-014',
+    category: 'about',
+    title: '楽しいって大事？',
+    lines: [
+      { speaker: 'raizin',  text: '仕事なのに「楽しい」って大事？' },
+      { speaker: 'moriken', text: '大事。楽しいともっと知りたくなる。' },
+      { speaker: 'raizin',  text: '知ると？' },
+      { speaker: 'moriken', text: '作りたくなる。' },
+      { speaker: 'raizin',  text: 'いい循環！' }
+    ]
+  },
+  {
+    id: 'about-015',
+    category: 'about',
+    title: 'らしさ',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつらしい仕事って？' },
+      { speaker: 'moriken', text: '人と技術が一緒に成長できる仕事かな。' },
+      { speaker: 'raizin',  text: '技術だけじゃないんだ。' },
+      { speaker: 'moriken', text: '最後に使うのは人だからね。' }
     ]
   },
 
-  /* ---------------- ai : AIのこと ---------------- */
+  /* ---------------- ai : AI（20件） ---------------- */
   {
     id: 'ai-001',
     category: 'ai',
-    title: 'AIって、結局なにができるの？',
+    title: 'AIって何？',
     lines: [
-      { speaker: 'raizin',  text: 'AIって「なんでもできる」って言われるけど、ほんと？' },
-      { speaker: 'moriken', text: '正直に言うと、なんでもはできない。得意なことがはっきりしてる。' },
-      { speaker: 'raizin',  text: 'たとえば？' },
-      { speaker: 'moriken', text: '読む、書く、まとめる、探す、分類する。人がやると時間はかかるけど頭は使わない、みたいな仕事がいちばん向いてる。' },
-      { speaker: 'raizin',  text: 'なるほど、そこを任せるのか。' },
-      { speaker: 'moriken', text: 'そう。空いた時間で人が考える。順番はいつもそれ。' }
+      { speaker: 'raizin',  text: 'AIって結局なんなの？' },
+      { speaker: 'moriken', text: 'たくさんの情報からパターンを見つけたり、答えを作ったりする技術かな。' },
+      { speaker: 'raizin',  text: '魔法じゃない？' },
+      { speaker: 'moriken', text: '魔法っぽく見える技術。' },
+      { speaker: 'raizin',  text: 'ワクワクする。' }
+    ]
+  },
+  {
+    id: 'ai-002',
+    category: 'ai',
+    title: 'AIは万能？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIって何でもできる？' },
+      { speaker: 'moriken', text: 'できないこともいっぱいあるよ。' },
+      { speaker: 'raizin',  text: '意外。' },
+      { speaker: 'moriken', text: '得意なことに使うのが大事。' },
+      { speaker: 'raizin',  text: 'ぼくと一緒だ。' }
+    ]
+  },
+  {
+    id: 'ai-003',
+    category: 'ai',
+    title: '仕事を取られる？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIに仕事取られちゃう？' },
+      { speaker: 'moriken', text: '仕事そのものより、仕事のやり方が変わると思う。' },
+      { speaker: 'raizin',  text: 'AIと競争？' },
+      { speaker: 'moriken', text: 'AIとチームになる感じかな。' },
+      { speaker: 'raizin',  text: 'チームAI！' }
+    ]
+  },
+  {
+    id: 'ai-004',
+    category: 'ai',
+    title: 'AIは間違う？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIって間違える？' },
+      { speaker: 'moriken', text: '間違えるよ。' },
+      { speaker: 'raizin',  text: '自信満々で？' },
+      { speaker: 'moriken', text: '自信満々で。' },
+      { speaker: 'raizin',  text: '一番困るやつ。' }
+    ]
+  },
+  {
+    id: 'ai-005',
+    category: 'ai',
+    title: '信用していい？',
+    lines: [
+      { speaker: 'raizin',  text: 'AIを信用しちゃダメ？' },
+      { speaker: 'moriken', text: '丸投げしないことだね。' },
+      { speaker: 'raizin',  text: '人も確認する？' },
+      { speaker: 'moriken', text: 'そう。それぞれの得意なところを使う。' }
+    ]
+  },
+  {
+    id: 'ai-006',
+    category: 'ai',
+    title: 'ChatGPT',
+    lines: [
+      { speaker: 'raizin',  text: 'ChatGPTって仕事にも使える？' },
+      { speaker: 'moriken', text: '文章、整理、アイデア、プログラムとか色々使えるよ。' },
+      { speaker: 'raizin',  text: 'お昼ごはんを決めるのも？' },
+      { speaker: 'moriken', text: 'それも。' },
+      { speaker: 'raizin',  text: '最重要業務。' }
+    ]
+  },
+  {
+    id: 'ai-007',
+    category: 'ai',
+    title: 'AI導入',
+    lines: [
+      { speaker: 'raizin',  text: '会社にAIを入れたい！' },
+      { speaker: 'moriken', text: 'まず何を楽にしたいか探そう。' },
+      { speaker: 'raizin',  text: 'AIありきじゃない？' },
+      { speaker: 'moriken', text: '目的が先、技術は後。' }
+    ]
+  },
+  {
+    id: 'ai-008',
+    category: 'ai',
+    title: '自動化',
+    lines: [
+      { speaker: 'raizin',  text: '毎日同じ作業してる。' },
+      { speaker: 'moriken', text: 'AIやプログラムで楽にできるかも。' },
+      { speaker: 'raizin',  text: 'コピーして、貼って、確認して……。' },
+      { speaker: 'moriken', text: 'かなり候補だね。' },
+      { speaker: 'raizin',  text: 'AIさん出番です。' }
+    ]
+  },
+  {
+    id: 'ai-009',
+    category: 'ai',
+    title: 'AI文章',
+    lines: [
+      { speaker: 'raizin',  text: 'AIに文章を書いてもらえば完成？' },
+      { speaker: 'moriken', text: '最後は自分の言葉にするのがおすすめ。' },
+      { speaker: 'raizin',  text: 'なんで？' },
+      { speaker: 'moriken', text: '自分にしか言えないことが一番伝わるから。' }
+    ]
+  },
+  {
+    id: 'ai-010',
+    category: 'ai',
+    title: 'アイデア100個',
+    lines: [
+      { speaker: 'raizin',  text: 'アイデアが出ない。' },
+      { speaker: 'moriken', text: 'AIに100個出してもらおう。' },
+      { speaker: 'raizin',  text: '100個！？' },
+      { speaker: 'moriken', text: 'そこから人が面白いものを選ぶ。' },
+      { speaker: 'raizin',  text: '数はAI、センスは人！' }
+    ]
+  },
+  {
+    id: 'ai-011',
+    category: 'ai',
+    title: 'AIに相談',
+    lines: [
+      { speaker: 'raizin',  text: 'AIに相談するのって変？' },
+      { speaker: 'moriken', text: '壁打ち相手として便利だよ。' },
+      { speaker: 'raizin',  text: '壁なの？' },
+      { speaker: 'moriken', text: '返事してくれる壁。' },
+      { speaker: 'raizin',  text: '高性能。' }
+    ]
+  },
+  {
+    id: 'ai-012',
+    category: 'ai',
+    title: 'AIコーディング',
+    lines: [
+      { speaker: 'raizin',  text: 'AIがコード書いたらプログラマーいらない？' },
+      { speaker: 'moriken', text: '「何を作るか」を考える力がもっと大事になるよ。' },
+      { speaker: 'raizin',  text: '書くだけじゃない？' },
+      { speaker: 'moriken', text: 'そこが大事。' }
+    ]
+  },
+  {
+    id: 'ai-013',
+    category: 'ai',
+    title: '頼りすぎ',
+    lines: [
+      { speaker: 'raizin',  text: 'AI便利だから全部聞く！' },
+      { speaker: 'moriken', text: '自分で考える時間も残そう。' },
+      { speaker: 'raizin',  text: 'えー。' },
+      { speaker: 'moriken', text: '考える力も使わないと弱くなるよ。' },
+      { speaker: 'raizin',  text: '脳トレしてきます。' }
+    ]
+  },
+  {
+    id: 'ai-014',
+    category: 'ai',
+    title: 'AIと個性',
+    lines: [
+      { speaker: 'raizin',  text: 'AIを使うとみんな同じにならない？' },
+      { speaker: 'moriken', text: '自分の経験や考えを入れれば違いは出るよ。' },
+      { speaker: 'raizin',  text: '素材が自分なんだ。' }
+    ]
+  },
+  {
+    id: 'ai-015',
+    category: 'ai',
+    title: '生成AI',
+    lines: [
+      { speaker: 'raizin',  text: '「生成」AIって？' },
+      { speaker: 'moriken', text: '新しい文章や画像や音を作れるAI。' },
+      { speaker: 'raizin',  text: 'クリエイターAI？' },
+      { speaker: 'moriken', text: 'そんな感じ。' }
+    ]
+  },
+  {
+    id: 'ai-016',
+    category: 'ai',
+    title: '画像AI',
+    lines: [
+      { speaker: 'raizin',  text: 'AIでぼくの絵も作れる？' },
+      { speaker: 'moriken', text: '作れるよ。' },
+      { speaker: 'raizin',  text: 'もっとイケメンにして。' },
+      { speaker: 'moriken', text: '今のままでいいんじゃない？' },
+      { speaker: 'raizin',  text: '否定しないんだ。' }
+    ]
+  },
+  {
+    id: 'ai-017',
+    category: 'ai',
+    title: '声',
+    lines: [
+      { speaker: 'raizin',  text: 'AIってしゃべれる？' },
+      { speaker: 'moriken', text: '声を聞いたり作ったりもできる。' },
+      { speaker: 'raizin',  text: 'ぼくもいつか？' },
+      { speaker: 'moriken', text: 'できるかもね。' },
+      { speaker: 'raizin',  text: '発声練習しておく！' }
+    ]
+  },
+  {
+    id: 'ai-018',
+    category: 'ai',
+    title: 'AIとロボット',
+    lines: [
+      { speaker: 'raizin',  text: 'AIとロボットって違うの？' },
+      { speaker: 'moriken', text: 'AIが頭、ロボットが体って考えると分かりやすい。' },
+      { speaker: 'raizin',  text: '頭と体！' },
+      { speaker: 'moriken', text: 'そんなイメージ。' }
+    ]
+  },
+  {
+    id: 'ai-019',
+    category: 'ai',
+    title: 'AIの未来',
+    lines: [
+      { speaker: 'raizin',  text: 'AIってこれからどうなる？' },
+      { speaker: 'moriken', text: 'もっと自然に生活や仕事へ入っていくと思う。' },
+      { speaker: 'raizin',  text: 'AIを使ってるって意識もしなくなる？' },
+      { speaker: 'moriken', text: 'たぶんね。' },
+      { speaker: 'raizin',  text: '電気みたい。' }
+    ]
+  },
+  {
+    id: 'ai-020',
+    category: 'ai',
+    title: '一番大切',
+    lines: [
+      { speaker: 'raizin',  text: 'AIで一番大切なのは？' },
+      { speaker: 'moriken', text: '「何のために使うか」。' },
+      { speaker: 'raizin',  text: '最新だから！じゃダメ？' },
+      { speaker: 'moriken', text: '遊びなら全力で試していいけどね。' },
+      { speaker: 'raizin',  text: 'やった！' }
     ]
   },
 
-  /* ---------------- robot : ロボットのこと ---------------- */
+  /* ---------------- robot : ロボット・ものづくり（15件） ---------------- */
   {
     id: 'robot-001',
     category: 'robot',
-    title: 'ロボットもつくれるの？',
+    title: '難しい？',
     lines: [
-      { speaker: 'raizin',  text: 'ぼくみたいなロボットも、本当に作れるの？' },
-      { speaker: 'moriken', text: '作ってるよ。設計して、部品を出して、組んで、中のプログラムまで。' },
-      { speaker: 'raizin',  text: 'ぜんぶ一人で？' },
-      { speaker: 'moriken', text: '一人でやる。だから「ここは設計会社に聞いてください」って止まらない。' },
-      { speaker: 'raizin',  text: 'それは早そう⚡' },
-      { speaker: 'moriken', text: '早いというより、途中で話が切れないのが大きいかな。' }
+      { speaker: 'raizin',  text: 'ロボット作るの難しい？' },
+      { speaker: 'moriken', text: '難しいけど面白い。' },
+      { speaker: 'raizin',  text: 'またそれ。' },
+      { speaker: 'moriken', text: '技術者あるある。' }
+    ]
+  },
+  {
+    id: 'robot-002',
+    category: 'robot',
+    title: '中身',
+    lines: [
+      { speaker: 'raizin',  text: 'ロボットって何でできてる？' },
+      { speaker: 'moriken', text: 'モーター、センサー、コンピューター、プログラムとか。' },
+      { speaker: 'raizin',  text: 'ぼくも？' },
+      { speaker: 'moriken', text: '雷神は夢と好奇心多め。' },
+      { speaker: 'raizin',  text: '重要部品！' }
+    ]
+  },
+  {
+    id: 'robot-003',
+    category: 'robot',
+    title: 'センサー',
+    lines: [
+      { speaker: 'raizin',  text: 'センサーって？' },
+      { speaker: 'moriken', text: 'ロボットの目や耳みたいなもの。' },
+      { speaker: 'raizin',  text: '鼻もある？' },
+      { speaker: 'moriken', text: '匂いを測れるものもあるよ。' },
+      { speaker: 'raizin',  text: 'すごい。' }
+    ]
+  },
+  {
+    id: 'robot-004',
+    category: 'robot',
+    title: 'モーター',
+    lines: [
+      { speaker: 'raizin',  text: 'モーターは？' },
+      { speaker: 'moriken', text: '筋肉みたいなもの。' },
+      { speaker: 'raizin',  text: '大きいモーターならムキムキ？' },
+      { speaker: 'moriken', text: 'そんな単純ではないかな。' }
+    ]
+  },
+  {
+    id: 'robot-005',
+    category: 'robot',
+    title: 'ROS',
+    lines: [
+      { speaker: 'raizin',  text: 'ROSって？' },
+      { speaker: 'moriken', text: 'ロボットのいろんな機能をつなぐための仕組み。' },
+      { speaker: 'raizin',  text: 'まとめ役？' },
+      { speaker: 'moriken', text: 'そんな感じ。' },
+      { speaker: 'raizin',  text: 'ロボットの司令室！' }
+    ]
+  },
+  {
+    id: 'robot-006',
+    category: 'robot',
+    title: '3Dプリンター',
+    lines: [
+      { speaker: 'raizin',  text: 'プリンターなのに紙じゃないの？' },
+      { speaker: 'moriken', text: '立体を作るプリンター。' },
+      { speaker: 'raizin',  text: 'おもちゃも？' },
+      { speaker: 'moriken', text: '部品やケース、試作品も。' },
+      { speaker: 'raizin',  text: '夢の箱。' }
+    ]
+  },
+  {
+    id: 'robot-007',
+    category: 'robot',
+    title: '試作品',
+    lines: [
+      { speaker: 'raizin',  text: '試作品って失敗作？' },
+      { speaker: 'moriken', text: '早く失敗するために作るとも言える。' },
+      { speaker: 'raizin',  text: '失敗するため！？' },
+      { speaker: 'moriken', text: '早く直せるからね。' }
+    ]
+  },
+  {
+    id: 'robot-008',
+    category: 'robot',
+    title: 'CNC',
+    lines: [
+      { speaker: 'raizin',  text: 'CNCって何？' },
+      { speaker: 'moriken', text: 'コンピューターで機械を動かして材料を加工する技術。' },
+      { speaker: 'raizin',  text: '3Dプリンターとは逆？' },
+      { speaker: 'moriken', text: '足すのと削る違いはあるね。' },
+      { speaker: 'raizin',  text: '足し算と引き算！' }
+    ]
+  },
+  {
+    id: 'robot-009',
+    category: 'robot',
+    title: 'ネジ',
+    lines: [
+      { speaker: 'raizin',  text: 'ネジ一本でも大事？' },
+      { speaker: 'moriken', text: 'すごく大事。' },
+      { speaker: 'raizin',  text: 'AIより？' },
+      { speaker: 'moriken', text: 'ネジが外れたらAIが賢くても動けないよ。' },
+      { speaker: 'raizin',  text: 'ネジ先輩。' }
+    ]
+  },
+  {
+    id: 'robot-010',
+    category: 'robot',
+    title: '配線',
+    lines: [
+      { speaker: 'raizin',  text: '線いっぱい。' },
+      { speaker: 'moriken', text: '配線も設計の一部。' },
+      { speaker: 'raizin',  text: 'ぐちゃぐちゃでも動けばいい？' },
+      { speaker: 'moriken', text: '後で自分が泣く。' },
+      { speaker: 'raizin',  text: '整理します。' }
+    ]
+  },
+  {
+    id: 'robot-011',
+    category: 'robot',
+    title: '電源',
+    lines: [
+      { speaker: 'raizin',  text: '充電切れたら？' },
+      { speaker: 'moriken', text: '動かない。' },
+      { speaker: 'raizin',  text: '当たり前だった。' },
+      { speaker: 'moriken', text: 'でもその当たり前を支える設計も大事。' }
+    ]
+  },
+  {
+    id: 'robot-012',
+    category: 'robot',
+    title: '安全',
+    lines: [
+      { speaker: 'raizin',  text: '強いロボットって危なくない？' },
+      { speaker: 'moriken', text: 'だから安全設計が大事。' },
+      { speaker: 'raizin',  text: '動けばOKじゃない？' },
+      { speaker: 'moriken', text: '安全に止まれることも大事。' }
+    ]
+  },
+  {
+    id: 'robot-013',
+    category: 'robot',
+    title: '心',
+    lines: [
+      { speaker: 'raizin',  text: 'ロボットに心ってある？' },
+      { speaker: 'moriken', text: '難しい質問だね。' },
+      { speaker: 'raizin',  text: 'ぼくには？' },
+      { speaker: 'moriken', text: '雷神はどう思う？' },
+      { speaker: 'raizin',  text: 'あると思ったら、ある！' }
+    ]
+  },
+  {
+    id: 'robot-014',
+    category: 'robot',
+    title: '最初は妄想',
+    lines: [
+      { speaker: 'raizin',  text: 'ロボット作るとき最初は設計図？' },
+      { speaker: 'moriken', text: 'その前に「こんなのあったら面白い」を考える。' },
+      { speaker: 'raizin',  text: 'ワクワクから？' },
+      { speaker: 'moriken', text: 'そう。' }
+    ]
+  },
+  {
+    id: 'robot-015',
+    category: 'robot',
+    title: '雷神の将来',
+    lines: [
+      { speaker: 'raizin',  text: 'ぼく、歩ける？' },
+      { speaker: 'moriken', text: '作ればね。' },
+      { speaker: 'raizin',  text: 'しゃべれる？' },
+      { speaker: 'moriken', text: '作ればね。' },
+      { speaker: 'raizin',  text: '飛べる？' },
+      { speaker: 'moriken', text: 'それは相談しよう。' }
     ]
   },
 
-  /* ---------------- faq : よくある質問 ---------------- */
+  /* ---------------- dx : アプリ・Web・DX（15件） ---------------- */
+  {
+    id: 'dx-001',
+    category: 'dx',
+    title: 'アプリ',
+    lines: [
+      { speaker: 'raizin',  text: 'アプリってどう作る？' },
+      { speaker: 'moriken', text: 'まず誰が何に困ってるか考える。' },
+      { speaker: 'raizin',  text: 'プログラムからじゃない？' },
+      { speaker: 'moriken', text: 'その後。' },
+      { speaker: 'raizin',  text: '目的が先！' }
+    ]
+  },
+  {
+    id: 'dx-002',
+    category: 'dx',
+    title: 'Webアプリ',
+    lines: [
+      { speaker: 'raizin',  text: 'Webアプリって？' },
+      { speaker: 'moriken', text: 'ブラウザで使えるアプリ。' },
+      { speaker: 'raizin',  text: 'インストールしなくても？' },
+      { speaker: 'moriken', text: 'そういうものが多いよ。' }
+    ]
+  },
+  {
+    id: 'dx-003',
+    category: 'dx',
+    title: 'DX',
+    lines: [
+      { speaker: 'raizin',  text: 'DXってなに？' },
+      { speaker: 'moriken', text: 'デジタルの力で仕事のやり方を良くすること。' },
+      { speaker: 'raizin',  text: 'パソコン買うこと？' },
+      { speaker: 'moriken', text: 'それだけじゃない。' },
+      { speaker: 'raizin',  text: '危なかった。' }
+    ]
+  },
+  {
+    id: 'dx-004',
+    category: 'dx',
+    title: 'Excel',
+    lines: [
+      { speaker: 'raizin',  text: 'DXしたらExcel卒業？' },
+      { speaker: 'moriken', text: 'Excelが一番合ってるなら使えばいい。' },
+      { speaker: 'raizin',  text: '新しいほどいいわけじゃない？' },
+      { speaker: 'moriken', text: '大事なのは便利になること。' }
+    ]
+  },
+  {
+    id: 'dx-005',
+    category: 'dx',
+    title: '手作業',
+    lines: [
+      { speaker: 'raizin',  text: '毎日同じデータ入力してる。' },
+      { speaker: 'moriken', text: '自動化できるかもね。' },
+      { speaker: 'raizin',  text: 'その時間で昼寝……。' },
+      { speaker: 'moriken', text: '仕事しよう。' },
+      { speaker: 'raizin',  text: 'はい。' }
+    ]
+  },
+  {
+    id: 'dx-006',
+    category: 'dx',
+    title: '通知',
+    lines: [
+      { speaker: 'raizin',  text: '大事なこと忘れちゃう。' },
+      { speaker: 'moriken', text: '自動通知する仕組みを作るとか。' },
+      { speaker: 'raizin',  text: 'システムに覚えてもらう？' },
+      { speaker: 'moriken', text: '人が覚えなくていいものは任せてもいい。' }
+    ]
+  },
+  {
+    id: 'dx-007',
+    category: 'dx',
+    title: 'データ整理',
+    lines: [
+      { speaker: 'raizin',  text: 'データがあちこち。' },
+      { speaker: 'moriken', text: '一か所にまとめるだけでも楽になるよ。' },
+      { speaker: 'raizin',  text: '探す時間ってもったいないね。' }
+    ]
+  },
+  {
+    id: 'dx-008',
+    category: 'dx',
+    title: 'UI',
+    lines: [
+      { speaker: 'raizin',  text: 'UIって？' },
+      { speaker: 'moriken', text: 'ボタンや画面みたいに人が触る部分。' },
+      { speaker: 'raizin',  text: '見た目？' },
+      { speaker: 'moriken', text: '使いやすさも含むよ。' }
+    ]
+  },
+  {
+    id: 'dx-009',
+    category: 'dx',
+    title: 'UX',
+    lines: [
+      { speaker: 'raizin',  text: 'UXは？' },
+      { speaker: 'moriken', text: '使ったときの体験全体。' },
+      { speaker: 'raizin',  text: '「使いやすかった」とか？' },
+      { speaker: 'moriken', text: '「また使いたい」まで含めてね。' }
+    ]
+  },
+  {
+    id: 'dx-010',
+    category: 'dx',
+    title: 'ボタン',
+    lines: [
+      { speaker: 'raizin',  text: 'ボタン一個なら簡単？' },
+      { speaker: 'moriken', text: '見た目だけならね。' },
+      { speaker: 'raizin',  text: '裏では？' },
+      { speaker: 'moriken', text: '押したあと色々起きる。' },
+      { speaker: 'raizin',  text: '奥深い。' }
+    ]
+  },
+  {
+    id: 'dx-011',
+    category: 'dx',
+    title: 'PCとスマホ',
+    lines: [
+      { speaker: 'raizin',  text: '同じサイトでも画面の大きさ違うね。' },
+      { speaker: 'moriken', text: 'だから端末に合わせて見せ方を変えることもあるよ。' },
+      { speaker: 'raizin',  text: '全部同じじゃなくていいんだ。' },
+      { speaker: 'moriken', text: '使う場面に合っていることが大事。' }
+    ]
+  },
+  {
+    id: 'dx-012',
+    category: 'dx',
+    title: 'システムを作れば解決？',
+    lines: [
+      { speaker: 'raizin',  text: 'システム作れば全部解決！' },
+      { speaker: 'moriken', text: 'とは限らない。' },
+      { speaker: 'raizin',  text: 'えっ。' },
+      { speaker: 'moriken', text: '使ってもらえなかったら意味ないからね。' }
+    ]
+  },
+  {
+    id: 'dx-013',
+    category: 'dx',
+    title: '機能盛り盛り',
+    lines: [
+      { speaker: 'raizin',  text: '機能いっぱい入れよう！' },
+      { speaker: 'moriken', text: '本当に使う？' },
+      { speaker: 'raizin',  text: '……かっこいいから。' },
+      { speaker: 'moriken', text: '必要なものからね。' }
+    ]
+  },
+  {
+    id: 'dx-014',
+    category: 'dx',
+    title: 'バグ',
+    lines: [
+      { speaker: 'raizin',  text: 'バグって虫？' },
+      { speaker: 'moriken', text: 'プログラムの不具合。' },
+      { speaker: 'raizin',  text: '虫退治？' },
+      { speaker: 'moriken', text: 'ある意味そう。' },
+      { speaker: 'raizin',  text: 'バグハンター！' }
+    ]
+  },
+  {
+    id: 'dx-015',
+    category: 'dx',
+    title: 'アップデート',
+    lines: [
+      { speaker: 'raizin',  text: '完成したら終わり？' },
+      { speaker: 'moriken', text: '使うと改善したいところが見えてくる。' },
+      { speaker: 'raizin',  text: '育てるんだ。' },
+      { speaker: 'moriken', text: 'そういう感じ。' }
+    ]
+  },
+
+  /* ---------------- faq : 相談・お客さん目線（10件） ---------------- */
   {
     id: 'faq-001',
     category: 'faq',
-    title: 'まだふんわりした相談でもいい？',
+    title: '相談だけ',
     lines: [
-      { speaker: 'raizin',  text: '「何がしたいか自分でもわかってない」って人、けっこういるよね。' },
-      { speaker: 'moriken', text: 'いる。というか、最初はだいたいそう。' },
-      { speaker: 'raizin',  text: 'それでも相談していいの？' },
-      { speaker: 'moriken', text: 'いいよ。「なんとなく困ってる」を一緒にほどくところからが仕事だから。' },
-      { speaker: 'raizin',  text: 'じゃあ気軽に声かけてって言っていいんだね！' },
-      { speaker: 'moriken', text: 'どうぞ。まとまってなくて大丈夫です。' }
+      { speaker: 'raizin',  text: '相談したら絶対お願いしないとダメ？' },
+      { speaker: 'moriken', text: '全然。話を聞くだけでも大丈夫。' },
+      { speaker: 'raizin',  text: '「これ作れる？」だけでも？' },
+      { speaker: 'moriken', text: 'もちろん。' }
+    ]
+  },
+  {
+    id: 'faq-002',
+    category: 'faq',
+    title: '予算',
+    lines: [
+      { speaker: 'raizin',  text: 'いくらかかるか分からない。' },
+      { speaker: 'moriken', text: 'そういう相談も普通だよ。' },
+      { speaker: 'raizin',  text: '先に決めなくても？' },
+      { speaker: 'moriken', text: '内容を聞きながら考えればいい。' }
+    ]
+  },
+  {
+    id: 'faq-003',
+    category: 'faq',
+    title: 'アイデアだけ',
+    lines: [
+      { speaker: 'raizin',  text: 'アイデアしかない。' },
+      { speaker: 'moriken', text: 'そこからで大丈夫。' },
+      { speaker: 'raizin',  text: '仕様もないよ？' },
+      { speaker: 'moriken', text: '一緒に整理しよう。' },
+      { speaker: 'raizin',  text: 'アイデア一個持って集合！' }
+    ]
+  },
+  {
+    id: 'faq-004',
+    category: 'faq',
+    title: '途中から',
+    lines: [
+      { speaker: 'raizin',  text: '自分で途中まで作っちゃった。' },
+      { speaker: 'moriken', text: 'そこからでも相談できるよ。' },
+      { speaker: 'raizin',  text: 'ぐちゃぐちゃでも？' },
+      { speaker: 'moriken', text: 'まず見よう。' }
+    ]
+  },
+  {
+    id: 'faq-005',
+    category: 'faq',
+    title: '他社のシステム',
+    lines: [
+      { speaker: 'raizin',  text: '他の会社が作ったものでも？' },
+      { speaker: 'moriken', text: '状況次第だけど、まず見てみるよ。' },
+      { speaker: 'raizin',  text: '全部作り直す？' },
+      { speaker: 'moriken', text: '使えるものは活かしたいね。' }
+    ]
+  },
+  {
+    id: 'faq-006',
+    category: 'faq',
+    title: 'AI入れたい',
+    lines: [
+      { speaker: 'raizin',  text: '「AI入れたい！」って相談が来たら？' },
+      { speaker: 'moriken', text: '「何を良くしたいですか？」って聞く。' },
+      { speaker: 'raizin',  text: 'AIを売らないの？' },
+      { speaker: 'moriken', text: '必要なものを考える方が先。' }
+    ]
+  },
+  {
+    id: 'faq-007',
+    category: 'faq',
+    title: '専門用語',
+    lines: [
+      { speaker: 'raizin',  text: '打ち合わせって専門用語だらけ？' },
+      { speaker: 'moriken', text: 'なるべく使わない。' },
+      { speaker: 'raizin',  text: 'API、SDK、GPIO……。' },
+      { speaker: 'moriken', text: 'わざと言ってるでしょ。' },
+      { speaker: 'raizin',  text: 'バレた。' }
+    ]
+  },
+  {
+    id: 'faq-008',
+    category: 'faq',
+    title: '試作品',
+    lines: [
+      { speaker: 'raizin',  text: '説明だけじゃ分からない。' },
+      { speaker: 'moriken', text: 'だから試作品を作ることもある。' },
+      { speaker: 'raizin',  text: '触って決める？' },
+      { speaker: 'moriken', text: 'その方が早いことも多い。' }
+    ]
+  },
+  {
+    id: 'faq-009',
+    category: 'faq',
+    title: '違った！',
+    lines: [
+      { speaker: 'raizin',  text: '作って「違った！」ってなったら？' },
+      { speaker: 'moriken', text: 'その「違った」が大事。' },
+      { speaker: 'raizin',  text: '失敗じゃない？' },
+      { speaker: 'moriken', text: '次に進むための情報。' }
+    ]
+  },
+  {
+    id: 'faq-010',
+    category: 'faq',
+    title: 'ゴール',
+    lines: [
+      { speaker: 'raizin',  text: 'ゴールって完成品？' },
+      { speaker: 'moriken', text: '必ずしもそうじゃない。' },
+      { speaker: 'raizin',  text: 'じゃあ？' },
+      { speaker: 'moriken', text: '「こうなったらいい」が実現すること。' },
+      { speaker: 'raizin',  text: 'モノより目的。' }
     ]
   },
 
-  /* ---------------- fun : ゆるい話 ---------------- */
+  /* ---------------- daily : もりけんの日常（10件） ---------------- */
+  {
+    id: 'daily-001',
+    category: 'daily',
+    title: 'また届いた',
+    lines: [
+      { speaker: 'raizin',  text: 'また何か届いてる。' },
+      { speaker: 'moriken', text: '新しい部品。' },
+      { speaker: 'raizin',  text: '昨日も届いてたよ。' },
+      { speaker: 'moriken', text: '昨日は別の部品。' },
+      { speaker: 'raizin',  text: '部品に囲まれてる。' }
+    ]
+  },
+  {
+    id: 'daily-002',
+    category: 'daily',
+    title: '分解',
+    lines: [
+      { speaker: 'raizin',  text: '壊れた！' },
+      { speaker: 'moriken', text: '中見てみよう。' },
+      { speaker: 'raizin',  text: 'すぐ開けるの！？' },
+      { speaker: 'moriken', text: '気になるから。' },
+      { speaker: 'raizin',  text: '技術者怖い。' }
+    ]
+  },
+  {
+    id: 'daily-003',
+    category: 'daily',
+    title: '説明',
+    lines: [
+      { speaker: 'raizin',  text: 'これ何？' },
+      { speaker: 'moriken', text: 'これはね、まず仕組みから説明すると――' },
+      { speaker: 'raizin',  text: 'あ、聞く相手間違えた。' },
+      { speaker: 'moriken', text: 'まだ一行目だよ。' }
+    ]
+  },
+  {
+    id: 'daily-004',
+    category: 'daily',
+    title: 'エラー',
+    lines: [
+      { speaker: 'raizin',  text: 'エラー出た！' },
+      { speaker: 'moriken', text: 'お、面白くなってきた。' },
+      { speaker: 'raizin',  text: '普通は困るところだよ？' },
+      { speaker: 'moriken', text: '原因探すの好きなんだよね。' }
+    ]
+  },
+  {
+    id: 'daily-005',
+    category: 'daily',
+    title: '夜',
+    lines: [
+      { speaker: 'raizin',  text: 'もう寝る時間。' },
+      { speaker: 'moriken', text: 'いいアイデア思いついた。' },
+      { speaker: 'raizin',  text: '明日にしよう？' },
+      { speaker: 'moriken', text: '5分だけ。' },
+      { speaker: 'raizin',  text: 'その5分、信用してない。' }
+    ]
+  },
+  {
+    id: 'daily-006',
+    category: 'daily',
+    title: '新しいAI',
+    lines: [
+      { speaker: 'raizin',  text: 'また新しいAI出たって。' },
+      { speaker: 'moriken', text: '触ってみよう。' },
+      { speaker: 'raizin',  text: '早い。' },
+      { speaker: 'moriken', text: '使わないと分からないから。' }
+    ]
+  },
+  {
+    id: 'daily-007',
+    category: 'daily',
+    title: '部品？',
+    lines: [
+      { speaker: 'raizin',  text: 'これゴミ？' },
+      { speaker: 'moriken', text: '部品。' },
+      { speaker: 'raizin',  text: 'これは？' },
+      { speaker: 'moriken', text: 'ケーブル。' },
+      { speaker: 'raizin',  text: 'この箱は？' },
+      { speaker: 'moriken', text: 'いつか使う箱。' },
+      { speaker: 'raizin',  text: '怪しい。' }
+    ]
+  },
+  {
+    id: 'daily-008',
+    category: 'daily',
+    title: '動いた！',
+    lines: [
+      { speaker: 'raizin',  text: '動いた！' },
+      { speaker: 'moriken', text: '動いたね。' },
+      { speaker: 'raizin',  text: 'もっと喜ばないの？' },
+      { speaker: 'moriken', text: '内心すごく喜んでる。' },
+      { speaker: 'raizin',  text: '顔に出して。' }
+    ]
+  },
+  {
+    id: 'daily-009',
+    category: 'daily',
+    title: 'ちょっとだけ',
+    lines: [
+      { speaker: 'raizin',  text: '「ちょっと試すだけ」って言ってなかった？' },
+      { speaker: 'moriken', text: '言った。' },
+      { speaker: 'raizin',  text: 'なんで完成してるの？' },
+      { speaker: 'moriken', text: '気づいたら。' },
+      { speaker: 'raizin',  text: '技術者怖い。' }
+    ]
+  },
+  {
+    id: 'daily-010',
+    category: 'daily',
+    title: '趣味と仕事',
+    lines: [
+      { speaker: 'raizin',  text: 'どこまで仕事でどこから趣味？' },
+      { speaker: 'moriken', text: '……' },
+      { speaker: 'raizin',  text: 'もりけん？' },
+      { speaker: 'moriken', text: '自分でもよく分からない。' },
+      { speaker: 'raizin',  text: '知ってた。' }
+    ]
+  },
+
+  /* ---------------- future : 理念・未来（10件） ---------------- */
+  {
+    id: 'future-001',
+    category: 'future',
+    title: '作る理由',
+    lines: [
+      { speaker: 'raizin',  text: 'なんで作るの？' },
+      { speaker: 'moriken', text: '誰かが笑顔になる瞬間が好きだからかな。' },
+      { speaker: 'raizin',  text: '技術が好きだからじゃない？' },
+      { speaker: 'moriken', text: '技術も好き。でも、その先に人がいる方がもっと楽しい。' }
+    ]
+  },
+  {
+    id: 'future-002',
+    category: 'future',
+    title: 'すごい技術',
+    lines: [
+      { speaker: 'raizin',  text: 'すごい技術って何？' },
+      { speaker: 'moriken', text: '誰かの役に立つ技術かな。' },
+      { speaker: 'raizin',  text: '地味でも？' },
+      { speaker: 'moriken', text: 'もちろん。' }
+    ]
+  },
+  {
+    id: 'future-003',
+    category: 'future',
+    title: '対話',
+    lines: [
+      { speaker: 'raizin',  text: 'なんでそんなに話を聞くの？' },
+      { speaker: 'moriken', text: '話さないと本当に困ってることが分からないから。' },
+      { speaker: 'raizin',  text: '技術より先に会話？' },
+      { speaker: 'moriken', text: 'そういうことも多い。' }
+    ]
+  },
+  {
+    id: 'future-004',
+    category: 'future',
+    title: '勇気',
+    lines: [
+      { speaker: 'raizin',  text: 'やってみたいけど怖い。' },
+      { speaker: 'moriken', text: '小さくやってみればいい。' },
+      { speaker: 'raizin',  text: '失敗したら？' },
+      { speaker: 'moriken', text: 'また考えればいい。' },
+      { speaker: 'raizin',  text: '一歩なら行けそう。' }
+    ]
+  },
+  {
+    id: 'future-005',
+    category: 'future',
+    title: '正解',
+    lines: [
+      { speaker: 'raizin',  text: '正解が分からない。' },
+      { speaker: 'moriken', text: '新しいことは最初から正解がないことも多い。' },
+      { speaker: 'raizin',  text: 'どうする？' },
+      { speaker: 'moriken', text: '試しながら近づいていく。' },
+      { speaker: 'raizin',  text: '探検だ。' }
+    ]
+  },
+  {
+    id: 'future-006',
+    category: 'future',
+    title: '好奇心',
+    lines: [
+      { speaker: 'raizin',  text: '大人になっても「なんで？」って言っていい？' },
+      { speaker: 'moriken', text: 'もちろん。' },
+      { speaker: 'raizin',  text: '子どもっぽくない？' },
+      { speaker: 'moriken', text: '好奇心に年齢制限はないよ。' }
+    ]
+  },
+  {
+    id: 'future-007',
+    category: 'future',
+    title: '人とAI',
+    lines: [
+      { speaker: 'raizin',  text: 'AIがもっと賢くなったら人は何する？' },
+      { speaker: 'moriken', text: '「何を大切にするか」を考えるんじゃないかな。' },
+      { speaker: 'raizin',  text: '答えより問い？' },
+      { speaker: 'moriken', text: 'いいこと言うね。' },
+      { speaker: 'raizin',  text: 'えへん。' }
+    ]
+  },
+  {
+    id: 'future-008',
+    category: 'future',
+    title: '人とロボット',
+    lines: [
+      { speaker: 'raizin',  text: '人とロボットって友達になれる？' },
+      { speaker: 'moriken', text: '接し方次第じゃないかな。' },
+      { speaker: 'raizin',  text: 'ぼくとは？' },
+      { speaker: 'moriken', text: 'もう相棒でしょ。' },
+      { speaker: 'raizin',  text: '言わせた。' }
+    ]
+  },
+  {
+    id: 'future-009',
+    category: 'future',
+    title: '未来',
+    lines: [
+      { speaker: 'raizin',  text: 'らいとすぴりっつ、将来どうなりたい？' },
+      { speaker: 'moriken', text: '面白いことを安心して相談できる場所にしたい。' },
+      { speaker: 'raizin',  text: '「無理かな？」を持ってくる場所？' },
+      { speaker: 'moriken', text: 'そう。「やってみよう」って言える場所。' }
+    ]
+  },
+  {
+    id: 'future-010',
+    category: 'future',
+    title: '雷神の夢',
+    lines: [
+      { speaker: 'moriken', text: '雷神は将来どうなりたい？' },
+      { speaker: 'raizin',  text: 'いろんな人と話したい！歩きたい！作りたい！旅したい！' },
+      { speaker: 'moriken', text: '欲張りだね。' },
+      { speaker: 'raizin',  text: '好奇心旺盛って言って。' }
+    ]
+  },
+
+  /* ---------------- fun : ゆるい会話（5件） ---------------- */
   {
     id: 'fun-001',
     category: 'fun',
-    title: '休みの日は何してるの？',
+    title: '雷神はAI？',
     lines: [
-      { speaker: 'raizin',  text: 'もりけんって、休みの日も何か作ってるの？' },
-      { speaker: 'moriken', text: '作ってる。' },
-      { speaker: 'raizin',  text: '即答だ⚡ 休んでる？' },
-      { speaker: 'moriken', text: '作ってるときが休んでるときなんだよな。仕事だと締切があるけど、休みの日は完全に思いつきで作れる。' },
-      { speaker: 'raizin',  text: 'ぼくもそのノリで生まれたの？' },
-      { speaker: 'moriken', text: 'まあ、そうだね。' }
+      { speaker: 'raizin',  text: 'ぼくってAIなの？' },
+      { speaker: 'moriken', text: 'どう思う？' },
+      { speaker: 'raizin',  text: 'マスコット。' },
+      { speaker: 'moriken', text: 'うん。' },
+      { speaker: 'raizin',  text: 'いつかAIになるかも？' },
+      { speaker: 'moriken', text: '面白いね。' },
+      { speaker: 'raizin',  text: '進化フラグ！' }
+    ]
+  },
+  {
+    id: 'fun-002',
+    category: 'fun',
+    title: '雷神の仕事',
+    lines: [
+      { speaker: 'raizin',  text: 'ぼくの仕事って？' },
+      { speaker: 'moriken', text: 'らいとすぴりっつを楽しくすること。' },
+      { speaker: 'raizin',  text: '重要？' },
+      { speaker: 'moriken', text: 'かなり。' },
+      { speaker: 'raizin',  text: '昇給お願いします。' },
+      { speaker: 'moriken', text: '給料あったっけ？' }
+    ]
+  },
+  {
+    id: 'fun-003',
+    category: 'fun',
+    title: '難しい言葉禁止',
+    lines: [
+      { speaker: 'raizin',  text: '今日から難しい言葉禁止。' },
+      { speaker: 'moriken', text: '分かった。' },
+      { speaker: 'raizin',  text: 'APIって何？' },
+      { speaker: 'moriken', text: 'システム同士が話すための窓口。' },
+      { speaker: 'raizin',  text: '合格。' },
+      { speaker: 'moriken', text: '採点されてる。' }
+    ]
+  },
+  {
+    id: 'fun-004',
+    category: 'fun',
+    title: '一番大事な技術',
+    lines: [
+      { speaker: 'raizin',  text: '一番大事な技術って？' },
+      { speaker: 'moriken', text: '話を聞くことかも。' },
+      { speaker: 'raizin',  text: 'プログラミングじゃない？' },
+      { speaker: 'moriken', text: '何を作るべきか分からなかったらコードを書いても仕方ないからね。' },
+      { speaker: 'raizin',  text: '対話も技術！' }
+    ]
+  },
+  {
+    id: 'fun-005',
+    category: 'fun',
+    title: '次は？',
+    lines: [
+      { speaker: 'raizin',  text: '次は何作る？' },
+      { speaker: 'moriken', text: 'まだ決めてない。' },
+      { speaker: 'raizin',  text: 'じゃあ何でも作れるね。' },
+      { speaker: 'moriken', text: 'そういう考え方、好きだな。' },
+      { speaker: 'raizin',  text: '次の「やってみたい」を探しに行こう！' }
     ]
   }
 

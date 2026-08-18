@@ -2500,6 +2500,59 @@ button.btn-gold {
   .ns-moon-label{font-size:0.8rem;margin-top:0.6rem}
 }
 
+/* ===== 会社概要 =====
+   法人の担当者が最初に確認する項目をまとめた表。両テーマで表示する。
+   値は事実が確認できたものだけを書く。未確定のものは TODO のまま。 */
+#company{padding-top:5rem;padding-bottom:5rem}
+#company .company-table{
+  width:100%;border-collapse:collapse;
+  max-width:760px;font-size:0.87rem;line-height:1.9;
+}
+#company .company-table th,
+#company .company-table td{
+  text-align:left;vertical-align:top;
+  padding:0.95rem 0.5rem;
+  border-bottom:1px solid var(--border);
+}
+#company .company-table th{
+  width:11em;font-weight:700;color:var(--white);
+  font-family:'Noto Sans JP',sans-serif;letter-spacing:0.04em;
+}
+#company .company-table td{color:var(--muted)}
+#company .company-table tr:last-child th,
+#company .company-table tr:last-child td{border-bottom:none}
+#company .company-table a{color:var(--gold);text-decoration:none}
+#company .company-table a:hover{text-decoration:underline}
+/* 未記入の欄。公開前に気づけるよう、記入済みの値とは見た目を変える */
+#company .company-todo{color:var(--gold-dim);font-style:normal}
+@media(max-width:900px){
+  #company .company-table,
+  #company .company-table tbody,
+  #company .company-table tr,
+  #company .company-table th,
+  #company .company-table td{display:block;width:auto}
+  #company .company-table th{
+    border-bottom:none;padding:0.9rem 0 0.15rem;font-size:0.8rem;
+  }
+  #company .company-table td{padding:0 0 0.9rem}
+}
+
+/* 会社概要はフッター直前＝夜空のいちばん暗いところに出るので、
+   LOG以降と同じ夜用の配色を渡す（企業テーマは元の黒×金のまま） */
+[data-theme="general"] #company{
+  --gold:#E8C97A; --gold-light:#F5E3B0; --gold-dim:#B99B57;
+  --white:#EEF4FE; --muted:rgba(226,236,252,0.80);
+  --border:rgba(232,201,122,0.26);
+  color:#EEF4FE;
+}
+[data-theme="general"] #company .sec-en,
+[data-theme="general"] #company .sec-jp{color:#EEF4FE}
+[data-theme="general"] #company .sec-en .accent{color:#E8C97A}
+[data-theme="general"] #company .sec-eyebrow{background:rgba(9,17,34,0.45);color:#F0DCA8}
+[data-theme="general"] #company .sec-head::after{
+  background:linear-gradient(90deg,#E8C97A,rgba(232,201,122,0.25));
+}
+
 /* ===== もりけん × 雷神 会話セクション =====
    会話データは data/conversations.js。表示ロジックはページ末尾のスクリプト。
    表示条件：PCのみ（768px以下は非表示）／企業・法人向けテーマのみ。
@@ -3803,6 +3856,58 @@ button.btn-gold {
     <p class="bubble-p">といった、まだ具体化していない段階からご相談いただけます。</p>
   </div>
 </div>
+
+<!-- 会社概要 — 値は確認できたものだけ。未確定は TODO を残してある -->
+<section id="company" aria-labelledby="company-title">
+  <div class="sec-eyebrow">Company</div>
+  <div class="sec-head">
+    <h2 class="sec-en" id="company-title"><span class="accent">Company</span> Profile</h2>
+    <span class="sec-jp">会社概要</span>
+  </div>
+  <table class="company-table">
+    <tbody>
+      <tr>
+        <th>商号</th>
+        <td>合同会社らいとすぴりっつ</td>
+      </tr>
+      <tr>
+        <th>英文表記</th>
+        <td><!-- TODO: 要記入（例 Light Spirits LLC）--><span class="company-todo">準備中</span></td>
+      </tr>
+      <tr>
+        <th>代表社員</th>
+        <td>森田 健太</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td><!-- TODO: 要記入（郵便番号・都道府県から）--><span class="company-todo">準備中</span></td>
+      </tr>
+      <tr>
+        <th>設立</th>
+        <td><!-- TODO: 要記入（登記上の設立年月日）--><span class="company-todo">準備中</span></td>
+      </tr>
+      <tr>
+        <th>資本金</th>
+        <td><!-- TODO: 要記入。記載しない方針なら、この行ごと削除してください --><span class="company-todo">準備中</span></td>
+      </tr>
+      <tr>
+        <th>法人番号</th>
+        <td><!-- TODO: 要記入（国税庁の法人番号13桁）--><span class="company-todo">準備中</span></td>
+      </tr>
+      <tr>
+        <th>事業内容</th>
+        <td>
+          <!-- 下記はサイト内のサービス紹介から起こしたものです。実態と合っているかご確認ください -->
+          AIの活用支援・導入研修／ロボットの設計・開発／Webサービス・スマートフォンアプリ・業務システムの開発／DX推進の伴走支援／技術教育・研修
+        </td>
+      </tr>
+      <tr>
+        <th>連絡先</th>
+        <td><a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
 <!-- FOOTER -->
 <footer>

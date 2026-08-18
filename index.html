@@ -3530,7 +3530,7 @@ button.btn-gold {
     <span class="sec-jp">制作ログ・思考の記録</span>
   </div>
   <div class="blog-grid" id="note-feed">
-    <div class="note-loading">LOADING...</div>
+    <div class="note-loading" data-feed-loading>LOADING...</div>
   </div>
   <div class="note-more-wrap">
     <a href="https://note.com/moriken_ls" target="_blank" rel="noopener noreferrer" class="note-more-link">note.comで全ての記事を読む →</a>
@@ -3549,7 +3549,7 @@ button.btn-gold {
   <p class="raizin-catch">雷神、きょうもいます。</p>
 
   <div class="raizin-grid" id="raizin-feed">
-    <div class="raizin-loading">LOADING...</div>
+    <div class="raizin-loading" data-feed-loading>LOADING...</div>
   </div>
 
   <div class="note-more-wrap">
@@ -4108,7 +4108,9 @@ button.btn-gold {
       var feed = document.getElementById('note-feed');
       if (feed) feed.innerHTML =
         '<div class="note-loading">記事を取得できませんでした。'
-        +'<br><a href="'+NOTE_URL+'" target="_blank" rel="noopener" style="color:var(--gold)">note.comで直接読む →</a></div>';
+        +'<div class="note-more-wrap" style="margin-top:1.2rem">'
+        +'<a class="note-more-link" href="'+NOTE_URL+'" target="_blank" rel="noopener noreferrer">note.comで読む →</a>'
+        +'</div></div>';
     });
 })();
 </script>
@@ -4702,9 +4704,17 @@ button.btn-gold {
       String(d.getDate()).padStart(2,'0');
   }
 
+  // 応答が返らないまま繋ぎっぱなしになると、この先へ進めなくなる
+  function fetchTimeout(url, ms){
+    if (typeof AbortController === 'undefined') return fetch(url);
+    var c = new AbortController();
+    setTimeout(function(){ c.abort(); }, ms);
+    return fetch(url, { signal: c.signal });
+  }
+
   // 経路1: 通常のfetch。TumblrはOriginを反映したCORSヘッダを返す
   function viaFetch(){
-    return fetch(API + '?num=' + LIMIT + '&t=' + Date.now())
+    return fetchTimeout(API + '?num=' + LIMIT + '&t=' + Date.now(), 8000)
       .then(function(r){ if(!r.ok) throw 0; return r.text(); })
       .then(function(text){
         // レスポンスは "var tumblr_api_read = {...};" 形式
@@ -4813,7 +4823,9 @@ button.btn-gold {
     var box = document.getElementById('raizin-feed');
     if (!box) return;
     box.innerHTML = '<div class="raizin-loading">雷神日記はTumblrで公開中です。'
-      + '<br><a href="'+BLOG_URL+'" target="_blank" rel="noopener noreferrer">Tumblrで見る →</a></div>';
+      + '<div class="note-more-wrap" style="margin-top:1.2rem">'
+      + '<a class="note-more-link" href="'+BLOG_URL+'" target="_blank" rel="noopener noreferrer">Tumblrで読む →</a>'
+      + '</div></div>';
   }
 
   viaFetch().catch(viaJsonp).then(render).catch(fail);
@@ -5097,6 +5109,36 @@ button.btn-gold {
   track.innerHTML = one + one;
   bar.hidden = false;
   document.documentElement.classList.add('has-ticker');
+})();
+</script>
+<!-- 外部フィードの見張り番。
+     各ローダーは自前でタイムアウトと失敗時の差し替えを持っているが、
+     AbortController が効かない状況（signalを無視する実装・拡張機能の介在など）では
+     LOADING が残り続ける。取得のやり方に関係なく、時間で必ず差し替える。 -->
+<script>
+(function(){
+  var WAIT = 18000;   // 各ローダーは2経路×8秒。それを見届けてから動く
+
+  [
+    { id: 'note-feed',   cls: 'note-loading',
+      url: 'https://note.com/moriken_ls',
+      msg: '記事を取得できませんでした。', label: 'note.comで読む →' },
+    { id: 'raizin-feed', cls: 'raizin-loading',
+      url: 'https://www.tumblr.com/blog/raizin-lightspirits',
+      msg: '雷神日記を取得できませんでした。', label: 'Tumblrで読む →' }
+  ].forEach(function(f){
+    var box = document.getElementById(f.id);
+    if (!box) return;
+    setTimeout(function(){
+      // 差し替え済み・取得済みなら目印は消えている
+      if (!box.querySelector('[data-feed-loading]')) return;
+      box.innerHTML =
+        '<div class="' + f.cls + '">' + f.msg
+        + '<div class="note-more-wrap" style="margin-top:1.2rem">'
+        + '<a class="note-more-link" href="' + f.url + '" target="_blank" rel="noopener noreferrer">'
+        + f.label + '</a></div></div>';
+    }, WAIT);
+  });
 })();
 </script>
 </body>

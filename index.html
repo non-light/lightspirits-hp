@@ -1770,7 +1770,7 @@ footer{
   cursor: pointer;
   pointer-events: auto;
   transition: transform 0.3s, opacity 0.3s;
-  opacity: 0.72;                 /* 普段はそこにいるだけ。喋るときだけ前に出る */
+  opacity: 1;                    /* 薄くしない。喋るときだけ少し前に出る */
 }
 .mascot-img-wrap:hover { transform: scale(1.06) rotate(-3deg); }
 .mascot-img-wrap img { width: 100%; display: block; }
@@ -1796,7 +1796,7 @@ footer{
   cursor: pointer;
   pointer-events: auto;
   transition: transform 0.3s, opacity 0.3s;
-  opacity: 0.72;
+  opacity: 1;
 }
 .moriken-img-wrap:hover { transform: scale(1.04) rotate(1deg); }
 .moriken-img-wrap img { width: 100%; display: block; }
@@ -1813,7 +1813,7 @@ footer{
 }
 .mascot-img-wrap:active, .moriken-img-wrap:active { cursor: grabbing; }
 
-/* 喋っている側だけ、はっきり見せる（強調はごく控えめに） */
+/* 喋っている側だけ、ほんの少し前に出す（薄くはしない） */
 .mascot-img-wrap.is-speaking, .moriken-img-wrap.is-speaking {
   opacity: 1;
   transform: scale(1.04);
@@ -4216,8 +4216,9 @@ button.btn-gold {
   var mkImg = document.getElementById('moriken-toggle');
   if (!win || !elName || !elText) return;
 
-  // 閉じられたセッションでは、以後いっさい出さない
-  try { if (sessionStorage.getItem(CLOSED_KEY) === '1') { win.parentNode.removeChild(win); return; } } catch (e) {}
+  // ×で閉じられたセッションでは「自分からは出ない」。押されたときだけ出る
+  var muted = false;
+  try { muted = sessionStorage.getItem(CLOSED_KEY) === '1'; } catch (e) {}
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var NAMES = { raizin: '雷神', moriken: 'もりけん' };
@@ -4281,8 +4282,9 @@ button.btn-gold {
 
   var advance = null;   // 表示中だけ、次へ進む関数が入る
 
-  function play(idx){
-    if (suppressed) { schedule(2); return; }
+  function play(idx, force){
+    // force は「押されて始まった会話」。問い合わせ欄の上でも、押されたら応える
+    if (suppressed && !force) { schedule(2); return; }
     var lines = deck[idx], i = 0;
     playing = true;
     put(lines[0]);
@@ -4309,6 +4311,7 @@ button.btn-gold {
 
   function schedule(lines){
     if (timer) { clearTimeout(timer); timer = null; }
+    if (muted) return;   // ×のあとは、自分からは始めない
     // 長く喋ったあとほど長く黙る。会話が続いている感じにしない
     var extra = Math.max(0, ((lines || 2) - 2)) * 2500;
     timer = setTimeout(function(){ play(pick()); }, rand(REST_MIN, REST_MAX) + extra);
@@ -4317,7 +4320,7 @@ button.btn-gold {
   /* 押されたら早送り。表示中でなければ、その場で会話を始める */
   function nudge(){
     if (playing && advance) advance();
-    else if (!suppressed) play(pick());
+    else play(pick(), true);
   }
   win.addEventListener('click', function(e){
     if (e.target.closest('.talk-close')) return;
@@ -4326,11 +4329,9 @@ button.btn-gold {
 
   if (btnX) btnX.addEventListener('click', function(e){
     e.stopPropagation();
-    close();
-    if (timer) { clearTimeout(timer); timer = null; }
-    suppressed = true;
+    close();                 // timer もここで止まる
+    muted = true;            // 以後、自分からは出ない。押されたときだけ出る
     try { sessionStorage.setItem(CLOSED_KEY, '1'); } catch (err) {}
-    win.parentNode.removeChild(win);
   });
 
   /* 立ち絵を押しても会話を始められる（キーボードでも辿れる） */
@@ -4367,7 +4368,7 @@ button.btn-gold {
     else if (!suppressed && !timer) schedule(2);
   });
 
-  timer = setTimeout(function(){ play(pick()); }, FIRST_DELAY);
+  if (!muted) timer = setTimeout(function(){ play(pick()); }, FIRST_DELAY);
 })();
 </script>
 

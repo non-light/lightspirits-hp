@@ -173,7 +173,37 @@ window.LS_BUBBLES = {
     { raizin: 'これ、役に立つかな？',
       moriken: '面白いから作ってみよう。' },
     { raizin: '今日も何かひらめくかな？',
-      moriken: 'ひらめいたらすぐ作れるようにしておこう。' }
+      moriken: 'ひらめいたらすぐ作れるようにしておこう。' },
+    { raizin: 'ゴロゴロ鳴ってる。',
+      moriken: '親戚かな。' },
+    { raizin: 'ぼく、電池切れそう。',
+      moriken: '雷で充電できたら楽だね。' },
+    { raizin: 'バックアップ取ってる？',
+      moriken: '取った日はよく眠れる。' },
+    { raizin: '朝は強いほう？',
+      moriken: '起きてはいる。' },
+    { raizin: 'コーヒー何杯目？',
+      moriken: '数えないでおこう。' },
+    { raizin: '名前をつけるの、難しいね。',
+      moriken: '実は一番難しい。' },
+    { raizin: 'これ、なんて呼ぶ？',
+      moriken: '呼びやすいのがいいね。' },
+    { raizin: '動画撮ろう！',
+      moriken: 'まず机を片付けよう。' },
+    { raizin: '机が部品だらけ。',
+      moriken: '作ってる証拠。' },
+    { raizin: '今日も暑いね。',
+      moriken: '機械も人も休憩がいる。' },
+    { raizin: 'テストって面倒じゃない？',
+      moriken: 'あとで直す時間が減るよ。' },
+    { raizin: '締め切りっていつだっけ。',
+      moriken: '思ってるより近い。' },
+    { raizin: 'キーボード変えた？',
+      moriken: '音が気に入ってる。' },
+    { raizin: 'ぼくの声ってどんな感じかな。',
+      moriken: '想像にまかせよう。' },
+    { raizin: 'いってきます！',
+      moriken: '気をつけてね。' }
   ],
 
   /* ---------- ふたりの雑談（複数往復） ----------
@@ -918,6 +948,56 @@ window.LS_BUBBLES = {
         { speaker: 'moriken', text: 'いいね。' },
         { speaker: 'raizin', text: 'それで、作る人も使う人も楽しめるやつ。' },
         { speaker: 'moriken', text: 'それが一番だ。' }
+      ] },
+    { id: 'chat-101', title: '夕立が来た。',
+      lines: [
+        { speaker: 'moriken', text: '夕立だ。' },
+        { speaker: 'raizin', text: 'ぼくの本業！' },
+        { speaker: 'moriken', text: '本業だったのか。' },
+        { speaker: 'raizin', text: '今日は控えめにしておくね。' },
+        { speaker: 'moriken', text: '洗濯物、助かる。' }
+      ] },
+    { id: 'chat-102', title: '会社の誕生日。',
+      lines: [
+        { speaker: 'raizin', text: 'この会社っていつできたの？' },
+        { speaker: 'moriken', text: '2026年8月8日。' },
+        { speaker: 'raizin', text: 'まだ生まれたばかりだ。' },
+        { speaker: 'moriken', text: 'だから何でもやってみる。' },
+        { speaker: 'raizin', text: 'いいね、その感じ。' }
+      ] },
+    { id: 'chat-103', title: 'バックアップの話。',
+      lines: [
+        { speaker: 'moriken', text: 'バックアップ取ったか？' },
+        { speaker: 'raizin', text: '……たぶん。' },
+        { speaker: 'moriken', text: 'たぶんは取ってない。' },
+        { speaker: 'raizin', text: '今から取る。' },
+        { speaker: 'moriken', text: '毎回それでいい。' }
+      ] },
+    { id: 'chat-104', title: '名前をつける仕事。',
+      lines: [
+        { speaker: 'raizin', text: '新しいの、名前どうする？' },
+        { speaker: 'moriken', text: '呼びたくなる名前がいい。' },
+        { speaker: 'raizin', text: '難しいね。' },
+        { speaker: 'moriken', text: '名前がつくと、急に自分のものになる。' },
+        { speaker: 'raizin', text: 'ぼくも名前もらったもんね。' },
+        { speaker: 'moriken', text: 'そういうこと。' }
+      ] },
+    { id: 'chat-105', title: '夏の作業場。',
+      lines: [
+        { speaker: 'raizin', text: '部屋、暑くない？' },
+        { speaker: 'moriken', text: '機械も熱を出すからな。' },
+        { speaker: 'raizin', text: '人も機械も夏バテするんだ。' },
+        { speaker: 'moriken', text: '休ませると長持ちする。' },
+        { speaker: 'raizin', text: 'じゃあ休憩！' },
+        { speaker: 'moriken', text: '賛成。' }
+      ] },
+    { id: 'chat-106', title: '窓口はひとつ。',
+      lines: [
+        { speaker: 'raizin', text: 'AIとロボットとアプリ、別々の会社に頼むの？' },
+        { speaker: 'moriken', text: 'うちは全部ここで受ける。' },
+        { speaker: 'raizin', text: '話す相手が増えないのはうれしいね。' },
+        { speaker: 'moriken', text: '説明を何度もしなくていい。' },
+        { speaker: 'raizin', text: 'それだけで進みが早くなりそう。' }
       ] }
   ]
 

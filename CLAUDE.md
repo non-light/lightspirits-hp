@@ -98,9 +98,10 @@ hero → news → about → works → services → strength → yui
 - **1度に1せりふ**。名前＋本文が入れ替わる。しっぽや三角は付けない
 - 自動進行。4〜6秒/行、会話後10〜20秒（長い会話ほど+2.5秒/行）休止
 - ウィンドウか立ち絵をクリックで早送り。**クリックしないと進まない仕様にはしない**
-- × で閉じるとそのタブでは再表示しない（`sessionStorage: ls-talk-closed`）
+- × で閉じるとそのタブでは**自動では出なくなる**（`sessionStorage: ls-talk-closed`）。
+  ただし立ち絵を押せば1会話だけ出る。閉じてもクリック操作は死なせない
 - Contact・Footerが画面下部に来ると黙る
-- 立ち絵は出入りしない。喋る側だけ opacity 1・scale 1.04
+- 立ち絵は出入りせず、**薄くもしない**（opacity 1）。喋る側だけ scale 1.04
 - 調整用の値はスクリプト冒頭: `LINE_MIN` `LINE_MAX` `REST_MIN` `REST_MAX`
 
 ### 会話を追加するとき

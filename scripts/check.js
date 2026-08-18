@@ -125,7 +125,11 @@ function checkBubbles(){
       var at = 'bubbles.js の pairs[' + i + ']';
       if (!p || typeof p !== 'object') { fail(at + ' が空です'); return; }
       // ふきだしは2つしかないので、1往復を超えるものは持てない
-      var extra = Object.keys(p).filter(function(k){ return k !== 'raizin' && k !== 'moriken'; });
+      var extra = Object.keys(p).filter(function(k){
+        return k !== 'raizin' && k !== 'moriken' && k !== 'first';
+      });
+      if (p.first !== undefined && p.first !== 'raizin' && p.first !== 'moriken')
+        fail(at + " の first は 'raizin' か 'moriken' だけです");
       if (extra.length)
         fail(at + ' に ' + extra.join('/') + ' があります。かけあいは1往復までです。'
            + '長い会話は data/conversations.js へ');

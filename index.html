@@ -1764,43 +1764,19 @@ footer{
   gap: 0.5rem;
   pointer-events: none;
 }
-.mascot-bubble {
-  background: linear-gradient(135deg, #FFFBEA 0%, #FFF3C4 100%);
-  border: 2px solid #F5C842;
-  border-radius: 14px 14px 4px 14px;
-  padding: 0.7rem 1.05rem;
-  font-size: 0.88rem;
-  color: #3B2800;
-  font-weight: 500;
-  line-height: 1.6;
-  max-width: 250px;
-  box-shadow: 0 4px 16px rgba(201,168,76,0.22);
-  pointer-events: auto;
-  opacity: 1;
-  transition: opacity 0.3s, transform 0.3s;
-  transform: translateY(0);
-}
-.mascot-bubble.hidden { opacity: 0; pointer-events: none; transform: translateY(6px); }
 
-.mascot-bubble-name {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #B8860B;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.2rem;
-}
 .mascot-img-wrap {
-  width: 140px;
+  width: 116px;
   cursor: pointer;
   pointer-events: auto;
-  transition: transform 0.2s;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0.72;                 /* 普段はそこにいるだけ。喋るときだけ前に出る */
 }
 .mascot-img-wrap:hover { transform: scale(1.06) rotate(-3deg); }
 .mascot-img-wrap img { width: 100%; display: block; }
 @media(max-width:900px){
   .mascot-wrap { left: 0.5rem; }
-  .mascot-img-wrap { width: 90px; }
-  .mascot-bubble { font-size: 0.75rem; max-width: 160px; }
+  .mascot-img-wrap { width: 84px; }
 }
 
 /* ===== MORIKEN CHARACTER ===== */
@@ -1815,42 +1791,18 @@ footer{
   gap: 0.5rem;
   pointer-events: none;
 }
-.moriken-bubble {
-  background: #fff;
-  border: 2px solid #C9A84C;
-  border-radius: 14px 14px 14px 4px;
-  padding: 0.7rem 1.05rem;
-  font-size: 0.88rem;
-  color: #2A1A00;
-  font-weight: 500;
-  line-height: 1.6;
-  max-width: 250px;
-  box-shadow: 0 4px 16px rgba(201,168,76,0.2);
-  pointer-events: auto;
-  opacity: 1;
-  transition: opacity 0.3s, transform 0.3s;
-  transform: translateY(0);
-}
-.moriken-bubble.hidden { opacity: 0; pointer-events: none; transform: translateY(6px); }
-.moriken-bubble-name {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #7A5800;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.2rem;
-}
 .moriken-img-wrap {
-  width: 280px;
+  width: 200px;
   cursor: pointer;
   pointer-events: auto;
-  transition: transform 0.2s;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0.72;
 }
 .moriken-img-wrap:hover { transform: scale(1.04) rotate(1deg); }
 .moriken-img-wrap img { width: 100%; display: block; }
 @media(max-width:900px){
   .moriken-wrap { right: 0.5rem; }
-  .moriken-img-wrap { width: 160px; }
-  .moriken-bubble { font-size: 0.75rem; max-width: 155px; }
+  .moriken-img-wrap { width: 140px; }
 }
 
 /* ===== マスコット ドラッグ移動 ===== */
@@ -1860,6 +1812,102 @@ footer{
   user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
 }
 .mascot-img-wrap:active, .moriken-img-wrap:active { cursor: grabbing; }
+
+/* 喋っている側だけ、はっきり見せる（強調はごく控えめに） */
+.mascot-img-wrap.is-speaking, .moriken-img-wrap.is-speaking {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+/* ===== ゲーム風の共通会話ウィンドウ =====
+   左右の吹き出しをやめ、画面下中央のこの1枚に統一した（2026-08-19）。
+   本文側の吹き出しと見分けがつくよう、しっぽや三角は付けない。 */
+.talk-window {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 195;                  /* ナビ(200)・ドロワー(199)より下。本文より上 */
+  width: min(720px, calc(100vw - 340px));   /* 左右の立ち絵ぶんを空ける */
+  min-height: 104px;
+  box-sizing: border-box;
+  padding: 0.95rem 3rem 1rem 1.4rem;
+  border-radius: 14px;
+  background: rgba(10, 18, 34, 0.88);
+  border: 1px solid rgba(232, 201, 122, 0.34);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.talk-window.is-open {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.talk-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #E8C97A;
+  margin: 0 0 0.45rem;
+}
+.talk-text {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: #F2F6FE;
+  margin: 0;
+  transition: opacity 0.22s ease;
+}
+.talk-window.is-swapping .talk-name,
+.talk-window.is-swapping .talk-text { opacity: 0; }
+/* 送りの目印。押さなくても進むが、押せば早送りできる */
+.talk-next {
+  position: absolute;
+  right: 1.15rem;
+  bottom: 0.85rem;
+  font-size: 0.7rem;
+  color: rgba(232, 201, 122, 0.8);
+  animation: talk-blink 1.4s ease-in-out infinite;
+}
+@keyframes talk-blink { 0%,100%{opacity:0.3} 50%{opacity:1} }
+.talk-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(242, 246, 254, 0.55);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.talk-close:hover { color: #F2F6FE; background: rgba(255,255,255,0.08); }
+.talk-close:focus-visible { outline: 3px solid #0284C7; outline-offset: 2px; }
+
+/* 幅が足りないと立ち絵ぶんを引けなくなる。
+   サイトが既に使っている 900px の区切りに合わせ、立ち絵の上に載せる */
+@media (max-width: 900px) {
+  .talk-window {
+    width: min(720px, calc(100vw - 24px));
+    bottom: 156px;
+    min-height: 92px;
+    padding: 0.8rem 2.6rem 0.85rem 1.1rem;
+  }
+  .talk-text { font-size: 0.95rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .talk-window { transition: opacity 0.2s ease; transform: translateX(-50%); }
+  .talk-window.is-open { transform: translateX(-50%); }
+  .talk-next { animation: none; opacity: 0.8; }
+  .talk-text, .talk-name { transition: none; }
+}
 /* キーボードで辿れるので、フォーカスは必ず見えるようにする */
 .mascot-img-wrap:focus-visible, .moriken-img-wrap:focus-visible {
   outline: 3px solid #0284C7;
@@ -3828,6 +3876,34 @@ button.btn-gold {
   </div>
 </footer>
 
+<!-- AVATAR POPUP -->
+<div class="avatar-overlay" id="avatarOverlay">
+  <div class="avatar-bubble">
+    <button class="avatar-bubble-close" id="avatarClose">✕</button>
+    <p class="bubble-name">森田 健太（もりた けんた）</p>
+    <p class="bubble-name-sub">プロフィール</p>
+
+    <p class="bubble-p">東京理科大学大学院（機械工学専攻）修士課程修了。</p>
+    <p class="bubble-p">20年以上にわたり、ロボット開発・システム開発・AI開発に携わってきました。</p>
+    <p class="bubble-p">学生時代にはロボット競技会で優勝を経験し、その後もロボット技術やソフトウェア開発の現場で実績を積み重ねています。現在は、ChatGPTをはじめとする生成AIや音声会話AIの開発、企業向けのAI導入支援や研修などを行っています。</p>
+
+    <p class="bubble-h">強み</p>
+    <p class="bubble-p">私の強みは、アイデアを形にする力です。</p>
+    <p class="bubble-p">多くの開発現場では、機械設計、電子回路、プログラム、AI開発をそれぞれ別の専門家が担当します。しかし私は、</p>
+    <div class="bubble-msg">「アイデアを考える → 設計する → 試作品を作る → AIを組み込む → 実際に動かす」</div>
+    <p class="bubble-p">までを一人で対応できます。</p>
+
+    <p class="bubble-h">こんな相談ができます</p>
+    <ul class="bubble-list">
+      <li>AIを活用した新しいサービスを作りたい</li>
+      <li>業務を自動化したい</li>
+      <li>ロボットを開発したい</li>
+      <li>新規事業のアイデアを形にしたい</li>
+    </ul>
+    <p class="bubble-p">といった、まだ具体化していない段階からご相談いただけます。</p>
+  </div>
+</div>
+
 <!-- MASCOT (左下) -->
 <div class="fuse-line" id="fuse-line" aria-hidden="true">
   <div class="fuse-spark" id="fuse-spark"></div>
@@ -3836,10 +3912,6 @@ button.btn-gold {
 <canvas id="ember-canvas" aria-hidden="true"></canvas>
 
 <div class="mascot-wrap" id="mascot">
-  <div class="mascot-bubble hidden" id="mascot-bubble">
-    <p class="mascot-bubble-name">⚡ 雷神</p>
-    <span id="mascot-text"></span>
-  </div>
   <div class="mascot-img-wrap" id="mascot-toggle" title="雷神（クリックで会話）">
     <img src="images/mascot-raizin.png" alt="らいとすぴりっつ マスコットキャラクター 雷神" draggable="false">
   </div>
@@ -3847,10 +3919,6 @@ button.btn-gold {
 
 <!-- MORIKEN (右下) -->
 <div class="moriken-wrap" id="moriken-wrap">
-  <div class="moriken-bubble hidden" id="moriken-bubble">
-    <p class="moriken-bubble-name">🔥 もりけん</p>
-    <span id="moriken-text"></span>
-  </div>
   <div class="moriken-img-wrap" id="moriken-toggle" title="もりけん（クリックで会話）">
     <img src="images/moriken.png" alt="もりけん キャラクター" draggable="false">
   </div>
@@ -4117,116 +4185,180 @@ button.btn-gold {
 
 <!-- 会話データ。追加・修正はこのファイルだけで完結する -->
 <script src="data/conversations.js"></script>
+<!-- ふたりの共通会話ウィンドウ。左右の吹き出しをやめ、画面下中央のこの1枚に統一した -->
+<div class="talk-window" id="talkWindow" role="status" aria-live="polite">
+  <p class="talk-name" id="talkName"></p>
+  <p class="talk-text" id="talkText"></p>
+  <span class="talk-next" aria-hidden="true">&#9654;</span>
+  <button class="talk-close" id="talkClose" type="button" aria-label="ふたりの会話を閉じる">&times;</button>
+</div>
+
 <!-- ニュース。追加・修正はこのファイルだけで完結する -->
 <script src="data/news.js"></script>
 <!-- マスコットのひとこと。追加・修正はこのファイルだけで完結する -->
 <script src="data/bubbles.js"></script>
 <script>
-/* 画面の隅の雷神ともりけんは、押されたときだけ喋る。
-   単発のひとことと、1往復の一言かけあいの2種類。
-   2往復以上は「もりけんと雷神の話」セクションの担当（ふきだしでは読みづらいため）。
-   2026-08-19に自動表示を廃止（本文側のふきだしと重なって読めなくなるため）。 */
+/* ふたりの会話。左右の吹き出しをやめ、画面下中央の共通ウィンドウ1枚に統一した（2026-08-19）。
+   1度に出るせりふは1つだけ。1往復で終わり、しばらく黙る。
+   長い会話は「もりけんと雷神の話」セクションの担当。 */
 (function(){
-  var SPEAK = 7000;               // 出ている時間
-  var FIRST_VISIT_DELAY = 2600;   // 初回だけ、読み込み後に喋るまでの待ち
-  var SEEN_KEY = 'ls-mascot-greeted';
+  var LINE_MIN = 4000, LINE_MAX = 6000;   // 1せりふを出しておく時間
+  var REST_MIN = 10000, REST_MAX = 20000; // 会話と会話のあいだ、黙っている時間
+  var FIRST_DELAY = 6000;                 // 最初の会話まで
+  var RECENT = 8;                         // 直近これだけは抽選から外す
+  var CLOSED_KEY = 'ls-talk-closed';
 
-  var data = window.LS_BUBBLES || {};
+  var win   = document.getElementById('talkWindow');
+  var elName= document.getElementById('talkName');
+  var elText= document.getElementById('talkText');
+  var btnX  = document.getElementById('talkClose');
+  var rzImg = document.getElementById('mascot-toggle');
+  var mkImg = document.getElementById('moriken-toggle');
+  if (!win || !elName || !elText) return;
+
+  // 閉じられたセッションでは、以後いっさい出さない
+  try { if (sessionStorage.getItem(CLOSED_KEY) === '1') { win.parentNode.removeChild(win); return; } } catch (e) {}
+
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NAMES = { raizin: '雷神', moriken: 'もりけん' };
 
-  var mBubble = document.getElementById('mascot-bubble');
-  var mText   = document.getElementById('mascot-text');
-  var rBubble = document.getElementById('moriken-bubble');
-  var rText   = document.getElementById('moriken-text');
+  /* data/bubbles.js をそのまま使う。
+     ひとことは1せりふの会話、かけあいは1往復の会話として扱う。 */
+  var d = window.LS_BUBBLES || {};
+  var ok = function(t){ return typeof t === 'string' && t.trim(); };
+  var deck = [];
+  (d.raizin  || []).forEach(function(t){ if (ok(t)) deck.push([{ who:'raizin',  text:t }]); });
+  (d.moriken || []).forEach(function(t){ if (ok(t)) deck.push([{ who:'moriken', text:t }]); });
+  (d.pairs   || []).forEach(function(p){
+    if (!p || !ok(p.raizin) || !ok(p.moriken)) return;
+    var a = { who:'raizin', text:p.raizin }, b = { who:'moriken', text:p.moriken };
+    deck.push(p.first === 'moriken' ? [b, a] : [a, b]);
+  });
+  if (!deck.length) return;
 
-  function setText(el, txt) { if (el) el.innerHTML = String(txt).replace(/\n/g, '<br>'); }
-  function show(bubble, handle, on) {
-    if (!bubble) return;
-    bubble.classList[on ? 'remove' : 'add']('hidden');
-    if (handle) handle.setAttribute('aria-expanded', on ? 'true' : 'false');
+  var recent = [], timer = null, playing = false, suppressed = false;
+
+  function rand(a, b){ return a + Math.random() * (b - a); }
+  function pick(){
+    // 直近に出したものは避ける。候補が尽きたら履歴を捨てる
+    var pool = [];
+    for (var i = 0; i < deck.length; i++) if (recent.indexOf(i) === -1) pool.push(i);
+    if (!pool.length) { recent = []; for (i = 0; i < deck.length; i++) pool.push(i); }
+    var n = pool[Math.floor(Math.random() * pool.length)];
+    recent.push(n);
+    while (recent.length > Math.min(RECENT, deck.length - 1)) recent.shift();
+    return n;
   }
 
-  var okStr = function(t){ return typeof t === 'string' && t.trim(); };
-  var pairs = (data.pairs || []).filter(function(p){
-    return p && okStr(p.raizin) && okStr(p.moriken);
+  function light(who){
+    if (rzImg) rzImg.classList.toggle('is-speaking', who === 'raizin');
+    if (mkImg) mkImg.classList.toggle('is-speaking', who === 'moriken');
+  }
+  function clearLight(){
+    if (rzImg) rzImg.classList.remove('is-speaking');
+    if (mkImg) mkImg.classList.remove('is-speaking');
+  }
+
+  function put(line){
+    elName.textContent = NAMES[line.who] || '';
+    elText.textContent = line.text.replace(/\n/g, ' ');
+    light(line.who);
+  }
+
+  function close(){
+    if (timer) { clearTimeout(timer); timer = null; }
+    win.classList.remove('is-open');
+    clearLight();
+    playing = false;
+  }
+
+  var advance = null;   // 表示中だけ、次へ進む関数が入る
+
+  function play(idx){
+    if (suppressed) { schedule(); return; }
+    var lines = deck[idx], i = 0;
+    playing = true;
+    put(lines[0]);
+    win.classList.add('is-open');
+
+    function step(){
+      if (timer) { clearTimeout(timer); timer = null; }
+      i++;
+      if (i >= lines.length) { advance = null; close(); schedule(); return; }
+      // 入れ替わりはひと呼吸おいて、読み飛ばしを防ぐ
+      if (still) { put(lines[i]); timer = setTimeout(step, dur(lines[i])); return; }
+      win.classList.add('is-swapping');
+      timer = setTimeout(function(){
+        put(lines[i]);
+        win.classList.remove('is-swapping');
+        timer = setTimeout(step, dur(lines[i]));
+      }, 220);
+    }
+    function dur(l){ return Math.min(LINE_MAX, Math.max(LINE_MIN, 3600 + l.text.length * 90)); }
+
+    advance = step;
+    timer = setTimeout(step, dur(lines[0]));
+  }
+
+  function schedule(){
+    if (timer) { clearTimeout(timer); timer = null; }
+    timer = setTimeout(function(){ play(pick()); }, rand(REST_MIN, REST_MAX));
+  }
+
+  /* 押されたら早送り。表示中でなければ、その場で会話を始める */
+  function nudge(){
+    if (playing && advance) advance();
+    else if (!suppressed) play(pick());
+  }
+  win.addEventListener('click', function(e){
+    if (e.target.closest('.talk-close')) return;
+    nudge();
   });
 
-  /* キャラ1体ぶんの独立した仕掛け。
-     自分の単発と、ふたりのかけあいの両方を持ち、押されるたびに順番に出す。 */
-  function makeMascot(o){
-    var handle = document.getElementById(o.handle);
-    if (!handle || !mBubble || !rBubble) return null;
+  if (btnX) btnX.addEventListener('click', function(e){
+    e.stopPropagation();
+    close();
+    if (timer) { clearTimeout(timer); timer = null; }
+    suppressed = true;
+    try { sessionStorage.setItem(CLOSED_KEY, '1'); } catch (err) {}
+    win.parentNode.removeChild(win);
+  });
 
-    var solo = (data[o.key] || []).filter(okStr);
-    // 単発とかけあいを1本の順番にまとめる
-    var deck = solo.map(function(t){ return { solo: t }; })
-                   .concat(pairs.map(function(p){ return { pair: p }; }));
-    if (!deck.length) { console.warn('[ひとこと] ' + o.key + ' のせりふがありません'); return null; }
-
-    var i = -1, timer = null, open = false;
-
-    function hide(){
-      if (timer) { clearTimeout(timer); timer = null; }
-      show(mBubble, o.key === 'raizin' ? handle : null, false);
-      show(rBubble, o.key === 'moriken' ? handle : null, false);
-      handle.setAttribute('aria-expanded', 'false');
-      open = false;
-    }
-    function speak(){
-      if (timer) { clearTimeout(timer); timer = null; }   // 連打してもタイマーは常に1本
-      i = (i + 1) % deck.length;
-      var item = deck[i];
-
-      if (item.pair) {                       // 一言かけあい：2つ同時に出す
-        setText(mText, item.pair.raizin);
-        setText(rText, item.pair.moriken);
-        show(mBubble, null, true);
-        show(rBubble, null, true);
-      } else if (o.key === 'raizin') {        // 単発：押された側だけ
-        setText(mText, item.solo);
-        show(mBubble, null, true);
-        show(rBubble, null, false);
-      } else {
-        setText(rText, item.solo);
-        show(rBubble, null, true);
-        show(mBubble, null, false);
-      }
-      handle.setAttribute('aria-expanded', 'true');
-      open = true;
-      timer = setTimeout(hide, SPEAK);
-    }
-    function toggle(){
-      if (typeof suppressClick !== 'undefined' && suppressClick) return;  // ドラッグ直後は無視
-      if (open) hide(); else speak();
-    }
-
-    handle.setAttribute('role', 'button');
-    handle.setAttribute('tabindex', '0');
-    handle.setAttribute('aria-label', o.label);
-    handle.setAttribute('aria-expanded', 'false');
-    handle.addEventListener('click', toggle);
-    handle.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(); }
+  /* 立ち絵を押しても会話を始められる（キーボードでも辿れる） */
+  [[rzImg, '雷神に話しかける'], [mkImg, 'もりけんに話しかける']].forEach(function(pair){
+    var el = pair[0];
+    if (!el) return;
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-label', pair[1]);
+    el.addEventListener('click', function(){
+      if (typeof suppressClick !== 'undefined' && suppressClick) return;   // ドラッグ直後は無視
+      nudge();
     });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); nudge(); }
+    });
+  });
 
-    return { speak: speak, count: deck.length };
+  /* 問い合わせとフッターの上には出さない。画面下に固定されているので重なるため */
+  var blockers = [document.getElementById('contact'), document.querySelector('footer')].filter(Boolean);
+  if (blockers.length && 'IntersectionObserver' in window) {
+    var hit = {};
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ hit[e.target.id || 'footer'] = e.isIntersecting; });
+      var any = Object.keys(hit).some(function(k){ return hit[k]; });
+      suppressed = any;
+      if (any) close();
+    }, { rootMargin: '-78% 0px 0px 0px' });   // ウィンドウのいる画面下部の帯に入ったら黙る
+    blockers.forEach(function(el){ io.observe(el); });
   }
 
-  var raizin  = makeMascot({ key:'raizin',  handle:'mascot-toggle',  label:'雷神のひとことを見る' });
-  var moriken = makeMascot({ key:'moriken', handle:'moriken-toggle', label:'もりけんのひとことを見る' });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { close(); if (timer) { clearTimeout(timer); timer = null; } }
+    else if (!suppressed && !timer) schedule();
+  });
 
-  /* 押せることに気づいてもらうため、初回訪問のときだけ雷神が一度だけ喋る。
-     2回目以降は出さない。動きを抑える設定のときも出さない。 */
-  if (raizin && !still) {
-    var seen = false;
-    try { seen = localStorage.getItem(SEEN_KEY) === '1'; } catch (e) { seen = true; }
-    if (!seen) {
-      setTimeout(function(){
-        raizin.speak();
-        try { localStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
-      }, FIRST_VISIT_DELAY);
-    }
-  }
+  timer = setTimeout(function(){ play(pick()); }, FIRST_DELAY);
 })();
 </script>
 
@@ -4273,6 +4405,8 @@ button.btn-gold {
     });
   }
 
+  var mWrap = document.getElementById('mascot');
+  var rWrap = document.getElementById('moriken-wrap');
   makeDraggable(mWrap, document.getElementById('mascot-toggle'));
   makeDraggable(rWrap, document.getElementById('moriken-toggle'));
 

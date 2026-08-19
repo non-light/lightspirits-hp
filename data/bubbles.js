@@ -998,6 +998,408 @@ window.LS_BUBBLES = {
         { speaker: 'raizin', text: '話す相手が増えないのはうれしいね。' },
         { speaker: 'moriken', text: '説明を何度もしなくていい。' },
         { speaker: 'raizin', text: 'それだけで進みが早くなりそう。' }
+      ] },
+    { id: 'chat-107', title: 'もりけん、これ何？',
+      lines: [
+        { speaker: 'raizin', text: 'もりけん、これ何？' },
+        { speaker: 'moriken', text: 'センサー。' },
+        { speaker: 'raizin', text: '何を感じるの？' },
+        { speaker: 'moriken', text: 'いろいろ。' },
+        { speaker: 'raizin', text: 'ぼくよりすごい？' }
+      ] },
+    { id: 'chat-108', title: 'このロボット、歩ける？',
+      lines: [
+        { speaker: 'raizin', text: 'このロボット、歩ける？' },
+        { speaker: 'moriken', text: '作れば歩けるよ。' },
+        { speaker: 'raizin', text: 'じゃあ走れる？' },
+        { speaker: 'moriken', text: '作ればね。' },
+        { speaker: 'raizin', text: '飛べる？' },
+        { speaker: 'moriken', text: '話が大きくなってきた。' }
+      ] },
+    { id: 'chat-109', title: '3Dプリンターってすごいね。',
+      lines: [
+        { speaker: 'raizin', text: '3Dプリンターってすごいね。' },
+        { speaker: 'moriken', text: '何でも作れるわけじゃないよ。' },
+        { speaker: 'raizin', text: 'じゃあ何が作れるの？' },
+        { speaker: 'moriken', text: '工夫したもの。' },
+        { speaker: 'raizin', text: '工夫が材料？' }
+      ] },
+    { id: 'chat-110', title: 'この部品、何に使うの？',
+      lines: [
+        { speaker: 'raizin', text: 'この部品、何に使うの？' },
+        { speaker: 'moriken', text: 'まだ決まってない。' },
+        { speaker: 'raizin', text: 'じゃあ何で買ったの？' },
+        { speaker: 'moriken', text: '面白そうだったから。' },
+        { speaker: 'raizin', text: '技術者だ。' }
+      ] },
+    { id: 'chat-111', title: '失敗した？',
+      lines: [
+        { speaker: 'raizin', text: '失敗した？' },
+        { speaker: 'moriken', text: 'した。' },
+        { speaker: 'raizin', text: '悲しい？' },
+        { speaker: 'moriken', text: 'ちょっとね。' },
+        { speaker: 'raizin', text: 'じゃあ次は成功だね。' }
+      ] },
+    { id: 'chat-112', title: 'また失敗した？',
+      lines: [
+        { speaker: 'raizin', text: 'また失敗した？' },
+        { speaker: 'moriken', text: '今度は原因が分かった。' },
+        { speaker: 'raizin', text: 'それなら成功？' },
+        { speaker: 'moriken', text: '次の成功に近づいたね。' },
+        { speaker: 'raizin', text: '失敗の使い方が上手い。' }
+      ] },
+    { id: 'chat-113', title: 'AIに聞いてみよう！',
+      lines: [
+        { speaker: 'raizin', text: 'AIに聞いてみよう！' },
+        { speaker: 'moriken', text: 'まず自分でも考えてみよう。' },
+        { speaker: 'raizin', text: '考えた。' },
+        { speaker: 'moriken', text: 'どうだった？' },
+        { speaker: 'raizin', text: '分からなかった。' },
+        { speaker: 'moriken', text: 'じゃあ聞こう。' }
+      ] },
+    { id: 'chat-114', title: 'AIって頭いいね。',
+      lines: [
+        { speaker: 'raizin', text: 'AIって頭いいね。' },
+        { speaker: 'moriken', text: '人間も負けてないよ。' },
+        { speaker: 'raizin', text: 'ぼくは？' },
+        { speaker: 'moriken', text: '好奇心担当。' },
+        { speaker: 'raizin', text: '重要ポジション！' }
+      ] },
+    { id: 'chat-115', title: 'AIに仕事してもらおう。',
+      lines: [
+        { speaker: 'raizin', text: 'AIに仕事してもらおう。' },
+        { speaker: 'moriken', text: '何を？' },
+        { speaker: 'raizin', text: 'めんどくさいこと。' },
+        { speaker: 'moriken', text: '具体的だね。' },
+        { speaker: 'raizin', text: 'そこから考えよう。' }
+      ] },
+    { id: 'chat-116', title: 'AIって間違えるの？',
+      lines: [
+        { speaker: 'raizin', text: 'AIって間違えるの？' },
+        { speaker: 'moriken', text: '間違えるよ。' },
+        { speaker: 'raizin', text: 'じゃあどうするの？' },
+        { speaker: 'moriken', text: '人間が確認する。' },
+        { speaker: 'raizin', text: '人間にも仕事が残った。' }
+      ] },
+    { id: 'chat-117', title: 'パソコン動かない！',
+      lines: [
+        { speaker: 'raizin', text: 'パソコン動かない！' },
+        { speaker: 'moriken', text: '電源入ってる？' },
+        { speaker: 'raizin', text: '……。' },
+        { speaker: 'moriken', text: 'まずそこからだね。' },
+        { speaker: 'raizin', text: '初歩だった。' }
+      ] },
+    { id: 'chat-118', title: 'Wi-Fiが遅い！',
+      lines: [
+        { speaker: 'raizin', text: 'Wi-Fiが遅い！' },
+        { speaker: 'moriken', text: '再起動してみよう。' },
+        { speaker: 'raizin', text: 'また魔法？' },
+        { speaker: 'moriken', text: '定番の手段。' },
+        { speaker: 'raizin', text: '現代の呪文。' }
+      ] },
+    { id: 'chat-119', title: '保存した？',
+      lines: [
+        { speaker: 'raizin', text: '保存した？' },
+        { speaker: 'moriken', text: 'したよ。' },
+        { speaker: 'raizin', text: '本当に？' },
+        { speaker: 'moriken', text: 'した。' },
+        { speaker: 'raizin', text: 'えらい。' }
+      ] },
+    { id: 'chat-120', title: 'ファイルがない！',
+      lines: [
+        { speaker: 'raizin', text: 'ファイルがない！' },
+        { speaker: 'moriken', text: '検索してみよう。' },
+        { speaker: 'raizin', text: '出てこない！' },
+        { speaker: 'moriken', text: '名前は？' },
+        { speaker: 'raizin', text: '分からない！' }
+      ] },
+    { id: 'chat-121', title: 'このエラー怖い。',
+      lines: [
+        { speaker: 'raizin', text: 'このエラー怖い。' },
+        { speaker: 'moriken', text: '原因を教えてくれてるんだよ。' },
+        { speaker: 'raizin', text: '親切じゃん。' },
+        { speaker: 'moriken', text: 'たまに分かりにくいけどね。' }
+      ] },
+    { id: 'chat-122', title: 'バグって虫？',
+      lines: [
+        { speaker: 'raizin', text: 'バグって虫？' },
+        { speaker: 'moriken', text: 'プログラムの不具合。' },
+        { speaker: 'raizin', text: 'じゃあ退治する？' },
+        { speaker: 'moriken', text: 'そういう気持ちでいいよ。' },
+        { speaker: 'raizin', text: 'バグハンター！' }
+      ] },
+    { id: 'chat-123', title: 'コードが長い。',
+      lines: [
+        { speaker: 'raizin', text: 'コードが長い。' },
+        { speaker: 'moriken', text: '整理しよう。' },
+        { speaker: 'raizin', text: 'コードも片付けるの？' },
+        { speaker: 'moriken', text: '人間と同じ。' },
+        { speaker: 'raizin', text: '耳が痛い。' }
+      ] },
+    { id: 'chat-124', title: '机の上がすごい。',
+      lines: [
+        { speaker: 'raizin', text: '机の上がすごい。' },
+        { speaker: 'moriken', text: '必要なものだから。' },
+        { speaker: 'raizin', text: '全部？' },
+        { speaker: 'moriken', text: 'たぶん。' },
+        { speaker: 'raizin', text: 'たぶんなんだ。' }
+      ] },
+    { id: 'chat-125', title: '工具がいっぱいあるね。',
+      lines: [
+        { speaker: 'raizin', text: '工具がいっぱいあるね。' },
+        { speaker: 'moriken', text: '使うからね。' },
+        { speaker: 'raizin', text: '全部使う？' },
+        { speaker: 'moriken', text: 'いつか。' },
+        { speaker: 'raizin', text: 'その“いつか”強い。' }
+      ] },
+    { id: 'chat-126', title: 'ネジが余った。',
+      lines: [
+        { speaker: 'raizin', text: 'ネジが余った。' },
+        { speaker: 'moriken', text: '予備だよ。' },
+        { speaker: 'raizin', text: 'ネジが足りない。' },
+        { speaker: 'moriken', text: 'それは予備じゃない。' },
+        { speaker: 'raizin', text: '深い。' }
+      ] },
+    { id: 'chat-127', title: '何作ってるの？',
+      lines: [
+        { speaker: 'raizin', text: '何作ってるの？' },
+        { speaker: 'moriken', text: 'まだ秘密。' },
+        { speaker: 'raizin', text: '完成した？' },
+        { speaker: 'moriken', text: 'まだ。' },
+        { speaker: 'raizin', text: 'じゃあ秘密じゃなくて途中だね。' }
+      ] },
+    { id: 'chat-128', title: '今日は何作る？',
+      lines: [
+        { speaker: 'raizin', text: '今日は何作る？' },
+        { speaker: 'moriken', text: 'まだ決めてない。' },
+        { speaker: 'raizin', text: 'じゃあ何する？' },
+        { speaker: 'moriken', text: '考える。' },
+        { speaker: 'raizin', text: 'それも仕事？' }
+      ] },
+    { id: 'chat-129', title: 'アイデアが出ない。',
+      lines: [
+        { speaker: 'raizin', text: 'アイデアが出ない。' },
+        { speaker: 'moriken', text: '困ってることを探してみよう。' },
+        { speaker: 'raizin', text: 'お腹すいた。' },
+        { speaker: 'moriken', text: 'それは困ってるね。' },
+        { speaker: 'raizin', text: '食べ物アプリ作る？' }
+      ] },
+    { id: 'chat-130', title: 'アイデア思いついた！',
+      lines: [
+        { speaker: 'raizin', text: 'アイデア思いついた！' },
+        { speaker: 'moriken', text: 'メモしよう。' },
+        { speaker: 'raizin', text: '覚えてるから大丈夫。' },
+        { speaker: 'moriken', text: '本当に？' },
+        { speaker: 'raizin', text: '……メモします。' }
+      ] },
+    { id: 'chat-131', title: '面白いもの作りたい。',
+      lines: [
+        { speaker: 'raizin', text: '面白いもの作りたい。' },
+        { speaker: 'moriken', text: '何が面白い？' },
+        { speaker: 'raizin', text: 'まだ分からない。' },
+        { speaker: 'moriken', text: 'じゃあ探そう。' },
+        { speaker: 'raizin', text: '探検開始！' }
+      ] },
+    { id: 'chat-132', title: 'これ、便利になる？',
+      lines: [
+        { speaker: 'raizin', text: 'これ、便利になる？' },
+        { speaker: 'moriken', text: '使う人によるね。' },
+        { speaker: 'raizin', text: 'じゃあ聞いてみよう。' },
+        { speaker: 'moriken', text: 'それが一番確実。' },
+        { speaker: 'raizin', text: '聞くって強い。' }
+      ] },
+    { id: 'chat-133', title: '専門用語って難しい。',
+      lines: [
+        { speaker: 'raizin', text: '専門用語って難しい。' },
+        { speaker: 'moriken', text: '分かりやすく話そう。' },
+        { speaker: 'raizin', text: 'APIって？' },
+        { speaker: 'moriken', text: 'システム同士の窓口。' },
+        { speaker: 'raizin', text: '急に分かった。' }
+      ] },
+    { id: 'chat-134', title: 'DXって何？',
+      lines: [
+        { speaker: 'raizin', text: 'DXって何？' },
+        { speaker: 'moriken', text: '仕事をもっと良くすること。' },
+        { speaker: 'raizin', text: 'パソコンにすること？' },
+        { speaker: 'moriken', text: 'それだけじゃないよ。' },
+        { speaker: 'raizin', text: '危なかった。' }
+      ] },
+    { id: 'chat-135', title: 'アプリってどう作るの？',
+      lines: [
+        { speaker: 'raizin', text: 'アプリってどう作るの？' },
+        { speaker: 'moriken', text: 'まず誰が使うか考える。' },
+        { speaker: 'raizin', text: 'ぼくが使う。' },
+        { speaker: 'moriken', text: '何するの？' },
+        { speaker: 'raizin', text: 'おやつを探す。' }
+      ] },
+    { id: 'chat-136', title: '便利なアプリ作ろう。',
+      lines: [
+        { speaker: 'raizin', text: '便利なアプリ作ろう。' },
+        { speaker: 'moriken', text: '何が便利？' },
+        { speaker: 'raizin', text: '寝坊を防ぐ。' },
+        { speaker: 'moriken', text: 'それは欲しい人多そう。' },
+        { speaker: 'raizin', text: 'ぼくも欲しい。' }
+      ] },
+    { id: 'chat-137', title: 'ロボットに心はある？',
+      lines: [
+        { speaker: 'raizin', text: 'ロボットに心はある？' },
+        { speaker: 'moriken', text: '難しい質問だね。' },
+        { speaker: 'raizin', text: 'じゃあ、ぼくには？' },
+        { speaker: 'moriken', text: 'あるんじゃない？' },
+        { speaker: 'raizin', text: 'やった！' }
+      ] },
+    { id: 'chat-138', title: 'ロボットって友達になれる？',
+      lines: [
+        { speaker: 'raizin', text: 'ロボットって友達になれる？' },
+        { speaker: 'moriken', text: '接し方次第かな。' },
+        { speaker: 'raizin', text: 'じゃあ優しくする。' },
+        { speaker: 'moriken', text: 'それが一番だね。' },
+        { speaker: 'raizin', text: '友達第一歩！' }
+      ] },
+    { id: 'chat-139', title: 'ロボットに何させたい？',
+      lines: [
+        { speaker: 'raizin', text: 'ロボットに何させたい？' },
+        { speaker: 'moriken', text: '人が楽になることかな。' },
+        { speaker: 'raizin', text: 'じゃあ片付け！' },
+        { speaker: 'moriken', text: 'まず自分たちでやろう。' },
+        { speaker: 'raizin', text: '……はい。' }
+      ] },
+    { id: 'chat-140', title: 'ロボットって壊れる？',
+      lines: [
+        { speaker: 'raizin', text: 'ロボットって壊れる？' },
+        { speaker: 'moriken', text: '機械だからね。' },
+        { speaker: 'raizin', text: 'じゃあ直せる？' },
+        { speaker: 'moriken', text: '原因が分かれば。' },
+        { speaker: 'raizin', text: '探偵みたい。' }
+      ] },
+    { id: 'chat-141', title: 'センサーって目？',
+      lines: [
+        { speaker: 'raizin', text: 'センサーって目？' },
+        { speaker: 'moriken', text: '目みたいなものもあるよ。' },
+        { speaker: 'raizin', text: '耳もある？' },
+        { speaker: 'moriken', text: '音を測るものもある。' },
+        { speaker: 'raizin', text: '鼻も？' },
+        { speaker: 'moriken', text: '匂いを測るものもあるよ。' }
+      ] },
+    { id: 'chat-142', title: 'モーターって何？',
+      lines: [
+        { speaker: 'raizin', text: 'モーターって何？' },
+        { speaker: 'moriken', text: 'ロボットの筋肉みたいなもの。' },
+        { speaker: 'raizin', text: 'じゃあ強いモーターはムキムキ？' },
+        { speaker: 'moriken', text: 'そう単純じゃないよ。' },
+        { speaker: 'raizin', text: '残念。' }
+      ] },
+    { id: 'chat-143', title: '完成した！',
+      lines: [
+        { speaker: 'raizin', text: '完成した！' },
+        { speaker: 'moriken', text: '動かしてみよう。' },
+        { speaker: 'raizin', text: '動いた！' },
+        { speaker: 'moriken', text: 'やったね。' },
+        { speaker: 'raizin', text: 'もう完成？' },
+        { speaker: 'moriken', text: 'ここから改良だね。' }
+      ] },
+    { id: 'chat-144', title: '改良って何？',
+      lines: [
+        { speaker: 'raizin', text: '改良って何？' },
+        { speaker: 'moriken', text: 'もっと良くすること。' },
+        { speaker: 'raizin', text: '完成したのに？' },
+        { speaker: 'moriken', text: '使うと改善点が見えるからね。' },
+        { speaker: 'raizin', text: '育てるんだ。' }
+      ] },
+    { id: 'chat-145', title: '試作品って失敗作？',
+      lines: [
+        { speaker: 'raizin', text: '試作品って失敗作？' },
+        { speaker: 'moriken', text: '実験みたいなものだよ。' },
+        { speaker: 'raizin', text: '失敗してもいい？' },
+        { speaker: 'moriken', text: 'そこから学べればね。' },
+        { speaker: 'raizin', text: '実験、大事。' }
+      ] },
+    { id: 'chat-146', title: '完璧にしてから見せる？',
+      lines: [
+        { speaker: 'raizin', text: '完璧にしてから見せる？' },
+        { speaker: 'moriken', text: '途中で見せることもあるよ。' },
+        { speaker: 'raizin', text: '恥ずかしくない？' },
+        { speaker: 'moriken', text: '早く気づけるからね。' },
+        { speaker: 'raizin', text: 'なるほど。' }
+      ] },
+    { id: 'chat-147', title: 'もりけんって何でも作れる？',
+      lines: [
+        { speaker: 'raizin', text: 'もりけんって何でも作れる？' },
+        { speaker: 'moriken', text: '何でもは無理だよ。' },
+        { speaker: 'raizin', text: 'じゃあどうするの？' },
+        { speaker: 'moriken', text: 'できる方法を探す。' },
+        { speaker: 'raizin', text: 'それ強い。' }
+      ] },
+    { id: 'chat-148', title: '分からないことがある。',
+      lines: [
+        { speaker: 'raizin', text: '分からないことがある。' },
+        { speaker: 'moriken', text: '調べよう。' },
+        { speaker: 'raizin', text: '調べても分からない。' },
+        { speaker: 'moriken', text: '別の方法を探そう。' },
+        { speaker: 'raizin', text: '諦めないんだ。' }
+      ] },
+    { id: 'chat-149', title: '新しい技術って全部試す？',
+      lines: [
+        { speaker: 'raizin', text: '新しい技術って全部試す？' },
+        { speaker: 'moriken', text: '必要なものを試すよ。' },
+        { speaker: 'raizin', text: '新しいからじゃない？' },
+        { speaker: 'moriken', text: '目的が先。' },
+        { speaker: 'raizin', text: '目的、大事。' }
+      ] },
+    { id: 'chat-150', title: '楽しいって仕事になる？',
+      lines: [
+        { speaker: 'raizin', text: '楽しいって仕事になる？' },
+        { speaker: 'moriken', text: 'なると思うよ。' },
+        { speaker: 'raizin', text: '遊んでるみたいでも？' },
+        { speaker: 'moriken', text: '真剣に遊んでるならね。' },
+        { speaker: 'raizin', text: 'それなら得意。' }
+      ] },
+    { id: 'chat-151', title: '好奇心って役に立つ？',
+      lines: [
+        { speaker: 'raizin', text: '好奇心って役に立つ？' },
+        { speaker: 'moriken', text: 'かなり役に立つよ。' },
+        { speaker: 'raizin', text: 'なんで？' },
+        { speaker: 'moriken', text: '知らないことを調べるきっかけになるから。' },
+        { speaker: 'raizin', text: 'じゃあ疑問は宝物。' }
+      ] },
+    { id: 'chat-152', title: 'なんで？っていっぱい聞いていい？',
+      lines: [
+        { speaker: 'raizin', text: 'なんで？っていっぱい聞いていい？' },
+        { speaker: 'moriken', text: 'もちろん。' },
+        { speaker: 'raizin', text: 'なんで？' },
+        { speaker: 'moriken', text: 'さっそく始まったね。' },
+        { speaker: 'raizin', text: 'なんで？' }
+      ] },
+    { id: 'chat-153', title: 'お客さんに何を聞くの？',
+      lines: [
+        { speaker: 'raizin', text: 'お客さんに何を聞くの？' },
+        { speaker: 'moriken', text: '困ってること。' },
+        { speaker: 'raizin', text: '作りたいものじゃなくて？' },
+        { speaker: 'moriken', text: '本当に必要なものを知りたいからね。' },
+        { speaker: 'raizin', text: 'なるほど。' }
+      ] },
+    { id: 'chat-154', title: '予算が少なくても相談できる？',
+      lines: [
+        { speaker: 'raizin', text: '予算が少なくても相談できる？' },
+        { speaker: 'moriken', text: 'できることを一緒に考えよう。' },
+        { speaker: 'raizin', text: '小さく始めてもいい？' },
+        { speaker: 'moriken', text: 'むしろおすすめ。' },
+        { speaker: 'raizin', text: '安心した。' }
+      ] },
+    { id: 'chat-155', title: '作りたいものが決まってない。',
+      lines: [
+        { speaker: 'raizin', text: '作りたいものが決まってない。' },
+        { speaker: 'moriken', text: 'それでも大丈夫。' },
+        { speaker: 'raizin', text: '何から始める？' },
+        { speaker: 'moriken', text: 'まず話そう。' },
+        { speaker: 'raizin', text: '雑談から？' }
+      ] },
+    { id: 'chat-156', title: 'らいとすぴりっつって何を大事にしてるの？',
+      lines: [
+        { speaker: 'raizin', text: 'らいとすぴりっつって何を大事にしてるの？' },
+        { speaker: 'moriken', text: '面白そう、を大事にしてる。' },
+        { speaker: 'raizin', text: 'ぼくの得意分野だ。' },
+        { speaker: 'moriken', text: '知ってるよ。' }
       ] }
   ]
 

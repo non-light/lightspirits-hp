@@ -2083,24 +2083,35 @@ footer{
 .pain-box-answer strong { color: var(--gold); }
 
 /* 追加: ご相談から納品までの流れ（企業向け） */
-.dev-flow { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 0.9rem; }
+/* 5列。半端な折り返し（4＋1）にならないよう、狭い画面では縦一列にする */
+.dev-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.9rem; margin: 0 0 1.3rem; }
 .dev-step {
-  flex: 1;
-  min-width: 150px;
+  min-width: 0;
   border: 1px solid var(--border);
   background: var(--black-2);
-  padding: 1.15rem 1.05rem;
+  padding: 1.4rem 1.25rem;
 }
+/* 流れの箱だけ、周りとステップの間にゆとりを持たせる */
+.dev-flow-box { padding: 1.9rem 1.9rem 1.5rem; margin-top: 2.6rem; }
+.dev-flow-box .strength-diagram-title { margin-bottom: 0.45rem; }
+.dev-flow-box .strength-diagram-sub { margin-bottom: 1.5rem; }
 .dev-step-num {
   font-family: 'Space Mono', monospace;
   font-size: 0.62rem;
   color: var(--gold);
   letter-spacing: 0.18em;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.6rem;
 }
-.dev-step-name { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.35rem; }
-.dev-step-desc { color: var(--muted); font-size: 0.75rem; line-height: 1.75; }
+.dev-step-name { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.dev-step-desc { color: var(--muted); font-size: 0.75rem; line-height: 1.9; }
 .dev-flow-note { color: var(--muted); font-size: 0.8rem; }
+@media(max-width:900px){
+  .dev-flow { grid-template-columns: 1fr; gap: 0.65rem; }
+  .dev-step { padding: 1rem 1.15rem; }
+  .dev-step-num { margin-bottom: 0.35rem; }
+  .dev-step-name { margin-bottom: 0.3rem; }
+  .dev-flow-box { padding: 1.4rem 1.3rem 1.2rem; }
+}
 
 /* 追加: よくあるご相談チップ（企業向け） */
 .consult-list { margin-top: 2.2rem; }
@@ -3366,16 +3377,9 @@ button.btn-gold {
     </div>
   </div>
 
-  <!-- CTA -->
-  <div class="for-general">
-    <div class="strength-cta">
-      <a href="#works" class="strength-btn strength-btn-secondary">動画を見る</a>
-      <a href="#contact" class="strength-btn strength-btn-primary">一緒につくる →</a>
-    </div>
-  </div>
   <!-- 追加: 開発の流れを示し、「頼んだあとどうなるか」の不安を解消（信頼感の向上） -->
   <div class="for-corporate">
-    <div class="strength-diagram">
+    <div class="strength-diagram dev-flow-box">
       <p class="strength-diagram-title">ご相談から納品までの流れ</p>
       <p class="strength-diagram-sub">すべての工程を同じ担当者が受け持つため、言った内容が途中で変わりません</p>
       <div class="dev-flow">
@@ -3409,11 +3413,11 @@ button.btn-gold {
     </div>
   </div>
 
-  <div class="for-corporate">
+  <!-- CTA: 行き先は「動画」と「相談」の2つだけ -->
+  <div>
     <div class="strength-cta">
-      <a href="#works" class="strength-btn strength-btn-secondary">実績を見る</a>
-      <!-- 修正(CTA): このセクションの文脈（試作までが早い）に合わせた具体的な行動喚起に -->
-      <a href="#contact" class="strength-btn strength-btn-primary">試作について相談する →</a>
+      <a href="#works" class="strength-btn strength-btn-secondary">動画で実績を見る</a>
+      <a href="#contact" class="strength-btn strength-btn-primary">まずは相談する →</a>
     </div>
   </div>
 </section>

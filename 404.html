@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<title>ページが見つかりません | 合同会社らいとすぴりっつ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* 配色・角丸・影は privacy.html / thanks.html と同じものを使っている。
+   独自の値はここだけ ↓ */
+:root{
+  --p-ink:#0C3A56;        /* 見出し */
+  --p-body:#1f2937;       /* 本文 */
+  --p-blue:#0284C7;
+  --p-blue-lt:#38BDF8;
+  --p-line:#E0F2FE;
+  --p-gold:#C9A84C;
+  --p-flame-1:#FFF6D8;    /* 火色。index.html の .fuse-spark と同じ */
+  --p-flame-2:#F5C842;
+  --p-flame-3:rgba(245,166,35,0);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(180deg,#D8EEFC 0%,#F0F9FF 45%,#FFF9F0 100%);
+  background-attachment:fixed;
+  font-family:'Noto Sans JP',sans-serif;
+  color:var(--p-ink);
+  line-height:2;
+}
+
+/* ===== ヘッダー（index.html のロゴと同じ組み） ===== */
+.site-head{
+  padding:1.4rem 2rem;
+}
+.site-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:0.6em;
+  text-decoration:none;
+  color:var(--p-ink);
+}
+.site-logo img{height:36px;width:auto;border-radius:4px}
+.site-logo b{
+  display:block;
+  font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;
+  font-size:0.95rem;
+  line-height:1.4;
+  letter-spacing:0.06em;
+}
+.site-logo-texts{display:block}
+.site-logo-texts span{
+  display:block;
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.24em;
+  color:var(--p-blue);
+}
+
+/* ===== 本体のカード ===== */
+main{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem 1.5rem 3rem;
+}
+.card{
+  background:#FFFFFF;
+  border-radius:26px;
+  box-shadow:0 8px 36px rgba(2,132,199,0.12);
+  padding:2.6rem 2.8rem;
+  max-width:760px;
+  width:100%;
+  text-align:center;
+}
+/* 760px 以上では雷神を横に置く。縦に積むと導線がすぐ下に隠れてしまうため */
+@media(min-width:760px){
+  .card{
+    display:flex;
+    align-items:center;
+    gap:2.4rem;
+    text-align:left;
+  }
+  .card-visual{flex:0 0 200px}
+  .card-body{flex:1;min-width:0}
+  /* 下の方に同じセレクタの指定があるので、こちらを1段強くしてある */
+  .card .raizin{margin:0 auto}
+  .card .go-list{justify-content:flex-start}
+}
+.card-code{
+  font-family:'Space Mono',monospace;
+  font-size:0.74rem;
+  letter-spacing:0.2em;
+  color:var(--p-blue);
+  font-weight:700;
+  line-height:1.6;
+}
+
+/* 雷神。灯りのない場所にいるので、うしろの光は弱くしてある */
+.raizin{
+  position:relative;
+  width:180px;
+  margin:1.2rem auto 0.4rem;
+}
+.raizin::before{
+  content:'';
+  position:absolute;
+  left:50%;top:58%;
+  width:150px;height:150px;
+  margin:-75px 0 0 -75px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    var(--p-flame-1) 0%,
+    var(--p-flame-2) 38%,
+    var(--p-flame-3) 70%);
+  opacity:0.22;
+}
+.raizin img{
+  position:relative;
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+h1{
+  font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;
+  font-size:1.5rem;
+  line-height:1.6;
+  margin-bottom:1rem;
+}
+.raizin-line{
+  display:inline-block;
+  background:#F0F9FF;
+  border:1px solid var(--p-line);
+  border-radius:14px;
+  padding:0.6rem 1.2rem;
+  font-size:0.88rem;
+  color:var(--p-body);
+  line-height:1.8;
+  margin-bottom:1.4rem;
+}
+.raizin-line b{
+  display:block;
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  color:var(--p-gold);
+}
+.lead{
+  font-size:0.88rem;
+  color:var(--p-body);
+  margin-bottom:2rem;
+}
+
+.back-btn{
+  display:inline-block;
+  padding:0.85rem 2.4rem;
+  background:linear-gradient(135deg,var(--p-blue),var(--p-blue-lt));
+  color:#fff;
+  text-decoration:none;
+  border-radius:50px;
+  font-size:0.9rem;
+  font-weight:700;
+  box-shadow:0 4px 16px rgba(2,132,199,0.28);
+  transition:transform .2s,box-shadow .2s;
+}
+.back-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(2,132,199,0.36)}
+
+.go-list{
+  list-style:none;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:0.6rem;
+  margin-top:1.8rem;
+  padding-top:1.6rem;
+  border-top:1px solid var(--p-line);
+}
+.go-list a{
+  display:block;
+  padding:0.5rem 1.4rem;
+  border:1px solid var(--p-line);
+  border-radius:50px;
+  font-size:0.82rem;
+  font-weight:700;
+  color:var(--p-blue);
+  text-decoration:none;
+  transition:background .2s,border-color .2s;
+}
+.go-list a:hover{background:#F0F9FF;border-color:var(--p-blue)}
+
+/* ===== フッター ===== */
+.site-foot{
+  padding:1.6rem 2rem 2.4rem;
+  text-align:center;
+  border-top:1px solid rgba(2,132,199,0.12);
+}
+.site-foot p{
+  font-family:'Space Mono',monospace;
+  font-size:0.68rem;
+  letter-spacing:0.18em;
+  color:var(--p-gold);
+  font-weight:700;
+}
+.foot-links{
+  margin-top:0.6rem;
+  font-size:0.74rem;
+  line-height:1.8;
+}
+.foot-links a{color:#6B7280;text-decoration:none;margin:0 0.5rem}
+.foot-links a:hover{color:var(--p-blue)}
+
+@media(max-width:700px){
+  .site-head{padding:1.1rem 1.2rem}
+  main{padding:0.5rem 1rem 2rem}
+  .card{padding:2rem 1.3rem 1.8rem;border-radius:18px}
+  h1{font-size:1.2rem}
+  .raizin{width:150px}
+  .go-list a{padding:0.5rem 1.1rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .back-btn{transition:none}
+  .back-btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="/" class="site-logo">
+    <img src="/images/logo.jpg" alt="">
+    <span class="site-logo-texts">
+      <b>合同会社らいとすぴりっつ</b>
+      <span>LIGHT SPIRITS</span>
+    </span>
+  </a>
+</header>
+
+<main>
+  <div class="card">
+    <div class="card-visual">
+      <div class="raizin">
+        <img src="/images/mascot-raizin.png" alt="あたりを見まわしている雷神" width="420" height="458">
+      </div>
+    </div>
+
+    <div class="card-body">
+      <p class="card-code">404 NOT FOUND</p>
+
+      <h1>この先には、まだ灯りがない</h1>
+
+      <p class="raizin-line"><b>雷神</b>ちょっと暗いね。明るいほうへ行こう。</p>
+
+      <p class="lead">お探しのページが見つかりませんでした。<br>行き先はこちらです。</p>
+
+      <a href="/" class="back-btn">トップページへ戻る</a>
+
+      <ul class="go-list">
+        <li><a href="/#about">らいとすぴりっつについて</a></li>
+        <li><a href="/#services">サービス</a></li>
+        <li><a href="/#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <p>らいとすぴりっつ / LIGHT SPIRITS</p>
+  <div class="foot-links">
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/terms.html">利用規約</a>
+    <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a>
+  </div>
+</footer>
+
+</body>
+</html>

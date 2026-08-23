@@ -172,7 +172,7 @@ function checkBubbles(){
 
 /* ---------- 2. リンク切れ ---------- */
 function checkLinks(){
-  var files = ['index.html', 'mobile.html', 'thanks.html'];
+  var files = ['index.html', 'mobile.html', 'thanks.html', '404.html'];
   var count = 0;
 
   files.forEach(function(f){
@@ -195,6 +195,9 @@ function checkLinks(){
     refs.forEach(function(r){
       if (/^(https?:|\/\/|mailto:|tel:|data:|#|javascript:)/i.test(r)) return;
       var p = decodeURIComponent(r.split('#')[0].split('?')[0]);
+      // 404.html は深いパスでも出るのでルート基準（/images/... ）で書いてある。
+      // 公開時のルート＝リポジトリのルートなので、先頭の / を落として見に行く
+      if (p.charAt(0) === '/') p = p.slice(1);
       if (!p) return;
       count++;
       if (!fs.existsSync(p)) fail(f + ' が参照している ' + p + ' が見つかりません');

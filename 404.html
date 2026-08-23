@@ -90,8 +90,9 @@ main{
   width:100%;
   text-align:center;
 }
-/* 760px 以上では雷神を横に置く。縦に積むと導線がすぐ下に隠れてしまうため */
-@media(min-width:760px){
+/* 860px 以上では雷神を横に置く。縦に積むと導線がすぐ下に隠れてしまうため。
+   760px だと右カラムが狭く、副リンク3つが折り返す余地が残るので 860px にしてある */
+@media(min-width:860px){
   .card{
     display:flex;
     align-items:center;
@@ -257,7 +258,9 @@ h1{
   .card{padding:2rem 1.3rem 1.8rem;border-radius:18px}
   h1{font-size:1.2rem}
   .raizin{width:150px}
-  .go-list a{padding:0.5rem 1.1rem}
+  /* 3つ並べる幅がないので縦に積む。1つだけ折り返して取り残されるのを避ける */
+  .go-list{flex-direction:column;align-items:center}
+  .go-list a{padding:0.5rem 1.4rem}
 }
 @media (prefers-reduced-motion:reduce){
   .back-btn{transition:none}
@@ -327,7 +330,7 @@ h1{
       <a href="/" class="back-btn">トップページへ戻る</a>
 
       <ul class="go-list">
-        <li><a href="/#about">らいとすぴりっつについて</a></li>
+        <li><a href="/#about">会社について</a></li>
         <li><a href="/#services">サービス</a></li>
         <li><a href="/#contact">お問い合わせ</a></li>
       </ul>

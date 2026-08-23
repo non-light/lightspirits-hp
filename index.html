@@ -2844,6 +2844,55 @@ button.btn-gold {
 [data-theme="general"] #raizin .note-more-link:hover{background:#E8C97A;color:#0A1226}
 [data-theme="general"] #blog .note-loading,
 [data-theme="general"] #raizin .raizin-loading{color:rgba(226,236,252,0.7)}
+
+/* ===== 理念を灯す — ヒーローの「火を灯す」だけが灯る =====
+   調整用の値はここだけ。色は既存のものだけを使う
+   （#F5C842 / #F5A623 は導火線 .fuse-spark と同じ火色、金は --gold 系）      */
+.hero-title-jp .ignite{
+  --ignite-hot:  #F5A623;              /* 火口。下端のいちばん熱いところ */
+  --ignite-mid:  #C9A84C;              /* = --gold */
+  --ignite-top:  #7A6428;              /* = --gold-dim。上端は落ち着かせる */
+  --ignite-glow:     rgba(245,200,66,0.55);   /* にじみ・近 */
+  --ignite-glow-far: rgba(245,166,35,0.28);   /* にじみ・遠 */
+  --ignite-dur: 900ms;                 /* 灯るまでの時間 */
+
+  display:inline-block;
+  /* 灯っていない間は下の文字色がそのまま見える。背景は控えている */
+  background-image:linear-gradient(0deg,
+    var(--ignite-hot) 0%,
+    var(--ignite-mid) 52%,
+    var(--ignite-top) 100%);
+  -webkit-background-clip:text;
+          background-clip:text;
+  -webkit-text-fill-color:currentColor;
+  filter:drop-shadow(0 0 0 rgba(245,200,66,0)) drop-shadow(0 0 0 rgba(245,166,35,0));
+  transition:-webkit-text-fill-color var(--ignite-dur) ease,
+             filter var(--ignite-dur) ease;
+}
+/* 灯った状態。background-clip:text が効く環境でだけ文字を透かす */
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .hero-title-jp .ignite.is-lit{
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 8px var(--ignite-glow))
+           drop-shadow(0 0 22px var(--ignite-glow-far));
+  }
+  @media (hover:hover) and (pointer:fine){
+    .hero-title-jp .ignite:hover{
+      -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 0 8px var(--ignite-glow))
+             drop-shadow(0 0 22px var(--ignite-glow-far));
+    }
+  }
+}
+/* 動きを減らす設定のときは、初めから静かに暖色。アニメーションはしない */
+@media (prefers-reduced-motion:reduce){
+  .hero-title-jp .ignite{
+    transition:none;
+    -webkit-text-fill-color:transparent;
+    filter:none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3027,7 +3076,7 @@ button.btn-gold {
         可能性が<br>
         広がる
       </h1>
-      <p class="hero-title-jp">あなたの知的好奇心に、火を灯す</p>
+      <p class="hero-title-jp">あなたの知的好奇心に、<span class="ignite" id="heroIgnite">火を灯す</span></p>
       <p class="hero-sub">
         さわってみる、仕組みを知る、つくってみる。<br>
         らいとすぴりっつは、「楽しい」を起点に<br>
@@ -5055,6 +5104,41 @@ button.btn-gold {
   window.matchMedia('(min-width: 901px)').addEventListener('change', function(m){
     if (m.matches) setOpen(false);                       // PC幅に戻したら開けっぱなしにしない
   });
+})();
+</script>
+<!-- 理念を灯す — ホバーできない環境では、ヒーローが見えてから一度だけ灯す -->
+<script>
+(function(){
+  var el = document.getElementById('heroIgnite');
+  if (!el) return;
+
+  var IGNITE_DELAY_MS = 1400;   // 表示されてから灯るまで（調整用）
+
+  // 動きを減らす設定のときは CSS が静的に暖色にしている。JSは何もしない
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // ホバーできる環境は CSS の :hover にまかせる
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+  var hero = document.getElementById('hero') || el;
+  var done = false;
+
+  function visible(){
+    var r = hero.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  }
+  function light(){
+    if (done) return;
+    done = true;                              // 一度灯したら消さない
+    el.classList.add('is-lit');
+    window.removeEventListener('scroll', onScroll);
+  }
+  function onScroll(){ if (visible()) light(); }
+
+  setTimeout(function(){
+    if (visible()) { light(); return; }
+    // 灯る前に読み飛ばされていたら、戻ってきたときに灯す
+    window.addEventListener('scroll', onScroll, {passive:true});
+  }, IGNITE_DELAY_MS);
 })();
 </script>
 </body>

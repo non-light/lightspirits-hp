@@ -2893,6 +2893,110 @@ button.btn-gold {
   }
 }
 
+
+/* ===== 送信のあと — 雷神が受け取る =====
+   夜側の配色（文字 #EEF4FE / 金 #E8C97A / ガラス rgba(12,22,42,0.55)）と
+   既存の火色（#FFF6D8 → #F5C842）だけを使っている                        */
+.contact-form-wrap{position:relative}
+
+/* --- 送信中 --- */
+#contact-send[aria-busy="true"]{cursor:progress}
+#contact-send:disabled{opacity:0.6}
+
+/* --- 失敗したとき --- */
+#contact .form-error{
+  margin-top:1rem;
+  padding:0.9rem 1.1rem;
+  background:rgba(10,18,36,0.62);
+  border:1px solid rgba(232,201,122,0.34);
+  border-left:3px solid #E8C97A;
+  border-radius:10px;
+  font-size:0.82rem;
+  line-height:1.9;
+  color:rgba(226,236,252,0.86);
+}
+#contact .form-error-title{font-weight:700;color:#F5E3B0;margin-bottom:0.2rem}
+#contact .form-error a{color:#E8C97A}
+#contact .form-error-note{font-size:0.78rem;color:rgba(226,236,252,0.6);margin-top:0.2rem}
+
+/* --- 成功したとき --- */
+#contact .contact-thanks{
+  --thanks-in: 520ms;       /* 差し替わるときの時間（調整用） */
+  --thanks-pop: 620ms;      /* 雷神がはずむ時間（調整用） */
+  text-align:center;
+  padding:2.4rem 1.8rem 2rem;
+  background:rgba(12,22,42,0.55);
+  border:1px solid rgba(232,201,122,0.30);
+  border-radius:18px;
+}
+#contact .thanks-raizin{position:relative;width:170px;margin:0 auto 0.4rem}
+/* 受け取ってよろこんでいるので、404 の火より明るくしてある */
+#contact .thanks-raizin::before{
+  content:'';
+  position:absolute;
+  left:50%;top:56%;
+  width:190px;height:190px;
+  margin:-95px 0 0 -95px;
+  border-radius:50%;
+  background:radial-gradient(circle,#FFF6D8 0%,#F5C842 40%,rgba(245,166,35,0) 72%);
+  opacity:0.30;
+}
+#contact .thanks-raizin img{position:relative;display:block;width:100%;height:auto}
+#contact .thanks-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.66rem;letter-spacing:0.22em;color:#B99B57;font-weight:700;
+}
+/* [data-theme="general"] #contact h3 が先にあるので、詳細度を1段上げてある */
+#contact .contact-thanks .thanks-title{
+  font-size:1.25rem;color:#F5E3B0;margin:0.3rem 0 0.9rem;line-height:1.5;
+}
+#contact .thanks-line{
+  display:inline-block;
+  padding:0.55rem 1.15rem;margin-bottom:1.1rem;
+  background:rgba(232,201,122,0.10);
+  border:1px solid rgba(232,201,122,0.30);
+  border-radius:14px;
+  font-size:0.85rem;line-height:1.8;color:#EEF4FE;
+}
+#contact .thanks-line b{
+  display:block;font-size:0.68rem;letter-spacing:0.12em;color:#E8C97A;font-weight:700;
+}
+#contact .thanks-lead{font-size:0.85rem;line-height:2;color:rgba(226,236,252,0.86)}
+#contact .thanks-reply{
+  margin-top:1rem;padding-top:1rem;
+  border-top:1px solid rgba(232,201,122,0.18);
+  font-size:0.85rem;color:#EEF4FE;
+}
+#contact .thanks-todo{color:#B99B57;font-weight:700}
+#contact .thanks-mail{margin-top:0.5rem;font-size:0.8rem;color:rgba(226,236,252,0.7)}
+#contact .thanks-mail a{color:#E8C97A}
+
+/* 差し替わる瞬間だけ動く。出たあとは静止する */
+@keyframes ls-thanks-in{
+  from{opacity:0;transform:translateY(10px) scale(0.98)}
+  to  {opacity:1;transform:none}
+}
+@keyframes ls-thanks-pop{
+  0%  {transform:scale(0.86)}
+  60% {transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+#contact .contact-thanks{
+  animation:ls-thanks-in var(--thanks-in) cubic-bezier(.2,.7,.3,1) both;
+}
+#contact .thanks-raizin img{
+  animation:ls-thanks-pop var(--thanks-pop) 120ms cubic-bezier(.2,.8,.3,1) both;
+}
+@media (prefers-reduced-motion:reduce){
+  #contact .contact-thanks,
+  #contact .thanks-raizin img{animation:none}
+}
+
+@media(max-width:900px){
+  #contact .contact-thanks{padding:2rem 1.2rem 1.6rem}
+  #contact .thanks-raizin{width:140px}
+}
+
 </style>
 </head>
 <body>
@@ -3829,6 +3933,7 @@ button.btn-gold {
         </div>
       </div>
     </div>
+    <div class="contact-form-wrap">
     <form id="contact-form" action="https://formsubmit.co/info@lightspirits.jp" method="POST">
       <input type="hidden" name="_subject" value="【らいとすぴりっつHP】お問い合わせ">
       <input type="hidden" name="_template" value="table">
@@ -3869,9 +3974,32 @@ button.btn-gold {
       <!-- 個人情報を送信する直前に、取り扱いを確認できる導線を置く -->
       <p class="form-privacy">送信の前に <a href="privacy.html">プライバシーポリシー</a> をご確認ください。ご入力の内容は、お問い合わせへの回答のみに利用します。</p>
       <button type="submit" class="btn-gold" id="contact-send" style="margin-top:0.5rem">この内容で相談する</button>
+
+      <!-- 送信に失敗したとき。届いていないのに届いたと思わせないための表示 -->
+      <div class="form-error" id="contact-error" role="alert" hidden>
+        <p class="form-error-title">送信できませんでした</p>
+        <p>通信がうまくいかなかったようです。少し時間をおいてもう一度お試しいただくか、<a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接メールをお送りください。</p>
+        <p class="form-error-note">ご入力いただいた内容は、そのまま残してあります。</p>
+      </div>
+
       <!-- 追加(②併用): フォームが使えない場合のメール直送の案内 -->
       <p class="contact-fallback">フォームが送信できない場合は <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接メールをお送りください。</p>
     </form>
+
+    <!-- 送信が成功したとき、フォームと入れ替わる -->
+    <div class="contact-thanks" id="contact-thanks" tabindex="-1" hidden>
+      <div class="thanks-raizin">
+        <img src="images/mascot-raizin.png" alt="よろこんでいる雷神" width="420" height="458">
+      </div>
+      <p class="thanks-eyebrow">MESSAGE RECEIVED</p>
+      <h3 class="thanks-title">受け取りました</h3>
+      <p class="thanks-line"><b>雷神</b>ちゃんと届いたよ。ありがとう！</p>
+      <p class="thanks-lead">内容を確認のうえ、ご入力いただいたメールアドレスへご連絡いたします。</p>
+      <!-- TODO: 要記入 — 返信の目安（例「3営業日以内」）が決まったら、下の「準備中」を差し替えてください -->
+      <p class="thanks-reply">お返事の目安：<span class="thanks-todo">準備中</span></p>
+      <p class="thanks-mail">お急ぎの場合は <a href="mailto:info@lightspirits.jp">info@lightspirits.jp</a> へ直接ご連絡ください。</p>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -4543,9 +4671,91 @@ button.btn-gold {
       el.addEventListener('change', save);
     });
 
-    contactForm.addEventListener('submit', () => {
-      // 送信できたら下書き保存はクリア
+    const clearDraft = () => {
       FIELD_IDS.forEach(id => { try { sessionStorage.removeItem('ls-form-' + id); } catch (err) {} });
+    };
+
+    // ===== 送信の見せ方 =====
+    // 調整用の値はこの2つ
+    const SEND_TIMEOUT_MS = 20000;   // 応答を待つ上限。過ぎたら失敗として扱う
+    const AJAX_URL = 'https://formsubmit.co/ajax/info@lightspirits.jp';
+
+    const sendBtn  = document.getElementById('contact-send');
+    const errorBox = document.getElementById('contact-error');
+    const thanks   = document.getElementById('contact-thanks');
+    const btnLabel = sendBtn ? sendBtn.textContent : '';
+    let sending = false;
+
+    const setSending = on => {
+      sending = on;
+      if (!sendBtn) return;
+      sendBtn.disabled = on;
+      sendBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+      sendBtn.textContent = on ? '送信中…' : btnLabel;
+    };
+
+    // fetch が無い環境では横取りしない。従来どおり formsubmit.co へ遷移して
+    // thanks.html に戻る（フォームの action と _next はそのまま残してある）
+    const canAjax = typeof window.fetch === 'function' && typeof FormData === 'function';
+
+    contactForm.addEventListener('submit', e => {
+      if (!canAjax) { clearDraft(); return; }
+
+      e.preventDefault();
+      if (sending) return;                       // 二重送信を止める
+      if (errorBox) errorBox.hidden = true;
+
+      // _next は AJAX では使われないので送らない
+      const data = {};
+      new FormData(contactForm).forEach((v, k) => { if (k !== '_next') data[k] = v; });
+
+      setSending(true);
+
+      const ctrl  = ('AbortController' in window) ? new AbortController() : null;
+      const timer = setTimeout(() => { if (ctrl) ctrl.abort(); }, SEND_TIMEOUT_MS);
+
+      fetch(AJAX_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+        signal: ctrl ? ctrl.signal : undefined
+      })
+        .then(res => res.json().then(body => ({ answered: true, ok: res.ok, body }))
+                              .catch(() => ({ answered: true, ok: false, body: null })))
+        .then(r => {
+          if (!r.ok || String(r.body && r.body.success) !== 'true') {
+            // 返事は返ってきたのに断られた場合（FormSubmit の未有効化など）。
+            // 通信は生きているので、従来どおりの経路で送り直す。
+            // form.submit() は submit イベントを出さないので、ここには戻ってこない
+            const err = new Error('refused');
+            err.answered = true;
+            throw err;
+          }
+          // 届いたことが確かめられて初めて下書きを消す
+          clearDraft();
+          contactForm.hidden = true;
+          if (!thanks) return;
+          thanks.hidden = false;
+          thanks.focus();
+          // 画面外で入れ替わると気づけないので、見える位置まで運ぶ
+          const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          thanks.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' });
+        })
+        .catch(err => {
+          if (err && err.answered) {
+            clearTimeout(timer);
+            clearDraft();
+            contactForm.submit();      // thanks.html へ遷移する従来の経路
+            return;
+          }
+          // 通信そのものが失敗している。送れていないので、
+          // 入力はそのまま残して、もう一度押せるようにする
+          setSending(false);
+          if (!errorBox) return;
+          errorBox.hidden = false;
+          errorBox.scrollIntoView({ block: 'nearest' });
+        })
+        .then(() => { clearTimeout(timer); });
     });
   }
 

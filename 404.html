@@ -230,6 +230,36 @@ h1{
 </head>
 <body>
 
+<!-- コンソールを開いた人へ。読み込み時に1回だけ出す。
+     console.warn / console.error は本物の警告と混ざるので使わない。
+     index.html の <body> 直後にある同じものの写し。文面を変えるときは両方直す -->
+<script>
+(function(){
+  var art = [
+    '',
+    '       \\ | /',
+    '   .-----------.',
+    '   |  [o] [o]  |',
+    '   |    ---    |',
+    "   '--/-----\\--'",
+    '      RAIZIN',
+    ''
+  ].join('\n');
+
+  var msg = 'ここまで開いてくれて、ありがとう。\n'
+          + 'つくることが好きな人と、話がしたいです。\n';
+
+  var sign = '\n合同会社らいとすぴりっつ  info@lightspirits.jp\n';
+
+  console.log(
+    '%c' + art + '%c' + msg + '%c' + sign,
+    'color:#C9A84C;font-family:monospace;line-height:1.15;font-size:12px',
+    'font-family:sans-serif;font-size:13px;line-height:1.7',   /* 色は指定しない。devtools が暗い配色でも読めるように */
+    'color:#0284C7;font-family:sans-serif;font-size:12px;font-weight:bold'
+  );
+})();
+</script>
+
 <header class="site-head">
   <a href="/" class="site-logo">
     <img src="/images/logo.jpg" alt="">

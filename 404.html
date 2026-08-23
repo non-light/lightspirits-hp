@@ -8,25 +8,38 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-/* 配色・角丸・影は privacy.html / thanks.html と同じものを使っている。
-   独自の値はここだけ ↓ */
+/* 「灯りがない」と書いてあるページなので、夜側の配色で組む。
+   色はすべて index.html にある既存の値。ここだけで完結させてあり、
+   他ページには一切影響しない。調整用の値はこの :root だけ ↓ */
 :root{
-  --p-ink:#0C3A56;        /* 見出し */
-  --p-body:#1f2937;       /* 本文 */
-  --p-blue:#0284C7;
-  --p-blue-lt:#38BDF8;
-  --p-line:#E0F2FE;
-  --p-gold:#C9A84C;
+  /* 背景。夜空グラデーション（index.html の .night-sky）の
+     Dialogue セクションがある帯から下を、そのまま採っている */
+  --p-sky-1:#24406C;      /* 58% — Dialogue の青灰色 */
+  --p-sky-2:#16294A;      /* 70% */
+  --p-sky-3:#0A1529;      /* 85% */
+
+  --p-ink:#F5E3B0;                    /* 見出し。夜側の淡い金 */
+  --p-body:rgba(226,236,252,0.86);    /* 本文。夜側の既定 */
+  --p-mute:rgba(226,236,252,0.72);    /* フッター。夜側のフッターと同じ */
+  --p-gold:#E8C97A;                   /* 夜側の金 */
+  --p-gold-2:#C9A84C;
+  --p-on-gold:#0A1226;                /* 金の上に載せる文字。夜側の btn-gold と同じ */
+  --p-line:rgba(232,201,122,0.22);    /* 罫線 */
+
   --p-flame-1:#FFF6D8;    /* 火色。index.html の .fuse-spark と同じ */
   --p-flame-2:#F5C842;
   --p-flame-3:rgba(245,166,35,0);
+  --p-glow:0.5;           /* 雷神の足元の光の強さ */
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{
   min-height:100svh;
   display:flex;
   flex-direction:column;
-  background:linear-gradient(180deg,#D8EEFC 0%,#F0F9FF 45%,#FFF9F0 100%);
+  background:linear-gradient(180deg,
+    var(--p-sky-1) 0%,
+    var(--p-sky-2) 55%,
+    var(--p-sky-3) 100%);
   background-attachment:fixed;
   font-family:'Noto Sans JP',sans-serif;
   color:var(--p-ink);
@@ -42,7 +55,8 @@ body{
   align-items:center;
   gap:0.6em;
   text-decoration:none;
-  color:var(--p-ink);
+  /* ロゴ画像は黒地に白の「魂」。暗い背景では黒地が沈み、白い字だけが残る */
+  color:#EEF4FE;
 }
 .site-logo img{height:36px;width:auto;border-radius:4px}
 .site-logo b{
@@ -58,10 +72,11 @@ body{
   font-family:'Space Mono',monospace;
   font-size:0.62rem;
   letter-spacing:0.24em;
-  color:var(--p-blue);
+  color:var(--p-gold);
 }
 
-/* ===== 本体のカード ===== */
+/* ===== 本体 — カードは置かない。
+   雷神の足元の光だけが灯っている状態にするため、囲む枠を作らない ===== */
 main{
   flex:1;
   display:flex;
@@ -70,9 +85,6 @@ main{
   padding:1rem 1.5rem 3rem;
 }
 .card{
-  background:#FFFFFF;
-  border-radius:26px;
-  box-shadow:0 8px 36px rgba(2,132,199,0.12);
   padding:2.6rem 2.8rem;
   max-width:760px;
   width:100%;
@@ -96,29 +108,43 @@ main{
   font-family:'Space Mono',monospace;
   font-size:0.74rem;
   letter-spacing:0.2em;
-  color:var(--p-blue);
+  color:var(--p-gold);
   font-weight:700;
   line-height:1.6;
 }
 
-/* 雷神。灯りのない場所にいるので、うしろの光は弱くしてある */
+/* 雷神。ここが画面内で唯一の光源。動かさない（静的な灯り） */
 .raizin{
   position:relative;
   width:180px;
   margin:1.2rem auto 0.4rem;
 }
+/* 遠くまで届くにじみ */
+.raizin::after{
+  content:'';
+  position:absolute;
+  left:50%;top:60%;
+  width:420px;height:420px;
+  margin:-210px 0 0 -210px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    var(--p-flame-2) 0%,
+    var(--p-flame-3) 62%);
+  opacity:calc(var(--p-glow) * 0.34);
+}
+/* 足元の芯 */
 .raizin::before{
   content:'';
   position:absolute;
   left:50%;top:58%;
-  width:150px;height:150px;
-  margin:-75px 0 0 -75px;
+  width:190px;height:190px;
+  margin:-95px 0 0 -95px;
   border-radius:50%;
   background:radial-gradient(circle,
     var(--p-flame-1) 0%,
     var(--p-flame-2) 38%,
-    var(--p-flame-3) 70%);
-  opacity:0.22;
+    var(--p-flame-3) 72%);
+  opacity:var(--p-glow);
 }
 .raizin img{
   position:relative;
@@ -132,15 +158,17 @@ h1{
   font-size:1.5rem;
   line-height:1.6;
   margin-bottom:1rem;
+  color:var(--p-ink);
 }
+/* index.html の Dialogue にある雷神の吹き出しと同じ作り */
 .raizin-line{
   display:inline-block;
-  background:#F0F9FF;
-  border:1px solid var(--p-line);
+  background:rgba(232,201,122,0.20);
+  border:1px solid rgba(232,201,122,0.36);
   border-radius:14px;
   padding:0.6rem 1.2rem;
   font-size:0.88rem;
-  color:var(--p-body);
+  color:#EEF4FE;
   line-height:1.8;
   margin-bottom:1.4rem;
 }
@@ -156,19 +184,24 @@ h1{
   margin-bottom:2rem;
 }
 
+/* 「明るいほう」へ向かうボタン。index.html の夜側 .btn-gold と同じ配色 */
 .back-btn{
   display:inline-block;
   padding:0.85rem 2.4rem;
-  background:linear-gradient(135deg,var(--p-blue),var(--p-blue-lt));
-  color:#fff;
+  background:linear-gradient(90deg,var(--p-gold),var(--p-gold-2));
+  color:var(--p-on-gold);
   text-decoration:none;
   border-radius:50px;
   font-size:0.9rem;
   font-weight:700;
-  box-shadow:0 4px 16px rgba(2,132,199,0.28);
+  box-shadow:0 4px 18px rgba(232,201,122,0.28);
   transition:transform .2s,box-shadow .2s;
 }
-.back-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(2,132,199,0.36)}
+.back-btn:hover{
+  transform:translateY(-2px);
+  background:linear-gradient(90deg,#F5E3B0,var(--p-gold));
+  box-shadow:0 6px 24px rgba(232,201,122,0.40);
+}
 
 .go-list{
   list-style:none;
@@ -183,21 +216,25 @@ h1{
 .go-list a{
   display:block;
   padding:0.5rem 1.4rem;
-  border:1px solid var(--p-line);
+  border:1px solid rgba(232,201,122,0.34);
   border-radius:50px;
   font-size:0.82rem;
   font-weight:700;
-  color:var(--p-blue);
+  color:var(--p-gold);
   text-decoration:none;
-  transition:background .2s,border-color .2s;
+  transition:background .2s,border-color .2s,color .2s;
 }
-.go-list a:hover{background:#F0F9FF;border-color:var(--p-blue)}
+.go-list a:hover{
+  background:rgba(232,201,122,0.10);
+  border-color:var(--p-gold);
+  color:#F5E3B0;
+}
 
 /* ===== フッター ===== */
 .site-foot{
   padding:1.6rem 2rem 2.4rem;
   text-align:center;
-  border-top:1px solid rgba(2,132,199,0.12);
+  border-top:1px solid var(--p-line);
 }
 .site-foot p{
   font-family:'Space Mono',monospace;
@@ -211,8 +248,8 @@ h1{
   font-size:0.74rem;
   line-height:1.8;
 }
-.foot-links a{color:#6B7280;text-decoration:none;margin:0 0.5rem}
-.foot-links a:hover{color:var(--p-blue)}
+.foot-links a{color:var(--p-mute);text-decoration:none;margin:0 0.5rem}
+.foot-links a:hover{color:var(--p-gold)}
 
 @media(max-width:700px){
   .site-head{padding:1.1rem 1.2rem}

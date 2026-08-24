@@ -30,9 +30,7 @@ window.LS_GAMES = [
     name:  '雷神だるま落とし',
     en:    'RAIZIN DARUMA',
     desc:  'タイミングよくコマを吹き飛ばせ！\n雷神と挑む、ちょっと変わっただるま落とし。',
-    /* TODO: 要記入 — 遊べる場所のURLを入れてください。
-       入れるまでは COMING SOON 表示のままになります */
-    url:   null,
+    url:   'https://daruma.lightspirits.jp/',
     tags:  ['タイミング'],
     isNew: true
   },

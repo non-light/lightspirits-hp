@@ -172,7 +172,7 @@ function checkBubbles(){
 
 /* ---------- 2. リンク切れ ---------- */
 function checkLinks(){
-  var files = ['index.html', 'mobile.html', 'thanks.html', '404.html'];
+  var files = ['index.html', 'mobile.html', 'thanks.html', '404.html', 'games/index.html'];
   var count = 0;
 
   files.forEach(function(f){

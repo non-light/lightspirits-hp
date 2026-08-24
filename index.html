@@ -2997,6 +2997,88 @@ button.btn-gold {
   #contact .thanks-raizin{width:140px}
 }
 
+
+/* ===== 遊びの導線 — RAIZIN GAMES へ =====
+   夜側の帯に置くので、配色は夜側の既存色だけ。
+   常時動くものは持たせない（読み物のあいだにあるため）        */
+.play-cta{
+  --play-lift:-2px;              /* ホバーでボタンが浮く量 */
+  padding:0 4rem;
+  margin:1rem 0 2rem;
+}
+.play-cta-inner{
+  display:flex;
+  align-items:center;
+  gap:1.4rem;
+  max-width:820px;
+  margin:0 auto;
+  padding:1.1rem 1.6rem;
+  background:rgba(12,22,42,0.55);
+  border:1px solid rgba(232,201,122,0.24);
+  border-radius:16px;
+}
+.play-cta-raizin{position:relative;width:64px;flex-shrink:0}
+.play-cta-raizin::before{
+  content:'';
+  position:absolute;
+  left:50%;top:58%;
+  width:96px;height:96px;
+  margin:-48px 0 0 -48px;
+  border-radius:50%;
+  background:radial-gradient(circle,#FFF6D8 0%,#F5C842 38%,rgba(245,166,35,0) 72%);
+  opacity:0.30;
+}
+.play-cta-raizin img{position:relative;display:block;width:100%;height:auto}
+.play-cta-text{flex:1;min-width:0}
+.play-cta-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.66rem;
+  letter-spacing:0.22em;
+  font-weight:700;
+  color:#B99B57;
+  line-height:1.6;
+}
+.play-cta-lead{
+  font-family:'Zen Maru Gothic','Noto Sans JP',sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  line-height:1.7;
+  color:#EEF4FE;
+}
+.play-cta-btn{
+  flex-shrink:0;
+  display:inline-block;
+  padding:0.7rem 1.6rem;
+  border-radius:50px;
+  font-size:0.86rem;
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-decoration:none;
+  background:linear-gradient(90deg,#E8C97A,#C9A84C);
+  color:#0A1226;
+  box-shadow:0 4px 18px rgba(232,201,122,0.24);
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.play-cta-btn:hover{
+  transform:translateY(var(--play-lift));
+  background:linear-gradient(90deg,#F5E3B0,#E8C97A);
+  box-shadow:0 6px 24px rgba(232,201,122,0.38);
+}
+@media(max-width:900px){
+  .play-cta{padding:0 1.5rem}
+  .play-cta-inner{
+    flex-direction:column;
+    text-align:center;
+    gap:0.9rem;
+    padding:1.4rem 1.2rem;
+  }
+  .play-cta-btn{width:100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .play-cta-btn{transition:none}
+  .play-cta-btn:hover{transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -3166,6 +3248,7 @@ button.btn-gold {
     </li>
     <li><a href="#works"><span class="nav-en">YouTube</span><span class="nav-jp">動画</span></a></li>
     <li><a href="#blog"><span class="nav-en">LOG</span><span class="nav-jp">ブログ</span></a></li>
+    <li><a href="games/"><span class="nav-en">GAMES</span><span class="nav-jp">ゲーム</span></a></li>
   </ul>
   <div class="nav-right">
     <a href="#contact" class="nav-contact-btn"><span class="nav-en">Contact</span><span class="nav-jp">お問い合わせ</span></a>
@@ -3188,6 +3271,7 @@ button.btn-gold {
   <a href="#founder">代表・森田健太</a>
   <a href="#faq">よくあるご質問</a>
   <a href="#company">会社概要</a>
+  <a href="games/">RAIZIN GAMES</a>
   <a href="#contact" class="nav-drawer-cta">お問い合わせ</a>
 </div>
 
@@ -3638,6 +3722,20 @@ button.btn-gold {
   <div class="dlg-tabs" id="dlg-tabs" role="tablist"></div>
   <div class="dlg-list" id="dlg-list"></div>
 </section>
+
+<!-- 遊びの導線。サービス紹介からは離れた、読み物のあいだに小さく置く -->
+<aside class="play-cta" aria-label="RAIZIN GAMES へ">
+  <div class="play-cta-inner">
+    <div class="play-cta-raizin">
+      <img src="images/mascot-raizin.png" alt="" width="420" height="458">
+    </div>
+    <div class="play-cta-text">
+      <p class="play-cta-label">RAIZIN GAMES</p>
+      <p class="play-cta-lead">ちょっと休憩。雷神と遊んでいく？</p>
+    </div>
+    <a class="play-cta-btn" href="games/">⚡ RAIZIN GAMES</a>
+  </div>
+</aside>
 
 <div class="divider"></div>
 

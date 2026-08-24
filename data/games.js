@@ -27,8 +27,8 @@ window.LS_GAMES = [
 
   {
     id:    'daruma',
-    name:  '雷神だるま落とし',
-    en:    'RAIZIN DARUMA',
+    name:  '雷神Drop Tower',
+    en:    'RAIZIN DROP TOWER',
     desc:  'タイミングよくコマを吹き飛ばせ！\n雷神と挑む、ちょっと変わっただるま落とし。',
     url:   'https://daruma.lightspirits.jp/',
     tags:  ['タイミング'],

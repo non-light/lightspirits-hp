@@ -42,12 +42,7 @@ window.LS_GAMES = [
     name:  '雷神Weather Tower',
     en:    'RAIZIN WEATHER TOWER',
     desc:  '崩さずに、そーっと引き抜け。\n雷神とハラハラのタワー勝負。',
-    /* 遊べる場所は https://play.lightspirits.jp/raizin-tower/ で、ゲーム自体は動いている。
-       ただ play.lightspirits.jp の TLS 証明書がまだ *.github.io のままで、
-       この名前を含んでいない。今つなぐとブラウザに警告が出るので、
-       証明書が発行されるまで null にして COMING SOON 表示にしてある。
-       発行されたら、下の null を上のURLに差し替えるだけでよい */
-    url:   null,
+    url:   'https://play.lightspirits.jp/raizin-tower/',
     tags:  ['バランス'],
     isNew: true
   }

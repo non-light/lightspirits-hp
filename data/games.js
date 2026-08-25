@@ -43,6 +43,16 @@ window.LS_GAMES = [
     url:   'https://play.lightspirits.jp/raizin-tower/',
     tags:  ['バランス'],
     isNew: true
+  },
+
+  {
+    id:    'tonton',
+    name:  '雷神トントン相撲',
+    en:    'RAIZIN TONTON ZUMOU',
+    desc:  '土俵をトントン、力士が動く！\n宇宙場所で戦う、ちょっと不思議な相撲ゲーム。',
+    url:   'https://tonton.lightspirits.jp/',
+    tags:  ['対戦', '1人用'],
+    isNew: true
   }
 
 ];
